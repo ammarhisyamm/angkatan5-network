@@ -98,7 +98,7 @@ export default function AdminSkillsPage() {
           <h1 className="text-2xl font-semibold leading-8 tracking-tight text-text-strong-950">
             Skills Management
           </h1>
-          <p className="mt-1 text-[13px] leading-5 text-text-sub-600">
+          <p className="mt-1 text-sm leading-5 text-text-sub-600">
             Curate standardized community skill tags, merge duplicates, and analyze member adoption.
           </p>
         </div>

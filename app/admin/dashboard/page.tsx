@@ -76,7 +76,7 @@ export default function AdminDashboardPage() {
           <h1 className="text-2xl font-semibold leading-8 tracking-tight text-text-strong-950">
             Community Overview
           </h1>
-          <p className="mt-1 text-[13px] leading-5 text-text-sub-600">
+          <p className="mt-1 text-sm leading-5 text-text-sub-600">
             Manage members, review community opportunities, and track skill growth.
           </p>
         </div>

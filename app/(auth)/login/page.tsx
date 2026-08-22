@@ -45,7 +45,7 @@ export default function LoginPage() {
       <div className="sm:mx-auto sm:w-full sm:max-w-md text-center px-4">
         <div className="inline-flex items-center justify-center size-14 rounded-xl bg-primary-base text-title-h5 font-semibold text-static-white shadow-regular-xs mb-4">A5</div>
         <h1 className="text-2xl font-semibold leading-8 tracking-tight text-text-strong-950">Angkatan 5 Network</h1>
-        <p className="mt-1 text-[13px] leading-5 text-text-sub-600">Private talent directory for members of Angkatan 5 SMP & IHBS</p>
+        <p className="mt-1 text-sm leading-5 text-text-sub-600">Private talent directory for members of Angkatan 5 SMP & IHBS</p>
       </div>
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md px-4">

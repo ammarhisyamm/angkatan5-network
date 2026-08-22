@@ -55,7 +55,7 @@ export function OpportunityCard({ opportunity }: { opportunity: Opportunity }) {
           <h3 className="line-clamp-2 text-sm font-semibold leading-5 text-text-strong-950 transition-colors group-hover:text-primary-base">{opportunity.title}</h3>
         </Link>
 
-        <p className="mt-1.5 line-clamp-2 text-[13px] leading-5 text-text-sub-600">{opportunity.description}</p>
+        <p className="mt-1.5 line-clamp-2 text-sm leading-5 text-text-sub-600">{opportunity.description}</p>
 
         {opportunity.requiredSkills && opportunity.requiredSkills.length > 0 && (
           <div className="mt-4 flex flex-wrap gap-2">

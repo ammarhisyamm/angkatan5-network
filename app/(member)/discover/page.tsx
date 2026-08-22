@@ -165,7 +165,7 @@ export default function DiscoverPeoplePage() {
         <h1 className="text-2xl font-semibold leading-8 tracking-tight text-text-strong-950">
           Discover People
         </h1>
-        <p className="text-[13px] leading-5 text-text-sub-600 mt-1 max-w-2xl">
+        <p className="text-sm leading-5 text-text-sub-600 mt-1 max-w-2xl">
           Find someone based on what they do, what they know, or what they can help with.
         </p>
       </div>
@@ -178,7 +178,7 @@ export default function DiscoverPeoplePage() {
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
           placeholder="Search people, skills, roles, or companies..."
-          className="w-full h-10 pl-11 pr-10 bg-bg-white-0 border border-stroke-soft-200 rounded-xl text-[13px] leading-5 text-text-strong-950 placeholder:text-text-soft-400 shadow-regular-xs focus:outline-none focus:border-primary-base focus:ring-2 focus:ring-primary-base/10 transition-all"
+          className="w-full h-10 pl-11 pr-10 bg-bg-white-0 border border-stroke-soft-200 rounded-xl text-sm leading-5 text-text-strong-950 placeholder:text-text-soft-400 shadow-regular-xs focus:outline-none focus:border-primary-base focus:ring-2 focus:ring-primary-base/10 transition-all"
         />
         {searchQuery && (
           <button

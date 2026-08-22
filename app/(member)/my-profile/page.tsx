@@ -366,7 +366,7 @@ export default function MyProfilePage() {
             </div>
             <div>
               <span className="text-text-soft-400 block font-medium text-xs">Bio</span>
-              <p className="mt-1 leading-relaxed text-[13px] leading-5 text-text-sub-600">
+              <p className="mt-1 leading-relaxed text-sm leading-5 text-text-sub-600">
                 {currentUser.bio}
               </p>
             </div>

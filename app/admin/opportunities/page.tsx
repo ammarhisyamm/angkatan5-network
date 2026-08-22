@@ -90,7 +90,7 @@ export default function AdminOpportunitiesPage() {
           <h1 className="text-2xl font-semibold leading-8 tracking-tight text-text-strong-950">
             Moderate Opportunities
           </h1>
-          <p className="mt-1 text-[13px] leading-5 text-text-sub-600">
+          <p className="mt-1 text-sm leading-5 text-text-sub-600">
             Review community submissions, publish approved listings, and archive old roles.
           </p>
         </div>

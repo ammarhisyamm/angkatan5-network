@@ -12,7 +12,7 @@ import { cn } from "@/lib/utils/cn";
 export type TagTone = "neutral" | "success" | "warning" | "information" | "primary";
 
 const toneClasses: Record<TagTone, string> = {
-  neutral: "bg-[#F2F4F7] text-[#344054]",
+  neutral: "bg-[#F2F4F7] text-[#475467]",
   success: "bg-success-lighter text-success-base",
   warning: "bg-warning-lighter text-warning-base",
   information: "bg-information-lighter text-information-dark",
@@ -53,7 +53,7 @@ const statusToneClasses: Record<StatusTone, string> = {
   warning: "bg-warning-lighter text-warning-base",
   information: "bg-information-lighter text-information-dark",
   primary: "bg-primary-alpha-10 text-primary-base",
-  neutral: "bg-[#F2F4F7] text-[#344054]",
+  neutral: "bg-[#F2F4F7] text-[#475467]",
 };
 
 export interface StatusBadgeProps extends React.HTMLAttributes<HTMLSpanElement> {
