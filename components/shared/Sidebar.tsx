@@ -84,7 +84,7 @@ function SidebarInner() {
           </button>
         </div>
 
-        {!isCollapsed && (
+        {!isCollapsed ? (
           <div className="flex flex-col gap-2.5">
             <div className="relative">
               <MagnifyingGlassIcon size={14} className="absolute left-2.5 top-1/2 -translate-y-1/2 text-kumo-inactive" aria-hidden="true" />
@@ -114,6 +114,29 @@ function SidebarInner() {
                 Admin
               </Link>
             </div>
+          </div>
+        ) : (
+          <div className="flex flex-col items-center gap-0.5 rounded-lg bg-kumo-tint border border-kumo-line p-0.5" role="tablist" aria-label="Workspace">
+            <Link
+              href="/dashboard"
+              role="tab"
+              aria-selected={!isAdminSection}
+              aria-label="Member workspace"
+              title="Member"
+              className={`flex size-7 items-center justify-center rounded-md transition-colors ${!isAdminSection ? "bg-white ring-1 ring-kumo-line text-[#6366F1] shadow-sm" : "text-kumo-subtle hover:text-kumo-strong"}`}
+            >
+              <UserIcon size={14} />
+            </Link>
+            <Link
+              href="/admin/dashboard"
+              role="tab"
+              aria-selected={isAdminSection}
+              aria-label="Admin workspace"
+              title="Admin"
+              className={`flex size-7 items-center justify-center rounded-md transition-colors ${isAdminSection ? "bg-white ring-1 ring-kumo-line text-[#6366F1] shadow-sm" : "text-kumo-subtle hover:text-kumo-strong"}`}
+            >
+              <ShieldCheckIcon size={14} />
+            </Link>
           </div>
         )}
       </KumoSidebar.Header>
