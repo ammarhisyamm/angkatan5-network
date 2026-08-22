@@ -219,7 +219,7 @@ export default function OnboardingPage() {
           {step === 1 && (
             <div className="space-y-8">
               <div>
-                <h2 className="text-base font-semibold leading-6 text-kumo-strong">
+                <h2 className="text-section-title text-kumo-strong">
                   Step 1 — About You
                 </h2>
                 <p className="mt-0.5 text-sm leading-5 text-kumo-subtle">
@@ -282,7 +282,7 @@ export default function OnboardingPage() {
           {step === 2 && (
             <div className="space-y-5">
               <div>
-                <h2 className="text-base font-semibold leading-6 text-kumo-strong">
+                <h2 className="text-section-title text-kumo-strong">
                   Step 2 — Professional Background
                 </h2>
                 <p className="mt-0.5 text-sm leading-5 text-kumo-subtle">
@@ -358,7 +358,7 @@ export default function OnboardingPage() {
           {step === 3 && (
             <div className="space-y-5">
               <div>
-                <h2 className="text-base font-semibold leading-6 text-kumo-strong">
+                <h2 className="text-section-title text-kumo-strong">
                   Step 3 — Your Skills
                 </h2>
                 <p className="mt-0.5 text-sm leading-5 text-kumo-subtle">
@@ -412,7 +412,7 @@ export default function OnboardingPage() {
           {step === 4 && (
             <div className="space-y-5">
               <div>
-                <h2 className="text-base font-semibold leading-6 text-kumo-strong">
+                <h2 className="text-section-title text-kumo-strong">
                   Step 4 — What are you looking for?
                 </h2>
                 <p className="mt-0.5 text-sm leading-5 text-kumo-subtle">
@@ -452,7 +452,7 @@ export default function OnboardingPage() {
           {step === 5 && (
             <div className="space-y-5">
               <div>
-                <h2 className="text-base font-semibold leading-6 text-kumo-strong">
+                <h2 className="text-section-title text-kumo-strong">
                   Step 5 — What can you offer?
                 </h2>
                 <p className="mt-0.5 text-sm leading-5 text-kumo-subtle">
@@ -469,7 +469,7 @@ export default function OnboardingPage() {
                       onClick={() => handleToggleCanOffer(item)}
                       className={`p-4 rounded-xl border-2 cursor-pointer transition-colors flex items-center justify-between ${
                         isChecked
-                          ? "border-emerald-600 bg-emerald-50/50 text-emerald-900"
+                          ? "border-success-base bg-success-lighter/50 text-success-dark"
                           : "border-kumo-line hover:border-kumo-line text-kumo-subtle"
                       }`}
                     >
@@ -507,7 +507,7 @@ export default function OnboardingPage() {
                 <ChevronRight className="size-4" />
               </Button>
             ) : (
-              <Button type="button" variant="primary" size="lg" onClick={handleComplete} className="bg-emerald-600 hover:bg-emerald-700" >
+              <Button type="button" variant="primary" size="lg" onClick={handleComplete} className="bg-success-base hover:bg-success-dark" >
                 Complete Profile
                 <Check className="size-4 ml-1" />
               </Button>

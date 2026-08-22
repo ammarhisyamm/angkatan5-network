@@ -165,7 +165,7 @@ export default function MyProfilePage() {
             />
             <div>
               <div className="flex items-center gap-2">
-                <h1 className="text-title-h5 font-medium text-kumo-strong">
+                <h1 className="text-page-title text-kumo-strong">
                   {currentUser.name}
                 </h1>
                 <StatusBadge status={currentUser.status} />
@@ -199,7 +199,7 @@ export default function MyProfilePage() {
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <User className="size-4 text-kumo-brand" />
-            <h2 className="text-base font-semibold leading-6 text-kumo-strong">
+            <h2 className="text-section-title text-kumo-strong">
               Personal Information
             </h2>
           </div>
@@ -284,7 +284,7 @@ export default function MyProfilePage() {
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <Briefcase className="size-4 text-kumo-brand" />
-            <h2 className="text-base font-semibold leading-6 text-kumo-strong">
+            <h2 className="text-section-title text-kumo-strong">
               Professional Details
             </h2>
           </div>
@@ -379,7 +379,7 @@ export default function MyProfilePage() {
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <Layers className="size-4 text-kumo-brand" />
-            <h2 className="text-base font-semibold leading-6 text-kumo-strong">
+            <h2 className="text-section-title text-kumo-strong">
               Skills & Expertise
             </h2>
           </div>
@@ -460,7 +460,7 @@ export default function MyProfilePage() {
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <Sparkles className="size-4 text-success-base" />
-            <h2 className="text-base font-semibold leading-6 text-kumo-strong">
+            <h2 className="text-section-title text-kumo-strong">
               Availability & Collaborations
             </h2>
           </div>
@@ -543,7 +543,7 @@ export default function MyProfilePage() {
                       onClick={() => handleToggleOffer(item)}
                       className={`px-3 py-1 rounded-xl text-xs font-medium border transition-colors ${
                         isChecked
-                          ? "bg-emerald-600 text-static-white border-emerald-600"
+                          ? "bg-success-base text-static-white border-success-base"
                           : "bg-kumo-tint text-kumo-subtle border-kumo-line"
                       }`}
                     >
@@ -598,7 +598,7 @@ export default function MyProfilePage() {
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <Globe className="size-4 text-kumo-brand" />
-            <h2 className="text-base font-semibold leading-6 text-kumo-strong">
+            <h2 className="text-section-title text-kumo-strong">
               Links & Portfolio
             </h2>
           </div>
@@ -672,7 +672,7 @@ export default function MyProfilePage() {
       <div className="bg-kumo-base border border-kumo-line rounded-2xl p-6 shadow-regular-xs space-y-4">
         <div className="flex items-center gap-2">
           <Shield className="size-4 text-feature-base" />
-          <h2 className="text-base font-semibold leading-6 text-kumo-strong">
+          <h2 className="text-section-title text-kumo-strong">
             Privacy & Directory Visibility
           </h2>
         </div>
@@ -711,7 +711,7 @@ export default function MyProfilePage() {
             }}
             className={`p-4 rounded-xl border-2 cursor-pointer transition-colors flex items-start gap-3 ${
               currentUser.visibility === "hidden"
-                ? "border-amber-600 bg-amber-50/40"
+                ? "border-warning-base bg-warning-lighter/40"
                 : "border-kumo-line hover:border-kumo-line"
             }`}
           >

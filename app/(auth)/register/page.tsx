@@ -39,10 +39,10 @@ export default function RegisterPage() {
         <div className="inline-flex items-center justify-center size-14 rounded-xl bg-kumo-brand text-static-white font-bold text-2xl  mb-4">
           A5
         </div>
-        <h1 className="text-2xl font-medium tracking-tight text-kumo-strong">
+        <h1 className="text-page-title text-kumo-strong">
           Join Angkatan 5 Network
         </h1>
-        <p className="mt-1 text-sm text-kumo-subtle">
+        <p className="mt-1 text-body text-kumo-subtle">
           Create your talent profile to connect with fellow alumni
         </p>
       </div>

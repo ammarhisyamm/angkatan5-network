@@ -6,9 +6,7 @@ export { type VariantProps };
 export const tv = createTV({
   twMergeConfig: {
     extend: {
-      classGroups: {
-        // alignui class groups
-      },
+      classGroups: {},
     },
   },
 });

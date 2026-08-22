@@ -134,7 +134,7 @@ export default function AdminDashboardPage() {
         </div>
 
         <div className="p-4 rounded-xl bg-kumo-base border border-kumo-line">
-          <span className="text-xs leading-4 font-semibold text-sky-600 block">
+          <span className="text-xs leading-4 font-semibold text-verified-base block">
             Collaboration
           </span>
           <span className="mt-1 block text-page-title text-kumo-strong">
@@ -168,14 +168,14 @@ export default function AdminDashboardPage() {
 
       {/* Moderation Alert Banner if pending items */}
       {pendingOpportunities.length > 0 && (
-        <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 flex items-center justify-between gap-4">
+        <div className="bg-warning-lighter border border-warning-light rounded-xl p-4 flex items-center justify-between gap-4">
           <div className="flex items-center gap-3">
             <AlertTriangle className="size-5 text-warning-base shrink-0" />
             <div>
-              <h4 className="text-xs font-semibold text-amber-900">
+              <h4 className="text-xs font-semibold text-warning-dark">
                 {pendingOpportunities.length} Opportunity Pending Moderation
               </h4>
-              <p className="text-xs leading-4 text-amber-700 mt-0">
+              <p className="text-xs leading-4 text-warning-dark mt-0">
                 Community posts require admin approval before becoming visible to all members.
               </p>
             </div>
@@ -194,7 +194,7 @@ export default function AdminDashboardPage() {
         <div className="bg-kumo-base border border-kumo-line rounded-2xl p-6 flex flex-col justify-between">
           <div className="flex items-center justify-between mb-4">
             <div>
-              <h3 className="text-base font-semibold leading-6 text-kumo-strong">
+              <h3 className="text-section-title text-kumo-strong">
                 Member Growth
               </h3>
               <p className="text-xs text-kumo-subtle">
@@ -247,7 +247,7 @@ export default function AdminDashboardPage() {
         <div className="bg-kumo-base border border-kumo-line rounded-2xl p-6 flex flex-col justify-between">
           <div className="flex items-center justify-between mb-4">
             <div>
-              <h3 className="text-base font-semibold leading-6 text-kumo-strong">
+              <h3 className="text-section-title text-kumo-strong">
                 Top Indexed Skills
               </h3>
               <p className="text-xs text-kumo-subtle">
@@ -298,7 +298,7 @@ export default function AdminDashboardPage() {
 
       {/* Member Status Breakdown Row */}
       <div className="bg-kumo-base border border-kumo-line rounded-2xl p-6">
-        <h3 className="text-base font-semibold leading-6 text-kumo-strong mb-4">
+        <h3 className="text-section-title text-kumo-strong mb-4">
           Member Status Breakdown
         </h3>
 

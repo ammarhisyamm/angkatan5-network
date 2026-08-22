@@ -42,7 +42,7 @@ export default function OpportunityDetailPage() {
   if (!opportunity) {
     return (
       <div className="py-20 text-center flex flex-col items-center">
-        <h2 className="text-base font-semibold leading-6 text-kumo-strong">
+        <h2 className="text-section-title text-kumo-strong">
           Opportunity Not Found
         </h2>
         <p className="text-xs text-kumo-subtle mt-1 mb-4">
@@ -182,7 +182,7 @@ export default function OpportunityDetailPage() {
         <div className="md:col-span-2 space-y-8">
           {/* Description */}
           <div className="bg-kumo-base border border-kumo-line rounded-2xl p-6 sm:p-8 shadow-regular-xs">
-            <h2 className="text-base font-semibold leading-6 text-kumo-strong mb-3">
+            <h2 className="text-section-title text-kumo-strong mb-3">
               Description & Scope
             </h2>
             <p className="text-sm text-kumo-subtle leading-relaxed whitespace-pre-line">
@@ -193,7 +193,7 @@ export default function OpportunityDetailPage() {
           {/* Requirements */}
           {opportunity.requirements && opportunity.requirements.length > 0 && (
             <div className="bg-kumo-base border border-kumo-line rounded-2xl p-6 sm:p-8 shadow-regular-xs">
-              <h2 className="text-base font-semibold leading-6 text-kumo-strong mb-4">
+              <h2 className="text-section-title text-kumo-strong mb-4">
                 Key Requirements & Expectations
               </h2>
               <ul className="space-y-2">

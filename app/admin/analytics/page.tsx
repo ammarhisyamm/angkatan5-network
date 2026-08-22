@@ -84,7 +84,7 @@ export default function AdminAnalyticsPage() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Industry Breakdown */}
         <div className="bg-kumo-base border border-kumo-line rounded-2xl p-6">
-          <h3 className="text-base font-semibold leading-6 text-kumo-strong mb-1">
+          <h3 className="text-section-title text-kumo-strong mb-1">
             Industry Distribution
           </h3>
           <p className="text-xs text-kumo-subtle mb-6">Number of members active by sector</p>
@@ -116,7 +116,7 @@ export default function AdminAnalyticsPage() {
 
         {/* Experience Levels */}
         <div className="bg-kumo-base border border-kumo-line rounded-2xl p-6">
-          <h3 className="text-base font-semibold leading-6 text-kumo-strong mb-1">
+          <h3 className="text-section-title text-kumo-strong mb-1">
             Experience & Seniority Tiers
           </h3>
           <p className="text-xs text-kumo-subtle mb-6">Distribution across years of career experience</p>

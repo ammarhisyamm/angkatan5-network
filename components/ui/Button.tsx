@@ -4,7 +4,6 @@ import * as React from "react";
 import { Button as KumoButton } from "@cloudflare/kumo/components/button";
 
 // Compatibility wrapper — keeps existing app API (variant/size) but renders Kumo.
-// Maps AlignUI variants → Kumo variants. Subtle preserved as blue-tint via Kumo ghost + custom class.
 
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: "primary" | "secondary" | "outline" | "ghost" | "danger" | "subtle" | "link";

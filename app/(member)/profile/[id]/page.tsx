@@ -32,7 +32,7 @@ export default function MemberProfilePage() {
   if (!member) {
     return (
       <div className="py-20 text-center flex flex-col items-center">
-        <h2 className="text-base font-semibold leading-6 text-kumo-strong">
+        <h2 className="text-section-title text-kumo-strong">
           Member Not Found
         </h2>
         <p className="mt-1 mb-4 text-sm leading-5 text-kumo-subtle">
@@ -151,7 +151,7 @@ export default function MemberProfilePage() {
         <div className="md:col-span-2 space-y-8">
           {/* About Section */}
           <div className="bg-kumo-base border border-kumo-line rounded-2xl p-6">
-            <h2 className="text-base font-semibold leading-6 text-kumo-strong mb-3">
+            <h2 className="text-section-title text-kumo-strong mb-3">
               About
             </h2>
             <p className="text-sm text-kumo-subtle leading-relaxed whitespace-pre-line">
@@ -161,7 +161,7 @@ export default function MemberProfilePage() {
 
           {/* Experience Timeline */}
           <div className="bg-kumo-base border border-kumo-line rounded-2xl p-6">
-            <h2 className="text-base font-semibold leading-6 text-kumo-strong mb-4">
+            <h2 className="text-section-title text-kumo-strong mb-4">
               Professional Experience
             </h2>
 

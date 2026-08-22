@@ -53,7 +53,7 @@ export function OpportunityCard({ opportunity }: { opportunity: Opportunity }) {
         </div>
 
         <Link href={`/opportunities/${opportunity.id}`} className="rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-kumo-brand">
-          <h3 className="line-clamp-2 text-sm font-semibold leading-5 text-kumo-strong transition-colors group-hover:text-kumo-brand">{opportunity.title}</h3>
+          <h3 className="line-clamp-2 text-card-title text-kumo-strong transition-colors group-hover:text-kumo-brand">{opportunity.title}</h3>
         </Link>
 
         <p className="mt-1.5 line-clamp-2 text-sm leading-5 text-kumo-subtle">{opportunity.description}</p>
