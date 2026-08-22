@@ -26,7 +26,7 @@ export function Tag({ className, tone = "neutral", children, ...props }: TagProp
       variant={variant}
       className={cn(
         "rounded-full px-2.5 py-0.5 text-xs font-medium leading-none min-h-[24px] h-auto",
-        isNeutral && "bg-white text-gray-800 border border-gray-300",
+        isNeutral && "bg-white text-kumo-strong border border-kumo-line",
         className,
       )}
       {...(props as any)}
@@ -62,7 +62,7 @@ export function StatusBadge({ tone, label, className, ...props }: StatusBadgePro
       appearance={useDot ? "dot" : undefined}
       className={cn(
         "rounded-full px-2.5 py-0.5 gap-1.5 text-xs font-semibold uppercase tracking-[0.02em] min-h-[24px] h-auto",
-        isNeutral && "bg-white text-gray-800 border border-gray-300",
+        isNeutral && "bg-white text-kumo-strong border border-kumo-line",
         className,
       )}
       {...(props as any)}

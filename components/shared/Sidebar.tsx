@@ -67,7 +67,7 @@ function SidebarInner() {
       <KumoSidebar.Header className="sticky top-0 z-10 bg-white px-2.5 pt-3 pb-3 border-b border-kumo-line/60 flex flex-col gap-3">
         <div className="flex items-center justify-between gap-2">
           <Link href="/dashboard" className="flex items-center gap-2.5 rounded-lg px-1 py-1 -mx-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-kumo-brand min-w-0 flex-1">
-            <div className="flex size-8 items-center justify-center rounded-lg bg-[#6366F1] text-white font-bold text-xs tracking-tight shrink-0 shadow-sm">A5</div>
+            <div className="flex size-8 items-center justify-center rounded-lg bg-kumo-brand text-white font-bold text-xs tracking-tight shrink-0 shadow-sm">A5</div>
             {!isCollapsed && (
               <div className="min-w-0 flex-1">
                 <p className="text-sm font-semibold leading-4 text-kumo-strong tracking-tight">A5 Network</p>
@@ -95,12 +95,14 @@ function SidebarInner() {
               />
             </div>
 
-            <div className="flex items-center gap-0.5 rounded-lg bg-kumo-tint border border-kumo-line p-0.5" role="tablist" aria-label="Workspace">
+            <div>
+              <p className="px-1 pb-1 text-[10px] font-semibold uppercase tracking-widest text-kumo-inactive">Workspace</p>
+              <div className="flex items-center gap-0.5 rounded-lg bg-kumo-tint border border-kumo-line p-0.5" role="tablist" aria-label="Workspace">
               <Link
                 href="/dashboard"
                 role="tab"
                 aria-selected={!isAdminSection}
-                className={`flex h-7 flex-1 items-center justify-center rounded-md text-xs font-medium transition-colors ${!isAdminSection ? "bg-white ring-1 ring-kumo-line text-[#6366F1] shadow-sm" : "text-kumo-subtle hover:text-kumo-strong"}`}
+                className={`flex h-7 flex-1 items-center justify-center rounded-md text-xs font-medium transition-colors ${!isAdminSection ? "bg-white ring-1 ring-kumo-line text-kumo-brand shadow-sm" : "text-kumo-subtle hover:text-kumo-strong"}`}
               >
                 Member
               </Link>
@@ -108,11 +110,12 @@ function SidebarInner() {
                 href="/admin/dashboard"
                 role="tab"
                 aria-selected={isAdminSection}
-                className={`flex h-7 flex-1 items-center justify-center gap-1 rounded-md text-xs font-medium transition-colors ${isAdminSection ? "bg-white ring-1 ring-kumo-line text-[#6366F1] shadow-sm" : "text-kumo-subtle hover:text-kumo-strong"}`}
+                className={`flex h-7 flex-1 items-center justify-center gap-1 rounded-md text-xs font-medium transition-colors ${isAdminSection ? "bg-white ring-1 ring-kumo-line text-kumo-brand shadow-sm" : "text-kumo-subtle hover:text-kumo-strong"}`}
               >
                 <ShieldCheckIcon size={12} />
                 Admin
               </Link>
+              </div>
             </div>
           </div>
         ) : (
@@ -123,7 +126,7 @@ function SidebarInner() {
               aria-selected={!isAdminSection}
               aria-label="Member workspace"
               title="Member"
-              className={`flex size-7 items-center justify-center rounded-md transition-colors ${!isAdminSection ? "bg-white ring-1 ring-kumo-line text-[#6366F1] shadow-sm" : "text-kumo-subtle hover:text-kumo-strong"}`}
+              className={`flex size-7 items-center justify-center rounded-md transition-colors ${!isAdminSection ? "bg-white ring-1 ring-kumo-line text-kumo-brand shadow-sm" : "text-kumo-subtle hover:text-kumo-strong"}`}
             >
               <UserIcon size={14} />
             </Link>
@@ -133,7 +136,7 @@ function SidebarInner() {
               aria-selected={isAdminSection}
               aria-label="Admin workspace"
               title="Admin"
-              className={`flex size-7 items-center justify-center rounded-md transition-colors ${isAdminSection ? "bg-white ring-1 ring-kumo-line text-[#6366F1] shadow-sm" : "text-kumo-subtle hover:text-kumo-strong"}`}
+              className={`flex size-7 items-center justify-center rounded-md transition-colors ${isAdminSection ? "bg-white ring-1 ring-kumo-line text-kumo-brand shadow-sm" : "text-kumo-subtle hover:text-kumo-strong"}`}
             >
               <ShieldCheckIcon size={14} />
             </Link>
@@ -160,11 +163,11 @@ function SidebarInner() {
                     active={isActive}
                     href={item.href}
                     tooltip={item.name}
-                    className={`group/item relative ${isActive ? "bg-[#EEF2FF] text-[#6366F1]" : "text-kumo-subtle hover:bg-kumo-tint hover:text-kumo-strong"} ${isCollapsed ? "justify-center" : ""}`}
+                    className={`group/item relative ${isActive ? "bg-primary-alpha-10 text-kumo-brand" : "text-kumo-subtle hover:bg-kumo-tint hover:text-kumo-strong"} ${isCollapsed ? "justify-center" : ""}`}
                   >
                     <span className="flex-1 text-left truncate text-[13px]">{item.name}</span>
                     {!isCollapsed && item.count !== null && (
-                      <span className={`ml-auto text-[11px] font-medium tabular-nums ${isActive ? "text-[#6366F1]" : "text-kumo-inactive"}`}>{item.count}</span>
+                      <span className={`ml-auto text-[11px] font-medium tabular-nums ${isActive ? "text-kumo-brand" : "text-kumo-inactive"}`}>{item.count}</span>
                     )}
                   </KumoSidebar.MenuButton>
                 );

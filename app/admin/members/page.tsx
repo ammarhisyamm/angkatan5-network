@@ -71,7 +71,7 @@ export default function AdminMembersPage() {
       </div>
 
       {/* Search & Filter */}
-      <LayerCard className="p-5 flex flex-col sm:flex-row items-center gap-3">
+      <LayerCard className="p-4 sm:p-5 flex flex-col sm:flex-row items-center gap-3">
         <div className="flex-1 w-full">
           <Input aria-label="Search members" placeholder="Search by name, email, company, role..." value={searchQuery} onChange={(e: any) => { setSearchQuery(e.target.value); setCurrentPage(1); }} />
         </div>
@@ -142,7 +142,7 @@ export default function AdminMembersPage() {
           </Table>
         </div>
 
-        <div className="px-5 py-3 border-t border-kumo-line flex items-center justify-between text-xs text-kumo-subtle">
+        <div className="px-4 sm:px-5 py-3 border-t border-kumo-line flex items-center justify-between text-xs text-kumo-subtle">
           <span>Showing <strong>{(currentPage - 1) * pageSize + 1}–{Math.min(currentPage * pageSize, filteredMembers.length)}</strong> of <strong>{filteredMembers.length}</strong></span>
           <div className="flex items-center gap-2">
             <Button variant="outline" size="sm" shape="square" icon={<CaretLeftIcon />} disabled={currentPage === 1} onClick={() => setCurrentPage(currentPage - 1)} aria-label="Previous" />

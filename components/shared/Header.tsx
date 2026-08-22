@@ -4,7 +4,7 @@ import React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useApp } from "@/lib/store/AppContext";
-import { ShieldCheck, LogOut } from "lucide-react";
+import { ShieldCheckIcon, SignOutIcon } from "@phosphor-icons/react";
 
 export function Header() {
   const pathname = usePathname();
@@ -24,7 +24,7 @@ export function Header() {
             href={isAdmin ? "/dashboard" : "/admin/dashboard"}
             className="flex h-8 items-center gap-1.5 rounded-lg bg-kumo-tint px-2.5 text-xs font-medium text-kumo-subtle transition-colors hover:text-kumo-strong focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-kumo-brand"
           >
-            <ShieldCheck className="size-3.5" strokeWidth={1.5} />
+            <ShieldCheckIcon size={14} weight="regular" />
             {isAdmin ? "Member" : "Admin"}
           </Link>
 
@@ -43,7 +43,7 @@ export function Header() {
                 title="Sign out"
                 className="flex size-8 items-center justify-center rounded-lg text-kumo-inactive transition-colors hover:bg-error-lighter hover:text-error-base focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-kumo-brand"
               >
-                <LogOut className="size-4" strokeWidth={1.5} />
+                <SignOutIcon size={16} weight="regular" />
               </button>
             </>
           )}

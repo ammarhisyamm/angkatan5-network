@@ -55,25 +55,25 @@ export default function AdminAnalyticsPage() {
 
       {/* Top Level Numbers */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <div className="p-5 rounded-2xl bg-kumo-base border border-kumo-line">
+        <div className="p-4 sm:p-5 rounded-lg bg-kumo-base border border-kumo-line">
           <span className="text-xs font-semibold text-kumo-subtle block">Total Active Alumni</span>
           <span className="text-3xl font-bold text-kumo-strong mt-1 block">182</span>
           <span className="text-xs leading-4 text-success-base font-medium">94% response rate</span>
         </div>
 
-        <div className="p-5 rounded-2xl bg-kumo-base border border-kumo-line">
+        <div className="p-4 sm:p-5 rounded-lg bg-kumo-base border border-kumo-line">
           <span className="text-xs font-semibold text-kumo-subtle block">Connections Initiated</span>
           <span className="text-3xl font-bold text-kumo-brand mt-1 block">348</span>
           <span className="text-xs leading-4 text-kumo-inactive">across cohort members</span>
         </div>
 
-        <div className="p-5 rounded-2xl bg-kumo-base border border-kumo-line">
+        <div className="p-4 sm:p-5 rounded-lg bg-kumo-base border border-kumo-line">
           <span className="text-xs font-semibold text-kumo-subtle block">Hiring Placements</span>
           <span className="text-3xl font-bold text-success-base mt-1 block">28</span>
           <span className="text-xs leading-4 text-success-base font-medium">facilitated in 2026</span>
         </div>
 
-        <div className="p-5 rounded-2xl bg-kumo-base border border-kumo-line">
+        <div className="p-4 sm:p-5 rounded-lg bg-kumo-base border border-kumo-line">
           <span className="text-xs font-semibold text-kumo-subtle block">Avg Profile Freshness</span>
           <span className="text-3xl font-bold text-feature-base mt-1 block">12 days</span>
           <span className="text-xs leading-4 text-kumo-inactive">regular updates</span>
@@ -83,7 +83,7 @@ export default function AdminAnalyticsPage() {
       {/* Analytics Charts Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Industry Breakdown */}
-        <div className="bg-kumo-base border border-kumo-line rounded-2xl p-6">
+        <div className="bg-kumo-base border border-kumo-line rounded-lg p-6">
           <h3 className="text-section-title text-kumo-strong mb-1">
             Industry Distribution
           </h3>
@@ -115,7 +115,7 @@ export default function AdminAnalyticsPage() {
         </div>
 
         {/* Experience Levels */}
-        <div className="bg-kumo-base border border-kumo-line rounded-2xl p-6">
+        <div className="bg-kumo-base border border-kumo-line rounded-lg p-6">
           <h3 className="text-section-title text-kumo-strong mb-1">
             Experience & Seniority Tiers
           </h3>

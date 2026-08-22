@@ -169,7 +169,7 @@ export default function CreateOpportunityPage() {
 
       {isPreview ? (
         /* LIVE PREVIEW CARD */
-        <div className="bg-kumo-base border border-kumo-line rounded-2xl p-6 sm:p-8 shadow-regular-xs space-y-8">
+        <div className="bg-kumo-base border border-kumo-line rounded-lg p-6 sm:p-8 shadow-xs space-y-8">
           <div className="flex items-center justify-between pb-3 border-b border-kumo-line">
             <span className="text-xs font-bold uppercase tracking-wider text-kumo-brand">
               Live Preview
@@ -243,7 +243,7 @@ export default function CreateOpportunityPage() {
         /* EDIT FORM */
         <form
           onSubmit={handleSubmit}
-          className="bg-kumo-base border border-kumo-line rounded-2xl p-6 sm:p-8 shadow-regular-xs space-y-8"
+          className="bg-kumo-base border border-kumo-line rounded-lg p-6 sm:p-8 shadow-xs space-y-8"
         >
           <Input
             label="Opportunity Title"

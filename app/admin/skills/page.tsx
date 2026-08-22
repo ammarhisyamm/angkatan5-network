@@ -104,7 +104,7 @@ export default function AdminSkillsPage() {
       </div>
 
       {/* Add New Skill */}
-      <LayerCard className="p-5">
+      <LayerCard className="p-4 sm:p-5">
         <h3 className="text-card-title text-kumo-strong mb-3">Add New Skill</h3>
         <div className="flex flex-col sm:flex-row items-start gap-3">
           <Input aria-label="New skill name" placeholder="Enter skill name..." value={newSkillName} onChange={(e: any) => setNewSkillName(e.target.value)}
@@ -139,7 +139,7 @@ export default function AdminSkillsPage() {
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
           {displayedCategories.map(([category, count]) => (
             <LayerCard key={category} className="p-0 overflow-hidden">
-              <div className="px-5 py-3.5 border-b border-kumo-line flex items-center justify-between">
+              <div className="px-4 sm:px-5 py-3.5 border-b border-kumo-line flex items-center justify-between">
                 <div className="flex items-center gap-3">
                   <div className={`size-2.5 rounded-full shrink-0 ${CATEGORY_COLORS[category] || "bg-kumo-inactive"}`} />
                   <div>

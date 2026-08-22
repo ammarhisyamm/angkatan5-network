@@ -155,13 +155,13 @@ export default function MyProfilePage() {
   return (
     <div className="max-w-4xl mx-auto space-y-8">
       {/* Page Header */}
-      <div className="bg-kumo-base border border-kumo-line rounded-2xl p-6 sm:p-8 shadow-regular-xs">
+      <div className="bg-kumo-base border border-kumo-line rounded-lg p-6 sm:p-8 shadow-xs">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6">
           <div className="flex items-center gap-4">
             <img
               src={currentUser.avatar}
               alt={currentUser.name}
-              className="w-16 h-16 sm:w-20 sm:h-20 rounded-xl object-cover border-2 border-kumo-line shadow-regular-xs"
+              className="w-16 h-16 sm:w-20 sm:h-20 rounded-xl object-cover border-2 border-kumo-line shadow-xs"
             />
             <div className="min-w-0 flex-1">
               <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
@@ -195,7 +195,7 @@ export default function MyProfilePage() {
       </div>
 
       {/* 1. PERSONAL INFORMATION */}
-      <div className="bg-kumo-base border border-kumo-line rounded-2xl p-6 shadow-regular-xs space-y-4">
+      <div className="bg-kumo-base border border-kumo-line rounded-lg p-6 shadow-xs space-y-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <User className="size-4 text-kumo-brand" />
@@ -280,7 +280,7 @@ export default function MyProfilePage() {
       </div>
 
       {/* 2. PROFESSIONAL INFORMATION */}
-      <div className="bg-kumo-base border border-kumo-line rounded-2xl p-6 shadow-regular-xs space-y-4">
+      <div className="bg-kumo-base border border-kumo-line rounded-lg p-6 shadow-xs space-y-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <Briefcase className="size-4 text-kumo-brand" />
@@ -375,7 +375,7 @@ export default function MyProfilePage() {
       </div>
 
       {/* 3. SKILLS */}
-      <div className="bg-kumo-base border border-kumo-line rounded-2xl p-6 shadow-regular-xs space-y-4">
+      <div className="bg-kumo-base border border-kumo-line rounded-lg p-6 shadow-xs space-y-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <Layers className="size-4 text-kumo-brand" />
@@ -456,7 +456,7 @@ export default function MyProfilePage() {
       </div>
 
       {/* 4. AVAILABILITY & STATUS */}
-      <div className="bg-kumo-base border border-kumo-line rounded-2xl p-6 shadow-regular-xs space-y-4">
+      <div className="bg-kumo-base border border-kumo-line rounded-lg p-6 shadow-xs space-y-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <Sparkles className="size-4 text-success-base" />
@@ -594,7 +594,7 @@ export default function MyProfilePage() {
       </div>
 
       {/* 5. LINKS & SOCIALS */}
-      <div className="bg-kumo-base border border-kumo-line rounded-2xl p-6 shadow-regular-xs space-y-4">
+      <div className="bg-kumo-base border border-kumo-line rounded-lg p-6 shadow-xs space-y-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <Globe className="size-4 text-kumo-brand" />
@@ -669,7 +669,7 @@ export default function MyProfilePage() {
       </div>
 
       {/* 6. PRIVACY & DIRECTORY CONTROLS */}
-      <div className="bg-kumo-base border border-kumo-line rounded-2xl p-6 shadow-regular-xs space-y-4">
+      <div className="bg-kumo-base border border-kumo-line rounded-lg p-6 shadow-xs space-y-4">
         <div className="flex items-center gap-2">
           <Shield className="size-4 text-feature-base" />
           <h2 className="text-section-title text-kumo-strong">

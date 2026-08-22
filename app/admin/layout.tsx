@@ -12,21 +12,24 @@ export default function AdminLayout({
   children: React.ReactNode;
 }) {
   return (
-    <KumoSidebar.Provider defaultOpen defaultWidth={280} minWidth={260} maxWidth={320}>
-      <div className="min-h-screen flex bg-kumo-tint text-kumo-strong">
-        {/* Persistent Left Sidebar */}
-        <Sidebar />
+    <KumoSidebar.Provider
+      defaultOpen
+      defaultWidth={280}
+      minWidth={260}
+      maxWidth={320}
+      resizable
+      className="bg-kumo-tint text-kumo-strong"
+    >
+      {/* Persistent Left Sidebar */}
+      <Sidebar />
 
-        {/* Main Content Area */}
-        <div className="flex-1 flex flex-col min-w-0 pb-24 lg:pb-0">
-          <Header />
-          <main className="flex-1 w-full p-4 sm:p-6 lg:p-8">
-            {children}
-          </main>
-        </div>
-
-        <BottomNav />
+      {/* Main Content Area */}
+      <div className="flex flex-col min-w-0 flex-1 pb-24 lg:pb-0">
+        <Header />
+        <main className="w-full flex-1 p-4 sm:p-6 lg:p-8">{children}</main>
       </div>
+
+      <BottomNav />
     </KumoSidebar.Provider>
   );
 }

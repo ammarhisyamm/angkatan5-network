@@ -122,7 +122,7 @@ export default function OpportunityDetailPage() {
       </div>
 
       {/* Main Header Card */}
-      <div className="bg-kumo-base border border-kumo-line rounded-2xl p-6 sm:p-8 shadow-regular-xs">
+      <div className="bg-kumo-base border border-kumo-line rounded-lg p-6 sm:p-8 shadow-xs">
         <div className="flex flex-wrap items-center gap-2 mb-3">
           <Badge variant="primary">
             {opportunity.category}
@@ -168,7 +168,7 @@ export default function OpportunityDetailPage() {
           </Link>
 
           <Button variant="primary" size="lg" onClick={() => setIsInterestModalOpen(true)}
-            className="w-full sm:w-auto shadow-regular-xs"
+            className="w-full sm:w-auto shadow-xs"
           >
             I&apos;m Interested
             <ArrowRight className="size-4 ml-1" />
@@ -181,7 +181,7 @@ export default function OpportunityDetailPage() {
         {/* Left 2 Cols: Description & Requirements */}
         <div className="md:col-span-2 space-y-8">
           {/* Description */}
-          <div className="bg-kumo-base border border-kumo-line rounded-2xl p-6 sm:p-8 shadow-regular-xs">
+          <div className="bg-kumo-base border border-kumo-line rounded-lg p-6 sm:p-8 shadow-xs">
             <h2 className="text-section-title text-kumo-strong mb-3">
               Description & Scope
             </h2>
@@ -192,7 +192,7 @@ export default function OpportunityDetailPage() {
 
           {/* Requirements */}
           {opportunity.requirements && opportunity.requirements.length > 0 && (
-            <div className="bg-kumo-base border border-kumo-line rounded-2xl p-6 sm:p-8 shadow-regular-xs">
+            <div className="bg-kumo-base border border-kumo-line rounded-lg p-6 sm:p-8 shadow-xs">
               <h2 className="text-section-title text-kumo-strong mb-4">
                 Key Requirements & Expectations
               </h2>
@@ -211,7 +211,7 @@ export default function OpportunityDetailPage() {
         {/* Right Col: Metadata, Skills & Contact */}
         <div className="space-y-8">
           {/* Metadata Card */}
-          <div className="bg-kumo-base border border-kumo-line rounded-2xl p-6 shadow-regular-xs space-y-4">
+          <div className="bg-kumo-base border border-kumo-line rounded-lg p-6 shadow-xs space-y-4">
             <h3 className="text-xs font-semibold uppercase leading-4 tracking-widest text-kumo-inactive">
               Details
             </h3>
@@ -242,7 +242,7 @@ export default function OpportunityDetailPage() {
 
           {/* Required Skills */}
           {opportunity.requiredSkills && opportunity.requiredSkills.length > 0 && (
-            <div className="bg-kumo-base border border-kumo-line rounded-2xl p-6 shadow-regular-xs">
+            <div className="bg-kumo-base border border-kumo-line rounded-lg p-6 shadow-xs">
               <h3 className="text-xs font-semibold uppercase leading-4 tracking-widest text-kumo-inactive mb-3">
                 Skills Required
               </h3>

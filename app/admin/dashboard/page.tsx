@@ -4,6 +4,7 @@ import React from "react";
 import Link from "next/link";
 import { useApp } from "@/lib/store/AppContext";
 import { Button } from "@/components/ui/Button";
+import { LayerCard } from "@cloudflare/kumo/components/layer-card";
 import {
   ResponsiveContainer,
   LineChart,
@@ -90,17 +91,17 @@ export default function AdminDashboardPage() {
           { label: "Active Opps", value: "15", accent: "text-kumo-brand", supporting: `${pendingOpportunities.length} pending`, supportColor: "text-kumo-inactive" },
           { label: "Skills Indexed", value: "32", accent: "text-feature-base", supporting: "Across 7 fields", supportColor: "text-kumo-inactive" },
         ].map((kpi) => (
-          <div key={kpi.label} className="p-4 rounded-xl bg-kumo-base border border-kumo-line">
+          <LayerCard key={kpi.label} className="p-4">
             <span className={`text-meta font-semibold block ${kpi.accent || "text-kumo-subtle"}`}>{kpi.label}</span>
             <span className="mt-1 block text-kpi text-kumo-strong">{kpi.value}</span>
             <span className={`text-xs leading-4 block mt-0.5 ${kpi.supportColor}`}>{kpi.supporting}</span>
-          </div>
+          </LayerCard>
         ))}
       </div>
 
       {/* Moderation Alert */}
       {pendingOpportunities.length > 0 && (
-        <div className="bg-warning-lighter border border-warning-light rounded-xl p-4 flex items-center justify-between gap-4">
+        <div className="bg-warning-lighter border border-warning-light rounded-xl p-3 sm:p-4 flex items-center justify-between gap-4">
           <div className="flex items-center gap-3">
             <WarningCircleIcon size={20} weight="fill" className="text-warning-base shrink-0" />
             <div>
@@ -116,7 +117,7 @@ export default function AdminDashboardPage() {
 
       {/* Charts */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <div className="bg-kumo-base border border-kumo-line rounded-2xl p-6">
+        <LayerCard className="p-6">
           <div className="flex items-center justify-between mb-4">
             <div>
               <h3 className="text-card-title text-kumo-strong">Member Growth</h3>
@@ -135,9 +136,9 @@ export default function AdminDashboardPage() {
               </LineChart>
             </ResponsiveContainer>
           </div>
-        </div>
+        </LayerCard>
 
-        <div className="bg-kumo-base border border-kumo-line rounded-2xl p-6">
+        <LayerCard className="p-6">
           <div className="flex items-center justify-between mb-4">
             <div>
               <h3 className="text-card-title text-kumo-strong">Top Indexed Skills</h3>
@@ -159,18 +160,18 @@ export default function AdminDashboardPage() {
                     <Cell key={`cell-${index}`} fill={entry.fill} />
                   ))}
                 </Bar>
-              </BarChart>
-            </ResponsiveContainer>
+            </BarChart>
+          </ResponsiveContainer>
           </div>
-        </div>
+        </LayerCard>
       </div>
 
       {/* Status Breakdown */}
-      <div className="bg-kumo-base border border-kumo-line rounded-2xl p-6">
+      <LayerCard className="p-6">
         <h3 className="text-card-title text-kumo-strong mb-4">Member Status Breakdown</h3>
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
           {STATUS_DATA.map((st) => (
-            <div key={st.name} className="p-4 rounded-xl bg-kumo-tint border border-kumo-line flex items-center gap-3">
+            <div key={st.name} className="p-3 sm:p-4 rounded-xl bg-kumo-tint border border-kumo-line flex items-center gap-3">
               <div className="size-2.5 rounded-full shrink-0" style={{ backgroundColor: st.color }} />
               <div>
                 <span className="text-xs text-kumo-subtle block">{st.name}</span>
@@ -180,7 +181,7 @@ export default function AdminDashboardPage() {
             </div>
           ))}
         </div>
-      </div>
+      </LayerCard>
     </div>
   );
 }
