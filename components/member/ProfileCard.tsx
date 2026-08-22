@@ -46,7 +46,7 @@ export function ProfileCard({ member }: { member: User }) {
             <p className="mt-3 line-clamp-2 text-sm leading-5 text-kumo-subtle">{member.bio}</p>
           )}
 
-          <div className="mt-4 flex flex-wrap gap-2">
+          <div className="mt-4 flex flex-wrap gap-2.5">
             {member.skills?.slice(0, 3).map((sk) => (
               <Tag key={sk}>{sk}</Tag>
             ))}

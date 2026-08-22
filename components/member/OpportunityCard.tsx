@@ -59,7 +59,7 @@ export function OpportunityCard({ opportunity }: { opportunity: Opportunity }) {
         <p className="mt-1.5 line-clamp-2 text-sm leading-5 text-kumo-subtle">{opportunity.description}</p>
 
         {opportunity.requiredSkills && opportunity.requiredSkills.length > 0 && (
-          <div className="mt-4 flex flex-wrap gap-2">
+          <div className="mt-4 flex flex-wrap gap-2.5">
             {opportunity.requiredSkills.slice(0, 3).map((sk) => (
               <Tag key={sk}>{sk}</Tag>
             ))}
