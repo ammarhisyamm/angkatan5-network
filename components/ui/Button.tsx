@@ -25,10 +25,10 @@ const variantMap: Record<string, "primary" | "secondary" | "ghost" | "outline" |
 };
 
 const sizeMap: Record<string, "xs" | "sm" | "base" | "lg"> = {
-  sm: "sm",
-  md: "base",
+  sm: "base",
+  md: "lg",
   lg: "lg",
-  icon: "xs",
+  icon: "sm",
 };
 
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(

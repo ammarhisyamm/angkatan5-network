@@ -159,7 +159,7 @@ export default function DiscoverPeoplePage() {
   };
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-6 sm:space-y-8 lg:space-y-10">
       {/* Page Header */}
       <div>
         <div className="flex items-center gap-2 text-xs font-semibold uppercase leading-4 tracking-widest text-kumo-inactive mb-1">

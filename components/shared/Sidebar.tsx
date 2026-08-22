@@ -30,7 +30,7 @@ export function Sidebar() {
 
   return (
     <KumoSidebar className="hidden lg:flex border-r border-kumo-line bg-kumo-base">
-      <KumoSidebar.Header className="px-4 pt-5 pb-4 border-b border-kumo-line">
+      <KumoSidebar.Header className="px-5 pt-6 pb-5 border-b border-kumo-line">
         <Link href="/dashboard" className="flex items-center gap-3 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-kumo-focus">
           <div className="flex size-9 items-center justify-center rounded-lg bg-kumo-brand text-sm font-semibold text-white">A5</div>
           <div className="min-w-0">
@@ -61,7 +61,7 @@ export function Sidebar() {
         </div>
       </KumoSidebar.Header>
 
-      <KumoSidebar.Content className="px-3 py-4">
+      <KumoSidebar.Content className="px-4 py-6">
         <KumoSidebar.Group>
           <KumoSidebar.GroupLabel className="px-2 pb-2 text-xs font-medium text-kumo-inactive uppercase tracking-wide">
             {isAdminSection ? "Administration" : "Menu"}
@@ -80,7 +80,7 @@ export function Sidebar() {
         </KumoSidebar.Group>
       </KumoSidebar.Content>
 
-      <KumoSidebar.Footer className="border-t border-kumo-line p-3">
+      <KumoSidebar.Footer className="border-t border-kumo-line p-4">
         <div className="flex items-center justify-between gap-2">
           {currentUser ? (
             <Link href="/my-profile" className="flex min-w-0 flex-1 items-center gap-2.5 rounded-lg p-1 -m-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-kumo-focus">

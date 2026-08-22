@@ -20,7 +20,7 @@ export default function AdminLayout({
         {/* Main Content Area */}
         <div className="flex-1 flex flex-col min-w-0 pb-24 lg:pb-0">
           <Header />
-          <main className="flex-1 max-w-[1240px] w-full mx-auto p-4 sm:p-6 lg:p-8">
+          <main className="flex-1 max-w-[1240px] w-full mx-auto p-5 sm:p-6 lg:p-10">
             {children}
           </main>
         </div>

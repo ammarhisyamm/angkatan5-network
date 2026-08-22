@@ -39,7 +39,7 @@ export default function AdminSkillsPage() {
   const handleMergeSubmit = (e: React.FormEvent) => { e.preventDefault(); if (mergeTarget && mergeDestinationId) { mergeSkills(mergeTarget.id, mergeDestinationId); setMergeTarget(null); setMergeDestinationId(""); } };
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-6 sm:space-y-8 lg:space-y-10">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-1.5 text-xs font-semibold uppercase leading-4 tracking-widest text-kumo-inactive">
@@ -51,7 +51,7 @@ export default function AdminSkillsPage() {
         <Button variant="primary" size="md" icon={<PlusIcon />} onClick={() => setIsAddModalOpen(true)}>Add New Skill</Button>
       </div>
 
-      <LayerCard className="p-4 flex flex-col sm:flex-row items-center justify-between gap-3">
+      <LayerCard className="p-6 sm:p-7 flex flex-col sm:flex-row items-center justify-between gap-3">
         <div className="flex items-center gap-1 overflow-x-auto w-full sm:w-auto pb-1">
           <Button variant={selectedCategory === "All" ? "primary" : "secondary"} size="sm" onClick={() => setSelectedCategory("All")}>All Categories</Button>
           {CATEGORIES.map((cat) => (

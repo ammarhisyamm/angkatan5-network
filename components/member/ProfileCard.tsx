@@ -12,9 +12,9 @@ import { BadgeCheck, ArrowRight } from "lucide-react";
 export function ProfileCard({ member }: { member: User }) {
   return (
     <>
-      <LayerCard className="group flex h-full flex-col p-0 overflow-hidden hover:border-kumo-line transition-colors duration-200">
+      <LayerCard className="group flex h-full flex-col p-0 overflow-hidden hover:border-kumo-line transition-all duration-200 hover:shadow-sm">
         {/* Content */}
-        <div className="flex flex-1 flex-col p-5">
+        <div className="flex flex-1 flex-col p-6 sm:p-7">
           <div className="flex items-start gap-3">
             <Link href={`/profile/${member.id}`} className="relative shrink-0" aria-label={`View ${member.name}`}>
               <img
@@ -54,7 +54,7 @@ export function ProfileCard({ member }: { member: User }) {
         </div>
 
         {/* Footer anchored to bottom */}
-        <div className="mt-auto flex items-center justify-between gap-2 border-t border-kumo-line px-5 py-3">
+        <div className="mt-auto flex items-center justify-between gap-2 border-t border-kumo-line px-6 py-4">
           <StatusBadge status={member.status} />
           <Link href={`/profile/${member.id}`}>
             <Button variant="secondary" size="sm">

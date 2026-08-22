@@ -41,16 +41,16 @@ export default function MemberDashboardPage() {
   ];
 
   return (
-    <div className="space-y-8">
-      <LayerCard className="p-6">
-        <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
-          <div>
+    <div className="space-y-6 sm:space-y-8 lg:space-y-10">
+      <LayerCard className="p-6 sm:p-8">
+        <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
+          <div className="min-w-0 flex-1">
             <h1 className="text-page-title text-kumo-strong">
               {getGreeting()}, {firstName}
             </h1>
-            <p className="mt-1 text-body text-kumo-subtle">Discover people and opportunities within your community.</p>
+            <p className="mt-2 text-body text-kumo-subtle">Discover people and opportunities within your community.</p>
           </div>
-          <div className="w-full shrink-0 rounded-lg border border-kumo-line bg-kumo-tint p-4 md:w-[320px]">
+          <div className="w-full shrink-0 rounded-xl border border-kumo-line bg-kumo-tint p-5 sm:p-6 lg:w-[340px]">
             <div className="mb-2 flex items-center justify-between">
               <span className="text-meta text-kumo-subtle">Profile completion</span>
               <span className="text-meta font-semibold text-kumo-brand" data-numeric>{completion}%</span>
@@ -74,12 +74,12 @@ export default function MemberDashboardPage() {
             const Icon = a.icon;
             return (
               <Link key={a.href} href={a.href} className="group">
-                <LayerCard className="p-6 h-full hover:border-kumo-brand/30 transition-colors">
-                  <span className="mb-3 flex size-10 items-center justify-center rounded-lg bg-kumo-brand/10 text-kumo-brand">
-                    <Icon className="size-5" strokeWidth={1.5} />
+                <LayerCard className="p-6 sm:p-7 h-full hover:border-kumo-brand/30 transition-all hover:shadow-sm">
+                  <span className="mb-4 flex size-11 sm:size-12 items-center justify-center rounded-xl bg-kumo-brand/10 text-kumo-brand">
+                    <Icon className="size-5 sm:size-6" strokeWidth={1.5} />
                   </span>
                   <h3 className="text-card-title text-kumo-strong group-hover:text-kumo-brand">{a.title}</h3>
-                  <p className="mt-1 text-body text-kumo-subtle">{a.desc}</p>
+                  <p className="mt-2 text-body text-kumo-subtle leading-relaxed">{a.desc}</p>
                 </LayerCard>
               </Link>
             );

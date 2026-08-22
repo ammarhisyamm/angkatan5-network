@@ -14,8 +14,6 @@ export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> 
 export const Input = React.forwardRef<HTMLInputElement, InputProps>(
   ({ label, error, helperText, leftIcon, rightIcon, id, className, ...props }, ref) => {
     const hasError = !!error;
-    // Kumo Input handles label/description/error internally via Field
-    // leftIcon/rightIcon not natively supported — wrap with flex if provided
     if (leftIcon || rightIcon) {
       return (
         <div className="w-full flex flex-col gap-2">
@@ -25,14 +23,12 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
             description={error ? undefined : helperText}
             error={error}
             variant={hasError ? "error" : "default"}
-            size="base"
+            size="lg"
             id={id}
             className={className}
             {...(props as any)}
           />
-          {(leftIcon || rightIcon) && (
-            <span className="sr-only">icon adornment</span>
-          )}
+          {(leftIcon || rightIcon) && <span className="sr-only">icon adornment</span>}
         </div>
       );
     }
@@ -43,7 +39,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
         description={error ? undefined : helperText}
         error={error}
         variant={hasError ? "error" : "default"}
-        size="base"
+        size="lg"
         id={id}
         className={className}
         {...(props as any)}
@@ -69,7 +65,7 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
         description={error ? undefined : helperText}
         error={error}
         variant={hasError ? "error" : "default"}
-        size="base"
+        size="lg"
         id={id}
         className={className}
         {...(props as any)}

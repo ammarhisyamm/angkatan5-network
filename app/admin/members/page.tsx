@@ -66,7 +66,7 @@ export default function AdminMembersPage() {
   };
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-6 sm:space-y-8 lg:space-y-10">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <div className="mb-1 flex items-center gap-1.5 text-xs font-semibold uppercase leading-4 tracking-widest text-kumo-inactive">
@@ -79,7 +79,7 @@ export default function AdminMembersPage() {
       </div>
 
       {/* Search & Filter — Kumo Input + Select */}
-      <LayerCard className="p-4 flex flex-col sm:flex-row items-center gap-3">
+      <LayerCard className="p-6 sm:p-7 flex flex-col sm:flex-row items-center gap-3">
         <div className="flex-1 w-full">
           <Input
             aria-label="Search members"
