@@ -9,15 +9,7 @@ import { EmptyState } from "@/components/ui/EmptyState";
 import { Grid } from "@cloudflare/kumo/components/grid";
 import { LayerCard } from "@cloudflare/kumo/components/layer-card";
 import { Input } from "@cloudflare/kumo/components/input";
-import {
-  Briefcase,
-  PlusCircle,
-  Search,
-  X,
-  Bookmark,
-  Sparkles,
-  SlidersHorizontal,
-} from "lucide-react";
+import { BriefcaseIcon, PlusCircleIcon, MagnifyingGlassIcon, XIcon, BookmarkSimpleIcon, SparkleIcon, SlidersHorizontalIcon } from "@phosphor-icons/react";
 import { OpportunityCategory, OpportunityType } from "@/lib/types";
 
 const CATEGORIES: ("All" | OpportunityCategory)[] = [
@@ -49,7 +41,7 @@ export default function OpportunitiesPage() {
         return false;
       }
 
-      // Search query
+      // MagnifyingGlassIcon query
       if (searchQuery.trim()) {
         const q = searchQuery.toLowerCase();
         const matchesTitle = opp.title.toLowerCase().includes(q);
@@ -90,7 +82,7 @@ export default function OpportunitiesPage() {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2 text-xs font-semibold text-kumo-brand mb-1">
-            <Briefcase className="size-4" />
+            <BriefcaseIcon size={16} weight="regular" />
             <span>Community Board</span>
           </div>
           <h1 className="text-page-title text-kumo-strong">
@@ -103,23 +95,23 @@ export default function OpportunitiesPage() {
 
         <Link href="/opportunities/create" className="shrink-0">
           <Button variant="primary" size="md" className="">
-            <PlusCircle className="size-4" />
+            <PlusCircleIcon size={16} weight="regular" />
             Share Opportunity
           </Button>
         </Link>
       </div>
 
-      {/* Search and Saved Toggle Bar — Kumo Input */}
+      {/* MagnifyingGlassIcon and Saved Toggle Bar — Kumo Input */}
       <div className="flex flex-col sm:flex-row gap-3">
         <div className="flex-1">
-          <Input aria-label="Search opportunities" placeholder="Search opportunities, roles, keywords..." value={searchQuery} onChange={(e: any) => setSearchQuery(e.target.value)} />
+          <Input aria-label="MagnifyingGlassIcon opportunities" placeholder="MagnifyingGlassIcon opportunities, roles, keywords..." value={searchQuery} onChange={(e: any) => setSearchQuery(e.target.value)} />
         </div>
 
         <Button
           variant={onlySaved ? "primary" : "secondary"}
           size="sm"
           onClick={() => setOnlySaved(!onlySaved)}
-          icon={<Bookmark className={onlySaved ? "fill-current" : ""} />}
+          icon={<BookmarkSimpleIcon size={16} weight="regular" />}
         >
           Saved ({bookmarkedOpportunityIds.length})
         </Button>
@@ -156,13 +148,13 @@ export default function OpportunitiesPage() {
           </Grid>
         ) : (
           <EmptyState
-            icon={Briefcase}
+            icon={BriefcaseIcon}
             title="No opportunities yet"
             description="Be the first person to share an opportunity with the community."
             action={
               <Link href="/opportunities/create">
                 <Button variant="primary" size="sm">
-                  <PlusCircle className="size-3.5" strokeWidth={1.5} />
+                  <PlusCircleIcon size={14} weight="regular" />
                   Share Opportunity
                 </Button>
               </Link>

@@ -10,15 +10,7 @@ import { Grid } from "@cloudflare/kumo/components/grid";
 import { LayerCard } from "@cloudflare/kumo/components/layer-card";
 import { Input } from "@cloudflare/kumo/components/input";
 import { Select } from "@cloudflare/kumo/components/select";
-import {
-  Search,
-  Filter,
-  X,
-  SlidersHorizontal,
-  Users,
-  Sparkles,
-  RotateCcw,
-} from "lucide-react";
+import { MagnifyingGlassIcon, FunnelIcon, XIcon, SlidersHorizontalIcon, UsersIcon, SparkleIcon, ArrowCounterClockwiseIcon } from "@phosphor-icons/react";
 import { UserStatus } from "@/lib/types";
 
 const QUICK_CHIPS = [
@@ -33,7 +25,7 @@ const QUICK_CHIPS = [
 export default function DiscoverPeoplePage() {
   const { users } = useApp();
 
-  // Search & Filter state
+  // MagnifyingGlassIcon & Filter state
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedChip, setSelectedChip] = useState("All");
   const [selectedIndustry, setSelectedIndustry] = useState("All");
@@ -72,7 +64,7 @@ export default function DiscoverPeoplePage() {
       // Must be visible in directory and not suspended
       if (user.visibility === "hidden" || user.suspended) return false;
 
-      // Search query (name, role, company, skills, bio)
+      // MagnifyingGlassIcon query (name, role, company, skills, bio)
       if (searchQuery.trim()) {
         const q = searchQuery.toLowerCase();
         const matchesName = user.name.toLowerCase().includes(q);
@@ -163,7 +155,7 @@ export default function DiscoverPeoplePage() {
       {/* Page Header */}
       <div>
         <div className="flex items-center gap-2 text-xs font-semibold uppercase leading-4 tracking-widest text-kumo-inactive mb-1">
-          <Users className="size-3" />
+          <UsersIcon size={12} weight="regular" />
           <span>Talent Directory</span>
         </div>
         <h1 className="text-page-title text-kumo-strong">
@@ -174,8 +166,8 @@ export default function DiscoverPeoplePage() {
         </p>
       </div>
 
-      {/* Prominent Search Bar — Kumo Input */}
-      <Input aria-label="Search people" placeholder="Search people, skills, roles, or companies..." value={searchQuery} onChange={(e: any) => setSearchQuery(e.target.value)} />
+      {/* Prominent MagnifyingGlassIcon Bar — Kumo Input */}
+      <Input aria-label="MagnifyingGlassIcon people" placeholder="MagnifyingGlassIcon people, skills, roles, or companies..." value={searchQuery} onChange={(e: any) => setSearchQuery(e.target.value)} />
 
       {/* Quick Filter Chips */}
       <div className="flex items-center justify-between gap-3 overflow-x-auto pb-1 scrollbar-none">
@@ -196,7 +188,7 @@ export default function DiscoverPeoplePage() {
         <Button variant="outline" size="sm" onClick={() => setIsFilterDrawerOpen(!isFilterDrawerOpen)}
           className="lg:hidden shrink-0 text-xs gap-2"
         >
-          <SlidersHorizontal className="size-3" />
+          <SlidersHorizontalIcon size={12} weight="regular" />
           Filters {hasActiveFilters && "•"}
         </Button>
       </div>
@@ -235,7 +227,7 @@ export default function DiscoverPeoplePage() {
               onClick={clearAllFilters}
               className="text-kumo-brand font-semibold hover:underline flex items-center gap-2"
             >
-              <RotateCcw className="size-3" />
+              <ArrowCounterClockwiseIcon size={12} weight="regular" />
               Reset All Filters
             </button>
           </div>
@@ -258,7 +250,7 @@ export default function DiscoverPeoplePage() {
           </Grid>
         ) : (
           <EmptyState
-            icon={Users}
+            icon={UsersIcon}
             title="No people found"
             description="Try adjusting your search keywords or clearing active filters to see more members."
             action={

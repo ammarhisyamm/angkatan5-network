@@ -8,7 +8,7 @@ import { OpportunityCard } from "@/components/member/OpportunityCard";
 import { Button } from "@/components/ui/Button";
 import { LayerCard } from "@cloudflare/kumo/components/layer-card";
 import { Grid } from "@cloudflare/kumo/components/grid";
-import { Search, Briefcase, PlusCircle, ArrowRight, Users, Handshake } from "lucide-react";
+import { MagnifyingGlassIcon, BriefcaseIcon, PlusCircleIcon, ArrowRightIcon, UsersIcon, HandshakeIcon } from "@phosphor-icons/react";
 
 export default function MemberDashboardPage() {
   const { currentUser, users, opportunities } = useApp();
@@ -26,10 +26,10 @@ export default function MemberDashboardPage() {
   const latestOpportunities = opportunities.filter((o) => o.status === "Published").slice(0, 3);
 
   const quickActions = [
-    { href: "/discover", icon: Users, title: "Find Someone", desc: "Search by skills, role, or experience." },
-    { href: "/opportunities", icon: Briefcase, title: "Find Opportunities", desc: "Browse jobs, gigs, and collaborations." },
-    { href: "/my-profile", icon: Handshake, title: "Offer Help", desc: "Share what you can help with." },
-    { href: "/opportunities/create", icon: PlusCircle, title: "Share Opportunity", desc: "Post an opening for the community." },
+    { href: "/discover", icon: UsersIcon, title: "Find Someone", desc: "MagnifyingGlassIcon by skills, role, or experience." },
+    { href: "/opportunities", icon: BriefcaseIcon, title: "Find Opportunities", desc: "Browse jobs, gigs, and collaborations." },
+    { href: "/my-profile", icon: HandshakeIcon, title: "Offer Help", desc: "Share what you can help with." },
+    { href: "/opportunities/create", icon: PlusCircleIcon, title: "Share Opportunity", desc: "Post an opening for the community." },
   ];
 
   const metrics = [
@@ -60,7 +60,7 @@ export default function MemberDashboardPage() {
             </div>
             <Link href="/my-profile" className="mt-3 block">
               <Button variant="secondary" size="sm" className="w-full">
-                Complete Profile <ArrowRight className="size-3.5" strokeWidth={1.5} />
+                Complete Profile <ArrowRightIcon size={14} weight="regular" />
               </Button>
             </Link>
           </div>
@@ -110,7 +110,7 @@ export default function MemberDashboardPage() {
             <p className="mt-0.5 text-body text-kumo-subtle">Connect with talented peers across design, engineering, and business.</p>
           </div>
           <Link href="/discover" className="shrink-0">
-            <Button variant="secondary" size="sm">View All <ArrowRight className="size-3.5" strokeWidth={1.5} /></Button>
+            <Button variant="secondary" size="sm">View All <ArrowRightIcon size={14} weight="regular" /></Button>
           </Link>
         </div>
         <Grid variant="2up" gap="base">
@@ -127,7 +127,7 @@ export default function MemberDashboardPage() {
             <p className="mt-0.5 text-body text-kumo-subtle">Fresh collaborations, job openings, and project gigs.</p>
           </div>
           <Link href="/opportunities" className="shrink-0">
-            <Button variant="secondary" size="sm">View All <ArrowRight className="size-3.5" strokeWidth={1.5} /></Button>
+            <Button variant="secondary" size="sm">View All <ArrowRightIcon size={14} weight="regular" /></Button>
           </Link>
         </div>
         <Grid variant="3up" gap="base">

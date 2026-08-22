@@ -6,7 +6,7 @@ import { Modal } from "@/components/ui/Modal";
 import { Button } from "@/components/ui/Button";
 import { Textarea } from "@/components/ui/Input";
 import { useApp } from "@/lib/store/AppContext";
-import { Send, CheckCircle2 } from "lucide-react";
+import { PaperPlaneTiltIcon, CheckCircleIcon } from "@phosphor-icons/react";
 
 export function ConnectModal({
   isOpen,
@@ -44,7 +44,7 @@ export function ConnectModal({
       isOpen={isOpen}
       onClose={onClose}
       title={`Connect with ${receiver?.name}`}
-      description="Send a short note to introduce yourself."
+      description="PaperPlaneTiltIcon a short note to introduce yourself."
       maxWidth="md"
       footer={
         isSent ? undefined : (
@@ -53,8 +53,8 @@ export function ConnectModal({
               Cancel
             </Button>
             <Button type="submit" form="connect-form" variant="primary" size="sm" isLoading={isSending}>
-              <Send className="size-3.5" strokeWidth={1.5} />
-              Send Request
+              <PaperPlaneTiltIcon size={14} weight="regular" />
+              PaperPlaneTiltIcon Request
             </Button>
           </>
         )
@@ -63,7 +63,7 @@ export function ConnectModal({
       {isSent ? (
         <div className="flex flex-col items-center justify-center gap-3 py-6 text-center">
           <span className="flex size-12 items-center justify-center rounded-full bg-success-lighter text-success-base">
-            <CheckCircle2 className="size-6" strokeWidth={1.5} />
+            <CheckCircleIcon size={24} weight="regular" />
           </span>
           <div>
             <h4 className="text-base font-semibold leading-6 text-kumo-strong">Request sent</h4>

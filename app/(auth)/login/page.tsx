@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { useApp } from "@/lib/store/AppContext";
 import { Input } from "@/components/ui/Input";
 import { Button } from "@/components/ui/Button";
-import { ShieldCheck, UserCheck, ArrowRight } from "lucide-react";
+import { ShieldCheckIcon, UserCheckIcon, ArrowRightIcon } from "@phosphor-icons/react";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -87,7 +87,7 @@ export default function LoginPage() {
                 className="flex flex-col gap-1 rounded-xl border border-kumo-brand/20 bg-primary-alpha-10 p-3 text-left transition hover:bg-primary-alpha-10/80"
               >
                 <span className="flex items-center gap-1 text-xs leading-4 font-medium text-kumo-brand">
-                  <UserCheck className="size-3" /> Member <ArrowRight className="ml-auto size-3" />
+                  <UserCheckIcon size={12} weight="regular" /> Member <ArrowRightIcon size={12} weight="regular" className="ml-auto" />
                 </span>
                 <span className="font-mono text-xs leading-4 text-kumo-subtle">member@example.com</span>
                 <span className="text-xs leading-4 text-kumo-inactive">Ammar Hisyam (Designer)</span>
@@ -98,7 +98,7 @@ export default function LoginPage() {
                 className="flex flex-col gap-1 rounded-xl border border-kumo-line bg-kumo-tint p-3 text-left transition hover:bg-kumo-base hover:shadow-xs"
               >
                 <span className="flex items-center gap-1 text-xs leading-4 font-medium text-kumo-strong">
-                  <ShieldCheck className="size-3" /> Admin <ArrowRight className="ml-auto size-3 text-kumo-inactive" />
+                  <ShieldCheckIcon size={12} weight="regular" /> Admin <ArrowRightIcon size={12} weight="regular" className="ml-auto text-kumo-inactive" />
                 </span>
                 <span className="font-mono text-xs leading-4 text-kumo-subtle">admin@example.com</span>
                 <span className="text-xs leading-4 text-kumo-inactive">Secretariat Admin</span>

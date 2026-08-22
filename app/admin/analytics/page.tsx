@@ -16,7 +16,7 @@ import {
   LineChart,
   Line,
 } from "recharts";
-import { BarChart3, TrendingUp, Users, Award, Briefcase } from "lucide-react";
+import { ChartBarIcon, TrendUpIcon, UsersIcon, MedalIcon, BriefcaseIcon } from "@phosphor-icons/react";
 
 const INDUSTRY_DATA = [
   { name: "Technology", count: 48, fill: "#2563eb" },
@@ -42,7 +42,7 @@ export default function AdminAnalyticsPage() {
       {/* Header */}
       <div>
         <div className="flex items-center gap-1 mb-1 flex items-center gap-1.5 text-xs font-semibold uppercase leading-4 tracking-widest text-kumo-inactive">
-          <BarChart3 className="size-4" />
+          <ChartBarIcon size={16} weight="regular" />
           <span>Talent Analytics</span>
         </div>
         <h1 className="text-page-title text-kumo-strong">

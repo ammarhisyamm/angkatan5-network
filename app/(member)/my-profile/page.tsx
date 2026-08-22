@@ -5,27 +5,13 @@ import { useApp } from "@/lib/store/AppContext";
 import { Input, Textarea } from "@/components/ui/Input";
 import { Button } from "@/components/ui/Button";
 import { Badge, StatusBadge } from "@/components/ui/Badge";
-import {
-  User,
-  Briefcase,
-  Layers,
-  MapPin,
-  Globe,
-  Shield,
-  Edit2,
-  Check,
-  X,
-  Sparkles,
-  Lock,
-  Eye,
-  Plus,
-} from "lucide-react";
+import { UserIcon, BriefcaseIcon, StackIcon, MapPinIcon, GlobeIcon, ShieldIcon, PencilSimpleIcon, CheckIcon, XIcon, SparkleIcon, LockSimpleIcon, EyeIcon, PlusIcon } from "@phosphor-icons/react";
 import { UserStatus, LookingForOption, CanOfferOption, UserVisibility } from "@/lib/types";
 
 const ALL_SKILLS = [
   "UI/UX Design",
   "Design Systems",
-  "User Research",
+  "UserIcon Research",
   "Product Design",
   "Software Development",
   "React / Next.js",
@@ -198,7 +184,7 @@ export default function MyProfilePage() {
       <div className="bg-kumo-base border border-kumo-line rounded-lg p-6 shadow-xs space-y-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <User className="size-4 text-kumo-brand" />
+            <UserIcon size={16} weight="regular" className="text-kumo-brand" />
             <h2 className="text-section-title text-kumo-strong">
               Personal Information
             </h2>
@@ -211,14 +197,14 @@ export default function MyProfilePage() {
               </Button>
               <Button variant="primary" size="sm" onClick={() => handleSaveSection("personal")}
               >
-                <Check className="size-3 mr-1" />
+                <CheckIcon size={12} weight="regular" className="mr-1" />
                 Save
               </Button>
             </div>
           ) : (
             <Button variant="outline" size="sm" onClick={() => setEditingSection("personal")}
             >
-              <Edit2 className="size-3 mr-1" />
+              <PencilSimpleIcon size={12} weight="regular" className="mr-1" />
               Edit
             </Button>
           )}
@@ -283,7 +269,7 @@ export default function MyProfilePage() {
       <div className="bg-kumo-base border border-kumo-line rounded-lg p-6 shadow-xs space-y-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <Briefcase className="size-4 text-kumo-brand" />
+            <BriefcaseIcon size={16} weight="regular" className="text-kumo-brand" />
             <h2 className="text-section-title text-kumo-strong">
               Professional Details
             </h2>
@@ -296,14 +282,14 @@ export default function MyProfilePage() {
               </Button>
               <Button variant="primary" size="sm" onClick={() => handleSaveSection("professional")}
               >
-                <Check className="size-3 mr-1" />
+                <CheckIcon size={12} weight="regular" className="mr-1" />
                 Save
               </Button>
             </div>
           ) : (
             <Button variant="outline" size="sm" onClick={() => setEditingSection("professional")}
             >
-              <Edit2 className="size-3 mr-1" />
+              <PencilSimpleIcon size={12} weight="regular" className="mr-1" />
               Edit
             </Button>
           )}
@@ -378,7 +364,7 @@ export default function MyProfilePage() {
       <div className="bg-kumo-base border border-kumo-line rounded-lg p-6 shadow-xs space-y-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <Layers className="size-4 text-kumo-brand" />
+            <StackIcon size={16} weight="regular" className="text-kumo-brand" />
             <h2 className="text-section-title text-kumo-strong">
               Skills & Expertise
             </h2>
@@ -391,14 +377,14 @@ export default function MyProfilePage() {
               </Button>
               <Button variant="primary" size="sm" onClick={() => handleSaveSection("skills")}
               >
-                <Check className="size-3 mr-1" />
+                <CheckIcon size={12} weight="regular" className="mr-1" />
                 Save
               </Button>
             </div>
           ) : (
             <Button variant="outline" size="sm" onClick={() => setEditingSection("skills")}
             >
-              <Edit2 className="size-3 mr-1" />
+              <PencilSimpleIcon size={12} weight="regular" className="mr-1" />
               Edit
             </Button>
           )}
@@ -436,7 +422,7 @@ export default function MyProfilePage() {
                 className="flex-1 h-9 px-3 bg-kumo-base border border-kumo-line rounded-xl text-xs"
               />
               <Button type="submit" variant="secondary" size="sm">
-                <Plus className="size-3 mr-1" />
+                <PlusIcon size={12} weight="regular" className="mr-1" />
                 Add
               </Button>
             </form>
@@ -459,7 +445,7 @@ export default function MyProfilePage() {
       <div className="bg-kumo-base border border-kumo-line rounded-lg p-6 shadow-xs space-y-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <Sparkles className="size-4 text-success-base" />
+            <SparkleIcon size={16} weight="regular" className="text-success-base" />
             <h2 className="text-section-title text-kumo-strong">
               Availability & Collaborations
             </h2>
@@ -472,14 +458,14 @@ export default function MyProfilePage() {
               </Button>
               <Button variant="primary" size="sm" onClick={() => handleSaveSection("availability")}
               >
-                <Check className="size-3 mr-1" />
+                <CheckIcon size={12} weight="regular" className="mr-1" />
                 Save
               </Button>
             </div>
           ) : (
             <Button variant="outline" size="sm" onClick={() => setEditingSection("availability")}
             >
-              <Edit2 className="size-3 mr-1" />
+              <PencilSimpleIcon size={12} weight="regular" className="mr-1" />
               Edit
             </Button>
           )}
@@ -597,7 +583,7 @@ export default function MyProfilePage() {
       <div className="bg-kumo-base border border-kumo-line rounded-lg p-6 shadow-xs space-y-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <Globe className="size-4 text-kumo-brand" />
+            <GlobeIcon size={16} weight="regular" className="text-kumo-brand" />
             <h2 className="text-section-title text-kumo-strong">
               Links & Portfolio
             </h2>
@@ -610,14 +596,14 @@ export default function MyProfilePage() {
               </Button>
               <Button variant="primary" size="sm" onClick={() => handleSaveSection("links")}
               >
-                <Check className="size-3 mr-1" />
+                <CheckIcon size={12} weight="regular" className="mr-1" />
                 Save
               </Button>
             </div>
           ) : (
             <Button variant="outline" size="sm" onClick={() => setEditingSection("links")}
             >
-              <Edit2 className="size-3 mr-1" />
+              <PencilSimpleIcon size={12} weight="regular" className="mr-1" />
               Edit
             </Button>
           )}
@@ -671,7 +657,7 @@ export default function MyProfilePage() {
       {/* 6. PRIVACY & DIRECTORY CONTROLS */}
       <div className="bg-kumo-base border border-kumo-line rounded-lg p-6 shadow-xs space-y-4">
         <div className="flex items-center gap-2">
-          <Shield className="size-4 text-feature-base" />
+          <ShieldIcon size={16} weight="regular" className="text-feature-base" />
           <h2 className="text-section-title text-kumo-strong">
             Privacy & Directory Visibility
           </h2>
@@ -693,7 +679,7 @@ export default function MyProfilePage() {
                 : "border-kumo-line hover:border-kumo-line"
             }`}
           >
-            <Eye className="size-5 text-kumo-brand shrink-0 mt-0" />
+            <EyeIcon size={20} weight="regular" className="text-kumo-brand shrink-0 mt-0" />
             <div>
               <h4 className="text-xs font-semibold text-kumo-strong">
                 Community Members Only
@@ -715,7 +701,7 @@ export default function MyProfilePage() {
                 : "border-kumo-line hover:border-kumo-line"
             }`}
           >
-            <Lock className="size-5 text-warning-base shrink-0 mt-0" />
+            <LockSimpleIcon size={20} weight="regular" className="text-warning-base shrink-0 mt-0" />
             <div>
               <h4 className="text-xs font-semibold text-kumo-strong">
                 Hidden from Directory

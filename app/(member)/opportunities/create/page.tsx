@@ -7,16 +7,7 @@ import { useApp } from "@/lib/store/AppContext";
 import { Input, Textarea } from "@/components/ui/Input";
 import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
-import {
-  ArrowLeft,
-  PlusCircle,
-  Eye,
-  Send,
-  Plus,
-  X,
-  Sparkles,
-  MapPin,
-} from "lucide-react";
+import { ArrowLeftIcon, PlusCircleIcon, EyeIcon, PaperPlaneTiltIcon, PlusIcon, XIcon, SparkleIcon, MapPinIcon } from "@phosphor-icons/react";
 import { OpportunityCategory, OpportunityType } from "@/lib/types";
 
 const CATEGORIES: OpportunityCategory[] = [
@@ -133,7 +124,7 @@ export default function CreateOpportunityPage() {
           href="/opportunities"
           className="inline-flex items-center gap-1 text-xs font-semibold text-kumo-subtle hover:text-kumo-strong transition-colors"
         >
-          <ArrowLeft className="size-4" />
+          <ArrowLeftIcon size={16} weight="regular" />
           Back to Opportunities
         </Link>
 
@@ -142,7 +133,7 @@ export default function CreateOpportunityPage() {
           onClick={() => setIsPreview(!isPreview)}
           className="text-xs font-semibold text-kumo-brand hover:underline flex items-center gap-2"
         >
-          <Eye className="size-4" />
+          <EyeIcon size={16} weight="regular" />
           {isPreview ? "Back to Edit Form" : "Preview Opportunity"}
         </button>
       </div>
@@ -150,7 +141,7 @@ export default function CreateOpportunityPage() {
       {/* Header */}
       <div>
         <div className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-primary-alpha-10 text-kumo-brand text-xs font-semibold mb-2">
-          <Sparkles className="size-3" />
+          <SparkleIcon size={12} weight="regular" />
           <span>New Community Post</span>
         </div>
         <h1 className="text-page-title text-kumo-strong">
@@ -185,7 +176,7 @@ export default function CreateOpportunityPage() {
                 {category}
               </Badge>
               <Badge variant="neutral">
-                <MapPin className="size-3 text-kumo-inactive" />
+                <MapPinIcon size={12} weight="regular" className="text-kumo-inactive" />
                 {location || "Remote"}
               </Badge>
               <span className="text-xs text-kumo-inactive">{type}</span>
@@ -234,7 +225,7 @@ export default function CreateOpportunityPage() {
               Edit Details
             </Button>
             <Button variant="primary" size="md" onClick={handleSubmit} isLoading={isSubmitting} >
-              <Send className="size-3 mr-1" />
+              <PaperPlaneTiltIcon size={12} weight="regular" className="mr-1" />
               Publish Opportunity
             </Button>
           </div>
@@ -359,7 +350,7 @@ export default function CreateOpportunityPage() {
                 className="flex-1 h-9 px-3 bg-kumo-base border border-kumo-line rounded-xl text-xs"
               />
               <Button type="button" variant="secondary" size="sm" onClick={handleAddCustomSkill} >
-                <Plus className="size-3" />
+                <PlusIcon size={12} weight="regular" />
                 Add
               </Button>
             </div>
@@ -375,11 +366,11 @@ export default function CreateOpportunityPage() {
           <div className="flex flex-col-reverse sm:flex-row items-stretch sm:items-center justify-between gap-3 pt-6 border-t border-kumo-line">
             <Button type="button" variant="outline" size="md" onClick={() => setIsPreview(true)}
             >
-              <Eye className="size-4 mr-1" />
+              <EyeIcon size={16} weight="regular" className="mr-1" />
               Preview First
             </Button>
             <Button type="submit" variant="primary" size="lg" isLoading={isSubmitting} >
-              <Send className="size-4 mr-1" />
+              <PaperPlaneTiltIcon size={16} weight="regular" className="mr-1" />
               Publish Opportunity
             </Button>
           </div>

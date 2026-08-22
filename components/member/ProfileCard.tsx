@@ -7,7 +7,7 @@ import { StatusBadge } from "@/components/ui/Badge";
 import { Tag } from "@/components/ui/Tag";
 import { Button } from "@/components/ui/Button";
 import { LayerCard } from "@cloudflare/kumo/components/layer-card";
-import { BadgeCheck, ArrowRight } from "lucide-react";
+import { SealCheckIcon, ArrowRightIcon } from "@phosphor-icons/react";
 
 export function ProfileCard({ member }: { member: User }) {
   return (
@@ -27,7 +27,7 @@ export function ProfileCard({ member }: { member: User }) {
               />
               {member.verified && (
                 <span className="absolute -bottom-0.5 -right-0.5 flex size-4 items-center justify-center rounded-full bg-kumo-brand text-static-white" title="Verified member" aria-hidden="true">
-                  <BadgeCheck className="size-3" strokeWidth={2} aria-hidden="true" />
+                  <SealCheckIcon size={12} weight="bold" />
                 </span>
               )}
             </Link>
@@ -61,7 +61,7 @@ export function ProfileCard({ member }: { member: User }) {
           <StatusBadge status={member.status} />
           <Link href={`/profile/${member.id}`}>
             <Button variant="secondary" size="sm">
-              View Profile <ArrowRight className="size-3.5" strokeWidth={1.5} />
+              View Profile <ArrowRightIcon size={14} weight="regular" />
             </Button>
           </Link>
         </div>

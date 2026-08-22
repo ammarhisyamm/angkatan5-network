@@ -6,21 +6,7 @@ import { notFound, useParams } from "next/navigation";
 import { useApp } from "@/lib/store/AppContext";
 import { StatusBadge, Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
-import {
-  MapPin,
-  BadgeCheck,
-  Briefcase,
-  Calendar,
-  Share2,
-  UserPlus,
-  Globe,
-  ExternalLink,
-  CheckCircle2,
-  ArrowLeft,
-  Sparkles,
-  HelpCircle,
-  Search,
-} from "lucide-react";
+import { MapPinIcon, SealCheckIcon, BriefcaseIcon, CalendarIcon, ShareNetworkIcon, UserPlusIcon, GlobeIcon, ArrowSquareOutIcon, CheckCircleIcon, ArrowLeftIcon, SparkleIcon, QuestionIcon, MagnifyingGlassIcon } from "@phosphor-icons/react";
 
 export default function MemberProfilePage() {
   const params = useParams();
@@ -68,7 +54,7 @@ export default function MemberProfilePage() {
           href="/discover"
           className="inline-flex items-center gap-1 text-xs font-semibold text-kumo-subtle hover:text-kumo-strong transition-colors"
         >
-          <ArrowLeft className="size-4" />
+          <ArrowLeftIcon size={16} weight="regular" />
           Back to Discover
         </Link>
 
@@ -96,7 +82,7 @@ export default function MemberProfilePage() {
                   className="absolute -bottom-0.5 -right-0.5 flex size-5 items-center justify-center rounded-full bg-kumo-brand text-static-white ring-2 ring-bg-white-0"
                   title="Verified member"
                 >
-                  <BadgeCheck className="size-3.5" strokeWidth={2} />
+                  <SealCheckIcon size={14} weight="bold" />
                 </div>
               )}
             </div>
@@ -119,12 +105,12 @@ export default function MemberProfilePage() {
 
               <div className="flex items-center gap-3 text-xs text-kumo-subtle mt-2 flex-wrap">
                 <span className="flex items-center gap-2">
-                  <MapPin className="size-3 text-kumo-inactive" />
+                  <MapPinIcon size={12} weight="regular" className="text-kumo-inactive" />
                   {member.location}
                 </span>
                 <span>•</span>
                 <span className="flex items-center gap-2">
-                  <Briefcase className="size-3 text-kumo-inactive" />
+                  <BriefcaseIcon size={12} weight="regular" className="text-kumo-inactive" />
                   {member.experience}
                 </span>
                 <span>•</span>
@@ -138,7 +124,7 @@ export default function MemberProfilePage() {
           {/* Action buttons */}
           <div className="flex items-center gap-2 w-full sm:w-auto">
             <Button variant="outline" size="md" onClick={handleShare} className="flex-1 sm:flex-initial" >
-              <Share2 className="size-4" />
+              <ShareNetworkIcon size={16} weight="regular" />
               Share
             </Button>
           </div>
@@ -187,7 +173,7 @@ export default function MemberProfilePage() {
               </div>
             ) : (
               <div className="p-4 rounded-xl bg-kumo-tint border border-kumo-line flex items-start gap-3">
-                <Briefcase className="size-5 text-kumo-inactive shrink-0 mt-0" />
+                <BriefcaseIcon size={20} weight="regular" className="text-kumo-inactive shrink-0 mt-0" />
                 <div>
                   <h4 className="text-sm font-semibold text-kumo-strong">
                     {member.role} at {member.company}
@@ -204,7 +190,7 @@ export default function MemberProfilePage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="bg-kumo-base border border-kumo-line rounded-lg p-5">
               <div className="flex items-center gap-2 mb-3">
-                <Sparkles className="size-4 text-success-base" />
+                <SparkleIcon size={16} weight="regular" className="text-success-base" />
                 <h3 className="text-sm font-semibold text-kumo-strong">
                   What I Can Help With
                 </h3>
@@ -226,7 +212,7 @@ export default function MemberProfilePage() {
 
             <div className="bg-kumo-base border border-kumo-line rounded-lg p-5">
               <div className="flex items-center gap-2 mb-3">
-                <Search className="size-4 text-kumo-brand" />
+                <MagnifyingGlassIcon size={16} weight="regular" className="text-kumo-brand" />
                 <h3 className="text-sm font-semibold text-kumo-strong">
                   What I&apos;m Looking For
                 </h3>
@@ -286,7 +272,7 @@ export default function MemberProfilePage() {
                     </svg>
                     LinkedIn Profile
                   </span>
-                  <ExternalLink className="size-3 text-kumo-inactive" />
+                  <ArrowSquareOutIcon size={12} weight="regular" className="text-kumo-inactive" />
                 </a>
               )}
 
@@ -298,10 +284,10 @@ export default function MemberProfilePage() {
                   className="flex items-center justify-between p-2 rounded-xl bg-kumo-tint hover:bg-primary-alpha-10 text-xs font-medium text-kumo-subtle hover:text-kumo-brand transition-colors"
                 >
                   <span className="flex items-center gap-2">
-                    <Globe className="size-4 text-success-base" />
+                    <GlobeIcon size={16} weight="regular" className="text-success-base" />
                     Design Portfolio
                   </span>
-                  <ExternalLink className="size-3 text-kumo-inactive" />
+                  <ArrowSquareOutIcon size={12} weight="regular" className="text-kumo-inactive" />
                 </a>
               )}
 
@@ -313,10 +299,10 @@ export default function MemberProfilePage() {
                   className="flex items-center justify-between p-2 rounded-xl bg-kumo-tint hover:bg-primary-alpha-10 text-xs font-medium text-kumo-subtle hover:text-kumo-brand transition-colors"
                 >
                   <span className="flex items-center gap-2">
-                    <Globe className="size-4 text-feature-base" />
+                    <GlobeIcon size={16} weight="regular" className="text-feature-base" />
                     Personal Website
                   </span>
-                  <ExternalLink className="size-3 text-kumo-inactive" />
+                  <ArrowSquareOutIcon size={12} weight="regular" className="text-kumo-inactive" />
                 </a>
               )}
 

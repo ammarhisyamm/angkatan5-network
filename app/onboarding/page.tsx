@@ -6,18 +6,7 @@ import { useApp } from "@/lib/store/AppContext";
 import { Input, Textarea } from "@/components/ui/Input";
 import { Button } from "@/components/ui/Button";
 import { Tag } from "@/components/ui/Tag";
-import {
-  Check,
-  ChevronRight,
-  ChevronLeft,
-  Sparkles,
-  User,
-  Briefcase,
-  Layers,
-  Search,
-  Gift,
-  Plus,
-} from "lucide-react";
+import { Check, CaretRightIcon, CaretLeftIcon, SparkleIcon, UserIcon, BriefcaseIcon, StackIcon, MagnifyingGlassIcon, GiftIcon, Plus } from "@phosphor-icons/react";
 import { LookingForOption, CanOfferOption } from "@/lib/types";
 
 const AVATAR_OPTIONS = [
@@ -154,11 +143,11 @@ export default function OnboardingPage() {
   };
 
   const stepsList = [
-    { num: 1, title: "About", icon: User },
-    { num: 2, title: "Career", icon: Briefcase },
-    { num: 3, title: "Skills", icon: Layers },
-    { num: 4, title: "Looking For", icon: Search },
-    { num: 5, title: "Can Offer", icon: Gift },
+    { num: 1, title: "About", icon: UserIcon },
+    { num: 2, title: "Career", icon: BriefcaseIcon },
+    { num: 3, title: "Skills", icon: StackIcon },
+    { num: 4, title: "Looking For", icon: MagnifyingGlassIcon },
+    { num: 5, title: "Can Offer", icon: GiftIcon },
   ];
 
   return (
@@ -196,7 +185,7 @@ export default function OnboardingPage() {
                         : "bg-kumo-tint text-kumo-inactive"
                     }`}
                   >
-                    {isCompleted ? <Check className="size-4" /> : <Icon className="size-4" />}
+                    {isCompleted ? <Check size={16} weight="regular" /> : <Icon className="size-4" />}
                   </button>
                   <span
                     className={`hidden text-xs font-medium leading-[18px] sm:block ${
@@ -397,7 +386,7 @@ export default function OnboardingPage() {
                   className="flex-1 h-10 px-3 bg-kumo-base text-kumo-strong border border-kumo-line rounded-lg text-sm focus:outline-none focus:border-kumo-brand"
                 />
                 <Button type="submit" variant="secondary" size="md">
-                  <Plus className="size-4" />
+                  <Plus size={16} weight="regular" />
                   Add
                 </Button>
               </form>
@@ -439,7 +428,7 @@ export default function OnboardingPage() {
                           isChecked ? "bg-kumo-brand text-static-white" : "border border-kumo-line"
                         }`}
                       >
-                        {isChecked && <Check className="size-3" />}
+                        {isChecked && <Check size={12} weight="regular" />}
                       </div>
                     </div>
                   );
@@ -479,7 +468,7 @@ export default function OnboardingPage() {
                           isChecked ? "bg-success-base text-static-white" : "border border-kumo-line"
                         }`}
                       >
-                        {isChecked && <Check className="size-3" />}
+                        {isChecked && <Check size={12} weight="regular" />}
                       </div>
                     </div>
                   );
@@ -493,7 +482,7 @@ export default function OnboardingPage() {
             {step > 1 ? (
               <Button type="button" variant="outline" onClick={() => setStep(step - 1)}
               >
-                <ChevronLeft className="size-4" />
+                <CaretLeftIcon size={16} weight="regular" />
                 Back
               </Button>
             ) : (
@@ -504,12 +493,12 @@ export default function OnboardingPage() {
               <Button type="button" variant="primary" onClick={() => setStep(step + 1)}
               >
                 Next Step
-                <ChevronRight className="size-4" />
+                <CaretRightIcon size={16} weight="regular" />
               </Button>
             ) : (
               <Button type="button" variant="primary" size="lg" onClick={handleComplete} className="bg-success-base hover:bg-success-dark" >
                 Complete Profile
-                <Check className="size-4 ml-1" />
+                <Check size={16} weight="regular" className="ml-1" />
               </Button>
             )}
           </div>

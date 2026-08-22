@@ -3,21 +3,21 @@
 import React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Home, Users, Briefcase, User, ShieldCheck } from "lucide-react";
+import { HouseIcon, UsersIcon, BriefcaseIcon, UserIcon, ShieldCheckIcon } from "@phosphor-icons/react";
 import { cn } from "@/lib/utils/cn";
 
 const MEMBER_NAV = [
-  { name: "Home", short: "Home", href: "/dashboard", icon: Home },
-  { name: "Discover People", short: "People", href: "/discover", icon: Users },
-  { name: "Opportunities", short: "Jobs", href: "/opportunities", icon: Briefcase },
-  { name: "My Profile", short: "Profile", href: "/my-profile", icon: User },
+  { name: "HouseIcon", short: "HouseIcon", href: "/dashboard", icon: HouseIcon },
+  { name: "Discover People", short: "People", href: "/discover", icon: UsersIcon },
+  { name: "Opportunities", short: "Jobs", href: "/opportunities", icon: BriefcaseIcon },
+  { name: "My Profile", short: "Profile", href: "/my-profile", icon: UserIcon },
 ];
 
 const ADMIN_NAV = [
-  { name: "Dashboard", short: "Home", href: "/admin/dashboard", icon: Home },
-  { name: "Members", short: "Members", href: "/admin/members", icon: Users },
-  { name: "Opportunities", short: "Jobs", href: "/admin/opportunities", icon: Briefcase },
-  { name: "Skills", short: "Skills", href: "/admin/skills", icon: ShieldCheck },
+  { name: "Dashboard", short: "HouseIcon", href: "/admin/dashboard", icon: HouseIcon },
+  { name: "Members", short: "Members", href: "/admin/members", icon: UsersIcon },
+  { name: "Opportunities", short: "Jobs", href: "/admin/opportunities", icon: BriefcaseIcon },
+  { name: "Skills", short: "Skills", href: "/admin/skills", icon: ShieldCheckIcon },
 ];
 
 export function BottomNav() {

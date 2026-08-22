@@ -7,7 +7,7 @@ import { Tag } from "@/components/ui/Tag";
 import { Button } from "@/components/ui/Button";
 import { LayerCard } from "@cloudflare/kumo/components/layer-card";
 import { useApp } from "@/lib/store/AppContext";
-import { Bookmark, BookmarkCheck, MapPin, ArrowRight } from "lucide-react";
+import { BookmarkSimpleIcon, MapPinIcon, ArrowRightIcon } from "@phosphor-icons/react";
 
 export function OpportunityCard({ opportunity }: { opportunity: Opportunity }) {
   const { toggleBookmark, isBookmarked } = useApp();
@@ -32,7 +32,7 @@ export function OpportunityCard({ opportunity }: { opportunity: Opportunity }) {
           <div className="flex flex-wrap items-center gap-2">
             <Tag tone={categoryTone[opportunity.category] ?? "neutral"}>{opportunity.category}</Tag>
             <Tag tone="neutral">
-              <MapPin className="size-3 shrink-0" strokeWidth={1.5} />
+              <MapPinIcon size={12} weight="regular" className="shrink-0" />
               {opportunity.location}
             </Tag>
             <span className="text-xs leading-[18px] text-kumo-inactive">{opportunity.type}</span>
@@ -48,7 +48,7 @@ export function OpportunityCard({ opportunity }: { opportunity: Opportunity }) {
                 : "text-kumo-inactive hover:bg-kumo-tint hover:text-kumo-subtle"
             }`}
           >
-            {bookmarked ? <BookmarkCheck className="size-4" strokeWidth={1.5} /> : <Bookmark className="size-4" strokeWidth={1.5} />}
+            {bookmarked ? <BookmarkSimpleIcon size={16} weight="regular" /> : <BookmarkSimpleIcon size={16} weight="regular" />}
           </button>
         </div>
 
@@ -78,7 +78,7 @@ export function OpportunityCard({ opportunity }: { opportunity: Opportunity }) {
         </div>
         <Link href={`/opportunities/${opportunity.id}`} className="shrink-0">
           <Button variant="secondary" size="sm">
-            View <ArrowRight className="size-3.5" strokeWidth={1.5} />
+            View <ArrowRightIcon size={14} weight="regular" />
           </Button>
         </Link>
       </div>

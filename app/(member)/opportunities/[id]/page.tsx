@@ -8,21 +8,7 @@ import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
 import { Modal } from "@/components/ui/Modal";
 import { Textarea } from "@/components/ui/Input";
-import {
-  ArrowLeft,
-  Calendar,
-  MapPin,
-  Clock,
-  Share2,
-  Bookmark,
-  BookmarkCheck,
-  Mail,
-  Send,
-  CheckCircle2,
-  Briefcase,
-  User,
-  ArrowRight,
-} from "lucide-react";
+import { ArrowLeftIcon, CalendarIcon, MapPinIcon, ClockIcon, ShareNetworkIcon, BookmarkSimpleIcon, EnvelopeSimpleIcon, PaperPlaneTiltIcon, CheckCircleIcon, BriefcaseIcon, UserIcon, ArrowRightIcon } from "@phosphor-icons/react";
 
 export default function OpportunityDetailPage() {
   const params = useParams();
@@ -99,22 +85,22 @@ export default function OpportunityDetailPage() {
           href="/opportunities"
           className="inline-flex items-center gap-1 text-xs font-semibold text-kumo-subtle hover:text-kumo-strong transition-colors"
         >
-          <ArrowLeft className="size-4" />
+          <ArrowLeftIcon size={16} weight="regular" />
           Back to Opportunities
         </Link>
 
         <div className="flex items-center gap-2">
           <Button variant="outline" size="sm" onClick={handleShare} className="" >
-            <Share2 className="size-3 mr-1" />
+            <ShareNetworkIcon size={12} weight="regular" className="mr-1" />
             Share
           </Button>
           <Button variant="outline" size="sm" onClick={() => toggleBookmark(opportunity.id)}
             className={`text-xs ${bookmarked ? "text-kumo-brand bg-primary-alpha-10" : ""}`}
           >
             {bookmarked ? (
-              <BookmarkCheck className="size-3 mr-1 fill-current" />
+              <BookmarkSimpleIcon size={12} weight="regular" className="mr-1 fill-current" />
             ) : (
-              <Bookmark className="size-3 mr-1" />
+              <BookmarkSimpleIcon size={16} weight="regular" className="mr-1" />
             )}
             {bookmarked ? "Saved" : "Save"}
           </Button>
@@ -128,7 +114,7 @@ export default function OpportunityDetailPage() {
             {opportunity.category}
           </Badge>
           <Badge variant="neutral">
-            <MapPin className="size-3 text-kumo-inactive" />
+            <MapPinIcon size={12} weight="regular" className="text-kumo-inactive" />
             {opportunity.location}
           </Badge>
           <Badge variant="outline">
@@ -171,7 +157,7 @@ export default function OpportunityDetailPage() {
             className="w-full sm:w-auto shadow-xs"
           >
             I&apos;m Interested
-            <ArrowRight className="size-4 ml-1" />
+            <ArrowRightIcon size={16} weight="regular" className="ml-1" />
           </Button>
         </div>
       </div>
@@ -266,12 +252,12 @@ export default function OpportunityDetailPage() {
         isOpen={isInterestModalOpen}
         onClose={() => setIsInterestModalOpen(false)}
         title="Express Your Interest"
-        description={`Send a direct note to ${opportunity.authorName} regarding this opportunity.`}
+        description={`PaperPlaneTiltIcon a direct note to ${opportunity.authorName} regarding this opportunity.`}
       >
         {isSent ? (
           <div className="py-8 flex flex-col items-center justify-center text-center gap-3">
             <div className="w-12 h-12 rounded-full bg-success-lighter text-success-base flex items-center justify-center">
-              <CheckCircle2 className="size-6" />
+              <CheckCircleIcon size={24} weight="regular" />
             </div>
             <div>
               <h4 className="font-bold text-kumo-strong text-base">
@@ -303,7 +289,7 @@ export default function OpportunityDetailPage() {
                 Cancel
               </Button>
               <Button type="submit" variant="primary" size="md" isLoading={isSending}>
-                <Send className="size-3 mr-1" />
+                <PaperPlaneTiltIcon size={12} weight="regular" className="mr-1" />
                 Submit Interest
               </Button>
             </div>
