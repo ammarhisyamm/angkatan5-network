@@ -522,13 +522,14 @@ button { cursor: pointer; }
 ::selection:window-inactive { background: #EEF2FF; }
 
 /* Type scale — semantic, single source */
-@utility text-page-title { font-size: 1.75rem; line-height: 2.25rem; letter-spacing: -0.025em; font-weight: 600; }
+@utility text-page-title { font-size: 1.75rem; line-height: 2.25rem; letter-spacing: -0.025em; font-weight: 700; }
 @utility text-section-title { font-size: 1.25rem; line-height: 1.75rem; letter-spacing: -0.015em; font-weight: 600; }
-@utility text-card-title { font-size: 1rem; line-height: 1.5rem; letter-spacing: -0.011em; font-weight: 600; }
+@utility text-card-title { font-size: 1rem; line-height: 1.5rem; letter-spacing: -0.01em; font-weight: 600; }
 @utility text-body { font-size: 0.875rem; line-height: 1.5rem; font-weight: 400; }
 @utility text-body-sm { font-size: 0.8125rem; line-height: 1.25rem; font-weight: 400; }
 @utility text-meta { font-size: 0.75rem; line-height: 1rem; font-weight: 500; }
 @utility text-label { font-size: 0.6875rem; line-height: 1rem; letter-spacing: 0.06em; font-weight: 600; text-transform: uppercase; }
+@utility text-kpi { font-size: 1.75rem; line-height: 2rem; letter-spacing: -0.025em; font-weight: 700; }
 
 /* Wrapping */
 h1, h2 { text-wrap: balance; }

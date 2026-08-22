@@ -4,7 +4,6 @@ import React from "react";
 import Link from "next/link";
 import { useApp } from "@/lib/store/AppContext";
 import { Button } from "@/components/ui/Button";
-import { Badge } from "@/components/ui/Badge";
 import {
   ResponsiveContainer,
   LineChart,
@@ -16,20 +15,17 @@ import {
   BarChart,
   Bar,
   Cell,
-  PieChart,
-  Pie,
 } from "recharts";
 import {
-  Users,
-  Briefcase,
-  Layers,
-  CheckCircle2,
-  AlertTriangle,
-  ArrowRight,
-  TrendingUp,
-  ShieldCheck,
-  BarChart3,
-} from "lucide-react";
+  ShieldCheckIcon,
+  UsersIcon,
+  BriefcaseIcon,
+  TrendUpIcon,
+  ChartBarIcon,
+  StackIcon,
+  UserIcon,
+  WarningCircleIcon,
+} from "@phosphor-icons/react";
 
 const GROWTH_DATA = [
   { month: "Sep 25", members: 45 },
@@ -42,250 +38,123 @@ const GROWTH_DATA = [
 ];
 
 const TOP_SKILLS_DATA = [
-  { name: "UI/UX Design", count: 32, fill: "#2563eb" },
-  { name: "BizDev", count: 27, fill: "#3b82f6" },
-  { name: "Marketing", count: 21, fill: "#60a5fa" },
-  { name: "Software Eng", count: 19, fill: "#93c5fd" },
-  { name: "Finance", count: 16, fill: "#bfdbfe" },
+  { name: "UI/UX Design", count: 32, fill: "#4169D8" },
+  { name: "BizDev", count: 27, fill: "#5A7FE8" },
+  { name: "Marketing", count: 21, fill: "#7B9BF0" },
+  { name: "Software Eng", count: 19, fill: "#9DB5F5" },
+  { name: "Finance", count: 16, fill: "#BFCFFA" },
 ];
 
 const STATUS_DATA = [
-  { name: "Available to Help", value: 122, color: "#10b981" },
-  { name: "Open to Collab", value: 24, color: "#0ea5e9" },
-  { name: "Open to Work", value: 18, color: "#f59e0b" },
-  { name: "Hiring", value: 18, color: "#8b5cf6" },
+  { name: "Available to Help", value: 122, color: "#2FA36B" },
+  { name: "Open to Collaborate", value: 24, color: "#4169D8" },
+  { name: "Open to Work", value: 18, color: "#E99A24" },
+  { name: "Hiring", value: 18, color: "#8B5CF6" },
 ];
 
 export default function AdminDashboardPage() {
-  const { users, opportunities, skills } = useApp();
-
-  const pendingOpportunities = opportunities.filter(
-    (o) => o.status === "Pending"
-  );
-  const unverifiedMembers = users.filter((u) => !u.verified);
+  const { users, opportunities } = useApp();
+  const pendingOpportunities = opportunities.filter((o) => o.status === "Pending");
 
   return (
-    <div className="space-y-8">
-      {/* Admin Header */}
+    <div className="space-y-6">
+      {/* Page Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <div className="flex items-center gap-1 mb-1 flex items-center gap-1.5 text-xs font-semibold uppercase leading-4 tracking-widest text-kumo-inactive">
-            <ShieldCheck className="size-4" />
-            <span>Angkatan 5 Secretariat Administration</span>
+          <div className="mb-1.5 flex items-center gap-1.5 text-label text-kumo-inactive">
+            <ShieldCheckIcon size={14} />
+            <span>Community Overview</span>
           </div>
-          <h1 className="text-page-title text-kumo-strong">
-            Community Overview
-          </h1>
-          <p className="mt-1 text-sm leading-5 text-kumo-subtle">
-            Manage members, review community opportunities, and track skill growth.
+          <h1 className="text-page-title text-kumo-strong">Dashboard</h1>
+          <p className="mt-1 text-body text-kumo-subtle">
+            Manage members, review opportunities, and track skill growth.
           </p>
         </div>
-
         <div className="flex items-center gap-2">
           <Link href="/admin/members">
-            <Button variant="outline" size="sm">
-              <Users className="size-3 mr-1" />
-              Manage Members
-            </Button>
+            <Button variant="secondary" size="sm" icon={<UsersIcon size={14} />}>Members</Button>
           </Link>
           <Link href="/admin/opportunities">
-            <Button variant="primary" size="sm">
-              <Briefcase className="size-3 mr-1" />
-              Moderate Board
-            </Button>
+            <Button variant="primary" size="sm" icon={<BriefcaseIcon size={14} />}>Moderate</Button>
           </Link>
         </div>
       </div>
 
-      {/* Metrics Row */}
+      {/* KPI Cards */}
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
-        <div className="p-4 rounded-xl bg-kumo-base border border-kumo-line">
-          <span className="text-xs leading-4 font-semibold text-kumo-subtle block">
-            Total Members
-          </span>
-          <span className="mt-1 block text-page-title text-kumo-strong">
-            182
-          </span>
-          <span className="text-xs leading-4 text-success-base font-medium">
-            +18 this month
-          </span>
-        </div>
-
-        <div className="p-4 rounded-xl bg-kumo-base border border-kumo-line">
-          <span className="text-xs leading-4 font-semibold text-kumo-subtle block">
-            Profile Completion
-          </span>
-          <span className="mt-1 block text-page-title text-kumo-strong">
-            81%
-          </span>
-          <span className="text-xs leading-4 text-kumo-brand font-medium">
-            Average across pool
-          </span>
-        </div>
-
-        <div className="p-4 rounded-xl bg-kumo-base border border-kumo-line">
-          <span className="text-xs leading-4 font-semibold text-warning-base block">
-            Open to Work
-          </span>
-          <span className="mt-1 block text-page-title text-kumo-strong">
-            18
-          </span>
-          <span className="text-xs leading-4 text-kumo-inactive">Available now</span>
-        </div>
-
-        <div className="p-4 rounded-xl bg-kumo-base border border-kumo-line">
-          <span className="text-xs leading-4 font-semibold text-verified-base block">
-            Collaboration
-          </span>
-          <span className="mt-1 block text-page-title text-kumo-strong">
-            24
-          </span>
-          <span className="text-xs leading-4 text-kumo-inactive">Ready to partner</span>
-        </div>
-
-        <div className="p-4 rounded-xl bg-kumo-base border border-kumo-line">
-          <span className="text-xs leading-4 font-semibold text-kumo-brand block">
-            Active Opps
-          </span>
-          <span className="mt-1 block text-page-title text-kumo-strong">
-            15
-          </span>
-          <span className="text-xs leading-4 text-success-base font-medium">
-            {pendingOpportunities.length} pending approval
-          </span>
-        </div>
-
-        <div className="p-4 rounded-xl bg-kumo-base border border-kumo-line">
-          <span className="text-xs leading-4 font-semibold text-feature-base block">
-            Skills Indexed
-          </span>
-          <span className="mt-1 block text-page-title text-kumo-strong">
-            32
-          </span>
-          <span className="text-xs leading-4 text-kumo-inactive">across 7 fields</span>
-        </div>
+        {[
+          { label: "Total Members", value: "182", accent: null, supporting: "+18 this month", supportColor: "text-success-base" },
+          { label: "Profile Completion", value: "81%", accent: null, supporting: "Average across pool", supportColor: "text-kumo-brand" },
+          { label: "Open to Work", value: "18", accent: "text-warning-base", supporting: "Available now", supportColor: "text-kumo-inactive" },
+          { label: "Collaboration", value: "24", accent: "text-verified-base", supporting: "Ready to partner", supportColor: "text-kumo-inactive" },
+          { label: "Active Opps", value: "15", accent: "text-kumo-brand", supporting: `${pendingOpportunities.length} pending`, supportColor: "text-kumo-inactive" },
+          { label: "Skills Indexed", value: "32", accent: "text-feature-base", supporting: "Across 7 fields", supportColor: "text-kumo-inactive" },
+        ].map((kpi) => (
+          <div key={kpi.label} className="p-4 rounded-xl bg-kumo-base border border-kumo-line">
+            <span className={`text-meta font-semibold block ${kpi.accent || "text-kumo-subtle"}`}>{kpi.label}</span>
+            <span className="mt-1 block text-kpi text-kumo-strong">{kpi.value}</span>
+            <span className={`text-xs leading-4 block mt-0.5 ${kpi.supportColor}`}>{kpi.supporting}</span>
+          </div>
+        ))}
       </div>
 
-      {/* Moderation Alert Banner if pending items */}
+      {/* Moderation Alert */}
       {pendingOpportunities.length > 0 && (
         <div className="bg-warning-lighter border border-warning-light rounded-xl p-4 flex items-center justify-between gap-4">
           <div className="flex items-center gap-3">
-            <AlertTriangle className="size-5 text-warning-base shrink-0" />
+            <WarningCircleIcon size={20} weight="fill" className="text-warning-base shrink-0" />
             <div>
-              <h4 className="text-xs font-semibold text-warning-dark">
-                {pendingOpportunities.length} Opportunity Pending Moderation
-              </h4>
-              <p className="text-xs leading-4 text-warning-dark mt-0">
-                Community posts require admin approval before becoming visible to all members.
-              </p>
+              <p className="text-sm font-semibold text-warning-dark">{pendingOpportunities.length} Opportunity Pending Moderation</p>
+              <p className="text-xs text-warning-dark mt-0.5">Community posts require admin approval before becoming visible.</p>
             </div>
           </div>
           <Link href="/admin/opportunities">
-            <Button variant="outline" size="sm" className="">
-              Review Queue
-            </Button>
+            <Button variant="secondary" size="sm">Review Queue</Button>
           </Link>
         </div>
       )}
 
-      {/* Charts Grid */}
+      {/* Charts */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* Line Chart: Member Growth */}
-        <div className="bg-kumo-base border border-kumo-line rounded-2xl p-6 flex flex-col justify-between">
+        <div className="bg-kumo-base border border-kumo-line rounded-2xl p-6">
           <div className="flex items-center justify-between mb-4">
             <div>
-              <h3 className="text-section-title text-kumo-strong">
-                Member Growth
-              </h3>
-              <p className="text-xs text-kumo-subtle">
-                Community cohort expansion over the last 7 months
-              </p>
+              <h3 className="text-card-title text-kumo-strong">Member Growth</h3>
+              <p className="text-xs text-kumo-subtle mt-0.5">Cohort expansion over 7 months</p>
             </div>
-            <span className="text-xs font-semibold text-kumo-brand bg-primary-alpha-10 px-2 py-1 rounded-lg">
-              +304% total
-            </span>
+            <span className="text-xs font-semibold text-kumo-brand bg-primary-alpha-10 px-2 py-1 rounded-lg">+304%</span>
           </div>
-
-          <div className="h-64 w-full pt-2">
+          <div className="h-56 w-full">
             <ResponsiveContainer width="100%" height="100%">
-              <LineChart data={GROWTH_DATA} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
-                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" />
-                <XAxis
-                  dataKey="month"
-                  tick={{ fontSize: 11, fill: "#64748b" }}
-                  tickLine={false}
-                  axisLine={{ stroke: "#e2e8f0" }}
-                />
-                <YAxis
-                  tick={{ fontSize: 11, fill: "#64748b" }}
-                  tickLine={false}
-                  axisLine={{ stroke: "#e2e8f0" }}
-                />
-                <Tooltip
-                  contentStyle={{
-                    backgroundColor: "#0f172a",
-                    border: "none",
-                    borderRadius: "12px",
-                    color: "#fff",
-                    fontSize: "12px",
-                  }}
-                />
-                <Line
-                  type="monotone"
-                  dataKey="members"
-                  stroke="#2563eb"
-                  strokeWidth={3}
-                  dot={{ r: 4, fill: "#2563eb", strokeWidth: 2, stroke: "#fff" }}
-                  activeDot={{ r: 6 }}
-                />
+              <LineChart data={GROWTH_DATA} margin={{ top: 5, right: 10, left: -20, bottom: 0 }}>
+                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#E5E7EB" />
+                <XAxis dataKey="month" tick={{ fontSize: 11, fill: "#98A2B3" }} tickLine={false} axisLine={false} />
+                <YAxis tick={{ fontSize: 11, fill: "#98A2B3" }} tickLine={false} axisLine={false} />
+                <Tooltip contentStyle={{ backgroundColor: "#1F2937", border: "none", borderRadius: "8px", color: "#fff", fontSize: "12px" }} />
+                <Line type="monotone" dataKey="members" stroke="#4169D8" strokeWidth={2.5} dot={{ r: 3, fill: "#4169D8", strokeWidth: 2, stroke: "#fff" }} activeDot={{ r: 5 }} />
               </LineChart>
             </ResponsiveContainer>
           </div>
         </div>
 
-        {/* Bar Chart: Top Skills */}
-        <div className="bg-kumo-base border border-kumo-line rounded-2xl p-6 flex flex-col justify-between">
+        <div className="bg-kumo-base border border-kumo-line rounded-2xl p-6">
           <div className="flex items-center justify-between mb-4">
             <div>
-              <h3 className="text-section-title text-kumo-strong">
-                Top Indexed Skills
-              </h3>
-              <p className="text-xs text-kumo-subtle">
-                Most common skills tagged across member profiles
-              </p>
+              <h3 className="text-card-title text-kumo-strong">Top Indexed Skills</h3>
+              <p className="text-xs text-kumo-subtle mt-0.5">Most common skills across profiles</p>
             </div>
             <Link href="/admin/skills">
-              <Button variant="ghost" size="sm" className="">
-                Manage Skills
-              </Button>
+              <Button variant="ghost" size="sm">Manage Skills</Button>
             </Link>
           </div>
-
-          <div className="h-64 w-full pt-2">
+          <div className="h-56 w-full">
             <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={TOP_SKILLS_DATA} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
-                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" />
-                <XAxis
-                  dataKey="name"
-                  tick={{ fontSize: 11, fill: "#64748b" }}
-                  tickLine={false}
-                  axisLine={{ stroke: "#e2e8f0" }}
-                />
-                <YAxis
-                  tick={{ fontSize: 11, fill: "#64748b" }}
-                  tickLine={false}
-                  axisLine={{ stroke: "#e2e8f0" }}
-                />
-                <Tooltip
-                  contentStyle={{
-                    backgroundColor: "#0f172a",
-                    border: "none",
-                    borderRadius: "12px",
-                    color: "#fff",
-                    fontSize: "12px",
-                  }}
-                />
-                <Bar dataKey="count" radius={[6, 6, 0, 0]}>
+              <BarChart data={TOP_SKILLS_DATA} margin={{ top: 5, right: 10, left: -20, bottom: 0 }}>
+                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#E5E7EB" />
+                <XAxis dataKey="name" tick={{ fontSize: 11, fill: "#98A2B3" }} tickLine={false} axisLine={false} />
+                <YAxis tick={{ fontSize: 11, fill: "#98A2B3" }} tickLine={false} axisLine={false} />
+                <Tooltip contentStyle={{ backgroundColor: "#1F2937", border: "none", borderRadius: "8px", color: "#fff", fontSize: "12px" }} />
+                <Bar dataKey="count" radius={[4, 4, 0, 0]}>
                   {TOP_SKILLS_DATA.map((entry, index) => (
                     <Cell key={`cell-${index}`} fill={entry.fill} />
                   ))}
@@ -296,30 +165,18 @@ export default function AdminDashboardPage() {
         </div>
       </div>
 
-      {/* Member Status Breakdown Row */}
+      {/* Status Breakdown */}
       <div className="bg-kumo-base border border-kumo-line rounded-2xl p-6">
-        <h3 className="text-section-title text-kumo-strong mb-4">
-          Member Status Breakdown
-        </h3>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <h3 className="text-card-title text-kumo-strong mb-4">Member Status Breakdown</h3>
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
           {STATUS_DATA.map((st) => (
-            <div
-              key={st.name}
-              className="p-4 rounded-xl bg-kumo-tint border border-kumo-line flex items-center justify-between"
-            >
+            <div key={st.name} className="p-4 rounded-xl bg-kumo-tint border border-kumo-line flex items-center gap-3">
+              <div className="size-2.5 rounded-full shrink-0" style={{ backgroundColor: st.color }} />
               <div>
-                <span className="text-xs font-semibold text-kumo-subtle block">
-                  {st.name}
-                </span>
-                <span className="mt-1 block text-page-title text-kumo-strong">
-                  {st.value} members
-                </span>
+                <span className="text-xs text-kumo-subtle block">{st.name}</span>
+                <span className="text-kpi text-kumo-strong">{st.value}</span>
+                <span className="text-xs text-kumo-inactive ml-1">members</span>
               </div>
-              <div
-                className="size-3 rounded-full shrink-0"
-                style={{ backgroundColor: st.color }}
-              />
             </div>
           ))}
         </div>
