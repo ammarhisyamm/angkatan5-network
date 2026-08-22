@@ -191,7 +191,7 @@ export default function CreateOpportunityPage() {
               <span className="text-xs text-text-soft-400">{type}</span>
             </div>
 
-            <h2 className="text-2xl font-bold text-text-strong-950">
+            <h2 className="text-base font-semibold leading-6 text-text-strong-950">
               {title || "Untitled Opportunity"}
             </h2>
 

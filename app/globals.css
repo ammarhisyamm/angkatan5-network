@@ -479,7 +479,8 @@
 @keyframes accordion-down { from { height: 0; opacity: 0; } to { height: var(--radix-accordion-content-height); opacity: 1; } }
 @keyframes accordion-up { from { height: var(--radix-accordion-content-height); opacity: 1; } to { height: 0; opacity: 0; } }
 
-html { color-scheme: light; }
+html { color-scheme: light; overflow-x: clip; }
+body { overscroll-behavior-y: none; }
 * { scrollbar-color: var(--color-slate-300) transparent; }
 
 body {

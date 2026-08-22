@@ -42,7 +42,7 @@ export default function OpportunityDetailPage() {
   if (!opportunity) {
     return (
       <div className="py-20 text-center flex flex-col items-center">
-        <h2 className="text-xl font-bold text-text-strong-950">
+        <h2 className="text-base font-semibold leading-6 text-text-strong-950">
           Opportunity Not Found
         </h2>
         <p className="text-xs text-text-sub-600 mt-1 mb-4">
@@ -142,7 +142,7 @@ export default function OpportunityDetailPage() {
           </span>
         </div>
 
-        <h1 className="text-xl sm:text-3xl font-medium tracking-tight text-text-strong-950 leading-tight">
+        <h1 className="text-2xl font-semibold leading-8 tracking-tight text-text-strong-950">
           {opportunity.title}
         </h1>
 

@@ -36,7 +36,7 @@ export default function RegisterPage() {
   return (
     <div className="min-h-screen bg-bg-weak-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md text-center px-4">
-        <div className="inline-flex items-center justify-center size-14 rounded-xl bg-primary-base text-static-white font-bold text-2xl shadow-lg shadow-blue-500/20 mb-4">
+        <div className="inline-flex items-center justify-center size-14 rounded-xl bg-primary-base text-static-white font-bold text-2xl  mb-4">
           A5
         </div>
         <h1 className="text-2xl font-medium tracking-tight text-text-strong-950">

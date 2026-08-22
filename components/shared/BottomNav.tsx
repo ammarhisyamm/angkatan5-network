@@ -6,36 +6,64 @@ import { usePathname } from "next/navigation";
 import { Home, Users, Briefcase, User, ShieldCheck } from "lucide-react";
 import { cn } from "@/lib/utils/cn";
 
+const MEMBER_NAV = [
+  { name: "Home", short: "Home", href: "/dashboard", icon: Home },
+  { name: "Discover People", short: "People", href: "/discover", icon: Users },
+  { name: "Opportunities", short: "Jobs", href: "/opportunities", icon: Briefcase },
+  { name: "My Profile", short: "Profile", href: "/my-profile", icon: User },
+];
+
+const ADMIN_NAV = [
+  { name: "Dashboard", short: "Home", href: "/admin/dashboard", icon: Home },
+  { name: "Members", short: "Members", href: "/admin/members", icon: Users },
+  { name: "Opportunities", short: "Jobs", href: "/admin/opportunities", icon: Briefcase },
+  { name: "Skills", short: "Skills", href: "/admin/skills", icon: ShieldCheck },
+];
+
 export function BottomNav() {
   const pathname = usePathname();
   const isAdmin = pathname.startsWith("/admin");
-
-  const memberNav = [
-    { name: "Home", href: "/dashboard", icon: Home },
-    { name: "People", href: "/discover", icon: Users },
-    { name: "Opportunities", href: "/opportunities", icon: Briefcase },
-    { name: "Profile", href: "/my-profile", icon: User },
-  ];
-
-  const adminNav = [
-    { name: "Dashboard", href: "/admin/dashboard", icon: Home },
-    { name: "Members", href: "/admin/members", icon: Users },
-    { name: "Opportunities", href: "/admin/opportunities", icon: Briefcase },
-    { name: "Skills", href: "/admin/skills", icon: ShieldCheck },
-  ];
-
-  const items = isAdmin ? adminNav : memberNav;
+  const items = isAdmin ? ADMIN_NAV : MEMBER_NAV;
 
   return (
-    <nav className="lg:hidden fixed bottom-0 left-0 right-0 z-40 border-t border-stroke-soft-200 bg-bg-white-0 pb-safe">
-      <div className="flex h-16 max-w-md mx-auto items-center justify-around px-2">
+    <nav
+      aria-label="Primary mobile"
+      className="fixed inset-x-0 bottom-0 z-40 border-t border-stroke-soft-200 bg-bg-white-0 lg:hidden"
+      style={{ paddingBottom: "env(safe-area-inset-bottom)" }}
+    >
+      <div className="mx-auto flex h-16 max-w-md items-stretch px-2">
         {items.map((item) => {
-          const isActive = pathname === item.href || (item.href !== "/dashboard" && item.href !== "/admin/dashboard" && pathname.startsWith(item.href));
+          const isActive =
+            pathname === item.href ||
+            (item.href !== "/dashboard" &&
+              item.href !== "/admin/dashboard" &&
+              pathname.startsWith(item.href));
           const Icon = item.icon;
           return (
-            <Link key={item.href} href={item.href} className={cn("flex flex-1 flex-col items-center justify-center gap-1 py-1 text-subheading-2xs font-medium transition-colors min-h-[44px]", isActive ? "text-primary-base" : "text-text-soft-400 hover:text-text-sub-600")}>
-              <Icon className={cn("size-5", isActive && "text-primary-base")} />
-              <span>{item.name}</span>
+            <Link
+              key={item.href}
+              href={item.href}
+              aria-current={isActive ? "page" : undefined}
+              className={cn(
+                // 48px touch target, full-height tap area
+                "relative flex min-h-12 flex-1 flex-col items-center justify-center gap-1 rounded-lg",
+                "transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-base",
+                isActive ? "text-primary-base" : "text-text-soft-400 active:text-text-sub-600",
+              )}
+            >
+              {/* Active pill behind icon */}
+              <span
+                aria-hidden="true"
+                className={cn(
+                  "flex h-7 w-12 items-center justify-center rounded-full transition-colors duration-200",
+                  isActive && "bg-primary-alpha-10",
+                )}
+              >
+                <Icon className="size-5" strokeWidth={isActive ? 2 : 1.5} />
+              </span>
+              <span className={cn("text-[11px] font-medium leading-none", isActive && "font-semibold")}>
+                {item.short}
+              </span>
             </Link>
           );
         })}

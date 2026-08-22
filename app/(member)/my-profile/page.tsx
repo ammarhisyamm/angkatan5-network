@@ -366,7 +366,7 @@ export default function MyProfilePage() {
             </div>
             <div>
               <span className="text-text-soft-400 block font-medium text-xs">Bio</span>
-              <p className="text-xs text-text-sub-600 mt-1 leading-relaxed">
+              <p className="mt-1 leading-relaxed text-[13px] leading-5 text-text-sub-600">
                 {currentUser.bio}
               </p>
             </div>
@@ -695,7 +695,7 @@ export default function MyProfilePage() {
           >
             <Eye className="size-5 text-primary-base shrink-0 mt-0" />
             <div>
-              <h4 className="text-xs font-bold text-text-strong-950">
+              <h4 className="text-xs font-semibold text-text-strong-950">
                 Community Members Only
               </h4>
               <p className="text-[11px] leading-4 text-text-sub-600 mt-0">
@@ -717,7 +717,7 @@ export default function MyProfilePage() {
           >
             <Lock className="size-5 text-warning-base shrink-0 mt-0" />
             <div>
-              <h4 className="text-xs font-bold text-text-strong-950">
+              <h4 className="text-xs font-semibold text-text-strong-950">
                 Hidden from Directory
               </h4>
               <p className="text-[11px] leading-4 text-text-sub-600 mt-0">

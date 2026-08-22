@@ -103,7 +103,7 @@ export default function AdminDashboardPage() {
           <span className="text-[11px] leading-4 font-semibold text-text-sub-600 block">
             Total Members
           </span>
-          <span className="text-2xl font-bold text-text-strong-950 mt-1 block">
+          <span className="mt-1 block text-2xl font-semibold leading-8 tracking-tight text-text-strong-950">
             182
           </span>
           <span className="text-[11px] leading-4 text-success-base font-medium">
@@ -115,7 +115,7 @@ export default function AdminDashboardPage() {
           <span className="text-[11px] leading-4 font-semibold text-text-sub-600 block">
             Profile Completion
           </span>
-          <span className="text-2xl font-bold text-text-strong-950 mt-1 block">
+          <span className="mt-1 block text-2xl font-semibold leading-8 tracking-tight text-text-strong-950">
             81%
           </span>
           <span className="text-[11px] leading-4 text-primary-base font-medium">
@@ -127,7 +127,7 @@ export default function AdminDashboardPage() {
           <span className="text-[11px] leading-4 font-semibold text-warning-base block">
             Open to Work
           </span>
-          <span className="text-2xl font-bold text-text-strong-950 mt-1 block">
+          <span className="mt-1 block text-2xl font-semibold leading-8 tracking-tight text-text-strong-950">
             18
           </span>
           <span className="text-[11px] leading-4 text-text-soft-400">Available now</span>
@@ -137,7 +137,7 @@ export default function AdminDashboardPage() {
           <span className="text-[11px] leading-4 font-semibold text-sky-600 block">
             Collaboration
           </span>
-          <span className="text-2xl font-bold text-text-strong-950 mt-1 block">
+          <span className="mt-1 block text-2xl font-semibold leading-8 tracking-tight text-text-strong-950">
             24
           </span>
           <span className="text-[11px] leading-4 text-text-soft-400">Ready to partner</span>
@@ -147,7 +147,7 @@ export default function AdminDashboardPage() {
           <span className="text-[11px] leading-4 font-semibold text-primary-base block">
             Active Opps
           </span>
-          <span className="text-2xl font-bold text-text-strong-950 mt-1 block">
+          <span className="mt-1 block text-2xl font-semibold leading-8 tracking-tight text-text-strong-950">
             15
           </span>
           <span className="text-[11px] leading-4 text-success-base font-medium">
@@ -159,7 +159,7 @@ export default function AdminDashboardPage() {
           <span className="text-[11px] leading-4 font-semibold text-feature-base block">
             Skills Indexed
           </span>
-          <span className="text-2xl font-bold text-text-strong-950 mt-1 block">
+          <span className="mt-1 block text-2xl font-semibold leading-8 tracking-tight text-text-strong-950">
             32
           </span>
           <span className="text-[11px] leading-4 text-text-soft-400">across 7 fields</span>
@@ -172,7 +172,7 @@ export default function AdminDashboardPage() {
           <div className="flex items-center gap-3">
             <AlertTriangle className="size-5 text-warning-base shrink-0" />
             <div>
-              <h4 className="text-xs font-bold text-amber-900">
+              <h4 className="text-xs font-semibold text-amber-900">
                 {pendingOpportunities.length} Opportunity Pending Moderation
               </h4>
               <p className="text-[11px] leading-4 text-amber-700 mt-0">
@@ -201,7 +201,7 @@ export default function AdminDashboardPage() {
                 Community cohort expansion over the last 7 months
               </p>
             </div>
-            <span className="text-xs font-bold text-primary-base bg-primary-alpha-10 px-2 py-1 rounded-lg">
+            <span className="text-xs font-semibold text-primary-base bg-primary-alpha-10 px-2 py-1 rounded-lg">
               +304% total
             </span>
           </div>
@@ -312,7 +312,7 @@ export default function AdminDashboardPage() {
                 <span className="text-xs font-semibold text-text-sub-600 block">
                   {st.name}
                 </span>
-                <span className="text-xl font-bold text-text-strong-950 mt-1 block">
+                <span className="mt-1 block text-2xl font-semibold leading-8 tracking-tight text-text-strong-950">
                   {st.value} members
                 </span>
               </div>

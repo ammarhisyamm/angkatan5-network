@@ -32,10 +32,10 @@ export default function MemberProfilePage() {
   if (!member) {
     return (
       <div className="py-20 text-center flex flex-col items-center">
-        <h2 className="text-xl font-bold text-text-strong-950">
+        <h2 className="text-base font-semibold leading-6 text-text-strong-950">
           Member Not Found
         </h2>
-        <p className="text-xs text-text-sub-600 mt-1 mb-4">
+        <p className="mt-1 mb-4 text-[13px] leading-5 text-text-sub-600">
           The requested member profile could not be located.
         </p>
         <Link href="/discover">
@@ -103,7 +103,7 @@ export default function MemberProfilePage() {
 
             <div>
               <div className="flex items-center gap-2 flex-wrap">
-                <h1 className="text-title-h5 font-medium text-text-strong-950">
+                <h1 className="text-2xl font-semibold leading-8 tracking-tight text-text-strong-950">
                   {member.name}
                 </h1>
                 <StatusBadge status={member.status} />
@@ -170,7 +170,7 @@ export default function MemberProfilePage() {
                 {member.experiences.map((exp) => (
                   <div key={exp.id} className="relative pl-8">
                     <div className="absolute left-1 top-1 size-3 rounded-full bg-primary-base ring-4 ring-white" />
-                    <h3 className="text-sm font-bold text-text-strong-950">
+                    <h3 className="text-sm font-semibold text-text-strong-950">
                       {exp.title}
                     </h3>
                     <p className="text-xs font-semibold text-primary-base">
@@ -179,7 +179,7 @@ export default function MemberProfilePage() {
                     <span className="text-[11px] leading-4 text-text-soft-400 font-medium block mt-0">
                       {exp.period}
                     </span>
-                    <p className="text-xs text-text-sub-600 mt-2 leading-relaxed">
+                    <p className="mt-2 leading-relaxed text-[13px] leading-5 text-text-sub-600">
                       {exp.description}
                     </p>
                   </div>
@@ -192,7 +192,7 @@ export default function MemberProfilePage() {
                   <h4 className="text-sm font-semibold text-text-strong-950">
                     {member.role} at {member.company}
                   </h4>
-                  <p className="text-xs text-text-sub-600 mt-0">
+                  <p className="mt-0 text-[13px] leading-5 text-text-sub-600">
                     {member.experience} of dedicated industry experience.
                   </p>
                 </div>
@@ -205,7 +205,7 @@ export default function MemberProfilePage() {
             <div className="bg-bg-white-0 border border-stroke-soft-200 rounded-2xl p-5">
               <div className="flex items-center gap-2 mb-3">
                 <Sparkles className="size-4 text-success-base" />
-                <h3 className="text-sm font-bold text-text-strong-950">
+                <h3 className="text-sm font-semibold text-text-strong-950">
                   What I Can Help With
                 </h3>
               </div>
@@ -227,7 +227,7 @@ export default function MemberProfilePage() {
             <div className="bg-bg-white-0 border border-stroke-soft-200 rounded-2xl p-5">
               <div className="flex items-center gap-2 mb-3">
                 <Search className="size-4 text-primary-base" />
-                <h3 className="text-sm font-bold text-text-strong-950">
+                <h3 className="text-sm font-semibold text-text-strong-950">
                   What I&apos;m Looking For
                 </h3>
               </div>
