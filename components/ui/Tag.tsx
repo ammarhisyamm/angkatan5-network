@@ -27,7 +27,7 @@ export function Tag({ className, tone = "neutral", children, ...props }: TagProp
   return (
     <span
       className={cn(
-        "inline-flex h-6 shrink-0 select-none items-center whitespace-nowrap rounded-md px-2.5",
+        "inline-flex h-6 shrink-0 select-none items-center whitespace-nowrap rounded-md border border-transparent px-2.5",
         "text-[11px] font-medium leading-none tracking-[0.01em]",
         toneClasses[tone],
         className,
@@ -66,8 +66,8 @@ export function StatusBadge({ tone, label, className, ...props }: StatusBadgePro
     <span
       role="status"
       className={cn(
-        "inline-flex h-6 shrink-0 select-none items-center gap-1.5 whitespace-nowrap rounded-full px-2.5",
-        "text-[11px] font-semibold uppercase leading-none tracking-[0.02em]",
+        "inline-flex h-6 shrink-0 select-none items-center gap-1.5 whitespace-nowrap rounded-md px-2.5",
+        "text-[11px] font-medium leading-none tracking-[0.01em]",
         statusToneClasses[tone],
         className,
       )}

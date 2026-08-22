@@ -24,9 +24,9 @@ export function OpportunityCard({ opportunity }: { opportunity: Opportunity }) {
   };
 
   return (
-    <article className="group flex h-full flex-col rounded-xl border border-stroke-soft-200 bg-bg-white-0 transition-colors duration-200 hover:border-stroke-sub-300">
+    <article className="group flex h-full flex-col rounded-2xl border border-stroke-soft-200 bg-bg-white-0 shadow-regular-xs transition-all duration-200 hover:-translate-y-0.5 hover:border-stroke-sub-300 hover:shadow-regular-sm">
       {/* Content */}
-      <div className="flex flex-1 flex-col p-5">
+      <div className="flex flex-1 flex-col p-6">
         <div className="mb-3 flex items-start justify-between gap-2">
           <div className="flex flex-wrap items-center gap-2">
             <Tag tone={categoryTone[opportunity.category] ?? "neutral"}>{opportunity.category}</Tag>
@@ -67,7 +67,7 @@ export function OpportunityCard({ opportunity }: { opportunity: Opportunity }) {
       </div>
 
       {/* Footer anchored to bottom */}
-      <div className="mt-auto flex items-center justify-between gap-2 border-t border-stroke-soft-200 px-5 py-3">
+      <div className="mt-auto flex items-center justify-between gap-2 border-t border-stroke-soft-200 px-6 py-3.5">
         <div className="flex min-w-0 items-center gap-2.5">
           <img src={opportunity.authorAvatar} alt="" className="size-8 shrink-0 rounded-full object-cover bg-bg-weak-50 ring-1 ring-stroke-soft-200" />
           <div className="min-w-0">

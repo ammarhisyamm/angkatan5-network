@@ -109,10 +109,10 @@ export default function AdminOpportunitiesPage() {
             <button
               key={st}
               onClick={() => setSelectedStatus(st)}
-              className={`px-3 py-1 rounded-xl text-xs font-semibold whitespace-nowrap transition-all ${
-                selectedStatus === st
-                  ? "bg-bg-strong-950 text-text-white-0"
-                  : "bg-bg-white-0 text-text-sub-600 border border-stroke-soft-200 hover:bg-bg-weak-50"
+            className={`h-9 px-4 rounded-lg text-xs font-medium whitespace-nowrap transition-all ${
+              selectedStatus === st
+                  ? "bg-primary-alpha-10 text-primary-base"
+                  : "text-text-sub-600 hover:bg-bg-weak-50"
               }`}
             >
               {st}
@@ -127,7 +127,7 @@ export default function AdminOpportunitiesPage() {
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search opportunities..."
-            className="w-full h-9 pl-9 pr-8 bg-bg-white-0 border border-stroke-soft-200 rounded-xl text-xs text-text-strong-950 placeholder:text-text-soft-400 focus:outline-none"
+            className="w-full h-10 pl-9 pr-8 bg-bg-white-0 border border-stroke-soft-200 rounded-lg text-xs text-text-strong-950 placeholder:text-text-soft-400 shadow-regular-xs focus:outline-none focus:ring-2 focus:ring-primary-alpha-16"
           />
           {searchQuery && (
             <button
@@ -141,7 +141,7 @@ export default function AdminOpportunitiesPage() {
       </div>
 
       {/* Moderation Items Table */}
-      <div className="bg-bg-white-0 border border-stroke-soft-200 rounded-2xl overflow-hidden">
+      <div className="overflow-hidden rounded-2xl border border-stroke-soft-200 bg-bg-white-0 shadow-regular-xs">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
             <thead className="bg-bg-weak-50 border-b border-stroke-soft-200 text-[11px] font-semibold uppercase leading-4 tracking-wide text-text-sub-600">

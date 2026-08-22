@@ -112,14 +112,14 @@ export default function AdminSkillsPage() {
       </div>
 
       {/* Filter Bar */}
-      <div className="bg-bg-white-0 border border-stroke-soft-200 rounded-xl p-4 flex flex-col sm:flex-row items-center justify-between gap-3">
+      <div className="rounded-2xl border border-stroke-soft-200 bg-bg-white-0 p-4 shadow-regular-xs flex flex-col sm:flex-row items-center justify-between gap-3">
         <div className="flex items-center gap-2 overflow-x-auto w-full sm:w-auto pb-1">
           <button
             onClick={() => setSelectedCategory("All")}
-            className={`px-3 py-1 rounded-xl text-xs font-semibold transition-all ${
+            className={`h-9 px-4 rounded-lg text-xs font-medium transition-all ${
               selectedCategory === "All"
-                ? "bg-bg-strong-950 text-text-white-0"
-                : "bg-bg-weak-50 text-text-sub-600"
+                ? "bg-primary-alpha-10 text-primary-base"
+                : "text-text-sub-600 hover:bg-bg-weak-50"
             }`}
           >
             All Categories
@@ -128,10 +128,10 @@ export default function AdminSkillsPage() {
             <button
               key={cat}
               onClick={() => setSelectedCategory(cat)}
-              className={`px-3 py-1 rounded-xl text-xs font-semibold transition-all whitespace-nowrap ${
-                selectedCategory === cat
-                  ? "bg-bg-strong-950 text-text-white-0"
-                  : "bg-bg-weak-50 text-text-sub-600"
+            className={`h-9 px-4 rounded-lg text-xs font-medium transition-all whitespace-nowrap ${
+              selectedCategory === cat
+                  ? "bg-primary-alpha-10 text-primary-base"
+                  : "text-text-sub-600 hover:bg-bg-weak-50"
               }`}
             >
               {cat}
@@ -146,7 +146,7 @@ export default function AdminSkillsPage() {
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search skills..."
-            className="w-full h-9 pl-9 pr-8 bg-bg-weak-50 border border-stroke-soft-200 rounded-xl text-xs text-text-strong-950 focus:outline-none"
+            className="w-full h-10 pl-9 pr-8 bg-bg-white-0 border border-stroke-soft-200 rounded-lg text-xs text-text-strong-950 shadow-regular-xs focus:outline-none focus:ring-2 focus:ring-primary-alpha-16"
           />
           {searchQuery && (
             <button
@@ -164,7 +164,7 @@ export default function AdminSkillsPage() {
         {filteredSkills.map((skill) => (
           <div
             key={skill.id}
-            className="bg-bg-white-0 border border-stroke-soft-200 rounded-xl p-4 flex items-center justify-between gap-3 hover:border-stroke-sub-300 transition-colors"
+            className="rounded-2xl border border-stroke-soft-200 bg-bg-white-0 p-5 shadow-regular-xs flex items-center justify-between gap-3 transition-all hover:-translate-y-0.5 hover:border-stroke-sub-300 hover:shadow-regular-sm"
           >
             <div className="min-w-0">
               <div className="flex items-center gap-2">

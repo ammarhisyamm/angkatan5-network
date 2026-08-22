@@ -98,7 +98,7 @@ export default function AdminMembersPage() {
       </div>
 
       {/* Search & Filter Controls */}
-      <div className="bg-bg-white-0 border border-stroke-soft-200 rounded-xl border border-stroke-soft-200 bg-bg-white-0 p-4 flex flex-col sm:flex-row items-center gap-3">
+      <div className="rounded-2xl border border-stroke-soft-200 bg-bg-white-0 p-4 shadow-regular-xs flex flex-col sm:flex-row items-center gap-3">
         <div className="relative flex-1 w-full">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-text-soft-400 size-4" />
           <input
@@ -155,7 +155,7 @@ export default function AdminMembersPage() {
       </div>
 
       {/* Members Data Table */}
-      <div className="bg-bg-white-0 border border-stroke-soft-200 overflow-hidden rounded-2xl border border-stroke-soft-200 bg-bg-white-0">
+      <div className="overflow-hidden rounded-2xl border border-stroke-soft-200 bg-bg-white-0 shadow-regular-xs">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
             <thead className="bg-bg-weak-50 border-b border-stroke-soft-200 text-[11px] font-semibold uppercase leading-4 tracking-wide text-text-sub-600">

@@ -19,12 +19,12 @@ import {
 import { BarChart3, TrendingUp, Users, Award, Briefcase } from "lucide-react";
 
 const INDUSTRY_DATA = [
-  { name: "Technology", count: 48, fill: "#2563eb" },
-  { name: "Design", count: 36, fill: "#3b82f6" },
-  { name: "Business", count: 32, fill: "#60a5fa" },
-  { name: "Marketing", count: 28, fill: "#93c5fd" },
-  { name: "Finance", count: 22, fill: "#38bdf8" },
-  { name: "Creative & Media", count: 16, fill: "#a855f7" },
+  { name: "Technology", count: 48, fill: "#335cff" },
+  { name: "Design", count: 36, fill: "#6281ff" },
+  { name: "Business", count: 32, fill: "#91a7ff" },
+  { name: "Marketing", count: 28, fill: "#b9c8ff" },
+  { name: "Finance", count: 22, fill: "#d9e1ff" },
+  { name: "Creative & Media", count: 16, fill: "#eaecf0" },
 ];
 
 const EXPERIENCE_DATA = [
@@ -55,27 +55,27 @@ export default function AdminAnalyticsPage() {
 
       {/* Top Level Numbers */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <div className="p-5 rounded-2xl bg-bg-white-0 border border-stroke-soft-200">
+        <div className="p-6 rounded-2xl bg-bg-white-0 border border-stroke-soft-200 shadow-regular-xs">
           <span className="text-xs font-semibold text-text-sub-600 block">Total Active Alumni</span>
           <span className="text-3xl font-bold text-text-strong-950 mt-1 block">182</span>
           <span className="text-[11px] leading-4 text-success-base font-medium">94% response rate</span>
         </div>
 
-        <div className="p-5 rounded-2xl bg-bg-white-0 border border-stroke-soft-200">
+        <div className="p-6 rounded-2xl bg-bg-white-0 border border-stroke-soft-200 shadow-regular-xs">
           <span className="text-xs font-semibold text-text-sub-600 block">Connections Initiated</span>
           <span className="text-3xl font-bold text-primary-base mt-1 block">348</span>
           <span className="text-[11px] leading-4 text-text-soft-400">across cohort members</span>
         </div>
 
-        <div className="p-5 rounded-2xl bg-bg-white-0 border border-stroke-soft-200">
+        <div className="p-6 rounded-2xl bg-bg-white-0 border border-stroke-soft-200 shadow-regular-xs">
           <span className="text-xs font-semibold text-text-sub-600 block">Hiring Placements</span>
           <span className="text-3xl font-bold text-success-base mt-1 block">28</span>
           <span className="text-[11px] leading-4 text-success-base font-medium">facilitated in 2026</span>
         </div>
 
-        <div className="p-5 rounded-2xl bg-bg-white-0 border border-stroke-soft-200">
+        <div className="p-6 rounded-2xl bg-bg-white-0 border border-stroke-soft-200 shadow-regular-xs">
           <span className="text-xs font-semibold text-text-sub-600 block">Avg Profile Freshness</span>
-          <span className="text-3xl font-bold text-feature-base mt-1 block">12 days</span>
+          <span className="text-3xl font-bold text-text-strong-950 mt-1 block">12 days</span>
           <span className="text-[11px] leading-4 text-text-soft-400">regular updates</span>
         </div>
       </div>
@@ -83,7 +83,7 @@ export default function AdminAnalyticsPage() {
       {/* Analytics Charts Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Industry Breakdown */}
-        <div className="bg-bg-white-0 border border-stroke-soft-200 rounded-2xl p-6">
+        <div className="bg-bg-white-0 border border-stroke-soft-200 rounded-2xl p-6 shadow-regular-xs">
           <h3 className="text-base font-semibold leading-6 text-text-strong-950 mb-1">
             Industry Distribution
           </h3>
@@ -115,7 +115,7 @@ export default function AdminAnalyticsPage() {
         </div>
 
         {/* Experience Levels */}
-        <div className="bg-bg-white-0 border border-stroke-soft-200 rounded-2xl p-6">
+        <div className="bg-bg-white-0 border border-stroke-soft-200 rounded-2xl p-6 shadow-regular-xs">
           <h3 className="text-base font-semibold leading-6 text-text-strong-950 mb-1">
             Experience & Seniority Tiers
           </h3>

@@ -39,9 +39,9 @@ export default function MemberDashboardPage() {
   ];
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-10">
       {/* Welcome header + profile completion */}
-      <section className="rounded-xl border border-stroke-soft-200 bg-bg-white-0 p-6">
+      <section className="flex flex-col gap-6 border-b border-stroke-soft-200 pb-8 lg:flex-row lg:items-center lg:justify-between">
         <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
           <div>
             <h1 className="text-[28px] font-semibold leading-9 tracking-tight text-text-strong-950">
@@ -50,7 +50,7 @@ export default function MemberDashboardPage() {
             <p className="mt-1 text-sm leading-5 text-text-sub-600">Discover people and opportunities within your community.</p>
           </div>
 
-          <div className="w-full shrink-0 rounded-lg border border-stroke-soft-200 bg-bg-weak-25 p-4 md:w-[320px]">
+          <div className="w-full shrink-0 rounded-2xl border border-stroke-soft-200 bg-bg-white-0 p-5 shadow-regular-xs md:w-[320px]">
             <div className="mb-2 flex items-center justify-between">
               <span className="text-xs font-medium leading-[18px] text-text-sub-600">Profile completion</span>
               <span className="text-xs font-semibold leading-[18px] text-primary-base">{completion}%</span>
@@ -84,7 +84,7 @@ export default function MemberDashboardPage() {
               <Link
                 key={a.href}
                 href={a.href}
-                className="group rounded-xl border border-stroke-soft-200 bg-bg-white-0 p-6 transition-colors hover:border-primary-alpha-24 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-base"
+                className="group rounded-2xl border border-stroke-soft-200 bg-bg-white-0 p-6 shadow-regular-xs transition-all hover:-translate-y-0.5 hover:border-primary-alpha-24 hover:shadow-regular-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-base"
               >
                 <span className="mb-3 flex size-10 items-center justify-center rounded-lg bg-primary-alpha-10 text-primary-base">
                   <Icon className="size-5" strokeWidth={1.5} />
@@ -98,7 +98,7 @@ export default function MemberDashboardPage() {
       </section>
 
       {/* Community Snapshot — unified panel with vertical dividers */}
-      <section aria-labelledby="snapshot-heading" className="rounded-xl border border-stroke-soft-200 bg-bg-white-0 p-6">
+      <section aria-labelledby="snapshot-heading" className="rounded-2xl border border-stroke-soft-200 bg-bg-white-0 p-6 shadow-regular-xs">
         <div className="mb-4 flex items-center justify-between">
           <h2 id="snapshot-heading" className="text-xl font-semibold leading-6 text-text-strong-950">Community Snapshot</h2>
           <span className="text-xs leading-[18px] text-text-soft-400">Updated live</span>
