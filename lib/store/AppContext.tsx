@@ -59,6 +59,7 @@ interface AppContextType {
   ) => void;
   removeToast: (id: string) => void;
   switchDemoRole: (role: "member" | "admin") => void;
+  switchUser: (userId: string) => void;
 }
 
 const AppContext = createContext<AppContextType | undefined>(undefined);
@@ -214,6 +215,22 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
       );
       addToast(
         `Switched to ${role === "admin" ? "Admin" : "Member"} demo account`,
+        `Logged in as ${found.name}`,
+        "info"
+      );
+    }
+  };
+
+  const switchUser = (userId: string) => {
+    const found = users.find((u) => u.id === userId);
+    if (found) {
+      setCurrentUser(found);
+      localStorage.setItem(
+        STORAGE_KEYS.CURRENT_USER,
+        JSON.stringify(found)
+      );
+      addToast(
+        "Switched account",
         `Logged in as ${found.name}`,
         "info"
       );
@@ -583,6 +600,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
         addToast,
         removeToast,
         switchDemoRole,
+        switchUser,
       }}
     >
       {children}
