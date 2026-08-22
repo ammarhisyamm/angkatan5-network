@@ -23,7 +23,7 @@ export default function MemberLayout({
           <Header />
 
           {/* Page Content */}
-          <main className="flex-1 max-w-[1240px] w-full mx-auto p-5 sm:p-6 lg:p-10">
+          <main className="flex-1 max-w-[1240px] w-full mx-auto p-4 sm:p-6 lg:p-8">
             {children}
           </main>
         </div>

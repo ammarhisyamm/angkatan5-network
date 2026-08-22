@@ -41,16 +41,16 @@ export default function MemberDashboardPage() {
   ];
 
   return (
-    <div className="space-y-6 sm:space-y-8 lg:space-y-10">
-      <LayerCard className="p-6 sm:p-8">
-        <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
+    <div className="space-y-6 lg:space-y-8">
+      <LayerCard className="w-full p-5 sm:p-6 lg:p-8">
+        <div className="flex flex-col gap-4 sm:gap-6 lg:flex-row lg:items-center lg:justify-between">
           <div className="min-w-0 flex-1">
             <h1 className="text-page-title text-kumo-strong">
               {getGreeting()}, {firstName}
             </h1>
             <p className="mt-2 text-body text-kumo-subtle">Discover people and opportunities within your community.</p>
           </div>
-          <div className="w-full shrink-0 rounded-xl border border-kumo-line bg-kumo-tint p-5 sm:p-6 lg:w-[340px]">
+          <div className="w-full rounded-xl border border-kumo-line bg-kumo-tint p-4 sm:p-5 lg:w-[340px] lg:shrink-0">
             <div className="mb-2 flex items-center justify-between">
               <span className="text-meta text-kumo-subtle">Profile completion</span>
               <span className="text-meta font-semibold text-kumo-brand" data-numeric>{completion}%</span>
@@ -68,14 +68,14 @@ export default function MemberDashboardPage() {
       </LayerCard>
 
       <section aria-labelledby="quick-actions-heading">
-        <h2 id="quick-actions-heading" className="mb-4 text-section-title text-kumo-strong">Quick Actions</h2>
+        <h2 id="quick-actions-heading" className="mb-3 text-section-title text-kumo-strong">Quick Actions</h2>
         <Grid variant="1-2-4up" gap="base">
           {quickActions.map((a) => {
             const Icon = a.icon;
             return (
               <Link key={a.href} href={a.href} className="group">
-                <LayerCard className="p-6 sm:p-7 h-full hover:border-kumo-brand/30 transition-colors hover:shadow-sm">
-                  <span className="mb-4 flex size-11 sm:size-12 items-center justify-center rounded-xl bg-kumo-brand/10 text-kumo-brand">
+                <LayerCard className="h-full w-full p-5 hover:border-kumo-brand/30 transition-colors hover:shadow-sm">
+                  <span className="mb-4 flex size-10 items-center justify-center rounded-lg bg-kumo-brand/10 text-kumo-brand">
                     <Icon className="size-5 sm:size-6" strokeWidth={1.5} />
                   </span>
                   <h3 className="text-card-title text-kumo-strong group-hover:text-kumo-brand">{a.title}</h3>
@@ -87,16 +87,16 @@ export default function MemberDashboardPage() {
         </Grid>
       </section>
 
-      <LayerCard className="p-6">
+      <LayerCard className="w-full p-5 sm:p-6">
         <div className="mb-4 flex items-center justify-between">
           <h2 id="snapshot-heading" className="text-section-title text-kumo-strong">Community Snapshot</h2>
           <span className="text-meta text-kumo-inactive">Updated live</span>
         </div>
-        <div className="grid grid-cols-2 gap-x-6 gap-y-6 sm:grid-cols-3 lg:grid-cols-5">
+        <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5 lg:gap-x-6">
           {metrics.map((m) => (
             <div key={m.label} className="flex flex-col min-w-0">
               <dt className="text-meta text-kumo-subtle">{m.label}</dt>
-              <dd className="mt-1 text-[28px] font-semibold leading-8 tracking-tight text-kumo-strong" data-numeric style={{ fontVariantNumeric: 'tabular-nums' }}>{m.value}</dd>
+              <dd className="mt-1 text-[28px] font-semibold leading-8 tracking-tight text-kumo-strong" data-numeric>{m.value}</dd>
               <span className={`mt-0.5 text-meta ${m.metaTone}`}>{m.meta}</span>
             </div>
           ))}

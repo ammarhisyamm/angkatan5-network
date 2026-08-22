@@ -25,9 +25,9 @@ export function OpportunityCard({ opportunity }: { opportunity: Opportunity }) {
   };
 
   return (
-    <LayerCard className="group flex h-full flex-col p-0 overflow-hidden hover:border-kumo-line transition-colors duration-200 hover:shadow-sm">
+    <LayerCard className="group flex h-full w-full flex-col p-0 overflow-hidden transition-colors duration-200 hover:shadow-sm">
       {/* Content */}
-      <div className="flex flex-1 flex-col p-6 sm:p-7">
+      <div className="flex flex-1 flex-col p-5 sm:p-6">
         <div className="mb-3 flex items-start justify-between gap-2">
           <div className="flex flex-wrap items-center gap-2">
             <Tag tone={categoryTone[opportunity.category] ?? "neutral"}>{opportunity.category}</Tag>
@@ -68,7 +68,7 @@ export function OpportunityCard({ opportunity }: { opportunity: Opportunity }) {
       </div>
 
       {/* Footer anchored to bottom */}
-      <div className="mt-auto flex items-center justify-between gap-2 border-t border-kumo-line px-6 py-4">
+      <div className="mt-auto flex items-center justify-between gap-2 border-t border-kumo-line px-5 py-4 sm:px-6 sm:px-6">
         <div className="flex min-w-0 items-center gap-2.5">
           <img src={opportunity.authorAvatar} alt="" className="size-8 shrink-0 rounded-full object-cover bg-kumo-tint ring-1 ring-kumo-line" />
           <div className="min-w-0">
