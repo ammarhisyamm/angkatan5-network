@@ -12,8 +12,13 @@ export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> 
 }
 
 export const Input = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ label, error, helperText, leftIcon, rightIcon, id, className, ...props }, ref) => {
+  ({ label, error, helperText, leftIcon, rightIcon, id, className, autoComplete, name, type, inputMode, spellCheck, ...props }, ref) => {
     const hasError = !!error;
+    const inputProps: any = { autoComplete, name, type, inputMode, spellCheck, ...props };
+    // Ensure non-auth fields don't trigger password manager
+    if (!autoComplete && !name?.includes("password") && !name?.includes("email")) {
+      inputProps.autoComplete = "off";
+    }
     if (leftIcon || rightIcon) {
       return (
         <div className="w-full flex flex-col gap-2">
@@ -26,7 +31,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
             size="lg"
             id={id}
             className={className}
-            {...(props as any)}
+            {...inputProps}
           />
           {(leftIcon || rightIcon) && <span className="sr-only">icon adornment</span>}
         </div>
@@ -42,7 +47,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
         size="lg"
         id={id}
         className={className}
-        {...(props as any)}
+        {...inputProps}
       />
     );
   },

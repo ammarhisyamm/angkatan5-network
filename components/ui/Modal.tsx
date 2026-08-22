@@ -27,7 +27,6 @@ const sizeMap: Record<string, "sm" | "base" | "lg" | "xl"> = {
 
 export function Modal({ isOpen, onClose, title, description, children, footer, maxWidth = "md", icon: Icon }: ModalProps) {
   const size = sizeMap[maxWidth] ?? "base";
-  if (!isOpen) return null;
   return (
     <Dialog.Root open={isOpen} onOpenChange={(open: boolean) => !open && onClose()}>
       <Dialog size={size} className="p-0 overflow-hidden">

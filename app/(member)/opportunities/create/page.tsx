@@ -336,7 +336,7 @@ export default function CreateOpportunityPage() {
                     key={sk}
                     type="button"
                     onClick={() => handleToggleSkill(sk)}
-                    className={`px-3 py-1 rounded-xl text-xs font-medium border transition-all ${
+                    className={`px-3 py-1 rounded-xl text-xs font-medium border transition-colors ${
                       isSelected
                         ? "bg-kumo-brand text-static-white border-kumo-brand"
                         : "bg-kumo-tint text-kumo-subtle border-kumo-line"

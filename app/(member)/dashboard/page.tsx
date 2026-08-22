@@ -56,7 +56,7 @@ export default function MemberDashboardPage() {
               <span className="text-meta font-semibold text-kumo-brand" data-numeric>{completion}%</span>
             </div>
             <div className="h-1.5 w-full overflow-hidden rounded-full bg-kumo-line" role="progressbar" aria-valuenow={completion} aria-valuemin={0} aria-valuemax={100} aria-label="Profile completion">
-              <div className="h-full rounded-full bg-kumo-brand transition-all duration-500" style={{ width: `${completion}%` }} />
+              <div className="h-full rounded-full bg-kumo-brand transition-colors duration-500" style={{ width: `${completion}%` }} />
             </div>
             <Link href="/my-profile" className="mt-3 block">
               <Button variant="secondary" size="sm" className="w-full">
@@ -74,7 +74,7 @@ export default function MemberDashboardPage() {
             const Icon = a.icon;
             return (
               <Link key={a.href} href={a.href} className="group">
-                <LayerCard className="p-6 sm:p-7 h-full hover:border-kumo-brand/30 transition-all hover:shadow-sm">
+                <LayerCard className="p-6 sm:p-7 h-full hover:border-kumo-brand/30 transition-colors hover:shadow-sm">
                   <span className="mb-4 flex size-11 sm:size-12 items-center justify-center rounded-xl bg-kumo-brand/10 text-kumo-brand">
                     <Icon className="size-5 sm:size-6" strokeWidth={1.5} />
                   </span>

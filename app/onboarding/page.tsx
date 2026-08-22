@@ -238,7 +238,7 @@ export default function OnboardingPage() {
                       src={url}
                       alt="avatar"
                       onClick={() => setAvatar(url)}
-                      className={`size-12 rounded-full bg-kumo-tint object-cover ring-1 transition-all cursor-pointer ${
+                      className={`size-12 rounded-full bg-kumo-tint object-cover ring-1 transition-colors cursor-pointer ${
                         avatar === url
                           ? "ring-2 ring-kumo-brand"
                           : "ring-kumo-line hover:ring-stroke-sub-300"
@@ -374,7 +374,7 @@ export default function OnboardingPage() {
                       key={sk}
                       type="button"
                       onClick={() => handleToggleSkill(sk)}
-                      className={`px-3 py-1 rounded-xl text-xs font-medium border transition-all ${
+                      className={`px-3 py-1 rounded-xl text-xs font-medium border transition-colors ${
                         isSelected
                           ? "bg-kumo-brand text-static-white border-kumo-brand"
                           : "bg-kumo-base text-kumo-subtle border-kumo-line hover:bg-kumo-tint"
@@ -427,7 +427,7 @@ export default function OnboardingPage() {
                     <div
                       key={item}
                       onClick={() => handleToggleLookingFor(item)}
-                      className={`p-4 rounded-xl border-2 cursor-pointer transition-all flex items-center justify-between ${
+                      className={`p-4 rounded-xl border-2 cursor-pointer transition-colors flex items-center justify-between ${
                         isChecked
                           ? "border-kumo-brand bg-primary-alpha-10 text-kumo-brand"
                           : "border-kumo-line hover:border-kumo-line text-kumo-subtle"
@@ -467,7 +467,7 @@ export default function OnboardingPage() {
                     <div
                       key={item}
                       onClick={() => handleToggleCanOffer(item)}
-                      className={`p-4 rounded-xl border-2 cursor-pointer transition-all flex items-center justify-between ${
+                      className={`p-4 rounded-xl border-2 cursor-pointer transition-colors flex items-center justify-between ${
                         isChecked
                           ? "border-emerald-600 bg-emerald-50/50 text-emerald-900"
                           : "border-kumo-line hover:border-kumo-line text-kumo-subtle"

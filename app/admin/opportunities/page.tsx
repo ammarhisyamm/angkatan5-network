@@ -99,13 +99,13 @@ export default function AdminOpportunitiesPage() {
                   </Table.Cell>
                   <Table.Cell>
                     <div className="flex items-center gap-2">
-                      <img src={opp.authorAvatar} alt={opp.authorName} className="w-7 h-7 rounded-full object-cover bg-kumo-tint ring-1 ring-kumo-line shrink-0" />
+                      <img src={opp.authorAvatar} alt={opp.authorName} width={28} height={28} loading="lazy" className="w-7 h-7 rounded-full object-cover bg-kumo-tint ring-1 ring-kumo-line shrink-0" />
                       <div><span className="font-semibold text-kumo-strong block">{opp.authorName}</span><span className="text-xs leading-4 text-kumo-inactive block">{opp.authorCompany}</span></div>
                     </div>
                   </Table.Cell>
                   <Table.Cell><Badge variant="outline">{opp.category}</Badge></Table.Cell>
                   <Table.Cell>{getStatusBadge(opp.status)}</Table.Cell>
-                  <Table.Cell className="text-kumo-inactive text-xs leading-4">{new Date(opp.createdAt).toLocaleDateString()}</Table.Cell>
+                  <Table.Cell className="text-kumo-inactive text-xs leading-4">{new Intl.DateTimeFormat(undefined, { year: "numeric", month: "short", day: "numeric" }).format(new Date(opp.createdAt))}</Table.Cell>
                   <Table.Cell className="text-right">
                     <div className="flex items-center justify-end gap-1">
                       <Link href={`/opportunities/${opp.id}`}><Button variant="ghost" size="sm" shape="square" icon={<EyeIcon />} aria-label="View" /></Link>

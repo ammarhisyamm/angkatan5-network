@@ -483,6 +483,8 @@
   --bg-kumo-brand: #4169D8;
   --border-kumo-brand: #4169D8;
   --ring-kumo-brand: #4169D8;
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
 }
 
 /* Light mode only - no dark mode overrides */
@@ -495,9 +497,11 @@
 @keyframes accordion-down { from { height: 0; opacity: 0; } to { height: var(--radix-accordion-content-height); opacity: 1; } }
 @keyframes accordion-up { from { height: var(--radix-accordion-content-height); opacity: 1; } to { height: 0; opacity: 0; } }
 
-html { color-scheme: light; overflow-x: clip; }
+html { color-scheme: light; overflow-x: clip; touch-action: manipulation; -webkit-tap-highlight-color: rgba(65,105,216,0.15); }
 body { overscroll-behavior-y: none; }
 * { scrollbar-color: var(--color-slate-300) transparent; }
+h1, h2, h3, h4 { scroll-margin-top: 80px; }
+[data-radix-dialog-overlay], [data-kumo-component="dialog"] { overscroll-behavior: contain; }
 
 body {
   background: #f7f8fb;
@@ -540,10 +544,20 @@ input, textarea, select { font-size: 16px; }
 }
 
 @media (min-width: 1024px) {
-  main > * { animation: workspace-enter 220ms ease-out both; }
+  main > * { animation: workspace-enter 220ms var(--ease-out) both; }
 }
 
 @keyframes workspace-enter {
   from { opacity: 0; transform: translateY(4px); }
   to { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+  main > * { animation: none !important; }
+  /* Keep opacity transitions for comprehension, drop motion */
+}
+
+@media (hover: hover) and (pointer: fine) {
+  /* Hover styles already gated via hover: prefix in Tailwind - no extra needed */
 }

@@ -12,19 +12,22 @@ import { BadgeCheck, ArrowRight } from "lucide-react";
 export function ProfileCard({ member }: { member: User }) {
   return (
     <>
-      <LayerCard className="group flex h-full flex-col p-0 overflow-hidden hover:border-kumo-line transition-all duration-200 hover:shadow-sm">
+      <LayerCard className="group flex h-full flex-col p-0 overflow-hidden hover:border-kumo-line transition-colors duration-200 hover:shadow-sm">
         {/* Content */}
         <div className="flex flex-1 flex-col p-6 sm:p-7">
           <div className="flex items-start gap-3">
             <Link href={`/profile/${member.id}`} className="relative shrink-0" aria-label={`View ${member.name}`}>
               <img
                 src={member.avatar}
-                alt=""
+                alt={`${member.name} avatar`}
+                width={48}
+                height={48}
+                loading="lazy"
                 className="size-12 rounded-full object-cover bg-kumo-tint ring-1 ring-kumo-line"
               />
               {member.verified && (
-                <span className="absolute -bottom-0.5 -right-0.5 flex size-4 items-center justify-center rounded-full bg-kumo-brand text-static-white" title="Verified member">
-                  <BadgeCheck className="size-3" strokeWidth={2} />
+                <span className="absolute -bottom-0.5 -right-0.5 flex size-4 items-center justify-center rounded-full bg-kumo-brand text-static-white" title="Verified member" aria-hidden="true">
+                  <BadgeCheck className="size-3" strokeWidth={2} aria-hidden="true" />
                 </span>
               )}
             </Link>

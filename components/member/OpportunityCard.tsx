@@ -25,7 +25,7 @@ export function OpportunityCard({ opportunity }: { opportunity: Opportunity }) {
   };
 
   return (
-    <LayerCard className="group flex h-full flex-col p-0 overflow-hidden hover:border-kumo-line transition-all duration-200 hover:shadow-sm">
+    <LayerCard className="group flex h-full flex-col p-0 overflow-hidden hover:border-kumo-line transition-colors duration-200 hover:shadow-sm">
       {/* Content */}
       <div className="flex flex-1 flex-col p-6 sm:p-7">
         <div className="mb-3 flex items-start justify-between gap-2">

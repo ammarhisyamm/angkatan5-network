@@ -186,7 +186,7 @@ export default function MyProfilePage() {
             </div>
             <div className="w-full h-2 bg-stroke-soft-200 rounded-full overflow-hidden">
               <div
-                className="h-full bg-kumo-brand rounded-full transition-all duration-500"
+                className="h-full bg-kumo-brand rounded-full transition-colors duration-500"
                 style={{ width: `${currentUser.profileCompletion}%` }}
               />
             </div>
@@ -414,7 +414,7 @@ export default function MyProfilePage() {
                     key={sk}
                     type="button"
                     onClick={() => handleToggleSkill(sk)}
-                    className={`px-3 py-1 rounded-xl text-xs font-medium border transition-all ${
+                    className={`px-3 py-1 rounded-xl text-xs font-medium border transition-colors ${
                       isSelected
                         ? "bg-kumo-brand text-static-white border-kumo-brand"
                         : "bg-kumo-tint text-kumo-subtle border-kumo-line"
@@ -515,7 +515,7 @@ export default function MyProfilePage() {
                       key={item}
                       type="button"
                       onClick={() => handleToggleLooking(item)}
-                      className={`px-3 py-1 rounded-xl text-xs font-medium border transition-all ${
+                      className={`px-3 py-1 rounded-xl text-xs font-medium border transition-colors ${
                         isChecked
                           ? "bg-kumo-brand text-static-white border-kumo-brand"
                           : "bg-kumo-tint text-kumo-subtle border-kumo-line"
@@ -541,7 +541,7 @@ export default function MyProfilePage() {
                       key={item}
                       type="button"
                       onClick={() => handleToggleOffer(item)}
-                      className={`px-3 py-1 rounded-xl text-xs font-medium border transition-all ${
+                      className={`px-3 py-1 rounded-xl text-xs font-medium border transition-colors ${
                         isChecked
                           ? "bg-emerald-600 text-static-white border-emerald-600"
                           : "bg-kumo-tint text-kumo-subtle border-kumo-line"
@@ -687,7 +687,7 @@ export default function MyProfilePage() {
               setVisibility("community");
               updateProfile(currentUser.id, { visibility: "community" });
             }}
-            className={`p-4 rounded-xl border-2 cursor-pointer transition-all flex items-start gap-3 ${
+            className={`p-4 rounded-xl border-2 cursor-pointer transition-colors flex items-start gap-3 ${
               currentUser.visibility === "community"
                 ? "border-kumo-brand bg-primary-alpha-10/40"
                 : "border-kumo-line hover:border-kumo-line"
@@ -709,7 +709,7 @@ export default function MyProfilePage() {
               setVisibility("hidden");
               updateProfile(currentUser.id, { visibility: "hidden" });
             }}
-            className={`p-4 rounded-xl border-2 cursor-pointer transition-all flex items-start gap-3 ${
+            className={`p-4 rounded-xl border-2 cursor-pointer transition-colors flex items-start gap-3 ${
               currentUser.visibility === "hidden"
                 ? "border-amber-600 bg-amber-50/40"
                 : "border-kumo-line hover:border-kumo-line"

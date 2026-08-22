@@ -203,7 +203,7 @@ export default function DiscoverPeoplePage() {
 
       {/* Detailed Filter Bar (Desktop inline / Mobile expandable) */}
       <LayerCard
-        className={`p-4 transition-all ${isFilterDrawerOpen ? "block" : "hidden lg:block"}`}
+        className={`p-4 transition-colors ${isFilterDrawerOpen ? "block" : "hidden lg:block"}`}
       >
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
           {/* Skill Filter — Kumo Select */}

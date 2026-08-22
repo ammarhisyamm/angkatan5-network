@@ -85,14 +85,11 @@ export default function OpportunityDetailPage() {
     }, 400);
   };
 
-  const formattedDate = new Date(opportunity.createdAt).toLocaleDateString(
-    "en-US",
-    {
-      year: "numeric",
-      month: "short",
-      day: "numeric",
-    }
-  );
+  const formattedDate = new Intl.DateTimeFormat(undefined, {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  }).format(new Date(opportunity.createdAt));
 
   return (
     <div className="max-w-4xl mx-auto space-y-8">
@@ -155,7 +152,10 @@ export default function OpportunityDetailPage() {
             <img
               src={opportunity.authorAvatar}
               alt={opportunity.authorName}
-              className="w-12 h-12 rounded-full object-cover border border-kumo-line group-hover:ring-2 group-hover:ring-kumo-brand/20 transition-all bg-kumo-tint"
+              width={48}
+              height={48}
+              loading="lazy"
+              className="w-12 h-12 rounded-full object-cover border border-kumo-line group-hover:ring-2 group-hover:ring-kumo-brand/20 transition-colors bg-kumo-tint"
             />
             <div>
               <p className="text-sm font-semibold text-kumo-strong group-hover:text-kumo-brand transition-colors">
