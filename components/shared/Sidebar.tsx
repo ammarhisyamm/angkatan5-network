@@ -61,7 +61,7 @@ function SidebarInner() {
 
   return (
     <KumoSidebar className="hidden lg:flex border-r border-kumo-line bg-white shadow-[2px_0_12px_rgba(0,0,0,0.04)]">
-      <KumoSidebar.Header className="px-4 pt-4 pb-4 border-b border-kumo-line/60 flex flex-col gap-4">
+      <KumoSidebar.Header className="sticky top-0 z-10 bg-white px-3 pt-4 pb-4 border-b border-kumo-line/60 flex flex-col gap-4">
         <div className="flex items-center justify-between gap-3">
           <Link href="/dashboard" className="flex items-center gap-3 rounded-xl px-1 py-1 -mx-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-kumo-brand min-w-0 flex-1">
             <div className="flex size-9 items-center justify-center rounded-xl bg-[#6366F1] text-white font-bold text-sm tracking-tight shrink-0 shadow-sm">A5</div>
@@ -119,7 +119,7 @@ function SidebarInner() {
         {Object.entries(grouped).map(([group, items]: any) => (
           <KumoSidebar.Group key={group} className="mb-5 last:mb-0">
             {!isCollapsed && (
-              <KumoSidebar.GroupLabel className="px-2.5 pb-2 text-xs font-semibold tracking-widest uppercase text-kumo-inactive">
+              <KumoSidebar.GroupLabel className="px-2 pb-2 text-xs font-semibold tracking-widest uppercase text-kumo-inactive">
                 {group}
               </KumoSidebar.GroupLabel>
             )}
@@ -140,7 +140,6 @@ function SidebarInner() {
                     {!isCollapsed && item.count !== null && (
                       <span className={`ml-auto text-xs font-medium tabular-nums ${isActive ? "text-[#6366F1]" : "text-kumo-inactive"}`}>{item.count}</span>
                     )}
-                    {isActive && !isCollapsed && <span className="absolute right-2 size-1.5 rounded-full bg-[#6366F1]" aria-hidden="true" />}
                   </KumoSidebar.MenuButton>
                 );
               })}
@@ -149,7 +148,7 @@ function SidebarInner() {
         ))}
       </KumoSidebar.Content>
 
-      <KumoSidebar.Footer className="border-t border-kumo-line/60 p-3">
+      <KumoSidebar.Footer className="sticky bottom-0 z-10 bg-white border-t border-kumo-line/60 p-3">
         <div className="relative">
           <button
             onClick={() => setShowUserMenu(!showUserMenu)}
