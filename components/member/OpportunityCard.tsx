@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Opportunity } from "@/lib/types";
 import { Tag } from "@/components/ui/Tag";
 import { Button } from "@/components/ui/Button";
+import { LayerCard } from "@cloudflare/kumo/components/layer-card";
 import { useApp } from "@/lib/store/AppContext";
 import { Bookmark, BookmarkCheck, MapPin, ArrowRight } from "lucide-react";
 
@@ -24,7 +25,7 @@ export function OpportunityCard({ opportunity }: { opportunity: Opportunity }) {
   };
 
   return (
-    <article className="group flex h-full flex-col rounded-xl border border-stroke-soft-200 bg-bg-white-0 transition-colors duration-200 hover:border-stroke-sub-300">
+    <LayerCard className="group flex h-full flex-col p-0 overflow-hidden hover:border-kumo-line transition-colors duration-200">
       {/* Content */}
       <div className="flex flex-1 flex-col p-5">
         <div className="mb-3 flex items-start justify-between gap-2">
@@ -34,28 +35,28 @@ export function OpportunityCard({ opportunity }: { opportunity: Opportunity }) {
               <MapPin className="size-3 shrink-0" strokeWidth={1.5} />
               {opportunity.location}
             </Tag>
-            <span className="text-xs leading-[18px] text-text-soft-400">{opportunity.type}</span>
+            <span className="text-xs leading-[18px] text-kumo-inactive">{opportunity.type}</span>
           </div>
           <button
             onClick={() => toggleBookmark(opportunity.id)}
             title={bookmarked ? "Remove bookmark" : "Save opportunity"}
             aria-label={bookmarked ? "Remove bookmark" : "Save opportunity"}
             aria-pressed={bookmarked}
-            className={`flex size-8 shrink-0 items-center justify-center rounded-lg transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-base ${
+            className={`flex size-8 shrink-0 items-center justify-center rounded-lg transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-kumo-brand ${
               bookmarked
-                ? "bg-primary-alpha-10 text-primary-base"
-                : "text-text-soft-400 hover:bg-bg-weak-50 hover:text-text-sub-600"
+                ? "bg-primary-alpha-10 text-kumo-brand"
+                : "text-kumo-inactive hover:bg-kumo-tint hover:text-kumo-subtle"
             }`}
           >
             {bookmarked ? <BookmarkCheck className="size-4" strokeWidth={1.5} /> : <Bookmark className="size-4" strokeWidth={1.5} />}
           </button>
         </div>
 
-        <Link href={`/opportunities/${opportunity.id}`} className="rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-base">
-          <h3 className="line-clamp-2 text-sm font-semibold leading-5 text-text-strong-950 transition-colors group-hover:text-primary-base">{opportunity.title}</h3>
+        <Link href={`/opportunities/${opportunity.id}`} className="rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-kumo-brand">
+          <h3 className="line-clamp-2 text-sm font-semibold leading-5 text-kumo-strong transition-colors group-hover:text-kumo-brand">{opportunity.title}</h3>
         </Link>
 
-        <p className="mt-1.5 line-clamp-2 text-sm leading-5 text-text-sub-600">{opportunity.description}</p>
+        <p className="mt-1.5 line-clamp-2 text-sm leading-5 text-kumo-subtle">{opportunity.description}</p>
 
         {opportunity.requiredSkills && opportunity.requiredSkills.length > 0 && (
           <div className="mt-4 flex flex-wrap gap-2">
@@ -67,12 +68,12 @@ export function OpportunityCard({ opportunity }: { opportunity: Opportunity }) {
       </div>
 
       {/* Footer anchored to bottom */}
-      <div className="mt-auto flex items-center justify-between gap-2 border-t border-stroke-soft-200 px-5 py-3">
+      <div className="mt-auto flex items-center justify-between gap-2 border-t border-kumo-line px-5 py-3">
         <div className="flex min-w-0 items-center gap-2.5">
-          <img src={opportunity.authorAvatar} alt="" className="size-8 shrink-0 rounded-full object-cover bg-bg-weak-50 ring-1 ring-stroke-soft-200" />
+          <img src={opportunity.authorAvatar} alt="" className="size-8 shrink-0 rounded-full object-cover bg-kumo-tint ring-1 ring-kumo-line" />
           <div className="min-w-0">
-            <p className="truncate text-[13px] font-medium leading-5 text-text-strong-950">{opportunity.authorName}</p>
-            <p className="truncate text-xs leading-[18px] text-text-soft-400">Posted {formattedDate}</p>
+            <p className="truncate text-sm font-medium leading-5 text-kumo-strong">{opportunity.authorName}</p>
+            <p className="truncate text-xs leading-[18px] text-kumo-inactive">Posted {formattedDate}</p>
           </div>
         </div>
         <Link href={`/opportunities/${opportunity.id}`} className="shrink-0">
@@ -81,6 +82,6 @@ export function OpportunityCard({ opportunity }: { opportunity: Opportunity }) {
           </Button>
         </Link>
       </div>
-    </article>
+    </LayerCard>
   );
 }

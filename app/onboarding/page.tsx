@@ -162,23 +162,23 @@ export default function OnboardingPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-bg-weak-50 py-10 px-4 sm:px-6 lg:px-8 flex flex-col items-center">
+    <div className="min-h-screen bg-kumo-tint py-10 px-4 sm:px-6 lg:px-8 flex flex-col items-center">
       <div className="max-w-2xl w-full">
         {/* Header */}
         <div className="text-center mb-8">
-          <p className="mb-2 text-[11px] font-semibold uppercase leading-4 tracking-widest text-text-soft-400">Profile Setup</p>
-          <h1 className="text-2xl font-semibold leading-8 tracking-tight text-text-strong-950">
+          <p className="mb-2 text-xs font-semibold uppercase leading-4 tracking-widest text-kumo-inactive">Profile Setup</p>
+          <h1 className="text-2xl font-semibold leading-8 tracking-tight text-kumo-strong">
             Welcome to Angkatan 5 Talent Network
           </h1>
-          <p className="mt-1 text-[13px] leading-5 text-text-sub-600">
+          <p className="mt-1 text-sm leading-5 text-kumo-subtle">
             Complete your profile so your peers can discover your skills and opportunities.
           </p>
         </div>
 
         {/* Stepper indicator */}
-        <div className="bg-bg-white-0 rounded-xl border border-stroke-soft-200 p-4 mb-6">
+        <div className="bg-kumo-base rounded-xl border border-kumo-line p-4 mb-6">
           <div className="flex items-center justify-between relative">
-            <div className="absolute top-1/2 left-0 right-0 h-0 bg-bg-weak-50 -translate-y-1/2 z-0" />
+            <div className="absolute top-1/2 left-0 right-0 h-0 bg-kumo-tint -translate-y-1/2 z-0" />
             {stepsList.map((s) => {
               const isCompleted = step > s.num;
               const isCurrent = step === s.num;
@@ -192,8 +192,8 @@ export default function OnboardingPage() {
                       isCompleted
                         ? "bg-success-base text-static-white"
                         : isCurrent
-                        ? "bg-primary-base text-static-white ring-4 ring-primary-alpha-10"
-                        : "bg-bg-weak-50 text-text-soft-400"
+                        ? "bg-kumo-brand text-static-white ring-4 ring-primary-alpha-10"
+                        : "bg-kumo-tint text-kumo-inactive"
                     }`}
                   >
                     {isCompleted ? <Check className="size-4" /> : <Icon className="size-4" />}
@@ -201,8 +201,8 @@ export default function OnboardingPage() {
                   <span
                     className={`hidden text-xs font-medium leading-[18px] sm:block ${
                       isCurrent
-                        ? "font-semibold text-primary-base"
-                        : "text-text-soft-400"
+                        ? "font-semibold text-kumo-brand"
+                        : "text-kumo-inactive"
                     }`}
                   >
                     {s.title}
@@ -214,21 +214,21 @@ export default function OnboardingPage() {
         </div>
 
         {/* Step Card Content */}
-        <div className="bg-bg-white-0 rounded-xl border border-stroke-soft-200 p-6 sm:p-8">
+        <div className="bg-kumo-base rounded-xl border border-kumo-line p-6 sm:p-8">
           {/* STEP 1: ABOUT YOU */}
           {step === 1 && (
             <div className="space-y-8">
               <div>
-                <h2 className="text-base font-semibold leading-6 text-text-strong-950">
+                <h2 className="text-base font-semibold leading-6 text-kumo-strong">
                   Step 1 — About You
                 </h2>
-                <p className="mt-0.5 text-[13px] leading-5 text-text-sub-600">
+                <p className="mt-0.5 text-sm leading-5 text-kumo-subtle">
                   Let&apos;s start with your identity and profile photo.
                 </p>
               </div>
 
               <div className="flex flex-col gap-2">
-                <label className="text-[13px] font-medium leading-5 text-text-strong-950">
+                <label className="text-sm font-medium leading-5 text-kumo-strong">
                   Choose Profile Photo
                 </label>
                 <div className="flex items-center gap-3 flex-wrap">
@@ -238,10 +238,10 @@ export default function OnboardingPage() {
                       src={url}
                       alt="avatar"
                       onClick={() => setAvatar(url)}
-                      className={`size-12 rounded-full bg-bg-weak-50 object-cover ring-1 transition-all cursor-pointer ${
+                      className={`size-12 rounded-full bg-kumo-tint object-cover ring-1 transition-all cursor-pointer ${
                         avatar === url
-                          ? "ring-2 ring-primary-base"
-                          : "ring-stroke-soft-200 hover:ring-stroke-sub-300"
+                          ? "ring-2 ring-kumo-brand"
+                          : "ring-kumo-line hover:ring-stroke-sub-300"
                       }`}
                     />
                   ))}
@@ -265,14 +265,14 @@ export default function OnboardingPage() {
               />
 
               <div className="flex flex-col gap-2">
-                <label className="text-[13px] font-medium leading-5 text-text-strong-950">
+                <label className="text-sm font-medium leading-5 text-kumo-strong">
                   School Batch
                 </label>
                 <input
                   type="text"
                   value={batch}
                   onChange={(e) => setBatch(e.target.value)}
-                  className="w-full h-10 rounded-lg border border-stroke-soft-200 bg-bg-white-0 px-3 text-[13px] text-text-strong-950"
+                  className="w-full h-10 rounded-lg border border-kumo-line bg-kumo-base px-3 text-sm text-kumo-strong"
                 />
               </div>
             </div>
@@ -282,10 +282,10 @@ export default function OnboardingPage() {
           {step === 2 && (
             <div className="space-y-5">
               <div>
-                <h2 className="text-base font-semibold leading-6 text-text-strong-950">
+                <h2 className="text-base font-semibold leading-6 text-kumo-strong">
                   Step 2 — Professional Background
                 </h2>
-                <p className="mt-0.5 text-[13px] leading-5 text-text-sub-600">
+                <p className="mt-0.5 text-sm leading-5 text-kumo-subtle">
                   Share what you do and your experience level.
                 </p>
               </div>
@@ -307,13 +307,13 @@ export default function OnboardingPage() {
                 />
 
                 <div className="flex flex-col gap-2">
-                  <label className="text-[13px] font-medium leading-5 text-text-strong-950">
+                  <label className="text-sm font-medium leading-5 text-kumo-strong">
                     Primary Industry
                   </label>
                   <select
                     value={industry}
                     onChange={(e) => setIndustry(e.target.value)}
-                    className="w-full h-10 px-3 bg-bg-white-0 text-text-strong-950 border border-stroke-soft-200 rounded-lg text-[13px] focus:outline-none focus:border-primary-base"
+                    className="w-full h-10 px-3 bg-kumo-base text-kumo-strong border border-kumo-line rounded-lg text-sm focus:outline-none focus:border-kumo-brand"
                   >
                     <option value="Technology">Technology</option>
                     <option value="Design">Design</option>
@@ -327,13 +327,13 @@ export default function OnboardingPage() {
               </div>
 
               <div className="flex flex-col gap-2">
-                <label className="text-[13px] font-medium leading-5 text-text-strong-950">
+                <label className="text-sm font-medium leading-5 text-kumo-strong">
                   Years of Experience
                 </label>
                 <select
                   value={experience}
                   onChange={(e) => setExperience(e.target.value)}
-                  className="w-full h-10 px-3 bg-bg-white-0 text-text-strong-950 border border-stroke-soft-200 rounded-lg text-[13px] focus:outline-none focus:border-primary-base"
+                  className="w-full h-10 px-3 bg-kumo-base text-kumo-strong border border-kumo-line rounded-lg text-sm focus:outline-none focus:border-kumo-brand"
                 >
                   <option value="1+ years">1+ years</option>
                   <option value="2+ years">2+ years</option>
@@ -358,10 +358,10 @@ export default function OnboardingPage() {
           {step === 3 && (
             <div className="space-y-5">
               <div>
-                <h2 className="text-base font-semibold leading-6 text-text-strong-950">
+                <h2 className="text-base font-semibold leading-6 text-kumo-strong">
                   Step 3 — Your Skills
                 </h2>
-                <p className="mt-0.5 text-[13px] leading-5 text-text-sub-600">
+                <p className="mt-0.5 text-sm leading-5 text-kumo-subtle">
                   Select your top skills or add custom ones.
                 </p>
               </div>
@@ -376,8 +376,8 @@ export default function OnboardingPage() {
                       onClick={() => handleToggleSkill(sk)}
                       className={`px-3 py-1 rounded-xl text-xs font-medium border transition-all ${
                         isSelected
-                          ? "bg-primary-base text-static-white border-primary-base"
-                          : "bg-bg-white-0 text-text-sub-600 border-stroke-soft-200 hover:bg-bg-weak-50"
+                          ? "bg-kumo-brand text-static-white border-kumo-brand"
+                          : "bg-kumo-base text-kumo-subtle border-kumo-line hover:bg-kumo-tint"
                       }`}
                     >
                       {isSelected ? "✓ " : "+ "}
@@ -388,13 +388,13 @@ export default function OnboardingPage() {
               </div>
 
               {/* Add custom skill input */}
-              <form onSubmit={handleAddCustomSkill} className="flex gap-2 pt-3 border-t border-stroke-soft-200">
+              <form onSubmit={handleAddCustomSkill} className="flex gap-2 pt-3 border-t border-kumo-line">
                 <input
                   type="text"
                   value={customSkillInput}
                   onChange={(e) => setCustomSkillInput(e.target.value)}
                   placeholder="Add custom skill (e.g. Kubernetes, Blender)..."
-                  className="flex-1 h-10 px-3 bg-bg-white-0 text-text-strong-950 border border-stroke-soft-200 rounded-lg text-[13px] focus:outline-none focus:border-primary-base"
+                  className="flex-1 h-10 px-3 bg-kumo-base text-kumo-strong border border-kumo-line rounded-lg text-sm focus:outline-none focus:border-kumo-brand"
                 />
                 <Button type="submit" variant="secondary" size="md">
                   <Plus className="size-4" />
@@ -402,8 +402,8 @@ export default function OnboardingPage() {
                 </Button>
               </form>
 
-              <div className="text-xs text-text-sub-600">
-                Selected skills: <span className="font-semibold text-text-strong-950">{selectedSkills.length}</span>
+              <div className="text-xs text-kumo-subtle">
+                Selected skills: <span className="font-semibold text-kumo-strong">{selectedSkills.length}</span>
               </div>
             </div>
           )}
@@ -412,10 +412,10 @@ export default function OnboardingPage() {
           {step === 4 && (
             <div className="space-y-5">
               <div>
-                <h2 className="text-base font-semibold leading-6 text-text-strong-950">
+                <h2 className="text-base font-semibold leading-6 text-kumo-strong">
                   Step 4 — What are you looking for?
                 </h2>
-                <p className="mt-0.5 text-[13px] leading-5 text-text-sub-600">
+                <p className="mt-0.5 text-sm leading-5 text-kumo-subtle">
                   Select all opportunities that interest you right now.
                 </p>
               </div>
@@ -429,14 +429,14 @@ export default function OnboardingPage() {
                       onClick={() => handleToggleLookingFor(item)}
                       className={`p-4 rounded-xl border-2 cursor-pointer transition-all flex items-center justify-between ${
                         isChecked
-                          ? "border-primary-base bg-primary-alpha-10 text-primary-base"
-                          : "border-stroke-soft-200 hover:border-stroke-sub-300 text-text-sub-600"
+                          ? "border-kumo-brand bg-primary-alpha-10 text-kumo-brand"
+                          : "border-kumo-line hover:border-kumo-line text-kumo-subtle"
                       }`}
                     >
                       <span className="text-sm font-semibold">{item}</span>
                       <div
                         className={`size-5 rounded-full flex items-center justify-center text-xs ${
-                          isChecked ? "bg-primary-base text-static-white" : "border border-stroke-soft-200"
+                          isChecked ? "bg-kumo-brand text-static-white" : "border border-kumo-line"
                         }`}
                       >
                         {isChecked && <Check className="size-3" />}
@@ -452,10 +452,10 @@ export default function OnboardingPage() {
           {step === 5 && (
             <div className="space-y-5">
               <div>
-                <h2 className="text-base font-semibold leading-6 text-text-strong-950">
+                <h2 className="text-base font-semibold leading-6 text-kumo-strong">
                   Step 5 — What can you offer?
                 </h2>
-                <p className="mt-0.5 text-[13px] leading-5 text-text-sub-600">
+                <p className="mt-0.5 text-sm leading-5 text-kumo-subtle">
                   How can you help other members of Angkatan 5?
                 </p>
               </div>
@@ -470,13 +470,13 @@ export default function OnboardingPage() {
                       className={`p-4 rounded-xl border-2 cursor-pointer transition-all flex items-center justify-between ${
                         isChecked
                           ? "border-emerald-600 bg-emerald-50/50 text-emerald-900"
-                          : "border-stroke-soft-200 hover:border-stroke-sub-300 text-text-sub-600"
+                          : "border-kumo-line hover:border-kumo-line text-kumo-subtle"
                       }`}
                     >
                       <span className="text-sm font-semibold">{item}</span>
                       <div
                         className={`size-5 rounded-full flex items-center justify-center text-xs ${
-                          isChecked ? "bg-success-base text-static-white" : "border border-stroke-soft-200"
+                          isChecked ? "bg-success-base text-static-white" : "border border-kumo-line"
                         }`}
                       >
                         {isChecked && <Check className="size-3" />}
@@ -489,7 +489,7 @@ export default function OnboardingPage() {
           )}
 
           {/* Stepper navigation footer */}
-          <div className="flex items-center justify-between pt-8 mt-6 border-t border-stroke-soft-200">
+          <div className="flex items-center justify-between pt-8 mt-6 border-t border-kumo-line">
             {step > 1 ? (
               <Button type="button" variant="outline" onClick={() => setStep(step - 1)}
               >

@@ -41,24 +41,24 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-bg-weak-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-kumo-tint flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md text-center px-4">
-        <div className="inline-flex items-center justify-center size-14 rounded-xl bg-primary-base text-title-h5 font-semibold text-static-white shadow-regular-xs mb-4">A5</div>
-        <h1 className="text-2xl font-semibold leading-8 tracking-tight text-text-strong-950">Angkatan 5 Network</h1>
-        <p className="mt-1 text-sm leading-5 text-text-sub-600">Private talent directory for members of Angkatan 5 SMP & IHBS</p>
+        <div className="inline-flex items-center justify-center size-14 rounded-xl bg-kumo-brand text-title-h5 font-semibold text-static-white shadow-regular-xs mb-4">A5</div>
+        <h1 className="text-2xl font-semibold leading-8 tracking-tight text-kumo-strong">Angkatan 5 Network</h1>
+        <p className="mt-1 text-sm leading-5 text-kumo-subtle">Private talent directory for members of Angkatan 5 SMP & IHBS</p>
       </div>
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md px-4">
-        <div className="flex flex-col gap-6 rounded-2xl border border-stroke-soft-200 bg-bg-white-0 px-6 py-8 sm:px-10 shadow-regular-xs">
+        <div className="flex flex-col gap-6 rounded-2xl border border-kumo-line bg-kumo-base px-6 py-8 sm:px-10 shadow-regular-xs">
           <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-            {error && <div className="rounded-xl border border-error-light bg-error-lighter p-3 text-[11px] leading-4 font-medium text-error-dark">{error}</div>}
+            {error && <div className="rounded-xl border border-error-light bg-error-lighter p-3 text-xs leading-4 font-medium text-error-dark">{error}</div>}
 
             <Input label="Email Address" type="email" placeholder="name@example.com" value={email} onChange={(e) => setEmail(e.target.value)} required />
             <Input label="Password" type="password" placeholder="••••••••" value={password} onChange={(e) => setPassword(e.target.value)} />
 
-            <div className="flex items-center justify-between text-[11px] leading-4">
-              <label className="flex cursor-pointer items-center gap-2 text-text-sub-600">
-                <input type="checkbox" checked={rememberMe} onChange={(e) => setRememberMe(e.target.checked)} className="size-4 rounded border-stroke-soft-200 text-primary-base focus:ring-primary-base" />
+            <div className="flex items-center justify-between text-xs leading-4">
+              <label className="flex cursor-pointer items-center gap-2 text-kumo-subtle">
+                <input type="checkbox" checked={rememberMe} onChange={(e) => setRememberMe(e.target.checked)} className="size-4 rounded border-kumo-line text-kumo-brand focus:ring-kumo-brand" />
                 <span>Remember me</span>
               </label>
               <a
@@ -67,7 +67,7 @@ export default function LoginPage() {
                   e.preventDefault();
                   addToast("Demo mode", "Password recovery is disabled for demo.", "info");
                 }}
-                className="font-medium text-primary-base hover:underline"
+                className="font-medium text-kumo-brand hover:underline"
               >
                 Forgot password?
               </a>
@@ -78,37 +78,37 @@ export default function LoginPage() {
             </Button>
           </form>
 
-          <div className="border-t border-stroke-soft-200 pt-5">
-            <div className="mb-3 text-[11px] font-semibold uppercase leading-4 tracking-widest text-text-soft-400">Instant Demo Access</div>
+          <div className="border-t border-kumo-line pt-5">
+            <div className="mb-3 text-xs font-semibold uppercase leading-4 tracking-widest text-kumo-inactive">Instant Demo Access</div>
             <div className="grid grid-cols-2 gap-2">
               <button
                 type="button"
                 onClick={() => handleQuickDemo("member@example.com", "/dashboard")}
-                className="flex flex-col gap-1 rounded-xl border border-primary-base/20 bg-primary-alpha-10 p-3 text-left transition hover:bg-primary-alpha-10/80"
+                className="flex flex-col gap-1 rounded-xl border border-kumo-brand/20 bg-primary-alpha-10 p-3 text-left transition hover:bg-primary-alpha-10/80"
               >
-                <span className="flex items-center gap-1 text-[11px] leading-4 font-medium text-primary-base">
+                <span className="flex items-center gap-1 text-xs leading-4 font-medium text-kumo-brand">
                   <UserCheck className="size-3" /> Member <ArrowRight className="ml-auto size-3" />
                 </span>
-                <span className="font-mono text-[11px] leading-4 text-text-sub-600">member@example.com</span>
-                <span className="text-[11px] leading-4 text-text-soft-400">Ammar Hisyam (Designer)</span>
+                <span className="font-mono text-xs leading-4 text-kumo-subtle">member@example.com</span>
+                <span className="text-xs leading-4 text-kumo-inactive">Ammar Hisyam (Designer)</span>
               </button>
               <button
                 type="button"
                 onClick={() => handleQuickDemo("admin@example.com", "/admin/dashboard")}
-                className="flex flex-col gap-1 rounded-xl border border-stroke-soft-200 bg-bg-weak-50 p-3 text-left transition hover:bg-bg-white-0 hover:shadow-regular-xs"
+                className="flex flex-col gap-1 rounded-xl border border-kumo-line bg-kumo-tint p-3 text-left transition hover:bg-kumo-base hover:shadow-regular-xs"
               >
-                <span className="flex items-center gap-1 text-[11px] leading-4 font-medium text-text-strong-950">
-                  <ShieldCheck className="size-3" /> Admin <ArrowRight className="ml-auto size-3 text-text-soft-400" />
+                <span className="flex items-center gap-1 text-xs leading-4 font-medium text-kumo-strong">
+                  <ShieldCheck className="size-3" /> Admin <ArrowRight className="ml-auto size-3 text-kumo-inactive" />
                 </span>
-                <span className="font-mono text-[11px] leading-4 text-text-sub-600">admin@example.com</span>
-                <span className="text-[11px] leading-4 text-text-soft-400">Secretariat Admin</span>
+                <span className="font-mono text-xs leading-4 text-kumo-subtle">admin@example.com</span>
+                <span className="text-xs leading-4 text-kumo-inactive">Secretariat Admin</span>
               </button>
             </div>
           </div>
 
-          <p className="text-center text-[11px] leading-4 text-text-soft-400">
+          <p className="text-center text-xs leading-4 text-kumo-inactive">
             Don&apos;t have an account?{" "}
-            <Link href="/register" className="font-medium text-primary-base hover:underline">
+            <Link href="/register" className="font-medium text-kumo-brand hover:underline">
               Register here
             </Link>
           </p>

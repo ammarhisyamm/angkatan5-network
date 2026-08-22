@@ -1,52 +1,30 @@
+"use client";
+
 import * as React from "react";
-import { Slot } from "@radix-ui/react-slot";
-import type { PolymorphicComponentProps } from "@/lib/utils/polymorphic";
-import { recursiveCloneChildren } from "@/lib/utils/recursive-clone-children";
-import { tv, type VariantProps } from "@/lib/utils/tv";
+import { Button as KumoButton } from "@cloudflare/kumo/components/button";
 
-const COMPACT_BUTTON_ROOT_NAME = "CompactButtonRoot";
-const COMPACT_BUTTON_ICON_NAME = "CompactButtonIcon";
+export const compactButtonVariants = () => ({ root: () => "", icon: () => "" });
 
-export const compactButtonVariants = tv({
-  slots: {
-    root: ["relative flex shrink-0 items-center justify-center outline-none", "transition duration-200 ease-out", "disabled:pointer-events-none disabled:border-transparent disabled:bg-transparent disabled:text-text-disabled-300 disabled:shadow-none", "focus:outline-none"],
-    icon: "",
+type CompactProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
+  variant?: "stroke" | "ghost" | "white" | "modifiable";
+  size?: "large" | "medium";
+  fullRadius?: boolean;
+};
+
+export const Root = React.forwardRef<HTMLButtonElement, CompactProps>(
+  ({ variant = "stroke", size = "large", fullRadius, children, className, ...rest }, ref) => {
+    const kumoVariant = variant === "ghost" ? "ghost" : variant === "white" ? "secondary" : "outline";
+    const kumoSize = size === "large" ? "base" : "sm";
+    const shape = fullRadius ? "circle" : "square";
+    return (
+      <KumoButton ref={ref as any} variant={kumoVariant as any} size={kumoSize as any} shape={shape as any} className={className} {...(rest as any)}>
+        {children}
+      </KumoButton>
+    );
   },
-  variants: {
-    variant: {
-      stroke: { root: ["border border-stroke-soft-200 bg-bg-white-0 text-text-sub-600 shadow-regular-xs", "hover:border-transparent hover:bg-bg-weak-50 hover:text-text-strong-950 hover:shadow-none", "focus-visible:border-transparent focus-visible:bg-bg-strong-950 focus-visible:text-text-static-white-0 focus-visible:shadow-none"] },
-      ghost: { root: ["bg-transparent text-text-sub-600", "hover:bg-bg-weak-50 hover:text-text-strong-950", "focus-visible:bg-bg-strong-950 focus-visible:text-text-static-white-0"] },
-      white: { root: ["bg-bg-white-0 text-text-sub-600 shadow-regular-xs", "hover:bg-bg-weak-50 hover:text-text-strong-950", "focus-visible:bg-bg-strong-950 focus-visible:text-text-static-white-0"] },
-      modifiable: {},
-    },
-    size: { large: { root: "size-6", icon: "size-5" }, medium: { root: "size-5", icon: "size-[18px]" } },
-    fullRadius: { true: { root: "rounded-full" }, false: { root: "rounded-md" } },
-  },
-  defaultVariants: { variant: "stroke", size: "large", fullRadius: false },
-});
+);
+Root.displayName = "CompactButtonRoot";
 
-type CompactButtonSharedProps = Omit<VariantProps<typeof compactButtonVariants>, "fullRadius">;
-type CompactButtonProps = VariantProps<typeof compactButtonVariants> & React.ButtonHTMLAttributes<HTMLButtonElement> & { asChild?: boolean };
-
-const CompactButtonRoot = React.forwardRef<HTMLButtonElement, CompactButtonProps>(({ asChild, variant, size, fullRadius, children, className, ...rest }, forwardedRef) => {
-  const uniqueId = React.useId();
-  const Component = asChild ? Slot : "button";
-  const { root } = compactButtonVariants({ variant, size, fullRadius });
-  const sharedProps: CompactButtonSharedProps = { variant, size };
-  const extendedChildren = recursiveCloneChildren(children as React.ReactElement[], sharedProps, [COMPACT_BUTTON_ICON_NAME], uniqueId, asChild);
-  return (
-    <Component ref={forwardedRef} className={root({ class: className })} {...rest}>
-      {extendedChildren}
-    </Component>
-  );
-});
-CompactButtonRoot.displayName = COMPACT_BUTTON_ROOT_NAME;
-
-function CompactButtonIcon<T extends React.ElementType>({ variant, size, as, className, ...rest }: PolymorphicComponentProps<T, CompactButtonSharedProps>) {
-  const Component = as || "div";
-  const { icon } = compactButtonVariants({ variant, size });
-  return <Component className={icon({ class: className })} {...rest} />;
+export function Icon({ children, ...props }: any) {
+  return <span {...props}>{children}</span>;
 }
-CompactButtonIcon.displayName = COMPACT_BUTTON_ICON_NAME;
-
-export { CompactButtonRoot as Root, CompactButtonIcon as Icon };

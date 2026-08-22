@@ -6,6 +6,10 @@ import { ProfileCard } from "@/components/member/ProfileCard";
 import { ProfileCardSkeleton } from "@/components/ui/Skeleton";
 import { Button } from "@/components/ui/Button";
 import { EmptyState } from "@/components/ui/EmptyState";
+import { Grid } from "@cloudflare/kumo/components/grid";
+import { LayerCard } from "@cloudflare/kumo/components/layer-card";
+import { Input } from "@cloudflare/kumo/components/input";
+import { Select } from "@cloudflare/kumo/components/select";
 import {
   Search,
   Filter,
@@ -158,53 +162,33 @@ export default function DiscoverPeoplePage() {
     <div className="space-y-8">
       {/* Page Header */}
       <div>
-        <div className="flex items-center gap-2 text-[11px] font-semibold uppercase leading-4 tracking-widest text-text-soft-400 mb-1">
+        <div className="flex items-center gap-2 text-xs font-semibold uppercase leading-4 tracking-widest text-kumo-inactive mb-1">
           <Users className="size-3" />
           <span>Talent Directory</span>
         </div>
-        <h1 className="text-2xl font-semibold leading-8 tracking-tight text-text-strong-950">
+        <h1 className="text-2xl font-semibold leading-8 tracking-tight text-kumo-strong">
           Discover People
         </h1>
-        <p className="text-sm leading-5 text-text-sub-600 mt-1 max-w-2xl">
+        <p className="text-sm leading-5 text-kumo-subtle mt-1 max-w-2xl">
           Find someone based on what they do, what they know, or what they can help with.
         </p>
       </div>
 
-      {/* Prominent Search Bar */}
-      <div className="relative flex items-center">
-        <Search className="absolute left-4 text-text-soft-400 size-5 pointer-events-none" />
-        <input
-          type="text"
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-          placeholder="Search people, skills, roles, or companies..."
-          className="w-full h-10 pl-11 pr-10 bg-bg-white-0 border border-stroke-soft-200 rounded-xl text-sm leading-5 text-text-strong-950 placeholder:text-text-soft-400 shadow-regular-xs focus:outline-none focus:border-primary-base focus:ring-2 focus:ring-primary-base/10 transition-all"
-        />
-        {searchQuery && (
-          <button
-            onClick={() => setSearchQuery("")}
-            className="absolute right-4 text-text-soft-400 hover:text-text-sub-600 p-1"
-          >
-            <X className="size-4" />
-          </button>
-        )}
-      </div>
+      {/* Prominent Search Bar — Kumo Input */}
+      <Input aria-label="Search people" placeholder="Search people, skills, roles, or companies..." value={searchQuery} onChange={(e: any) => setSearchQuery(e.target.value)} />
 
       {/* Quick Filter Chips */}
       <div className="flex items-center justify-between gap-3 overflow-x-auto pb-1 scrollbar-none">
         <div className="flex items-center gap-2">
           {QUICK_CHIPS.map((chip) => (
-            <button
+            <Button
               key={chip}
+              variant={selectedChip === chip ? "primary" : "secondary"}
+              size="sm"
               onClick={() => setSelectedChip(chip)}
-              className={`px-3 py-1 rounded-full text-xs font-semibold whitespace-nowrap transition-all duration-150 ${
-                selectedChip === chip
-                  ? "bg-primary-base text-static-white shadow-regular-xs"
-                  : "bg-bg-white-0 text-text-sub-600 ring-1 ring-inset ring-stroke-soft-200 hover:bg-bg-weak-50"
-              }`}
             >
               {chip}
-            </button>
+            </Button>
           ))}
         </div>
 
@@ -218,136 +202,60 @@ export default function DiscoverPeoplePage() {
       </div>
 
       {/* Detailed Filter Bar (Desktop inline / Mobile expandable) */}
-      <div
-        className={`bg-bg-white-0 border border-stroke-soft-200 rounded-2xl p-4 shadow-regular-xs transition-all ${
-          isFilterDrawerOpen ? "block" : "hidden lg:block"
-        }`}
+      <LayerCard
+        className={`p-4 transition-all ${isFilterDrawerOpen ? "block" : "hidden lg:block"}`}
       >
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
-          {/* Skill Filter */}
-          <div className="flex flex-col gap-2">
-            <label className="text-[11px] font-semibold uppercase leading-4 tracking-widest text-text-sub-600">
-              Skill
-            </label>
-            <select
-              value={selectedSkill}
-              onChange={(e) => setSelectedSkill(e.target.value)}
-              className="h-9 px-2 bg-bg-weak-50 border border-stroke-soft-200 rounded-xl text-xs text-text-strong-950 focus:outline-none focus:border-primary-base focus:ring-2 focus:ring-primary-base/10"
-            >
-              {allSkills.map((sk) => (
-                <option key={sk} value={sk}>
-                  {sk === "All" ? "All Skills" : sk}
-                </option>
-              ))}
-            </select>
-          </div>
+          {/* Skill Filter — Kumo Select */}
+          <Select label="Skill" value={selectedSkill} onValueChange={(v: any) => setSelectedSkill(v)} items={allSkills.map((sk) => ({ label: sk === "All" ? "All Skills" : sk, value: sk }))} />
 
-          {/* Industry Filter */}
-          <div className="flex flex-col gap-2">
-            <label className="text-[11px] font-semibold uppercase leading-4 tracking-widest text-text-sub-600">
-              Industry
-            </label>
-            <select
-              value={selectedIndustry}
-              onChange={(e) => setSelectedIndustry(e.target.value)}
-              className="h-9 px-2 bg-bg-weak-50 border border-stroke-soft-200 rounded-xl text-xs text-text-strong-950 focus:outline-none focus:border-primary-base focus:ring-2 focus:ring-primary-base/10"
-            >
-              {industries.map((ind) => (
-                <option key={ind} value={ind}>
-                  {ind === "All" ? "All Industries" : ind}
-                </option>
-              ))}
-            </select>
-          </div>
+          {/* Industry Filter — Kumo Select */}
+          <Select label="Industry" value={selectedIndustry} onValueChange={(v: any) => setSelectedIndustry(v)} items={industries.map((ind) => ({ label: ind === "All" ? "All Industries" : ind, value: ind }))} />
 
-          {/* Experience Filter */}
-          <div className="flex flex-col gap-2">
-            <label className="text-[11px] font-semibold uppercase leading-4 tracking-widest text-text-sub-600">
-              Experience
-            </label>
-            <select
-              value={selectedExperience}
-              onChange={(e) => setSelectedExperience(e.target.value)}
-              className="h-9 px-2 bg-bg-weak-50 border border-stroke-soft-200 rounded-xl text-xs text-text-strong-950 focus:outline-none focus:border-primary-base focus:ring-2 focus:ring-primary-base/10"
-            >
-              <option value="All">All Experience</option>
-              <option value="1">1+ years</option>
-              <option value="3">3+ years</option>
-              <option value="5">5+ years</option>
-            </select>
-          </div>
+          {/* Experience Filter — Kumo Select */}
+          <Select label="Experience" value={selectedExperience} onValueChange={(v: any) => setSelectedExperience(v)} items={[{ label: "All Experience", value: "All" }, { label: "1+ years", value: "1" }, { label: "3+ years", value: "3" }, { label: "5+ years", value: "5" }]} />
 
-          {/* Location Filter */}
-          <div className="flex flex-col gap-2">
-            <label className="text-[11px] font-semibold uppercase leading-4 tracking-widest text-text-sub-600">
-              Location
-            </label>
-            <select
-              value={selectedLocation}
-              onChange={(e) => setSelectedLocation(e.target.value)}
-              className="h-9 px-2 bg-bg-weak-50 border border-stroke-soft-200 rounded-xl text-xs text-text-strong-950 focus:outline-none focus:border-primary-base focus:ring-2 focus:ring-primary-base/10"
-            >
-              {locations.map((loc) => (
-                <option key={loc} value={loc}>
-                  {loc === "All" ? "All Locations" : loc}
-                </option>
-              ))}
-            </select>
-          </div>
+          {/* Location Filter — Kumo Select */}
+          <Select label="Location" value={selectedLocation} onValueChange={(v: any) => setSelectedLocation(v)} items={locations.map((loc) => ({ label: loc === "All" ? "All Locations" : loc, value: loc }))} />
 
-          {/* Status Filter */}
-          <div className="flex flex-col gap-2">
-            <label className="text-[11px] font-semibold uppercase leading-4 tracking-widest text-text-sub-600">
-              Availability
-            </label>
-            <select
-              value={selectedStatus}
-              onChange={(e) => setSelectedStatus(e.target.value)}
-              className="h-9 px-2 bg-bg-weak-50 border border-stroke-soft-200 rounded-xl text-xs text-text-strong-950 focus:outline-none focus:border-primary-base focus:ring-2 focus:ring-primary-base/10"
-            >
-              <option value="All">All Statuses</option>
-              <option value="Available to Help">Available to Help</option>
-              <option value="Open to Work">Open to Work</option>
-              <option value="Open to Collaboration">Open to Collab</option>
-              <option value="Hiring">Hiring</option>
-            </select>
-          </div>
+          {/* Status Filter — Kumo Select */}
+          <Select label="Availability" value={selectedStatus} onValueChange={(v: any) => setSelectedStatus(v)} items={["All", "Available to Help", "Open to Work", "Open to Collaboration", "Hiring"].map((s) => ({ label: s === "All" ? "All Statuses" : s, value: s }))} />
         </div>
 
         {hasActiveFilters && (
-          <div className="flex items-center justify-between pt-3 mt-3 border-t border-stroke-soft-200 text-xs">
-            <span className="text-text-sub-600">
+          <div className="flex items-center justify-between pt-3 mt-3 border-t border-kumo-line text-xs">
+            <span className="text-kumo-subtle">
               Showing{" "}
-              <strong className="text-text-strong-950">
+              <strong className="text-kumo-strong">
                 {filteredUsers.length}
               </strong>{" "}
               members matching criteria
             </span>
             <button
               onClick={clearAllFilters}
-              className="text-primary-base font-semibold hover:underline flex items-center gap-2"
+              className="text-kumo-brand font-semibold hover:underline flex items-center gap-2"
             >
               <RotateCcw className="size-3" />
               Reset All Filters
             </button>
           </div>
         )}
-      </div>
+      </LayerCard>
 
       {/* Results Section */}
       <div>
         <div className="flex items-center justify-between mb-4">
-          <span className="text-[11px] leading-4 font-medium text-text-sub-600">
+          <span className="text-xs leading-4 font-medium text-kumo-subtle">
             {filteredUsers.length} {filteredUsers.length === 1 ? "Person" : "People"} Found
           </span>
         </div>
 
         {filteredUsers.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <Grid variant="3up" gap="base">
             {filteredUsers.map((member) => (
               <ProfileCard key={member.id} member={member} />
             ))}
-          </div>
+          </Grid>
         ) : (
           <EmptyState
             icon={Users}

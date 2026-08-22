@@ -1,90 +1,69 @@
+"use client";
+
 import * as React from "react";
-import { RiCloseLine } from "@remixicon/react";
-import type { PolymorphicComponentProps } from "@/lib/utils/polymorphic";
-import { recursiveCloneChildren } from "@/lib/utils/recursive-clone-children";
-import { tv, type VariantProps } from "@/lib/utils/tv";
+import { Banner as KumoBanner } from "@cloudflare/kumo/components/banner";
+import { InfoIcon, WarningCircleIcon, CheckCircleIcon, XCircleIcon } from "@phosphor-icons/react";
 
-const ALERT_ROOT_NAME = "AlertRoot";
-const ALERT_ICON_NAME = "AlertIcon";
-const ALERT_CLOSE_ICON_NAME = "AlertCloseIcon";
+// Wrapper keeping legacy Alert API but rendering Kumo Banner
+export const alertVariants = () => ({ root: () => "", wrapper: () => "", icon: () => "", closeIcon: () => "" });
 
-export const alertVariants = tv({
-  slots: {
-    root: "w-full",
-    wrapper: [
-      "grid w-full auto-cols-auto grid-flow-col grid-cols-1 items-start has-[>svg:first-child]:grid-cols-[auto,minmax(0,1fr)]",
-      "transition duration-200 ease-out",
-    ],
-    icon: "shrink-0",
-    closeIcon: "",
-  },
-  variants: {
-    variant: {
-      filled: { root: "text-static-white", closeIcon: "text-static-white opacity-[.72]" },
-      light: { root: "text-text-strong-950", closeIcon: "text-text-strong-950 opacity-40" },
-      lighter: { root: "text-text-strong-950", closeIcon: "text-text-strong-950 opacity-40" },
-      stroke: { root: "bg-bg-white-0 text-text-strong-950 shadow-regular-md ring-1 ring-inset ring-stroke-soft-200", closeIcon: "text-text-strong-950 opacity-40" },
-    },
-    status: { error: {}, warning: {}, success: {}, information: {}, feature: {} },
-    size: {
-      xsmall: { root: "rounded-lg p-2 text-[11px] leading-4", wrapper: "gap-2", icon: "size-4", closeIcon: "size-4" },
-      small: { root: "rounded-lg px-2 py-2 text-[13px] leading-5", wrapper: "gap-2", icon: "size-5", closeIcon: "size-5" },
-      large: { root: "rounded-xl p-3 pb-4 text-[13px] leading-5", wrapper: "items-start gap-3", icon: "size-5", closeIcon: "size-5" },
-    },
-  },
-  compoundVariants: [
-    { variant: "filled", status: "error", class: { root: "bg-error-base" } },
-    { variant: "filled", status: "warning", class: { root: "bg-warning-base" } },
-    { variant: "filled", status: "success", class: { root: "bg-success-base" } },
-    { variant: "filled", status: "information", class: { root: "bg-information-base" } },
-    { variant: "filled", status: "feature", class: { root: "bg-faded-base" } },
-    { variant: "light", status: "error", class: { root: "bg-error-light" } },
-    { variant: "light", status: "warning", class: { root: "bg-warning-light" } },
-    { variant: "light", status: "success", class: { root: "bg-success-light" } },
-    { variant: "light", status: "information", class: { root: "bg-information-light" } },
-    { variant: "light", status: "feature", class: { root: "bg-faded-light" } },
-    { variant: "lighter", status: "error", class: { root: "bg-error-lighter" } },
-    { variant: "lighter", status: "warning", class: { root: "bg-warning-lighter" } },
-    { variant: "lighter", status: "success", class: { root: "bg-success-lighter" } },
-    { variant: "lighter", status: "information", class: { root: "bg-information-lighter" } },
-    { variant: "lighter", status: "feature", class: { root: "bg-faded-lighter" } },
-    { variant: ["light", "lighter", "stroke"], status: "error", class: { icon: "text-error-base" } },
-    { variant: ["light", "lighter", "stroke"], status: "warning", class: { icon: "text-warning-base" } },
-    { variant: ["light", "lighter", "stroke"], status: "success", class: { icon: "text-success-base" } },
-    { variant: ["light", "lighter", "stroke"], status: "information", class: { icon: "text-information-base" } },
-    { variant: ["light", "lighter", "stroke"], status: "feature", class: { icon: "text-faded-base" } },
-  ],
-  defaultVariants: { size: "small", variant: "filled", status: "information" },
-});
+type AlertStatus = "error" | "warning" | "success" | "information" | "feature";
+type AlertVariant = "filled" | "light" | "lighter" | "stroke";
 
-type AlertSharedProps = VariantProps<typeof alertVariants>;
-export type AlertProps = VariantProps<typeof alertVariants> & React.HTMLAttributes<HTMLDivElement> & { wrapperClassName?: string };
+function mapStatusToKumoVariant(status: AlertStatus): "default" | "alert" | "error" | "secondary" {
+  switch (status) {
+    case "error": return "error";
+    case "warning": return "alert";
+    case "success": return "default";
+    case "information": return "default";
+    case "feature": return "secondary";
+    default: return "default";
+  }
+}
 
-const AlertRoot = React.forwardRef<HTMLDivElement, AlertProps>(({ children, className, wrapperClassName, size, variant, status, ...rest }, forwardedRef) => {
-  const uniqueId = React.useId();
-  const { root, wrapper } = alertVariants({ size, variant, status });
-  const sharedProps: AlertSharedProps = { size, variant, status };
-  const extendedChildren = recursiveCloneChildren(children as React.ReactElement[], sharedProps, [ALERT_ICON_NAME, ALERT_CLOSE_ICON_NAME], uniqueId);
+function mapStatusToIcon(status: AlertStatus) {
+  switch (status) {
+    case "error": return <XCircleIcon weight="fill" />;
+    case "warning": return <WarningCircleIcon weight="fill" />;
+    case "success": return <CheckCircleIcon weight="fill" />;
+    case "information": return <InfoIcon weight="fill" />;
+    case "feature": return <InfoIcon weight="fill" />;
+    default: return <InfoIcon weight="fill" />;
+  }
+}
+
+export function Root({ children, status = "information", variant: _variant, size: _size, className, ...rest }: any) {
+  const kumoVariant = mapStatusToKumoVariant(status);
+  // Extract text from children for Banner title/description if possible, else render as children
+  // For Toast usage, children contains Alert.Icon + div with title/description + close
+  // We detect if children is the legacy structure and map appropriately, otherwise render Banner with children
+  const hasLegacyStructure = React.Children.toArray(children).some((c: any) => c?.props?.children);
+  if (hasLegacyStructure && React.Children.count(children) > 1) {
+    // Legacy Toast pattern: Icon + div + CloseIcon — render as Banner with title/description
+    // Fallback: just render Banner with children as is for flexibility
+    return (
+      <KumoBanner variant={kumoVariant} icon={mapStatusToIcon(status)} className={className} {...rest}>
+        <div className="flex flex-1 flex-col gap-0">{children}</div>
+      </KumoBanner>
+    );
+  }
   return (
-    <div ref={forwardedRef} className={root({ class: className })} {...rest}>
-      <div className={wrapper({ class: wrapperClassName })}>{extendedChildren}</div>
-    </div>
+    <KumoBanner variant={kumoVariant} icon={mapStatusToIcon(status)} className={className} {...rest}>
+      {children}
+    </KumoBanner>
   );
-});
-AlertRoot.displayName = ALERT_ROOT_NAME;
-
-function AlertIcon<T extends React.ElementType>({ size, variant, status, className, as, ...rest }: PolymorphicComponentProps<T, AlertSharedProps>) {
-  const Component = as || "div";
-  const { icon } = alertVariants({ size, variant, status });
-  return <Component className={icon({ class: className })} {...rest} />;
 }
-AlertIcon.displayName = ALERT_ICON_NAME;
 
-function AlertCloseIcon<T extends React.ElementType>({ size, variant, status, className, as, ...rest }: PolymorphicComponentProps<T, AlertSharedProps>) {
-  const Component = as || RiCloseLine;
-  const { closeIcon } = alertVariants({ size, variant, status });
-  return <Component className={closeIcon({ class: className })} {...rest} />;
+export function Icon({ as: As, ...props }: any) {
+  const Component = As || "span";
+  return <Component {...props} />;
 }
-AlertCloseIcon.displayName = ALERT_CLOSE_ICON_NAME;
 
-export { AlertRoot as Root, AlertIcon as Icon, AlertCloseIcon as CloseIcon };
+export function CloseIcon(props: any) {
+  return <span {...props} />;
+}
+
+// Legacy exports
+export const AlertRoot = Root;
+export const AlertIcon = Icon;
+export const AlertCloseIcon = CloseIcon;

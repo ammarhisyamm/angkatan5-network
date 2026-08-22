@@ -66,23 +66,23 @@ export function ConnectModal({
             <CheckCircle2 className="size-6" strokeWidth={1.5} />
           </span>
           <div>
-            <h4 className="text-base font-semibold leading-6 text-text-strong-950">Request sent</h4>
-            <p className="mt-0.5 text-[13px] leading-5 text-text-sub-600">
+            <h4 className="text-base font-semibold leading-6 text-kumo-strong">Request sent</h4>
+            <p className="mt-0.5 text-sm leading-5 text-kumo-subtle">
               {receiver?.name} will receive your note.
             </p>
           </div>
         </div>
       ) : (
         <form id="connect-form" onSubmit={handleSend} className="space-y-4">
-          <div className="flex items-center gap-3 rounded-xl border border-stroke-soft-200 bg-bg-weak-50 p-3">
+          <div className="flex items-center gap-3 rounded-xl border border-kumo-line bg-kumo-tint p-3">
             <img
               src={receiver?.avatar}
               alt=""
-              className="size-10 shrink-0 rounded-full bg-bg-weak-50 object-cover ring-1 ring-stroke-soft-200"
+              className="size-10 shrink-0 rounded-full bg-kumo-tint object-cover ring-1 ring-kumo-line"
             />
             <div className="min-w-0 flex-1">
-              <p className="truncate text-sm font-semibold leading-5 text-text-strong-950">{receiver?.name}</p>
-              <p className="truncate text-xs leading-[18px] text-text-sub-600">
+              <p className="truncate text-sm font-semibold leading-5 text-kumo-strong">{receiver?.name}</p>
+              <p className="truncate text-xs leading-[18px] text-kumo-subtle">
                 {receiver?.role} at {receiver?.company}
               </p>
             </div>

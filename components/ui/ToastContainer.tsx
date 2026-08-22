@@ -33,8 +33,8 @@ export function ToastContainer() {
             <Alert.Root status={status} variant="stroke" size="small" className="w-full shadow-regular-md">
               <Alert.Icon as={Icon} />
               <div className="flex flex-1 flex-col gap-0">
-                <span className="text-sm font-semibold leading-5 text-text-strong-950">{toast.title}</span>
-                {toast.description && <span className="text-[11px] leading-4 text-text-sub-600">{toast.description}</span>}
+                <span className="text-sm font-semibold leading-5 text-kumo-strong">{toast.title}</span>
+                {toast.description && <span className="text-xs leading-4 text-kumo-subtle">{toast.description}</span>}
               </div>
               <button type="button" onClick={() => removeToast(toast.id)} className="shrink-0">
                 <Alert.CloseIcon />

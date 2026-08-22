@@ -155,38 +155,38 @@ export default function MyProfilePage() {
   return (
     <div className="max-w-4xl mx-auto space-y-8">
       {/* Page Header */}
-      <div className="bg-bg-white-0 border border-stroke-soft-200 rounded-2xl p-6 sm:p-8 shadow-regular-xs">
+      <div className="bg-kumo-base border border-kumo-line rounded-2xl p-6 sm:p-8 shadow-regular-xs">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6">
           <div className="flex items-center gap-4">
             <img
               src={currentUser.avatar}
               alt={currentUser.name}
-              className="w-16 h-16 sm:w-20 sm:h-20 rounded-xl object-cover border-2 border-stroke-soft-200 shadow-regular-xs"
+              className="w-16 h-16 sm:w-20 sm:h-20 rounded-xl object-cover border-2 border-kumo-line shadow-regular-xs"
             />
             <div>
               <div className="flex items-center gap-2">
-                <h1 className="text-title-h5 font-medium text-text-strong-950">
+                <h1 className="text-title-h5 font-medium text-kumo-strong">
                   {currentUser.name}
                 </h1>
                 <StatusBadge status={currentUser.status} />
               </div>
-              <p className="text-xs sm:text-sm text-text-sub-600 mt-0">
+              <p className="text-xs sm:text-sm text-kumo-subtle mt-0">
                 {currentUser.role} at {currentUser.company}
               </p>
-              <p className="text-[11px] leading-4 text-text-soft-400 mt-1">{currentUser.email}</p>
+              <p className="text-xs leading-4 text-kumo-inactive mt-1">{currentUser.email}</p>
             </div>
           </div>
 
-          <div className="bg-bg-weak-50 p-4 rounded-xl border border-stroke-soft-200 w-full sm:w-64 shrink-0">
+          <div className="bg-kumo-tint p-4 rounded-xl border border-kumo-line w-full sm:w-64 shrink-0">
             <div className="flex items-center justify-between text-xs mb-1 font-semibold">
-              <span className="text-text-sub-600">Profile Completion</span>
-              <span className="text-primary-base">
+              <span className="text-kumo-subtle">Profile Completion</span>
+              <span className="text-kumo-brand">
                 {currentUser.profileCompletion}%
               </span>
             </div>
             <div className="w-full h-2 bg-stroke-soft-200 rounded-full overflow-hidden">
               <div
-                className="h-full bg-primary-base rounded-full transition-all duration-500"
+                className="h-full bg-kumo-brand rounded-full transition-all duration-500"
                 style={{ width: `${currentUser.profileCompletion}%` }}
               />
             </div>
@@ -195,11 +195,11 @@ export default function MyProfilePage() {
       </div>
 
       {/* 1. PERSONAL INFORMATION */}
-      <div className="bg-bg-white-0 border border-stroke-soft-200 rounded-2xl p-6 shadow-regular-xs space-y-4">
+      <div className="bg-kumo-base border border-kumo-line rounded-2xl p-6 shadow-regular-xs space-y-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <User className="size-4 text-primary-base" />
-            <h2 className="text-base font-semibold leading-6 text-text-strong-950">
+            <User className="size-4 text-kumo-brand" />
+            <h2 className="text-base font-semibold leading-6 text-kumo-strong">
               Personal Information
             </h2>
           </div>
@@ -252,26 +252,26 @@ export default function MyProfilePage() {
         ) : (
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-xs pt-2">
             <div>
-              <span className="text-text-soft-400 block font-medium">Full Name</span>
-              <span className="font-semibold text-text-strong-950">
+              <span className="text-kumo-inactive block font-medium">Full Name</span>
+              <span className="font-semibold text-kumo-strong">
                 {currentUser.name}
               </span>
             </div>
             <div>
-              <span className="text-text-soft-400 block font-medium">Location</span>
-              <span className="font-semibold text-text-strong-950">
+              <span className="text-kumo-inactive block font-medium">Location</span>
+              <span className="font-semibold text-kumo-strong">
                 {currentUser.location}
               </span>
             </div>
             <div>
-              <span className="text-text-soft-400 block font-medium">Batch</span>
-              <span className="font-semibold text-text-strong-950">
+              <span className="text-kumo-inactive block font-medium">Batch</span>
+              <span className="font-semibold text-kumo-strong">
                 {currentUser.batch}
               </span>
             </div>
             <div>
-              <span className="text-text-soft-400 block font-medium">Email</span>
-              <span className="font-semibold text-text-strong-950 font-mono text-[11px] leading-4">
+              <span className="text-kumo-inactive block font-medium">Email</span>
+              <span className="font-semibold text-kumo-strong font-mono text-xs leading-4">
                 {currentUser.email}
               </span>
             </div>
@@ -280,11 +280,11 @@ export default function MyProfilePage() {
       </div>
 
       {/* 2. PROFESSIONAL INFORMATION */}
-      <div className="bg-bg-white-0 border border-stroke-soft-200 rounded-2xl p-6 shadow-regular-xs space-y-4">
+      <div className="bg-kumo-base border border-kumo-line rounded-2xl p-6 shadow-regular-xs space-y-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <Briefcase className="size-4 text-primary-base" />
-            <h2 className="text-base font-semibold leading-6 text-text-strong-950">
+            <Briefcase className="size-4 text-kumo-brand" />
+            <h2 className="text-base font-semibold leading-6 text-kumo-strong">
               Professional Details
             </h2>
           </div>
@@ -346,27 +346,27 @@ export default function MyProfilePage() {
           <div className="space-y-3 pt-2">
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 text-xs">
               <div>
-                <span className="text-text-soft-400 block font-medium">Role</span>
-                <span className="font-semibold text-text-strong-950">
+                <span className="text-kumo-inactive block font-medium">Role</span>
+                <span className="font-semibold text-kumo-strong">
                   {currentUser.role}
                 </span>
               </div>
               <div>
-                <span className="text-text-soft-400 block font-medium">Company</span>
-                <span className="font-semibold text-text-strong-950">
+                <span className="text-kumo-inactive block font-medium">Company</span>
+                <span className="font-semibold text-kumo-strong">
                   {currentUser.company}
                 </span>
               </div>
               <div>
-                <span className="text-text-soft-400 block font-medium">Experience</span>
-                <span className="font-semibold text-text-strong-950">
+                <span className="text-kumo-inactive block font-medium">Experience</span>
+                <span className="font-semibold text-kumo-strong">
                   {currentUser.experience}
                 </span>
               </div>
             </div>
             <div>
-              <span className="text-text-soft-400 block font-medium text-xs">Bio</span>
-              <p className="mt-1 leading-relaxed text-sm leading-5 text-text-sub-600">
+              <span className="text-kumo-inactive block font-medium text-xs">Bio</span>
+              <p className="mt-1 leading-relaxed text-sm leading-5 text-kumo-subtle">
                 {currentUser.bio}
               </p>
             </div>
@@ -375,11 +375,11 @@ export default function MyProfilePage() {
       </div>
 
       {/* 3. SKILLS */}
-      <div className="bg-bg-white-0 border border-stroke-soft-200 rounded-2xl p-6 shadow-regular-xs space-y-4">
+      <div className="bg-kumo-base border border-kumo-line rounded-2xl p-6 shadow-regular-xs space-y-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <Layers className="size-4 text-primary-base" />
-            <h2 className="text-base font-semibold leading-6 text-text-strong-950">
+            <Layers className="size-4 text-kumo-brand" />
+            <h2 className="text-base font-semibold leading-6 text-kumo-strong">
               Skills & Expertise
             </h2>
           </div>
@@ -406,7 +406,7 @@ export default function MyProfilePage() {
 
         {editingSection === "skills" ? (
           <div className="space-y-4 pt-2">
-            <div className="flex flex-wrap gap-1 max-h-48 overflow-y-auto p-2 border border-stroke-soft-200 rounded-xl">
+            <div className="flex flex-wrap gap-1 max-h-48 overflow-y-auto p-2 border border-kumo-line rounded-xl">
               {ALL_SKILLS.map((sk) => {
                 const isSelected = skills.includes(sk);
                 return (
@@ -416,8 +416,8 @@ export default function MyProfilePage() {
                     onClick={() => handleToggleSkill(sk)}
                     className={`px-3 py-1 rounded-xl text-xs font-medium border transition-all ${
                       isSelected
-                        ? "bg-primary-base text-static-white border-primary-base"
-                        : "bg-bg-weak-50 text-text-sub-600 border-stroke-soft-200"
+                        ? "bg-kumo-brand text-static-white border-kumo-brand"
+                        : "bg-kumo-tint text-kumo-subtle border-kumo-line"
                     }`}
                   >
                     {isSelected ? "✓ " : "+ "}
@@ -433,7 +433,7 @@ export default function MyProfilePage() {
                 value={customSkill}
                 onChange={(e) => setCustomSkill(e.target.value)}
                 placeholder="Add other custom skill..."
-                className="flex-1 h-9 px-3 bg-bg-white-0 border border-stroke-soft-200 rounded-xl text-xs"
+                className="flex-1 h-9 px-3 bg-kumo-base border border-kumo-line rounded-xl text-xs"
               />
               <Button type="submit" variant="secondary" size="sm">
                 <Plus className="size-3 mr-1" />
@@ -446,7 +446,7 @@ export default function MyProfilePage() {
             {currentUser.skills?.map((sk) => (
               <span
                 key={sk}
-                className="px-3 py-1 rounded-xl text-xs font-medium bg-bg-weak-50 text-text-sub-600 border border-stroke-soft-200"
+                className="px-3 py-1 rounded-xl text-xs font-medium bg-kumo-tint text-kumo-subtle border border-kumo-line"
               >
                 {sk}
               </span>
@@ -456,11 +456,11 @@ export default function MyProfilePage() {
       </div>
 
       {/* 4. AVAILABILITY & STATUS */}
-      <div className="bg-bg-white-0 border border-stroke-soft-200 rounded-2xl p-6 shadow-regular-xs space-y-4">
+      <div className="bg-kumo-base border border-kumo-line rounded-2xl p-6 shadow-regular-xs space-y-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <Sparkles className="size-4 text-success-base" />
-            <h2 className="text-base font-semibold leading-6 text-text-strong-950">
+            <h2 className="text-base font-semibold leading-6 text-kumo-strong">
               Availability & Collaborations
             </h2>
           </div>
@@ -488,13 +488,13 @@ export default function MyProfilePage() {
         {editingSection === "availability" ? (
           <div className="space-y-4 pt-2">
             <div className="flex flex-col gap-2">
-              <label className="text-xs font-semibold text-text-sub-600">
+              <label className="text-xs font-semibold text-kumo-subtle">
                 Primary Status Badge
               </label>
               <select
                 value={status}
                 onChange={(e) => setStatus(e.target.value as UserStatus)}
-                className="h-10 px-3 bg-bg-white-0 border border-stroke-soft-200 rounded-xl text-xs text-text-strong-950"
+                className="h-10 px-3 bg-kumo-base border border-kumo-line rounded-xl text-xs text-kumo-strong"
               >
                 <option value="Available to Help">Available to Help</option>
                 <option value="Open to Work">Open to Work</option>
@@ -504,7 +504,7 @@ export default function MyProfilePage() {
             </div>
 
             <div className="space-y-2">
-              <label className="text-xs font-semibold text-text-sub-600">
+              <label className="text-xs font-semibold text-kumo-subtle">
                 What are you looking for?
               </label>
               <div className="flex flex-wrap gap-2">
@@ -517,8 +517,8 @@ export default function MyProfilePage() {
                       onClick={() => handleToggleLooking(item)}
                       className={`px-3 py-1 rounded-xl text-xs font-medium border transition-all ${
                         isChecked
-                          ? "bg-primary-base text-static-white border-primary-base"
-                          : "bg-bg-weak-50 text-text-sub-600 border-stroke-soft-200"
+                          ? "bg-kumo-brand text-static-white border-kumo-brand"
+                          : "bg-kumo-tint text-kumo-subtle border-kumo-line"
                       }`}
                     >
                       {isChecked ? "✓ " : "+ "}
@@ -530,7 +530,7 @@ export default function MyProfilePage() {
             </div>
 
             <div className="space-y-2">
-              <label className="text-xs font-semibold text-text-sub-600">
+              <label className="text-xs font-semibold text-kumo-subtle">
                 What can you offer?
               </label>
               <div className="flex flex-wrap gap-2">
@@ -544,7 +544,7 @@ export default function MyProfilePage() {
                       className={`px-3 py-1 rounded-xl text-xs font-medium border transition-all ${
                         isChecked
                           ? "bg-emerald-600 text-static-white border-emerald-600"
-                          : "bg-bg-weak-50 text-text-sub-600 border-stroke-soft-200"
+                          : "bg-kumo-tint text-kumo-subtle border-kumo-line"
                       }`}
                     >
                       {isChecked ? "✓ " : "+ "}
@@ -558,13 +558,13 @@ export default function MyProfilePage() {
         ) : (
           <div className="space-y-4 pt-2 text-xs">
             <div>
-              <span className="text-text-soft-400 block font-medium mb-1">Status</span>
+              <span className="text-kumo-inactive block font-medium mb-1">Status</span>
               <StatusBadge status={currentUser.status} />
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <span className="text-text-soft-400 block font-medium mb-1">
+                <span className="text-kumo-inactive block font-medium mb-1">
                   Looking For
                 </span>
                 <div className="flex flex-wrap gap-2">
@@ -577,7 +577,7 @@ export default function MyProfilePage() {
               </div>
 
               <div>
-                <span className="text-text-soft-400 block font-medium mb-1">
+                <span className="text-kumo-inactive block font-medium mb-1">
                   Can Offer
                 </span>
                 <div className="flex flex-wrap gap-2">
@@ -594,11 +594,11 @@ export default function MyProfilePage() {
       </div>
 
       {/* 5. LINKS & SOCIALS */}
-      <div className="bg-bg-white-0 border border-stroke-soft-200 rounded-2xl p-6 shadow-regular-xs space-y-4">
+      <div className="bg-kumo-base border border-kumo-line rounded-2xl p-6 shadow-regular-xs space-y-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <Globe className="size-4 text-primary-base" />
-            <h2 className="text-base font-semibold leading-6 text-text-strong-950">
+            <Globe className="size-4 text-kumo-brand" />
+            <h2 className="text-base font-semibold leading-6 text-kumo-strong">
               Links & Portfolio
             </h2>
           </div>
@@ -647,20 +647,20 @@ export default function MyProfilePage() {
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2 text-xs">
             <div>
-              <span className="text-text-soft-400 block font-medium">LinkedIn</span>
-              <span className="font-semibold text-text-strong-950 truncate block">
+              <span className="text-kumo-inactive block font-medium">LinkedIn</span>
+              <span className="font-semibold text-kumo-strong truncate block">
                 {currentUser.linkedin || "Not provided"}
               </span>
             </div>
             <div>
-              <span className="text-text-soft-400 block font-medium">Portfolio</span>
-              <span className="font-semibold text-text-strong-950 truncate block">
+              <span className="text-kumo-inactive block font-medium">Portfolio</span>
+              <span className="font-semibold text-kumo-strong truncate block">
                 {currentUser.portfolio || "Not provided"}
               </span>
             </div>
             <div>
-              <span className="text-text-soft-400 block font-medium">Website</span>
-              <span className="font-semibold text-text-strong-950 truncate block">
+              <span className="text-kumo-inactive block font-medium">Website</span>
+              <span className="font-semibold text-kumo-strong truncate block">
                 {currentUser.website || "Not provided"}
               </span>
             </div>
@@ -669,15 +669,15 @@ export default function MyProfilePage() {
       </div>
 
       {/* 6. PRIVACY & DIRECTORY CONTROLS */}
-      <div className="bg-bg-white-0 border border-stroke-soft-200 rounded-2xl p-6 shadow-regular-xs space-y-4">
+      <div className="bg-kumo-base border border-kumo-line rounded-2xl p-6 shadow-regular-xs space-y-4">
         <div className="flex items-center gap-2">
           <Shield className="size-4 text-feature-base" />
-          <h2 className="text-base font-semibold leading-6 text-text-strong-950">
+          <h2 className="text-base font-semibold leading-6 text-kumo-strong">
             Privacy & Directory Visibility
           </h2>
         </div>
 
-        <p className="text-xs text-text-sub-600">
+        <p className="text-xs text-kumo-subtle">
           Control how your profile appears in the Angkatan 5 network. Personal phone numbers and emails are never exposed publicly.
         </p>
 
@@ -689,16 +689,16 @@ export default function MyProfilePage() {
             }}
             className={`p-4 rounded-xl border-2 cursor-pointer transition-all flex items-start gap-3 ${
               currentUser.visibility === "community"
-                ? "border-primary-base bg-primary-alpha-10/40"
-                : "border-stroke-soft-200 hover:border-stroke-sub-300"
+                ? "border-kumo-brand bg-primary-alpha-10/40"
+                : "border-kumo-line hover:border-kumo-line"
             }`}
           >
-            <Eye className="size-5 text-primary-base shrink-0 mt-0" />
+            <Eye className="size-5 text-kumo-brand shrink-0 mt-0" />
             <div>
-              <h4 className="text-xs font-semibold text-text-strong-950">
+              <h4 className="text-xs font-semibold text-kumo-strong">
                 Community Members Only
               </h4>
-              <p className="text-[11px] leading-4 text-text-sub-600 mt-0">
+              <p className="text-xs leading-4 text-kumo-subtle mt-0">
                 Visible to verified Angkatan 5 members in directory searches.
               </p>
             </div>
@@ -712,15 +712,15 @@ export default function MyProfilePage() {
             className={`p-4 rounded-xl border-2 cursor-pointer transition-all flex items-start gap-3 ${
               currentUser.visibility === "hidden"
                 ? "border-amber-600 bg-amber-50/40"
-                : "border-stroke-soft-200 hover:border-stroke-sub-300"
+                : "border-kumo-line hover:border-kumo-line"
             }`}
           >
             <Lock className="size-5 text-warning-base shrink-0 mt-0" />
             <div>
-              <h4 className="text-xs font-semibold text-text-strong-950">
+              <h4 className="text-xs font-semibold text-kumo-strong">
                 Hidden from Directory
               </h4>
-              <p className="text-[11px] leading-4 text-text-sub-600 mt-0">
+              <p className="text-xs leading-4 text-kumo-subtle mt-0">
                 Your profile will not appear in search results or suggestions.
               </p>
             </div>

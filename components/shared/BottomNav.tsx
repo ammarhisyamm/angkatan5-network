@@ -28,7 +28,7 @@ export function BottomNav() {
   return (
     <nav
       aria-label="Primary mobile"
-      className="fixed inset-x-0 bottom-0 z-40 border-t border-stroke-soft-200 bg-bg-white-0 lg:hidden"
+      className="fixed inset-x-0 bottom-0 z-40 border-t border-kumo-line bg-kumo-base lg:hidden"
       style={{ paddingBottom: "env(safe-area-inset-bottom)" }}
     >
       <div className="mx-auto flex h-16 max-w-md items-stretch px-2">
@@ -47,8 +47,8 @@ export function BottomNav() {
               className={cn(
                 // 48px touch target, full-height tap area
                 "relative flex min-h-12 flex-1 flex-col items-center justify-center gap-1 rounded-lg",
-                "transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-base",
-                isActive ? "text-primary-base" : "text-text-soft-400 active:text-text-sub-600",
+                "transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-kumo-brand",
+                isActive ? "text-kumo-brand" : "text-kumo-inactive active:text-kumo-subtle",
               )}
             >
               {/* Active pill behind icon */}
@@ -61,7 +61,7 @@ export function BottomNav() {
               >
                 <Icon className="size-5" strokeWidth={isActive ? 2 : 1.5} />
               </span>
-              <span className={cn("text-[11px] font-medium leading-none", isActive && "font-semibold")}>
+              <span className={cn("text-xs font-medium leading-none", isActive && "font-semibold")}>
                 {item.short}
               </span>
             </Link>

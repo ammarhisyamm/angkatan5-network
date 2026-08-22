@@ -1,22 +1,17 @@
 "use client";
 
 import React from "react";
+import { Badge as KumoBadge } from "@cloudflare/kumo/components/badge";
 import { cn } from "@/lib/utils/cn";
-
-/* ------------------------------------------------------------------
-   Tag — skill / category / metadata chip
-   24px height, radius-6 (6px), px-2.5, text-[11px] medium
-   Soft background + readable dark text. Wraps with gap-2.
-------------------------------------------------------------------- */
 
 export type TagTone = "neutral" | "success" | "warning" | "information" | "primary";
 
-const toneClasses: Record<TagTone, string> = {
-  neutral: "bg-[#F2F4F7] text-[#475467]",
-  success: "bg-success-lighter text-success-base",
-  warning: "bg-warning-lighter text-warning-base",
-  information: "bg-information-lighter text-information-dark",
-  primary: "bg-primary-alpha-10 text-primary-base",
+const toneMap: Record<TagTone, "neutral" | "success" | "warning" | "info" | "blue"> = {
+  neutral: "neutral",
+  success: "success",
+  warning: "warning",
+  information: "info",
+  primary: "blue",
 };
 
 export interface TagProps extends React.HTMLAttributes<HTMLSpanElement> {
@@ -24,36 +19,23 @@ export interface TagProps extends React.HTMLAttributes<HTMLSpanElement> {
 }
 
 export function Tag({ className, tone = "neutral", children, ...props }: TagProps) {
+  const variant = toneMap[tone] ?? "neutral";
   return (
-    <span
-      className={cn(
-        "inline-flex h-6 shrink-0 select-none items-center whitespace-nowrap rounded-md px-2.5",
-        "text-[11px] font-medium leading-none tracking-[0.01em]",
-        toneClasses[tone],
-        className,
-      )}
-      {...props}
-    >
+    <KumoBadge variant={variant} className={cn("rounded-md px-2.5 py-0.5 text-xs font-medium leading-none tracking-[0.01em] h-6", className)} {...(props as any)}>
       {children}
-    </span>
+    </KumoBadge>
   );
 }
 
-/* ------------------------------------------------------------------
-   StatusBadge — semantic status pill
-   24px height, 999px pill, px-2.5 (10px), text-[11px] medium,
-   consistent 6px status dot. Same component on every screen.
-   Dot ensures status is not communicated by color alone.
-------------------------------------------------------------------- */
-
+/* StatusBadge — uses Kumo dot appearance for semantic status */
 export type StatusTone = "success" | "warning" | "information" | "primary" | "neutral";
 
-const statusToneClasses: Record<StatusTone, string> = {
-  success: "bg-success-lighter text-success-dark",
-  warning: "bg-warning-lighter text-warning-base",
-  information: "bg-information-lighter text-information-dark",
-  primary: "bg-primary-alpha-10 text-primary-base",
-  neutral: "bg-[#F2F4F7] text-[#475467]",
+const statusVariantMap: Record<StatusTone, "success" | "warning" | "info" | "blue" | "neutral"> = {
+  success: "success",
+  warning: "warning",
+  information: "info",
+  primary: "blue",
+  neutral: "neutral",
 };
 
 export interface StatusBadgeProps extends React.HTMLAttributes<HTMLSpanElement> {
@@ -62,19 +44,20 @@ export interface StatusBadgeProps extends React.HTMLAttributes<HTMLSpanElement> 
 }
 
 export function StatusBadge({ tone, label, className, ...props }: StatusBadgeProps) {
+  const variant = statusVariantMap[tone] ?? "neutral";
+  // Kumo dot only supports success/warning/error/neutral; for info/blue we fallback to filled with custom dot
+  const useKumoDot = variant === "success" || variant === "warning" || variant === "neutral";
+  if (useKumoDot) {
+    return (
+      <KumoBadge variant={variant as any} appearance="dot" className={cn("rounded-full px-2.5 text-xs font-semibold uppercase tracking-[0.02em] h-6", className)} {...(props as any)}>
+        {label}
+      </KumoBadge>
+    );
+  }
   return (
-    <span
-      role="status"
-      className={cn(
-        "inline-flex h-6 shrink-0 select-none items-center gap-1.5 whitespace-nowrap rounded-full px-2.5",
-        "text-[11px] font-semibold uppercase leading-none tracking-[0.02em]",
-        statusToneClasses[tone],
-        className,
-      )}
-      {...props}
-    >
+    <KumoBadge variant={variant as any} className={cn("rounded-full px-2.5 gap-1.5 text-xs font-semibold uppercase tracking-[0.02em] h-6", className)} {...(props as any)}>
       <span aria-hidden="true" className="size-1.5 shrink-0 rounded-full bg-current opacity-80" />
       {label}
-    </span>
+    </KumoBadge>
   );
 }

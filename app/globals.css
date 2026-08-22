@@ -1,4 +1,6 @@
-@import 'tailwindcss';
+@source "../node_modules/@cloudflare/kumo/dist/**/*.{js,jsx,ts,tsx}";
+@import "@cloudflare/kumo/styles/tailwind";
+@import "tailwindcss";
 
 @theme {
   /* AlignUI Raw Colors */
@@ -471,6 +473,16 @@
   --color-error-light: #FEECEC;
   --color-error-base: #C92A2A;
   --color-error-dark: #A21F1F;
+}
+
+/* Kumo brand override — keep B2B blue primary (#4169D8) across Kumo components for consistency */
+:root {
+  --text-color-kumo-brand: #4169D8;
+  --color-kumo-brand: #4169D8;
+  --color-kumo-brand-hover: #315BEF;
+  --bg-kumo-brand: #4169D8;
+  --border-kumo-brand: #4169D8;
+  --ring-kumo-brand: #4169D8;
 }
 
 /* Light mode only - no dark mode overrides */

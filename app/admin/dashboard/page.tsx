@@ -69,14 +69,14 @@ export default function AdminDashboardPage() {
       {/* Admin Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <div className="flex items-center gap-1 mb-1 flex items-center gap-1.5 text-[11px] font-semibold uppercase leading-4 tracking-widest text-text-soft-400">
+          <div className="flex items-center gap-1 mb-1 flex items-center gap-1.5 text-xs font-semibold uppercase leading-4 tracking-widest text-kumo-inactive">
             <ShieldCheck className="size-4" />
             <span>Angkatan 5 Secretariat Administration</span>
           </div>
-          <h1 className="text-2xl font-semibold leading-8 tracking-tight text-text-strong-950">
+          <h1 className="text-2xl font-semibold leading-8 tracking-tight text-kumo-strong">
             Community Overview
           </h1>
-          <p className="mt-1 text-sm leading-5 text-text-sub-600">
+          <p className="mt-1 text-sm leading-5 text-kumo-subtle">
             Manage members, review community opportunities, and track skill growth.
           </p>
         </div>
@@ -99,70 +99,70 @@ export default function AdminDashboardPage() {
 
       {/* Metrics Row */}
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
-        <div className="p-4 rounded-xl bg-bg-white-0 border border-stroke-soft-200">
-          <span className="text-[11px] leading-4 font-semibold text-text-sub-600 block">
+        <div className="p-4 rounded-xl bg-kumo-base border border-kumo-line">
+          <span className="text-xs leading-4 font-semibold text-kumo-subtle block">
             Total Members
           </span>
-          <span className="mt-1 block text-2xl font-semibold leading-8 tracking-tight text-text-strong-950">
+          <span className="mt-1 block text-2xl font-semibold leading-8 tracking-tight text-kumo-strong">
             182
           </span>
-          <span className="text-[11px] leading-4 text-success-base font-medium">
+          <span className="text-xs leading-4 text-success-base font-medium">
             +18 this month
           </span>
         </div>
 
-        <div className="p-4 rounded-xl bg-bg-white-0 border border-stroke-soft-200">
-          <span className="text-[11px] leading-4 font-semibold text-text-sub-600 block">
+        <div className="p-4 rounded-xl bg-kumo-base border border-kumo-line">
+          <span className="text-xs leading-4 font-semibold text-kumo-subtle block">
             Profile Completion
           </span>
-          <span className="mt-1 block text-2xl font-semibold leading-8 tracking-tight text-text-strong-950">
+          <span className="mt-1 block text-2xl font-semibold leading-8 tracking-tight text-kumo-strong">
             81%
           </span>
-          <span className="text-[11px] leading-4 text-primary-base font-medium">
+          <span className="text-xs leading-4 text-kumo-brand font-medium">
             Average across pool
           </span>
         </div>
 
-        <div className="p-4 rounded-xl bg-bg-white-0 border border-stroke-soft-200">
-          <span className="text-[11px] leading-4 font-semibold text-warning-base block">
+        <div className="p-4 rounded-xl bg-kumo-base border border-kumo-line">
+          <span className="text-xs leading-4 font-semibold text-warning-base block">
             Open to Work
           </span>
-          <span className="mt-1 block text-2xl font-semibold leading-8 tracking-tight text-text-strong-950">
+          <span className="mt-1 block text-2xl font-semibold leading-8 tracking-tight text-kumo-strong">
             18
           </span>
-          <span className="text-[11px] leading-4 text-text-soft-400">Available now</span>
+          <span className="text-xs leading-4 text-kumo-inactive">Available now</span>
         </div>
 
-        <div className="p-4 rounded-xl bg-bg-white-0 border border-stroke-soft-200">
-          <span className="text-[11px] leading-4 font-semibold text-sky-600 block">
+        <div className="p-4 rounded-xl bg-kumo-base border border-kumo-line">
+          <span className="text-xs leading-4 font-semibold text-sky-600 block">
             Collaboration
           </span>
-          <span className="mt-1 block text-2xl font-semibold leading-8 tracking-tight text-text-strong-950">
+          <span className="mt-1 block text-2xl font-semibold leading-8 tracking-tight text-kumo-strong">
             24
           </span>
-          <span className="text-[11px] leading-4 text-text-soft-400">Ready to partner</span>
+          <span className="text-xs leading-4 text-kumo-inactive">Ready to partner</span>
         </div>
 
-        <div className="p-4 rounded-xl bg-bg-white-0 border border-stroke-soft-200">
-          <span className="text-[11px] leading-4 font-semibold text-primary-base block">
+        <div className="p-4 rounded-xl bg-kumo-base border border-kumo-line">
+          <span className="text-xs leading-4 font-semibold text-kumo-brand block">
             Active Opps
           </span>
-          <span className="mt-1 block text-2xl font-semibold leading-8 tracking-tight text-text-strong-950">
+          <span className="mt-1 block text-2xl font-semibold leading-8 tracking-tight text-kumo-strong">
             15
           </span>
-          <span className="text-[11px] leading-4 text-success-base font-medium">
+          <span className="text-xs leading-4 text-success-base font-medium">
             {pendingOpportunities.length} pending approval
           </span>
         </div>
 
-        <div className="p-4 rounded-xl bg-bg-white-0 border border-stroke-soft-200">
-          <span className="text-[11px] leading-4 font-semibold text-feature-base block">
+        <div className="p-4 rounded-xl bg-kumo-base border border-kumo-line">
+          <span className="text-xs leading-4 font-semibold text-feature-base block">
             Skills Indexed
           </span>
-          <span className="mt-1 block text-2xl font-semibold leading-8 tracking-tight text-text-strong-950">
+          <span className="mt-1 block text-2xl font-semibold leading-8 tracking-tight text-kumo-strong">
             32
           </span>
-          <span className="text-[11px] leading-4 text-text-soft-400">across 7 fields</span>
+          <span className="text-xs leading-4 text-kumo-inactive">across 7 fields</span>
         </div>
       </div>
 
@@ -175,7 +175,7 @@ export default function AdminDashboardPage() {
               <h4 className="text-xs font-semibold text-amber-900">
                 {pendingOpportunities.length} Opportunity Pending Moderation
               </h4>
-              <p className="text-[11px] leading-4 text-amber-700 mt-0">
+              <p className="text-xs leading-4 text-amber-700 mt-0">
                 Community posts require admin approval before becoming visible to all members.
               </p>
             </div>
@@ -191,17 +191,17 @@ export default function AdminDashboardPage() {
       {/* Charts Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Line Chart: Member Growth */}
-        <div className="bg-bg-white-0 border border-stroke-soft-200 rounded-2xl p-6 flex flex-col justify-between">
+        <div className="bg-kumo-base border border-kumo-line rounded-2xl p-6 flex flex-col justify-between">
           <div className="flex items-center justify-between mb-4">
             <div>
-              <h3 className="text-base font-semibold leading-6 text-text-strong-950">
+              <h3 className="text-base font-semibold leading-6 text-kumo-strong">
                 Member Growth
               </h3>
-              <p className="text-xs text-text-sub-600">
+              <p className="text-xs text-kumo-subtle">
                 Community cohort expansion over the last 7 months
               </p>
             </div>
-            <span className="text-xs font-semibold text-primary-base bg-primary-alpha-10 px-2 py-1 rounded-lg">
+            <span className="text-xs font-semibold text-kumo-brand bg-primary-alpha-10 px-2 py-1 rounded-lg">
               +304% total
             </span>
           </div>
@@ -244,13 +244,13 @@ export default function AdminDashboardPage() {
         </div>
 
         {/* Bar Chart: Top Skills */}
-        <div className="bg-bg-white-0 border border-stroke-soft-200 rounded-2xl p-6 flex flex-col justify-between">
+        <div className="bg-kumo-base border border-kumo-line rounded-2xl p-6 flex flex-col justify-between">
           <div className="flex items-center justify-between mb-4">
             <div>
-              <h3 className="text-base font-semibold leading-6 text-text-strong-950">
+              <h3 className="text-base font-semibold leading-6 text-kumo-strong">
                 Top Indexed Skills
               </h3>
-              <p className="text-xs text-text-sub-600">
+              <p className="text-xs text-kumo-subtle">
                 Most common skills tagged across member profiles
               </p>
             </div>
@@ -297,8 +297,8 @@ export default function AdminDashboardPage() {
       </div>
 
       {/* Member Status Breakdown Row */}
-      <div className="bg-bg-white-0 border border-stroke-soft-200 rounded-2xl p-6">
-        <h3 className="text-base font-semibold leading-6 text-text-strong-950 mb-4">
+      <div className="bg-kumo-base border border-kumo-line rounded-2xl p-6">
+        <h3 className="text-base font-semibold leading-6 text-kumo-strong mb-4">
           Member Status Breakdown
         </h3>
 
@@ -306,13 +306,13 @@ export default function AdminDashboardPage() {
           {STATUS_DATA.map((st) => (
             <div
               key={st.name}
-              className="p-4 rounded-xl bg-bg-weak-50 border border-stroke-soft-200 flex items-center justify-between"
+              className="p-4 rounded-xl bg-kumo-tint border border-kumo-line flex items-center justify-between"
             >
               <div>
-                <span className="text-xs font-semibold text-text-sub-600 block">
+                <span className="text-xs font-semibold text-kumo-subtle block">
                   {st.name}
                 </span>
-                <span className="mt-1 block text-2xl font-semibold leading-8 tracking-tight text-text-strong-950">
+                <span className="mt-1 block text-2xl font-semibold leading-8 tracking-tight text-kumo-strong">
                   {st.value} members
                 </span>
               </div>
