@@ -35,7 +35,7 @@ export default function MemberProfilePage() {
         <h2 className="text-base font-semibold leading-6 text-text-strong-950">
           Member Not Found
         </h2>
-        <p className="mt-1 mb-4 text-[13px] leading-5 text-text-sub-600">
+        <p className="mt-1 mb-4 text-sm leading-5 text-text-sub-600">
           The requested member profile could not be located.
         </p>
         <Link href="/discover">
@@ -179,7 +179,7 @@ export default function MemberProfilePage() {
                     <span className="text-[11px] leading-4 text-text-soft-400 font-medium block mt-0">
                       {exp.period}
                     </span>
-                    <p className="mt-2 leading-relaxed text-[13px] leading-5 text-text-sub-600">
+                    <p className="mt-2 leading-relaxed text-sm leading-5 text-text-sub-600">
                       {exp.description}
                     </p>
                   </div>
@@ -192,7 +192,7 @@ export default function MemberProfilePage() {
                   <h4 className="text-sm font-semibold text-text-strong-950">
                     {member.role} at {member.company}
                   </h4>
-                  <p className="mt-0 text-[13px] leading-5 text-text-sub-600">
+                  <p className="mt-0 text-sm leading-5 text-text-sub-600">
                     {member.experience} of dedicated industry experience.
                   </p>
                 </div>

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import Link from "next/link";
 import { User } from "@/lib/types";
 import { StatusBadge } from "@/components/ui/Badge";
@@ -29,17 +29,17 @@ export function ProfileCard({ member }: { member: User }) {
             </Link>
             <div className="min-w-0 flex-1">
               <Link href={`/profile/${member.id}`} className="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-base focus-visible:ring-offset-2 rounded-sm">
-                <h3 className="truncate text-sm font-semibold leading-5 text-text-strong-950 group-hover:text-primary-base">{member.name}</h3>
+                <h3 className="truncate text-base font-semibold leading-5 text-text-strong-950 group-hover:text-primary-base">{member.name}</h3>
               </Link>
-              <p className="truncate text-[13px] leading-5 text-text-sub-600">{member.role}</p>
+              <p className="truncate text-sm leading-5 text-text-sub-600">{member.role}</p>
               <p className="mt-0.5 truncate text-xs leading-[18px] text-text-soft-400">
-                {member.company} · {member.experience}
+                {member.company} &middot; {member.experience}
               </p>
             </div>
           </div>
 
           {member.bio && (
-            <p className="mt-3 line-clamp-2 text-[13px] leading-5 text-text-sub-600">{member.bio}</p>
+            <p className="mt-3 line-clamp-2 text-sm leading-5 text-text-sub-600">{member.bio}</p>
           )}
 
           <div className="mt-4 flex flex-wrap gap-2">
@@ -56,7 +56,7 @@ export function ProfileCard({ member }: { member: User }) {
         <div className="mt-auto flex items-center justify-between gap-2 border-t border-stroke-soft-200 px-5 py-3">
           <StatusBadge status={member.status} />
           <Link href={`/profile/${member.id}`}>
-            <Button variant="secondary" size="sm">
+            <Button variant="subtle" size="sm">
               View Profile <ArrowRight className="size-3.5" strokeWidth={1.5} />
             </Button>
           </Link>
