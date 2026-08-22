@@ -229,7 +229,7 @@ export default function CreateOpportunityPage() {
             )}
           </div>
 
-          <div className="flex items-center justify-end gap-3 pt-6 border-t border-kumo-line">
+          <div className="flex flex-col-reverse sm:flex-row items-stretch sm:items-center justify-end gap-3 pt-6 border-t border-kumo-line">
             <Button variant="outline" size="md" onClick={() => setIsPreview(false)}>
               Edit Details
             </Button>
@@ -372,7 +372,7 @@ export default function CreateOpportunityPage() {
             placeholder="e.g. Direct message via A5 Network or email to careers@example.com"
           />
 
-          <div className="flex items-center justify-between pt-6 border-t border-kumo-line">
+          <div className="flex flex-col-reverse sm:flex-row items-stretch sm:items-center justify-between gap-3 pt-6 border-t border-kumo-line">
             <Button type="button" variant="outline" size="md" onClick={() => setIsPreview(true)}
             >
               <Eye className="size-4 mr-1" />

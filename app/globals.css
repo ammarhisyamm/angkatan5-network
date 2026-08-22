@@ -519,7 +519,6 @@ button, input, select, textarea { font: inherit; }
 button { cursor: pointer; }
 
 ::selection { background: #4169D8; color: #fff; }
-::selection:window-inactive { background: #EEF2FF; }
 
 /* Type scale — semantic, single source */
 @utility text-page-title { font-size: 1.75rem; line-height: 2.25rem; letter-spacing: -0.025em; font-weight: 700; }

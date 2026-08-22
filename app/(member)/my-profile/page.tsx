@@ -163,9 +163,9 @@ export default function MyProfilePage() {
               alt={currentUser.name}
               className="w-16 h-16 sm:w-20 sm:h-20 rounded-xl object-cover border-2 border-kumo-line shadow-regular-xs"
             />
-            <div>
-              <div className="flex items-center gap-2">
-                <h1 className="text-page-title text-kumo-strong">
+            <div className="min-w-0 flex-1">
+              <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
+                <h1 className="text-page-title text-kumo-strong break-words min-w-0">
                   {currentUser.name}
                 </h1>
                 <StatusBadge status={currentUser.status} />
