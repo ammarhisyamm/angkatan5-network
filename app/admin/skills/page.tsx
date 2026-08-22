@@ -45,7 +45,7 @@ export default function AdminSkillsPage() {
           <div className="flex items-center gap-1.5 text-xs font-semibold uppercase leading-4 tracking-widest text-kumo-inactive">
             <StackIcon size={16} /><span>Taxonomy Control</span>
           </div>
-          <h1 className="text-2xl font-semibold leading-8 tracking-tight text-kumo-strong">Skills Management</h1>
+          <h1 className="text-page-title text-kumo-strong">Skills Management</h1>
           <p className="mt-1 text-sm leading-5 text-kumo-subtle">Curate standardized community skill tags, merge duplicates, and analyze member adoption.</p>
         </div>
         <Button variant="primary" size="md" icon={<PlusIcon />} onClick={() => setIsAddModalOpen(true)}>Add New Skill</Button>

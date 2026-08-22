@@ -58,7 +58,7 @@ export default function AdminOpportunitiesPage() {
             <BriefcaseIcon size={16} />
             <span>Opportunity Moderation Workflow</span>
           </div>
-          <h1 className="text-2xl font-semibold leading-8 tracking-tight text-kumo-strong">Moderate Opportunities</h1>
+          <h1 className="text-page-title text-kumo-strong">Moderate Opportunities</h1>
           <p className="mt-1 text-sm leading-5 text-kumo-subtle">Review community submissions, publish approved listings, and archive old roles.</p>
         </div>
         <Link href="/opportunities/create">

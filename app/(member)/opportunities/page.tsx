@@ -93,7 +93,7 @@ export default function OpportunitiesPage() {
             <Briefcase className="size-4" />
             <span>Community Board</span>
           </div>
-          <h1 className="text-2xl font-semibold leading-8 tracking-tight text-kumo-strong">
+          <h1 className="text-page-title text-kumo-strong">
             Opportunities
           </h1>
           <p className="text-sm text-kumo-subtle mt-1 max-w-2xl">

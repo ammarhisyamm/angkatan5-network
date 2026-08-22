@@ -44,7 +44,7 @@ export default function LoginPage() {
     <div className="min-h-screen bg-kumo-tint flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md text-center px-4">
         <div className="inline-flex items-center justify-center size-14 rounded-xl bg-kumo-brand text-title-h5 font-semibold text-static-white shadow-regular-xs mb-4">A5</div>
-        <h1 className="text-2xl font-semibold leading-8 tracking-tight text-kumo-strong">Angkatan 5 Network</h1>
+        <h1 className="text-page-title text-kumo-strong">Angkatan 5 Network</h1>
         <p className="mt-1 text-sm leading-5 text-kumo-subtle">Private talent directory for members of Angkatan 5 SMP & IHBS</p>
       </div>
 

@@ -45,15 +45,15 @@ export default function MemberDashboardPage() {
       <LayerCard className="p-6">
         <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
           <div>
-            <h1 className="text-[28px] font-semibold leading-9 tracking-tight text-kumo-strong">
+            <h1 className="text-page-title text-kumo-strong">
               {getGreeting()}, {firstName}
             </h1>
-            <p className="mt-1 text-sm leading-5 text-kumo-subtle">Discover people and opportunities within your community.</p>
+            <p className="mt-1 text-body text-kumo-subtle">Discover people and opportunities within your community.</p>
           </div>
           <div className="w-full shrink-0 rounded-lg border border-kumo-line bg-kumo-tint p-4 md:w-[320px]">
             <div className="mb-2 flex items-center justify-between">
-              <span className="text-xs font-medium leading-[18px] text-kumo-subtle">Profile completion</span>
-              <span className="text-xs font-semibold leading-[18px] text-kumo-brand">{completion}%</span>
+              <span className="text-meta text-kumo-subtle">Profile completion</span>
+              <span className="text-meta font-semibold text-kumo-brand" data-numeric>{completion}%</span>
             </div>
             <div className="h-1.5 w-full overflow-hidden rounded-full bg-kumo-line" role="progressbar" aria-valuenow={completion} aria-valuemin={0} aria-valuemax={100} aria-label="Profile completion">
               <div className="h-full rounded-full bg-kumo-brand transition-all duration-500" style={{ width: `${completion}%` }} />
@@ -68,7 +68,7 @@ export default function MemberDashboardPage() {
       </LayerCard>
 
       <section aria-labelledby="quick-actions-heading">
-        <h2 id="quick-actions-heading" className="mb-4 text-xl font-semibold leading-6 text-kumo-strong">Quick Actions</h2>
+        <h2 id="quick-actions-heading" className="mb-4 text-section-title text-kumo-strong">Quick Actions</h2>
         <Grid variant="1-2-4up" gap="base">
           {quickActions.map((a) => {
             const Icon = a.icon;
@@ -78,8 +78,8 @@ export default function MemberDashboardPage() {
                   <span className="mb-3 flex size-10 items-center justify-center rounded-lg bg-kumo-brand/10 text-kumo-brand">
                     <Icon className="size-5" strokeWidth={1.5} />
                   </span>
-                  <h3 className="text-base font-semibold leading-5 text-kumo-strong group-hover:text-kumo-brand">{a.title}</h3>
-                  <p className="mt-1 text-sm leading-5 text-kumo-subtle">{a.desc}</p>
+                  <h3 className="text-card-title text-kumo-strong group-hover:text-kumo-brand">{a.title}</h3>
+                  <p className="mt-1 text-body text-kumo-subtle">{a.desc}</p>
                 </LayerCard>
               </Link>
             );
@@ -89,15 +89,15 @@ export default function MemberDashboardPage() {
 
       <LayerCard className="p-6">
         <div className="mb-4 flex items-center justify-between">
-          <h2 id="snapshot-heading" className="text-xl font-semibold leading-6 text-kumo-strong">Community Snapshot</h2>
-          <span className="text-xs leading-[18px] text-kumo-inactive">Updated live</span>
+          <h2 id="snapshot-heading" className="text-section-title text-kumo-strong">Community Snapshot</h2>
+          <span className="text-meta text-kumo-inactive">Updated live</span>
         </div>
         <div className="grid grid-cols-2 gap-y-6 sm:grid-cols-3 lg:grid-cols-5 lg:gap-y-0 lg:divide-x lg:divide-kumo-line">
           {metrics.map((m) => (
             <div key={m.label} className="flex flex-col px-5 py-1 first:pl-0">
-              <dt className="text-sm font-medium leading-[18px] text-kumo-subtle">{m.label}</dt>
-              <dd className="mt-1 text-[28px] font-semibold leading-8 tracking-tight text-kumo-strong">{m.value}</dd>
-              <span className={`mt-0.5 text-xs leading-[18px] ${m.metaTone}`}>{m.meta}</span>
+              <dt className="text-meta text-kumo-subtle">{m.label}</dt>
+              <dd className="mt-1 text-[28px] font-semibold leading-8 tracking-tight text-kumo-strong" data-numeric style={{ fontVariantNumeric: 'tabular-nums' }}>{m.value}</dd>
+              <span className={`mt-0.5 text-meta ${m.metaTone}`}>{m.meta}</span>
             </div>
           ))}
         </div>
@@ -106,8 +106,8 @@ export default function MemberDashboardPage() {
       <section aria-labelledby="featured-heading">
         <div className="mb-4 flex items-end justify-between gap-4">
           <div>
-            <h2 id="featured-heading" className="text-xl font-semibold leading-6 text-kumo-strong">Featured Community Members</h2>
-            <p className="mt-0.5 text-sm leading-5 text-kumo-subtle">Connect with talented peers across design, engineering, and business.</p>
+            <h2 id="featured-heading" className="text-section-title text-kumo-strong">Featured Community Members</h2>
+            <p className="mt-0.5 text-body text-kumo-subtle">Connect with talented peers across design, engineering, and business.</p>
           </div>
           <Link href="/discover" className="shrink-0">
             <Button variant="secondary" size="sm">View All <ArrowRight className="size-3.5" strokeWidth={1.5} /></Button>
@@ -123,8 +123,8 @@ export default function MemberDashboardPage() {
       <section aria-labelledby="latest-opps-heading">
         <div className="mb-4 flex items-end justify-between gap-4">
           <div>
-            <h2 id="latest-opps-heading" className="text-xl font-semibold leading-6 text-kumo-strong">Latest Opportunities</h2>
-            <p className="mt-0.5 text-sm leading-5 text-kumo-subtle">Fresh collaborations, job openings, and project gigs.</p>
+            <h2 id="latest-opps-heading" className="text-section-title text-kumo-strong">Latest Opportunities</h2>
+            <p className="mt-0.5 text-body text-kumo-subtle">Fresh collaborations, job openings, and project gigs.</p>
           </div>
           <Link href="/opportunities" className="shrink-0">
             <Button variant="secondary" size="sm">View All <ArrowRight className="size-3.5" strokeWidth={1.5} /></Button>

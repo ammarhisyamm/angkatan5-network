@@ -45,7 +45,7 @@ export default function AdminAnalyticsPage() {
           <BarChart3 className="size-4" />
           <span>Talent Analytics</span>
         </div>
-        <h1 className="text-2xl font-semibold leading-8 tracking-tight text-kumo-strong">
+        <h1 className="text-page-title text-kumo-strong">
           Community Analytics & Insights
         </h1>
         <p className="mt-1 text-sm leading-5 text-kumo-subtle">

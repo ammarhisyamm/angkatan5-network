@@ -166,7 +166,7 @@ export default function DiscoverPeoplePage() {
           <Users className="size-3" />
           <span>Talent Directory</span>
         </div>
-        <h1 className="text-2xl font-semibold leading-8 tracking-tight text-kumo-strong">
+        <h1 className="text-page-title text-kumo-strong">
           Discover People
         </h1>
         <p className="text-sm leading-5 text-kumo-subtle mt-1 max-w-2xl">

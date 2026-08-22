@@ -153,7 +153,7 @@ export default function CreateOpportunityPage() {
           <Sparkles className="size-3" />
           <span>New Community Post</span>
         </div>
-        <h1 className="text-2xl font-semibold leading-8 tracking-tight text-kumo-strong">
+        <h1 className="text-page-title text-kumo-strong">
           Share an Opportunity
         </h1>
         <p className="text-sm text-kumo-subtle mt-1">

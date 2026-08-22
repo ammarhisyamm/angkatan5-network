@@ -73,7 +73,7 @@ export default function AdminDashboardPage() {
             <ShieldCheck className="size-4" />
             <span>Angkatan 5 Secretariat Administration</span>
           </div>
-          <h1 className="text-2xl font-semibold leading-8 tracking-tight text-kumo-strong">
+          <h1 className="text-page-title text-kumo-strong">
             Community Overview
           </h1>
           <p className="mt-1 text-sm leading-5 text-kumo-subtle">
@@ -103,7 +103,7 @@ export default function AdminDashboardPage() {
           <span className="text-xs leading-4 font-semibold text-kumo-subtle block">
             Total Members
           </span>
-          <span className="mt-1 block text-2xl font-semibold leading-8 tracking-tight text-kumo-strong">
+          <span className="mt-1 block text-page-title text-kumo-strong">
             182
           </span>
           <span className="text-xs leading-4 text-success-base font-medium">
@@ -115,7 +115,7 @@ export default function AdminDashboardPage() {
           <span className="text-xs leading-4 font-semibold text-kumo-subtle block">
             Profile Completion
           </span>
-          <span className="mt-1 block text-2xl font-semibold leading-8 tracking-tight text-kumo-strong">
+          <span className="mt-1 block text-page-title text-kumo-strong">
             81%
           </span>
           <span className="text-xs leading-4 text-kumo-brand font-medium">
@@ -127,7 +127,7 @@ export default function AdminDashboardPage() {
           <span className="text-xs leading-4 font-semibold text-warning-base block">
             Open to Work
           </span>
-          <span className="mt-1 block text-2xl font-semibold leading-8 tracking-tight text-kumo-strong">
+          <span className="mt-1 block text-page-title text-kumo-strong">
             18
           </span>
           <span className="text-xs leading-4 text-kumo-inactive">Available now</span>
@@ -137,7 +137,7 @@ export default function AdminDashboardPage() {
           <span className="text-xs leading-4 font-semibold text-sky-600 block">
             Collaboration
           </span>
-          <span className="mt-1 block text-2xl font-semibold leading-8 tracking-tight text-kumo-strong">
+          <span className="mt-1 block text-page-title text-kumo-strong">
             24
           </span>
           <span className="text-xs leading-4 text-kumo-inactive">Ready to partner</span>
@@ -147,7 +147,7 @@ export default function AdminDashboardPage() {
           <span className="text-xs leading-4 font-semibold text-kumo-brand block">
             Active Opps
           </span>
-          <span className="mt-1 block text-2xl font-semibold leading-8 tracking-tight text-kumo-strong">
+          <span className="mt-1 block text-page-title text-kumo-strong">
             15
           </span>
           <span className="text-xs leading-4 text-success-base font-medium">
@@ -159,7 +159,7 @@ export default function AdminDashboardPage() {
           <span className="text-xs leading-4 font-semibold text-feature-base block">
             Skills Indexed
           </span>
-          <span className="mt-1 block text-2xl font-semibold leading-8 tracking-tight text-kumo-strong">
+          <span className="mt-1 block text-page-title text-kumo-strong">
             32
           </span>
           <span className="text-xs leading-4 text-kumo-inactive">across 7 fields</span>
@@ -312,7 +312,7 @@ export default function AdminDashboardPage() {
                 <span className="text-xs font-semibold text-kumo-subtle block">
                   {st.name}
                 </span>
-                <span className="mt-1 block text-2xl font-semibold leading-8 tracking-tight text-kumo-strong">
+                <span className="mt-1 block text-page-title text-kumo-strong">
                   {st.value} members
                 </span>
               </div>

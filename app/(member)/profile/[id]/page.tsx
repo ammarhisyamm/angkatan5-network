@@ -103,7 +103,7 @@ export default function MemberProfilePage() {
 
             <div>
               <div className="flex items-center gap-2 flex-wrap">
-                <h1 className="text-2xl font-semibold leading-8 tracking-tight text-kumo-strong">
+                <h1 className="text-page-title text-kumo-strong">
                   {member.name}
                 </h1>
                 <StatusBadge status={member.status} />

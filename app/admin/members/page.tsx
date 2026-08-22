@@ -73,7 +73,7 @@ export default function AdminMembersPage() {
             <Users size={14} weight="regular" />
             <span>Member Directory Control</span>
           </div>
-          <h1 className="text-2xl font-semibold leading-8 tracking-tight text-kumo-strong">Member Management</h1>
+          <h1 className="text-page-title text-kumo-strong">Member Management</h1>
           <p className="mt-1 text-sm leading-5 text-kumo-subtle">Verify credentials, oversee profiles, and manage directory permissions.</p>
         </div>
       </div>

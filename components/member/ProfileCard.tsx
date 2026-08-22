@@ -30,7 +30,7 @@ export function ProfileCard({ member }: { member: User }) {
             </Link>
             <div className="min-w-0 flex-1">
               <Link href={`/profile/${member.id}`} className="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-kumo-brand focus-visible:ring-offset-2 rounded-sm">
-                <h3 className="truncate text-base font-semibold leading-5 text-kumo-strong group-hover:text-kumo-brand">{member.name}</h3>
+                <h3 className="truncate text-card-title text-kumo-strong group-hover:text-kumo-brand">{member.name}</h3>
               </Link>
               <p className="truncate text-sm leading-5 text-kumo-subtle">{member.role}</p>
               <p className="mt-0.5 truncate text-xs leading-[18px] text-kumo-inactive">

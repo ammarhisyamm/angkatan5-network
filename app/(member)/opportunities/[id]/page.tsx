@@ -142,7 +142,7 @@ export default function OpportunityDetailPage() {
           </span>
         </div>
 
-        <h1 className="text-2xl font-semibold leading-8 tracking-tight text-kumo-strong">
+        <h1 className="text-page-title text-kumo-strong">
           {opportunity.title}
         </h1>
 
