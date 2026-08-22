@@ -12,7 +12,7 @@ export default function AdminLayout({
   children: React.ReactNode;
 }) {
   return (
-    <KumoSidebar.Provider defaultOpen>
+    <KumoSidebar.Provider defaultOpen defaultWidth={280} minWidth={260} maxWidth={320}>
       <div className="min-h-screen flex bg-kumo-tint text-kumo-strong">
         {/* Persistent Left Sidebar */}
         <Sidebar />

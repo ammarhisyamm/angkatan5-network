@@ -70,56 +70,43 @@ function SidebarInner() {
   return (
     <KumoSidebar className="hidden lg:flex border-r border-kumo-line bg-white shadow-[2px_0_12px_rgba(0,0,0,0.04)]">
       {/* Header with logo + collapse toggle like SPEKTER */}
-      <KumoSidebar.Header className="px-4 pt-4 pb-3 border-b border-kumo-line/60">
-        <div className="flex items-center justify-between gap-2">
-          <Link href="/dashboard" className="flex items-center gap-2.5 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-kumo-brand min-w-0">
-            <div className="flex size-8 items-center justify-center rounded-lg bg-[#6366F1] text-white font-bold text-[16px] tracking-tight shrink-0">A5</div>
+      <KumoSidebar.Header className="px-4 pt-4 pb-4 border-b border-kumo-line/60 flex flex-col gap-4">
+        <div className="flex items-center justify-between gap-3">
+          <Link href="/dashboard" className="flex items-center gap-3 rounded-xl px-1 py-1 -mx-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-kumo-brand min-w-0 flex-1">
+            <div className="flex size-9 items-center justify-center rounded-xl bg-[#6366F1] text-white font-bold text-[15px] tracking-tight shrink-0 shadow-sm">A5</div>
             {!isCollapsed && (
-              <div className="min-w-0">
-                <p className="truncate text-[13px] font-semibold leading-4 text-kumo-strong tracking-tight">A5 Network</p>
-                <p className="truncate text-[11px] leading-3 text-kumo-inactive">Private Directory</p>
+              <div className="min-w-0 flex-1">
+                <p className="text-[13px] font-semibold leading-[18px] text-kumo-strong tracking-tight">A5 Network</p>
+                <p className="text-xs leading-4 text-kumo-inactive">Private Directory</p>
               </div>
             )}
           </Link>
-          {!isCollapsed && (
-            <button
-              onClick={toggleSidebar}
-              aria-label={isCollapsed ? "Expand sidebar" : "Collapse sidebar"}
-              className="flex size-7 items-center justify-center rounded-md text-kumo-inactive hover:bg-kumo-tint hover:text-kumo-strong transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-kumo-brand shrink-0"
-            >
-              <CaretLeftIcon size={14} />
-            </button>
-          )}
-          {isCollapsed && (
-            <button
-              onClick={toggleSidebar}
-              aria-label="Expand sidebar"
-              className="flex size-7 items-center justify-center rounded-md text-kumo-inactive hover:bg-kumo-tint hover:text-kumo-strong ml-auto"
-            >
-              <CaretRightIcon size={14} />
-            </button>
-          )}
+          <button
+            onClick={toggleSidebar}
+            aria-label={isCollapsed ? "Expand sidebar" : "Collapse sidebar"}
+            className="flex size-8 items-center justify-center rounded-lg border border-kumo-line bg-white text-kumo-inactive hover:bg-kumo-tint hover:text-kumo-strong hover:border-kumo-line transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-kumo-brand shrink-0 shadow-xs"
+          >
+            {isCollapsed ? <CaretRightIcon size={16} /> : <CaretLeftIcon size={16} />}
+          </button>
         </div>
 
         {!isCollapsed && (
-          <>
-            <div className="mt-4">
-              <div className="relative">
-                <MagnifyingGlassIcon size={14} className="absolute left-2.5 top-1/2 -translate-y-1/2 text-kumo-inactive" />
-                <input
-                  placeholder="Quick search"
-                  aria-label="Quick search"
-                  className="w-full h-8 pl-8 pr-3 bg-kumo-tint border border-kumo-line/60 rounded-lg text-xs text-kumo-strong placeholder:text-kumo-inactive focus:outline-none focus:border-kumo-brand focus:ring-1 focus:ring-kumo-brand"
-                />
-              </div>
+          <div className="flex flex-col gap-3">
+            <div className="relative">
+              <MagnifyingGlassIcon size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-kumo-inactive" aria-hidden="true" />
+              <input
+                placeholder="Quick search"
+                aria-label="Quick search"
+                className="w-full h-9 pl-9 pr-3 bg-white border border-kumo-line rounded-xl text-sm text-kumo-strong placeholder:text-kumo-inactive focus:outline-none focus:border-[#6366F1] focus:ring-2 focus:ring-[#6366F1]/20 transition-colors"
+              />
             </div>
 
-            <div className="mt-4 flex items-center gap-1 rounded-lg bg-kumo-tint border border-kumo-line p-1" role="tablist" aria-label="Workspace">
+            <div className="flex items-center gap-1 rounded-xl bg-kumo-tint border border-kumo-line p-1" role="tablist" aria-label="Workspace">
               <Link
                 href="/dashboard"
                 role="tab"
                 aria-selected={!isAdminSection}
-                className={`flex h-7 flex-1 items-center justify-center rounded-md text-xs font-medium transition-colors ${!isAdminSection ? "bg-white ring-1 ring-kumo-line text-[#6366F1] shadow-sm" : "text-kumo-subtle hover:text-kumo-strong"}`}
+                className={`flex h-8 flex-1 items-center justify-center rounded-lg text-sm font-medium transition-colors ${!isAdminSection ? "bg-white ring-1 ring-kumo-line text-[#6366F1] shadow-sm" : "text-kumo-subtle hover:text-kumo-strong"}`}
               >
                 Member
               </Link>
@@ -127,13 +114,13 @@ function SidebarInner() {
                 href="/admin/dashboard"
                 role="tab"
                 aria-selected={isAdminSection}
-                className={`flex h-7 flex-1 items-center justify-center gap-1 rounded-md text-xs font-medium transition-colors ${isAdminSection ? "bg-white ring-1 ring-kumo-line text-[#6366F1] shadow-sm" : "text-kumo-subtle hover:text-kumo-strong"}`}
+                className={`flex h-8 flex-1 items-center justify-center gap-1.5 rounded-lg text-sm font-medium transition-colors ${isAdminSection ? "bg-white ring-1 ring-kumo-line text-[#6366F1] shadow-sm" : "text-kumo-subtle hover:text-kumo-strong"}`}
               >
-                <ShieldCheckIcon size={12} />
+                <ShieldCheckIcon size={14} />
                 Admin
               </Link>
             </div>
-          </>
+          </div>
         )}
       </KumoSidebar.Header>
 
@@ -172,16 +159,16 @@ function SidebarInner() {
 
         {!isCollapsed && (
           <div className="mt-6">
-            <LayerCard className="p-4 bg-[#F5F3FF] border-[#E0E7FF]">
+            <LayerCard className="p-5 bg-[#F5F3FF] border-[#E0E7FF] rounded-2xl">
               <div className="flex items-start gap-3">
-                <div className="flex size-8 items-center justify-center rounded-full bg-white ring-1 ring-[#E0E7FF] text-[#6366F1] shrink-0">
-                  <LightningIcon size={16} weight="fill" />
+                <div className="flex size-9 items-center justify-center rounded-full bg-white ring-1 ring-[#E0E7FF] text-[#6366F1] shrink-0 shadow-sm">
+                  <LightningIcon size={18} weight="fill" />
                 </div>
                 <div className="min-w-0 flex-1">
-                  <p className="text-xs font-semibold text-kumo-strong">Current plan:</p>
-                  <p className="text-xs font-bold text-[#6366F1]">Pro trial</p>
-                  <p className="mt-1 text-xs leading-4 text-kumo-subtle">Upgrade to Pro get the latest and exclusive features</p>
-                  <Button variant="primary" size="sm" className="mt-3 w-full bg-[#6366F1] hover:bg-[#5558E3] text-white" icon={<LightningIcon />}>
+                  <p className="text-sm font-semibold leading-4 text-kumo-strong">Current plan:</p>
+                  <p className="text-sm font-bold leading-4 text-[#6366F1]">Pro trial</p>
+                  <p className="mt-1.5 text-xs leading-4 text-kumo-subtle">Upgrade to Pro get the latest and exclusive features</p>
+                  <Button variant="primary" size="sm" className="mt-4 w-full justify-center bg-[#6366F1] hover:bg-[#5558E3] text-white whitespace-nowrap" icon={<LightningIcon size={14} />}>
                     Upgrade to Pro
                   </Button>
                 </div>
