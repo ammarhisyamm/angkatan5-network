@@ -120,6 +120,7 @@ export default function AdminSkillsPage() {
       {/* Search + Category Filter */}
       <LayerCard className="p-4 flex flex-col sm:flex-row gap-3">
         <Input
+          aria-label="Search skills"
           placeholder="Search skills..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
