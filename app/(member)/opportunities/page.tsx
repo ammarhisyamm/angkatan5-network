@@ -94,7 +94,7 @@ export default function OpportunitiesPage() {
         </div>
 
         <Link href="/opportunities/create" className="shrink-0">
-          <Button variant="primary" size="md" className="">
+          <Button variant="primary" size="md" className="w-full sm:w-auto">
             <PlusCircleIcon size={16} weight="regular" />
             Share Opportunity
           </Button>
@@ -104,7 +104,7 @@ export default function OpportunitiesPage() {
       {/* MagnifyingGlassIcon and Saved Toggle Bar — Kumo Input */}
       <div className="flex flex-col sm:flex-row gap-3">
         <div className="flex-1">
-          <Input aria-label="MagnifyingGlassIcon opportunities" placeholder="MagnifyingGlassIcon opportunities, roles, keywords..." value={searchQuery} onChange={(e: any) => setSearchQuery(e.target.value)} />
+          <Input aria-label="Search opportunities" placeholder="Search opportunities, roles, keywords..." value={searchQuery} onChange={(e: any) => setSearchQuery(e.target.value)} />
         </div>
 
         <Button

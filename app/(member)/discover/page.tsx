@@ -167,7 +167,7 @@ export default function DiscoverPeoplePage() {
       </div>
 
       {/* Prominent MagnifyingGlassIcon Bar — Kumo Input */}
-      <Input aria-label="MagnifyingGlassIcon people" placeholder="MagnifyingGlassIcon people, skills, roles, or companies..." value={searchQuery} onChange={(e: any) => setSearchQuery(e.target.value)} />
+      <Input aria-label="Search people" placeholder="Search people, skills, roles, or companies..." value={searchQuery} onChange={(e: any) => setSearchQuery(e.target.value)} />
 
       {/* Quick Filter Chips */}
       <div className="flex items-center justify-between gap-3 overflow-x-auto pb-1 scrollbar-none">

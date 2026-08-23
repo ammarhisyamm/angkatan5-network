@@ -113,17 +113,18 @@ export default function AdminSkillsPage() {
             className="w-full sm:w-56 h-10 rounded-xl border border-kumo-line bg-kumo-base px-3 text-sm text-kumo-strong outline-none focus:ring-2 focus:ring-kumo-brand focus:ring-offset-1 appearance-none cursor-pointer">
             {FIELD_CATEGORIES.map((cat) => <option key={cat} value={cat}>{cat}</option>)}
           </select>
-          <Button variant="primary" size="md" onClick={handleAddSkill} disabled={!newSkillName.trim()} icon={<PlusIcon size={16} weight="bold" />}>Add Skill</Button>
+          <Button variant="primary" size="md" onClick={handleAddSkill} disabled={!newSkillName.trim()} icon={<PlusIcon size={16} weight="bold" />} className="w-full sm:w-auto">Add Skill</Button>
         </div>
       </LayerCard>
 
       {/* Search + Category Filter */}
       <LayerCard className="p-4 flex flex-col sm:flex-row gap-3">
-        <div className="relative flex-1">
-          <MagnifyingGlassIcon size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-kumo-inactive" />
-          <input placeholder="Search skills..." value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full h-9 pl-9 pr-3 rounded-xl border border-kumo-line bg-kumo-base text-sm text-kumo-strong placeholder:text-kumo-inactive outline-none focus:ring-2 focus:ring-kumo-brand focus:ring-offset-1" />
-        </div>
+        <Input
+          placeholder="Search skills..."
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          className="flex-1"
+        />
         <div className="flex items-center gap-1 overflow-x-auto pb-1 -mb-1">
           <Button variant={selectedCategory === null ? "primary" : "secondary"} size="sm" onClick={() => setSelectedCategory(null)}>All ({totalSkills})</Button>
           {categories.map(([cat, count]) => (

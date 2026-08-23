@@ -86,14 +86,14 @@ function SidebarInner() {
 
         {!isCollapsed ? (
           <div className="flex flex-col gap-2.5">
-            <div className="relative">
-              <MagnifyingGlassIcon size={14} className="absolute left-2.5 top-1/2 -translate-y-1/2 text-kumo-inactive" aria-hidden="true" />
-              <input
-                placeholder="Quick search"
-                aria-label="Quick search"
-                className="w-full h-8 pl-8 pr-2.5 bg-white/50 border border-kumo-line rounded-lg text-xs text-kumo-strong placeholder:text-kumo-inactive focus:outline-none focus:border-kumo-brand focus:ring-2 focus:ring-kumo-brand/20 transition-colors backdrop-blur-sm"
-              />
-            </div>
+<div className="relative">
+  <MagnifyingGlassIcon size={14} className="absolute left-2.5 top-1/2 -translate-y-1/2 text-kumo-inactive" aria-hidden="true" />
+  <input
+    placeholder="Quick search..."
+    aria-label="Quick search"
+    className="w-full h-9 pl-8 pr-3 bg-white/50 border border-kumo-line rounded-lg text-sm text-kumo-strong placeholder:text-kumo-inactive focus:outline-none focus:border-kumo-brand focus:ring-2 focus:ring-kumo-brand/20 transition-colors backdrop-blur-sm"
+  />
+</div>
 
             <div>
               <p className="px-1 pb-1 text-label font-semibold uppercase tracking-widest text-kumo-inactive">Workspace</p>
