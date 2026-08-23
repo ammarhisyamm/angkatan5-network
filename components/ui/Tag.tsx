@@ -67,7 +67,6 @@ export function StatusBadge({ tone, label, className, ...props }: StatusBadgePro
       )}
       {...(props as any)}
     >
-      {useDot && <span aria-hidden="true" className="size-1.5 shrink-0 rounded-full bg-current opacity-80" />}
       {label}
     </KumoBadge>
   );
