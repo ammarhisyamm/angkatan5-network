@@ -63,8 +63,8 @@ function SidebarInner() {
   const otherUsers = users.filter((u) => u.id !== currentUser?.id).slice(0, 3);
 
   return (
-    <KumoSidebar className="border-r border-kumo-line bg-white shadow-[2px_0_12px_rgba(0,0,0,0.04)]">
-      <KumoSidebar.Header className="sticky top-0 z-10 bg-white px-2.5 pt-3 pb-3 border-b border-kumo-line/60 flex flex-col gap-3 !h-auto min-h-[140px]">
+    <KumoSidebar className="border-r border-kumo-line bg-white/50 shadow-[2px_0_12px_rgba(0,0,0,0.04)] backdrop-blur-sm">
+      <KumoSidebar.Header className="sticky top-0 z-10 bg-white/50 px-2.5 pt-3 pb-3 border-b border-kumo-line/60 flex flex-col gap-3 !h-auto min-h-[140px] backdrop-blur-sm">
         <div className="flex items-center justify-between gap-2">
           <Link href="/dashboard" className="flex items-center gap-2.5 rounded-lg px-1 py-1 -mx-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-kumo-brand min-w-0 flex-1">
             <div className="flex size-8 items-center justify-center rounded-lg bg-kumo-brand text-white font-bold text-xs tracking-tight shrink-0 shadow-sm">A5</div>
@@ -91,13 +91,13 @@ function SidebarInner() {
               <input
                 placeholder="Quick search"
                 aria-label="Quick search"
-                className="w-full h-8 pl-8 pr-2.5 bg-white border border-kumo-line rounded-lg text-xs text-kumo-strong placeholder:text-kumo-inactive focus:outline-none focus:border-kumo-brand focus:ring-2 focus:ring-kumo-brand/20 transition-colors"
+                className="w-full h-8 pl-8 pr-2.5 bg-white/50 border border-kumo-line rounded-lg text-xs text-kumo-strong placeholder:text-kumo-inactive focus:outline-none focus:border-kumo-brand focus:ring-2 focus:ring-kumo-brand/20 transition-colors backdrop-blur-sm"
               />
             </div>
 
             <div>
               <p className="px-1 pb-1 text-label font-semibold uppercase tracking-widest text-kumo-inactive">Workspace</p>
-              <div className="flex items-center gap-0.5 rounded-lg bg-kumo-tint border border-kumo-line p-0.5" role="tablist" aria-label="Workspace">
+              <div className="flex items-center gap-0.5 rounded-lg bg-kumo-tint/50 border border-kumo-line/50 p-0.5" role="tablist" aria-label="Workspace">
               <Link
                 href="/dashboard"
                 role="tab"
@@ -177,7 +177,7 @@ function SidebarInner() {
         ))}
       </KumoSidebar.Content>
 
-      <KumoSidebar.Footer className="sticky bottom-0 z-10 bg-white border-t border-kumo-line/60 p-2.5">
+      <KumoSidebar.Footer className="sticky bottom-0 z-10 bg-white/50 border-t border-kumo-line/60 p-2.5 backdrop-blur-sm">
         <div className="relative">
           <button
             onClick={() => setShowUserMenu(!showUserMenu)}
