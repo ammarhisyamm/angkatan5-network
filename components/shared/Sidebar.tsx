@@ -64,7 +64,7 @@ function SidebarInner() {
 
   return (
     <KumoSidebar className="border-r border-kumo-line bg-white shadow-[2px_0_12px_rgba(0,0,0,0.04)]">
-      <KumoSidebar.Header className="sticky top-0 z-10 bg-white px-2.5 pt-3 pb-3 border-b border-kumo-line/60 flex flex-col gap-3">
+      <KumoSidebar.Header className="sticky top-0 z-10 bg-white px-2.5 pt-3 pb-3 border-b border-kumo-line/60 flex flex-col gap-3 !h-auto min-h-[140px]">
         <div className="flex items-center justify-between gap-2">
           <Link href="/dashboard" className="flex items-center gap-2.5 rounded-lg px-1 py-1 -mx-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-kumo-brand min-w-0 flex-1">
             <div className="flex size-8 items-center justify-center rounded-lg bg-kumo-brand text-white font-bold text-xs tracking-tight shrink-0 shadow-sm">A5</div>

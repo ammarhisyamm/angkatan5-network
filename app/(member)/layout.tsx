@@ -20,16 +20,19 @@ export default function MemberLayout({
       resizable
       className="bg-kumo-tint text-kumo-strong"
     >
-      {/* KumoSidebar handles fixed positioning natively */}
-      <Sidebar />
+      {/* Inner flex row gives the sidebar gap aside a definite height */}
+      <div className="flex min-h-screen w-full">
+        {/* KumoSidebar renders fixed aside + gap spacer in this flex flow */}
+        <Sidebar />
 
-      {/* Main Area */}
-      <div className="flex flex-col min-w-0 flex-1 pb-24 lg:pb-0 lg:ml-0">
-        {/* Mobile Header */}
-        <Header />
+        {/* Main Area */}
+        <div className="flex flex-col min-w-0 flex-1 pb-24 lg:pb-0">
+          {/* Mobile Header */}
+          <Header />
 
-        {/* Page Content */}
-        <main className="w-full flex-1 p-4 sm:p-6 lg:p-8">{children}</main>
+          {/* Page Content */}
+          <main className="w-full flex-1 p-4 sm:p-6 lg:p-8">{children}</main>
+        </div>
       </div>
 
       {/* Bottom Nav for Mobile */}

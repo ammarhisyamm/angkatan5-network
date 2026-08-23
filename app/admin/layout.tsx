@@ -20,13 +20,16 @@ export default function AdminLayout({
       resizable
       className="bg-kumo-tint text-kumo-strong"
     >
-      {/* KumoSidebar handles fixed positioning natively */}
-      <Sidebar />
+      {/* Inner flex row gives the sidebar gap aside a definite height */}
+      <div className="flex min-h-screen w-full">
+        {/* KumoSidebar renders fixed aside + gap spacer in this flex flow */}
+        <Sidebar />
 
-      {/* Main Content Area - flows naturally */}
-      <div className="flex flex-col min-w-0 flex-1 pb-24 lg:pb-0 lg:ml-0">
-        <Header />
-        <main className="w-full flex-1 p-4 sm:p-6 lg:p-8">{children}</main>
+        {/* Main Content Area */}
+        <div className="flex flex-col min-w-0 flex-1 pb-24 lg:pb-0">
+          <Header />
+          <main className="w-full flex-1 p-4 sm:p-6 lg:p-8">{children}</main>
+        </div>
       </div>
 
       <BottomNav />
