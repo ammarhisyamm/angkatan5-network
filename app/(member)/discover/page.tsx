@@ -197,21 +197,51 @@ export default function DiscoverPeoplePage() {
       <LayerCard
         className={`p-4 transition-colors ${isFilterDrawerOpen ? "block" : "hidden lg:block"}`}
       >
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
           {/* Skill Filter — Kumo Select */}
-          <Select label="Skill" value={selectedSkill} onValueChange={(v: any) => setSelectedSkill(v)} items={allSkills.map((sk) => ({ label: sk === "All" ? "All Skills" : sk, value: sk }))} />
+          <Select
+            label="Skill"
+            value={selectedSkill}
+            onValueChange={(v: any) => setSelectedSkill(v)}
+            items={allSkills.map((sk) => ({ label: sk === "All" ? "All Skills" : sk, value: sk }))}
+            className="w-full"
+          />
 
           {/* Industry Filter — Kumo Select */}
-          <Select label="Industry" value={selectedIndustry} onValueChange={(v: any) => setSelectedIndustry(v)} items={industries.map((ind) => ({ label: ind === "All" ? "All Industries" : ind, value: ind }))} />
+          <Select
+            label="Industry"
+            value={selectedIndustry}
+            onValueChange={(v: any) => setSelectedIndustry(v)}
+            items={industries.map((ind) => ({ label: ind === "All" ? "All Industries" : ind, value: ind }))}
+            className="w-full"
+          />
 
           {/* Experience Filter — Kumo Select */}
-          <Select label="Experience" value={selectedExperience} onValueChange={(v: any) => setSelectedExperience(v)} items={[{ label: "All Experience", value: "All" }, { label: "1+ years", value: "1" }, { label: "3+ years", value: "3" }, { label: "5+ years", value: "5" }]} />
+          <Select
+            label="Experience"
+            value={selectedExperience}
+            onValueChange={(v: any) => setSelectedExperience(v)}
+            items={[{ label: "All Experience", value: "All" }, { label: "1+ years", value: "1" }, { label: "3+ years", value: "3" }, { label: "5+ years", value: "5" }]}
+            className="w-full"
+          />
 
           {/* Location Filter — Kumo Select */}
-          <Select label="Location" value={selectedLocation} onValueChange={(v: any) => setSelectedLocation(v)} items={locations.map((loc) => ({ label: loc === "All" ? "All Locations" : loc, value: loc }))} />
+          <Select
+            label="Location"
+            value={selectedLocation}
+            onValueChange={(v: any) => setSelectedLocation(v)}
+            items={locations.map((loc) => ({ label: loc === "All" ? "All Locations" : loc, value: loc }))}
+            className="w-full"
+          />
 
           {/* Status Filter — Kumo Select */}
-          <Select label="Availability" value={selectedStatus} onValueChange={(v: any) => setSelectedStatus(v)} items={["All", "Available to Help", "Open to Work", "Open to Collaboration", "Hiring"].map((s) => ({ label: s === "All" ? "All Statuses" : s, value: s }))} />
+          <Select
+            label="Availability"
+            value={selectedStatus}
+            onValueChange={(v: any) => setSelectedStatus(v)}
+            items={["All", "Available to Help", "Open to Work", "Open to Collaboration", "Hiring"].map((s) => ({ label: s === "All" ? "All Statuses" : s, value: s }))}
+            className="w-full"
+          />
         </div>
 
         {hasActiveFilters && (

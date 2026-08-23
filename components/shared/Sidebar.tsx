@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { usePathname } from "next/navigation";
 import { useApp } from "@/lib/store/AppContext";
 import { Sidebar as KumoSidebar, useSidebar } from "@cloudflare/kumo/components/sidebar";
@@ -26,6 +27,7 @@ import {
 
 function SidebarInner() {
   const pathname = usePathname();
+  const router = useRouter();
   const { currentUser, logout, users, opportunities, switchUser } = useApp();
   const { state, toggleSidebar } = useSidebar();
   const isCollapsed = state === "collapsed";
@@ -235,9 +237,13 @@ function SidebarInner() {
                 </>
               )}
 
-              <Link href="/my-profile" role="menuitem" className="flex w-full items-center gap-2 rounded-md px-2.5 py-1.5 text-body-sm text-kumo-subtle hover:bg-kumo-tint hover:text-kumo-strong text-left">
+              <button
+                role="menuitem"
+                onClick={() => { router.push("/my-profile"); setShowUserMenu(false); }}
+                className="flex w-full items-center gap-2 rounded-md px-2.5 py-1.5 text-body-sm text-kumo-subtle hover:bg-kumo-tint hover:text-kumo-strong text-left"
+              >
                 <UserIcon size={14} /> Profile
-              </Link>
+              </button>
               <button role="menuitem" className="flex w-full items-center gap-2 rounded-md px-2.5 py-1.5 text-body-sm text-kumo-subtle hover:bg-kumo-tint hover:text-kumo-strong text-left">
                 <GearIcon size={14} /> Preferences
               </button>

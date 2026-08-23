@@ -48,7 +48,7 @@ export default function RegisterPage() {
       </div>
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md px-4">
-        <div className="bg-kumo-base py-8 px-6 sm:px-10 shadow-regular-xs border border-kumo-line rounded-xl flex flex-col gap-6">
+        <div className="bg-kumo-base py-8 px-6 sm:px-10 shadow-xs border border-kumo-line rounded-xl flex flex-col gap-6">
           <form onSubmit={handleSubmit} className="flex flex-col gap-4">
             {error && (
               <div className="p-3 text-xs bg-error-lighter border border-error-light text-error-base rounded-xl font-medium">

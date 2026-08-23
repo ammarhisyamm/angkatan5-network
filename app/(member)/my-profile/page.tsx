@@ -5,13 +5,30 @@ import { useApp } from "@/lib/store/AppContext";
 import { Input, Textarea } from "@/components/ui/Input";
 import { Button } from "@/components/ui/Button";
 import { Badge, StatusBadge } from "@/components/ui/Badge";
-import { UserIcon, BriefcaseIcon, StackIcon, MapPinIcon, GlobeIcon, ShieldIcon, PencilSimpleIcon, CheckIcon, XIcon, SparkleIcon, LockSimpleIcon, EyeIcon, PlusIcon } from "@phosphor-icons/react";
+import { Modal, ConfirmModal } from "@/components/ui/Modal";
+import {
+  UserIcon,
+  BriefcaseIcon,
+  StackIcon,
+  MapPinIcon,
+  GlobeIcon,
+  ShieldIcon,
+  PencilSimpleIcon,
+  CheckIcon,
+  XIcon,
+  SparkleIcon,
+  LockSimpleIcon,
+  EyeIcon,
+  PlusIcon,
+  TrashSimpleIcon,
+  CheckCircleIcon,
+} from "@phosphor-icons/react";
 import { UserStatus, LookingForOption, CanOfferOption, UserVisibility } from "@/lib/types";
 
 const ALL_SKILLS = [
   "UI/UX Design",
   "Design Systems",
-  "UserIcon Research",
+  "User Research",
   "Product Design",
   "Software Development",
   "React / Next.js",
@@ -53,10 +70,9 @@ const CAN_OFFER_OPTIONS: CanOfferOption[] = [
 export default function MyProfilePage() {
   const { currentUser, updateProfile, addToast } = useApp();
 
-  // Active edit section trackers
   const [editingSection, setEditingSection] = useState<string | null>(null);
+  const [saveModal, setSaveModal] = useState<{ open: boolean; section: string } | null>(null);
 
-  // Form states initialized with currentUser
   const [name, setName] = useState(currentUser?.name || "");
   const [avatar, setAvatar] = useState(currentUser?.avatar || "");
   const [location, setLocation] = useState(currentUser?.location || "");
@@ -103,7 +119,19 @@ export default function MyProfilePage() {
       website,
       visibility,
     });
+    addToast("Saved", `${sectionName} updated successfully`, "success");
     setEditingSection(null);
+  };
+
+  const handleRequestSave = (sectionName: string) => {
+    setSaveModal({ open: true, section: sectionName });
+  };
+
+  const handleConfirmSave = () => {
+    if (saveModal) {
+      handleSaveSection(saveModal.section);
+    }
+    setSaveModal(null);
   };
 
   const handleToggleSkill = (sk: string) => {
@@ -139,15 +167,15 @@ export default function MyProfilePage() {
   };
 
   return (
-    <div className="max-w-4xl mx-auto space-y-8">
+    <div className="space-y-8">
       {/* Page Header */}
-      <div className="bg-kumo-base border border-kumo-line rounded-xl p-6 sm:p-8">
+      <div className="bg-kumo-base border border-kumo-line rounded-2xl p-6 sm:p-8">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6">
           <div className="flex items-center gap-4">
             <img
               src={currentUser.avatar}
               alt={currentUser.name}
-              className="w-16 h-16 sm:w-20 sm:h-20 rounded-xl object-cover border-2 border-kumo-line"
+              className="w-16 h-16 sm:w-20 sm:h-20 rounded-full object-cover border-2 border-kumo-line"
             />
             <div className="min-w-0 flex-1">
               <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
@@ -166,9 +194,7 @@ export default function MyProfilePage() {
           <div className="bg-kumo-tint p-4 rounded-xl border border-kumo-line w-full sm:w-64 shrink-0">
             <div className="flex items-center justify-between text-xs mb-1 font-semibold">
               <span className="text-kumo-subtle">Profile Completion</span>
-              <span className="text-kumo-brand">
-                {currentUser.profileCompletion}%
-              </span>
+              <span className="text-kumo-brand">{currentUser.profileCompletion}%</span>
             </div>
             <div className="w-full h-2 bg-kumo-line rounded-full overflow-hidden">
               <div
@@ -180,30 +206,36 @@ export default function MyProfilePage() {
         </div>
       </div>
 
+      {/* Confirmation Modal */}
+      <ConfirmModal
+        isOpen={!!saveModal}
+        onClose={() => setSaveModal(null)}
+        onConfirm={handleConfirmSave}
+        title="Save Changes?"
+        description="Your changes will be saved and visible to the community."
+        icon="question"
+        confirmText="Save Changes"
+        cancelText="Cancel"
+        variant="primary"
+      />
+
       {/* 1. PERSONAL INFORMATION */}
-      <div className="bg-kumo-base border border-kumo-line rounded-xl p-6 space-y-4">
+      <div className="bg-kumo-base border border-kumo-line rounded-2xl p-6 space-y-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <UserIcon size={16} weight="regular" className="text-kumo-brand" />
-            <h2 className="text-section-title text-kumo-strong">
-              Personal Information
-            </h2>
+            <h2 className="text-section-title text-kumo-strong">Personal Information</h2>
           </div>
           {editingSection === "personal" ? (
             <div className="flex items-center gap-2">
-              <Button variant="ghost" size="sm" onClick={() => setEditingSection(null)}
-              >
-                Cancel
-              </Button>
-              <Button variant="primary" size="sm" onClick={() => handleSaveSection("personal")}
-              >
-                <CheckIcon size={12} weight="regular" className="mr-1" />
+              <Button variant="ghost" size="sm" onClick={() => setEditingSection(null)}>Cancel</Button>
+              <Button variant="primary" size="sm" onClick={() => handleRequestSave("personal")}>
+                <CheckCircleIcon size={12} weight="fill" className="mr-1" />
                 Save
               </Button>
             </div>
           ) : (
-            <Button variant="outline" size="sm" onClick={() => setEditingSection("personal")}
-            >
+            <Button variant="outline" size="sm" onClick={() => setEditingSection("personal")}>
               <PencilSimpleIcon size={12} weight="regular" className="mr-1" />
               Edit
             </Button>
@@ -212,83 +244,62 @@ export default function MyProfilePage() {
 
         {editingSection === "personal" ? (
           <div className="space-y-4 pt-2">
-            <Input
-              label="Full Name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-            />
-            <Input
-              label="Profile Photo URL"
-              value={avatar}
-              onChange={(e) => setAvatar(e.target.value)}
-            />
+            <Input label="Full Name" value={name} onChange={(e) => setName(e.target.value)} />
+            <Input label="Profile Photo URL" value={avatar} onChange={(e) => setAvatar(e.target.value)} />
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <Input
-                label="Current City / Location"
-                value={location}
-                onChange={(e) => setLocation(e.target.value)}
-              />
-              <Input
-                label="Batch"
-                value={batch}
-                onChange={(e) => setBatch(e.target.value)}
-              />
+              <Input label="Current City / Location" value={location} onChange={(e) => setLocation(e.target.value)} />
+              <Input label="Batch" value={batch} onChange={(e) => setBatch(e.target.value)} />
             </div>
           </div>
         ) : (
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-xs pt-2">
             <div>
-              <span className="text-kumo-inactive block font-medium">Full Name</span>
-              <span className="font-semibold text-kumo-strong">
-                {currentUser.name}
-              </span>
+              <p className="text-kumo-subtle mb-1">Name</p>
+              <p className="text-kumo-strong">{currentUser.name}</p>
             </div>
             <div>
-              <span className="text-kumo-inactive block font-medium">Location</span>
-              <span className="font-semibold text-kumo-strong">
-                {currentUser.location}
-              </span>
+              <p className="text-kumo-subtle mb-1">Location</p>
+              <p className="text-kumo-strong">{currentUser.location || "—"}</p>
             </div>
             <div>
-              <span className="text-kumo-inactive block font-medium">Batch</span>
-              <span className="font-semibold text-kumo-strong">
-                {currentUser.batch}
-              </span>
+              <p className="text-kumo-subtle mb-1">Batch</p>
+              <p className="text-kumo-strong">{currentUser.batch || "—"}</p>
             </div>
             <div>
-              <span className="text-kumo-inactive block font-medium">Email</span>
-              <span className="font-semibold text-kumo-strong font-mono text-xs leading-4">
-                {currentUser.email}
-              </span>
+              <p className="text-kumo-subtle mb-1">Email</p>
+              <p className="text-kumo-strong truncate">{currentUser.email}</p>
             </div>
           </div>
         )}
+
+        <div className="border-t border-kumo-line pt-4">
+          <div className="flex items-center gap-2">
+            <MapPinIcon size={14} weight="regular" className="text-kumo-brand" />
+            <h3 className="text-card-title text-kumo-strong">Address Details</h3>
+          </div>
+          <p className="mt-2 text-sm text-kumo-subtle text-center py-4 bg-kumo-tint rounded-xl">
+            {currentUser.location || "No address provided"}
+          </p>
+        </div>
       </div>
 
       {/* 2. PROFESSIONAL INFORMATION */}
-      <div className="bg-kumo-base border border-kumo-line rounded-xl p-6 space-y-4">
+      <div className="bg-kumo-base border border-kumo-line rounded-2xl p-6 space-y-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <BriefcaseIcon size={16} weight="regular" className="text-kumo-brand" />
-            <h2 className="text-section-title text-kumo-strong">
-              Professional Details
-            </h2>
+            <h2 className="text-section-title text-kumo-strong">Professional Information</h2>
           </div>
           {editingSection === "professional" ? (
             <div className="flex items-center gap-2">
-              <Button variant="ghost" size="sm" onClick={() => setEditingSection(null)}
-              >
-                Cancel
-              </Button>
-              <Button variant="primary" size="sm" onClick={() => handleSaveSection("professional")}
-              >
-                <CheckIcon size={12} weight="regular" className="mr-1" />
+              <Button variant="ghost" size="sm" onClick={() => setEditingSection(null)}>Cancel</Button>
+              <Button variant="primary" size="sm" onClick={() => handleRequestSave("professional")}>
+                <CheckCircleIcon size={12} weight="fill" className="mr-1" />
                 Save
               </Button>
             </div>
           ) : (
-            <Button variant="outline" size="sm" onClick={() => setEditingSection("professional")}
-            >
+            <Button variant="outline" size="sm" onClick={() => setEditingSection("professional")}>
               <PencilSimpleIcon size={12} weight="regular" className="mr-1" />
               Edit
             </Button>
@@ -297,93 +308,92 @@ export default function MyProfilePage() {
 
         {editingSection === "professional" ? (
           <div className="space-y-4 pt-2">
+            <Input label="Current Role / Title" value={role} onChange={(e) => setRole(e.target.value)} />
+            <Input label="Company / Organization" value={company} onChange={(e) => setCompany(e.target.value)} />
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <Input
-                label="Current Role"
-                value={role}
-                onChange={(e) => setRole(e.target.value)}
-              />
-              <Input
-                label="Company"
-                value={company}
-                onChange={(e) => setCompany(e.target.value)}
-              />
-            </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <Input
+              <Select
                 label="Industry"
                 value={industry}
-                onChange={(e) => setIndustry(e.target.value)}
+                onValueChange={(v) => setIndustry(v)}
+                items={[
+                  "Technology",
+                  "Design",
+                  "Marketing",
+                  "Business",
+                  "Finance",
+                  "Media & Creative",
+                  "Education",
+                  "Healthcare",
+                  "Other",
+                ].map((v) => ({ label: v, value: v }))}
               />
-              <Input
-                label="Years of Experience"
+              <Select
+                label="Experience Level"
                 value={experience}
-                onChange={(e) => setExperience(e.target.value)}
+                onValueChange={(v) => setExperience(v)}
+                items={[
+                  "0-1 years",
+                  "1-3 years",
+                  "3-5 years",
+                  "5-10 years",
+                  "10+ years",
+                ].map((v) => ({ label: v, value: v }))}
               />
             </div>
             <Textarea
-              label="Bio"
-              rows={3}
+              label="Bio / About Me"
+              rows={4}
               value={bio}
               onChange={(e) => setBio(e.target.value)}
+              placeholder="Tell us about yourself, your background, and what you're passionate about..."
             />
           </div>
         ) : (
-          <div className="space-y-3 pt-2">
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 text-xs">
-              <div>
-                <span className="text-kumo-inactive block font-medium">Role</span>
-                <span className="font-semibold text-kumo-strong">
-                  {currentUser.role}
-                </span>
-              </div>
-              <div>
-                <span className="text-kumo-inactive block font-medium">Company</span>
-                <span className="font-semibold text-kumo-strong">
-                  {currentUser.company}
-                </span>
-              </div>
-              <div>
-                <span className="text-kumo-inactive block font-medium">Experience</span>
-                <span className="font-semibold text-kumo-strong">
-                  {currentUser.experience}
-                </span>
-              </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs pt-2">
+            <div>
+              <p className="text-kumo-subtle mb-1">Role</p>
+              <p className="text-kumo-strong">{currentUser.role || "—"}</p>
             </div>
             <div>
-              <span className="text-kumo-inactive block font-medium text-xs">Bio</span>
-              <p className="mt-1 leading-relaxed text-sm leading-5 text-kumo-subtle">
-                {currentUser.bio}
-              </p>
+              <p className="text-kumo-subtle mb-1">Company</p>
+              <p className="text-kumo-strong">{currentUser.company || "—"}</p>
             </div>
+            <div>
+              <p className="text-kumo-subtle mb-1">Industry</p>
+              <p className="text-kumo-strong">{currentUser.industry || "—"}</p>
+            </div>
+            <div>
+              <p className="text-kumo-subtle mb-1">Experience</p>
+              <p className="text-kumo-strong">{currentUser.experience || "—"}</p>
+            </div>
+          </div>
+        )}
+
+        {currentUser.bio && (
+          <div className="border-t border-kumo-line pt-4">
+            <p className="text-xs text-kumo-subtle mb-2">Bio</p>
+            <p className="text-sm text-kumo-strong">{currentUser.bio}</p>
           </div>
         )}
       </div>
 
       {/* 3. SKILLS */}
-      <div className="bg-kumo-base border border-kumo-line rounded-xl p-6 space-y-4">
+      <div className="bg-kumo-base border border-kumo-line rounded-2xl p-6 space-y-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <StackIcon size={16} weight="regular" className="text-kumo-brand" />
-            <h2 className="text-section-title text-kumo-strong">
-              Skills & Expertise
-            </h2>
+            <h2 className="text-section-title text-kumo-strong">Skills</h2>
           </div>
           {editingSection === "skills" ? (
             <div className="flex items-center gap-2">
-              <Button variant="ghost" size="sm" onClick={() => setEditingSection(null)}
-              >
-                Cancel
-              </Button>
-              <Button variant="primary" size="sm" onClick={() => handleSaveSection("skills")}
-              >
-                <CheckIcon size={12} weight="regular" className="mr-1" />
+              <Button variant="ghost" size="sm" onClick={() => setEditingSection(null)}>Cancel</Button>
+              <Button variant="primary" size="sm" onClick={() => handleRequestSave("skills")}>
+                <CheckCircleIcon size={12} weight="fill" className="mr-1" />
                 Save
               </Button>
             </div>
           ) : (
-            <Button variant="outline" size="sm" onClick={() => setEditingSection("skills")}
-            >
+            <Button variant="outline" size="sm" onClick={() => setEditingSection("skills")}>
               <PencilSimpleIcon size={12} weight="regular" className="mr-1" />
               Edit
             </Button>
@@ -392,7 +402,7 @@ export default function MyProfilePage() {
 
         {editingSection === "skills" ? (
           <div className="space-y-4 pt-2">
-            <div className="flex flex-wrap gap-1 max-h-48 overflow-y-auto p-2 border border-kumo-line rounded-xl">
+            <div className="flex flex-wrap gap-2">
               {ALL_SKILLS.map((sk) => {
                 const isSelected = skills.includes(sk);
                 return (
@@ -400,71 +410,59 @@ export default function MyProfilePage() {
                     key={sk}
                     type="button"
                     onClick={() => handleToggleSkill(sk)}
-                    className={`px-3 py-1 rounded-xl text-xs font-medium border transition-colors ${
+                    className={`px-3 py-1.5 rounded-xl text-xs font-medium border transition-colors ${
                       isSelected
-                        ? "bg-kumo-brand text-static-white border-kumo-brand"
+                        ? "bg-kumo-brand text-white border-kumo-brand"
                         : "bg-kumo-tint text-kumo-subtle border-kumo-line"
                     }`}
                   >
-                    {isSelected ? "✓ " : "+ "}
+                    {isSelected ? <CheckIcon size={10} weight="fill" className="mr-1" /> : <PlusIcon size={10} weight="regular" className="mr-1" />}
                     {sk}
                   </button>
                 );
               })}
             </div>
-
             <form onSubmit={handleAddCustomSkill} className="flex gap-2">
-              <input
-                type="text"
+              <Input
                 value={customSkill}
                 onChange={(e) => setCustomSkill(e.target.value)}
-                placeholder="Add other custom skill..."
-                className="flex-1 h-9 px-3 bg-kumo-base border border-kumo-line rounded-xl text-xs"
+                placeholder="Add custom skill..."
+                className="flex-1"
               />
-              <Button type="submit" variant="secondary" size="sm">
+              <Button type="submit" variant="secondary" size="sm" disabled={!customSkill.trim()}>
                 <PlusIcon size={12} weight="regular" className="mr-1" />
                 Add
               </Button>
             </form>
           </div>
         ) : (
-          <div className="flex flex-wrap gap-1 pt-2">
-            {currentUser.skills?.map((sk) => (
-              <span
-                key={sk}
-                className="px-3 py-1 rounded-xl text-xs font-medium bg-kumo-tint text-kumo-subtle border border-kumo-line"
-              >
-                {sk}
-              </span>
-            ))}
+          <div className="flex flex-wrap gap-2">
+            {skills.length > 0 ? (
+              skills.map((sk) => <Badge key={sk} variant="secondary">{sk}</Badge>)
+            ) : (
+              <span className="text-sm text-kumo-inactive">No skills added yet</span>
+            )}
           </div>
         )}
       </div>
 
       {/* 4. AVAILABILITY & STATUS */}
-      <div className="bg-kumo-base border border-kumo-line rounded-xl p-6 space-y-4">
+      <div className="bg-kumo-base border border-kumo-line rounded-2xl p-6 space-y-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <SparkleIcon size={16} weight="regular" className="text-success-base" />
-            <h2 className="text-section-title text-kumo-strong">
-              Availability & Collaborations
-            </h2>
+            <ShieldIcon size={16} weight="regular" className="text-kumo-brand" />
+            <h2 className="text-section-title text-kumo-strong">Availability & Status</h2>
           </div>
           {editingSection === "availability" ? (
             <div className="flex items-center gap-2">
-              <Button variant="ghost" size="sm" onClick={() => setEditingSection(null)}
-              >
-                Cancel
-              </Button>
-              <Button variant="primary" size="sm" onClick={() => handleSaveSection("availability")}
-              >
-                <CheckIcon size={12} weight="regular" className="mr-1" />
+              <Button variant="ghost" size="sm" onClick={() => setEditingSection(null)}>Cancel</Button>
+              <Button variant="primary" size="sm" onClick={() => handleRequestSave("availability")}>
+                <CheckCircleIcon size={12} weight="fill" className="mr-1" />
                 Save
               </Button>
             </div>
           ) : (
-            <Button variant="outline" size="sm" onClick={() => setEditingSection("availability")}
-            >
+            <Button variant="outline" size="sm" onClick={() => setEditingSection("availability")}>
               <PencilSimpleIcon size={12} weight="regular" className="mr-1" />
               Edit
             </Button>
@@ -473,136 +471,114 @@ export default function MyProfilePage() {
 
         {editingSection === "availability" ? (
           <div className="space-y-4 pt-2">
-            <div className="flex flex-col gap-2">
-              <label className="text-xs font-semibold text-kumo-subtle">
-                Primary Status Badge
-              </label>
-              <select
-                value={status}
-                onChange={(e) => setStatus(e.target.value as UserStatus)}
-                className="h-10 px-3 bg-kumo-base border border-kumo-line rounded-xl text-xs text-kumo-strong"
-              >
-                <option value="Available to Help">Available to Help</option>
-                <option value="Open to Work">Open to Work</option>
-                <option value="Open to Collaboration">Open to Collaboration</option>
-                <option value="Hiring">Hiring</option>
-              </select>
-            </div>
-
-            <div className="space-y-2">
-              <label className="text-xs font-semibold text-kumo-subtle">
-                What are you looking for?
-              </label>
+            <Select
+              label="Current Status"
+              value={status}
+              onValueChange={(v) => setStatus(v as UserStatus)}
+              items={["Available to Help", "Open to Work", "Open to Collaboration", "Hiring"].map((v) => ({ label: v, value: v }))}
+            />
+            <div>
+              <label className="text-xs font-semibold text-kumo-subtle mb-2 block">Looking For</label>
               <div className="flex flex-wrap gap-2">
-                {LOOKING_FOR_OPTIONS.map((item) => {
-                  const isChecked = lookingFor.includes(item);
-                  return (
-                    <button
-                      key={item}
-                      type="button"
-                      onClick={() => handleToggleLooking(item)}
-                      className={`px-3 py-1 rounded-xl text-xs font-medium border transition-colors ${
-                        isChecked
-                          ? "bg-kumo-brand text-static-white border-kumo-brand"
-                          : "bg-kumo-tint text-kumo-subtle border-kumo-line"
-                      }`}
-                    >
-                      {isChecked ? "✓ " : "+ "}
-                      {item}
-                    </button>
-                  );
-                })}
+                {LOOKING_FOR_OPTIONS.map((item) => (
+                  <button
+                    key={item}
+                    type="button"
+                    onClick={() => handleToggleLooking(item)}
+                    className={`px-3 py-1.5 rounded-xl text-xs font-medium border transition-colors ${
+                      lookingFor.includes(item)
+                        ? "bg-kumo-brand text-white border-kumo-brand"
+                        : "bg-kumo-tint text-kumo-subtle border-kumo-line"
+                    }`}
+                  >
+                    {lookingFor.includes(item) && <CheckIcon size={10} weight="fill" className="mr-1" />}
+                    {item}
+                  </button>
+                ))}
               </div>
             </div>
-
-            <div className="space-y-2">
-              <label className="text-xs font-semibold text-kumo-subtle">
-                What can you offer?
-              </label>
+            <div>
+              <label className="text-xs font-semibold text-kumo-subtle mb-2 block">Can Offer</label>
               <div className="flex flex-wrap gap-2">
-                {CAN_OFFER_OPTIONS.map((item) => {
-                  const isChecked = canOffer.includes(item);
-                  return (
-                    <button
-                      key={item}
-                      type="button"
-                      onClick={() => handleToggleOffer(item)}
-                      className={`px-3 py-1 rounded-xl text-xs font-medium border transition-colors ${
-                        isChecked
-                          ? "bg-success-base text-static-white border-success-base"
-                          : "bg-kumo-tint text-kumo-subtle border-kumo-line"
-                      }`}
-                    >
-                      {isChecked ? "✓ " : "+ "}
-                      {item}
-                    </button>
-                  );
-                })}
+                {CAN_OFFER_OPTIONS.map((item) => (
+                  <button
+                    key={item}
+                    type="button"
+                    onClick={() => handleToggleOffer(item)}
+                    className={`px-3 py-1.5 rounded-xl text-xs font-medium border transition-colors ${
+                      canOffer.includes(item)
+                        ? "bg-kumo-brand text-white border-kumo-brand"
+                        : "bg-kumo-tint text-kumo-subtle border-kumo-line"
+                    }`}
+                  >
+                    {canOffer.includes(item) && <CheckIcon size={10} weight="fill" className="mr-1" />}
+                    {item}
+                  </button>
+                ))}
               </div>
             </div>
+            <Select
+              label="Profile Visibility"
+              value={visibility}
+              onValueChange={(v) => setVisibility(v as UserVisibility)}
+              items={[
+                { label: "Community Only", value: "community" },
+                { label: "Public", value: "public" },
+                { label: "Private", value: "private" },
+              ]}
+            />
           </div>
         ) : (
-          <div className="space-y-4 pt-2 text-xs">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-xs pt-2">
             <div>
-              <span className="text-kumo-inactive block font-medium mb-1">Status</span>
+              <p className="text-kumo-subtle mb-1">Status</p>
               <StatusBadge status={currentUser.status} />
             </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div>
-                <span className="text-kumo-inactive block font-medium mb-1">
-                  Looking For
-                </span>
-                <div className="flex flex-wrap gap-2">
-                  {currentUser.lookingFor?.map((item) => (
-                    <Badge key={item} variant="primary">
-                      {item}
-                    </Badge>
-                  ))}
-                </div>
+            <div>
+              <p className="text-kumo-subtle mb-1">Looking For</p>
+              <div className="flex flex-wrap gap-1.5">
+                {lookingFor.length > 0 ? (
+                  lookingFor.map((l) => <Badge key={l} variant="secondary" className="text-xs">{l}</Badge>)
+                ) : (
+                  <span className="text-kumo-inactive">—</span>
+                )}
               </div>
-
-              <div>
-                <span className="text-kumo-inactive block font-medium mb-1">
-                  Can Offer
-                </span>
-                <div className="flex flex-wrap gap-2">
-                  {currentUser.canOffer?.map((item) => (
-                    <Badge key={item} variant="success">
-                      {item}
-                    </Badge>
-                  ))}
-                </div>
+            </div>
+            <div>
+              <p className="text-kumo-subtle mb-1">Can Offer</p>
+              <div className="flex flex-wrap gap-1.5">
+                {canOffer.length > 0 ? (
+                  canOffer.map((c) => <Badge key={c} variant="secondary" className="text-xs">{c}</Badge>)
+                ) : (
+                  <span className="text-kumo-inactive">—</span>
+                )}
               </div>
+            </div>
+            <div>
+              <p className="text-kumo-subtle mb-1">Visibility</p>
+              <p className="text-kumo-strong capitalize">{currentUser.visibility}</p>
             </div>
           </div>
         )}
       </div>
 
-      {/* 5. LINKS & SOCIALS */}
-      <div className="bg-kumo-base border border-kumo-line rounded-xl p-6 space-y-4">
+      {/* 5. SOCIAL LINKS */}
+      <div className="bg-kumo-base border border-kumo-line rounded-2xl p-6 space-y-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <GlobeIcon size={16} weight="regular" className="text-kumo-brand" />
-            <h2 className="text-section-title text-kumo-strong">
-              Links & Portfolio
-            </h2>
+            <h2 className="text-section-title text-kumo-strong">Social Links</h2>
           </div>
           {editingSection === "links" ? (
             <div className="flex items-center gap-2">
-              <Button variant="ghost" size="sm" onClick={() => setEditingSection(null)}
-              >
-                Cancel
-              </Button>
-              <Button variant="primary" size="sm" onClick={() => handleSaveSection("links")}
-              >
-                <CheckIcon size={12} weight="regular" className="mr-1" />
+              <Button variant="ghost" size="sm" onClick={() => setEditingSection(null)}>Cancel</Button>
+              <Button variant="primary" size="sm" onClick={() => handleRequestSave("links")}>
+                <CheckCircleIcon size={12} weight="fill" className="mr-1" />
                 Save
               </Button>
             </div>
           ) : (
-            <Button variant="outline" size="sm" onClick={() => setEditingSection("links")}
-            >
+            <Button variant="outline" size="sm" onClick={() => setEditingSection("links")}>
               <PencilSimpleIcon size={12} weight="regular" className="mr-1" />
               Edit
             </Button>
@@ -615,104 +591,88 @@ export default function MyProfilePage() {
               label="LinkedIn URL"
               value={linkedin}
               onChange={(e) => setLinkedin(e.target.value)}
-              placeholder="https://linkedin.com/in/..."
+              placeholder="https://linkedin.com/in/yourname"
             />
             <Input
-              label="Portfolio URL"
+              label="Portfolio / Website URL"
               value={portfolio}
               onChange={(e) => setPortfolio(e.target.value)}
-              placeholder="https://..."
+              placeholder="https://yourportfolio.com"
             />
             <Input
-              label="Personal Website"
+              label="Personal Website URL"
               value={website}
               onChange={(e) => setWebsite(e.target.value)}
-              placeholder="https://..."
+              placeholder="https://yourwebsite.com"
             />
           </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2 text-xs">
-            <div>
-              <span className="text-kumo-inactive block font-medium">LinkedIn</span>
-              <span className="font-semibold text-kumo-strong truncate block">
-                {currentUser.linkedin || "Not provided"}
-              </span>
-            </div>
-            <div>
-              <span className="text-kumo-inactive block font-medium">Portfolio</span>
-              <span className="font-semibold text-kumo-strong truncate block">
-                {currentUser.portfolio || "Not provided"}
-              </span>
-            </div>
-            <div>
-              <span className="text-kumo-inactive block font-medium">Website</span>
-              <span className="font-semibold text-kumo-strong truncate block">
-                {currentUser.website || "Not provided"}
-              </span>
-            </div>
+          <div className="space-y-3">
+            {linkedin && (
+              <a href={linkedin} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm text-kumo-brand hover:underline">
+                <GlobeIcon size={14} weight="regular" /> LinkedIn
+              </a>
+            )}
+            {portfolio && (
+              <a href={portfolio} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm text-kumo-brand hover:underline">
+                <GlobeIcon size={14} weight="regular" /> Portfolio
+              </a>
+            )}
+            {website && (
+              <a href={website} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm text-kumo-brand hover:underline">
+                <GlobeIcon size={14} weight="regular" /> Website
+              </a>
+            )}
+            {!linkedin && !portfolio && !website && <p className="text-sm text-kumo-inactive">No social links added yet</p>}
           </div>
         )}
       </div>
 
-      {/* 6. PRIVACY & DIRECTORY CONTROLS */}
-      <div className="bg-kumo-base border border-kumo-line rounded-xl p-6 space-y-4">
+      {/* 6. DANGER ZONE */}
+      <div className="bg-error-lighter border border-error-light rounded-2xl p-6 space-y-4">
         <div className="flex items-center gap-2">
-          <ShieldIcon size={16} weight="regular" className="text-feature-base" />
-          <h2 className="text-section-title text-kumo-strong">
-            Privacy & Directory Visibility
-          </h2>
+          <TrashSimpleIcon size={16} weight="fill" className="text-error-base" />
+          <h2 className="text-section-title text-error-dark">Danger Zone</h2>
         </div>
-
-        <p className="text-xs text-kumo-subtle">
-          Control how your profile appears in the Angkatan 5 network. Personal phone numbers and emails are never exposed publicly.
-        </p>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
-          <div
-            onClick={() => {
-              setVisibility("community");
-              updateProfile(currentUser.id, { visibility: "community" });
-            }}
-            className={`p-4 rounded-xl border-2 cursor-pointer transition-colors flex items-start gap-3 ${
-              currentUser.visibility === "community"
-                ? "border-kumo-brand bg-primary-alpha-10/40"
-                : "border-kumo-line hover:border-kumo-line"
-            }`}
-          >
-            <EyeIcon size={20} weight="regular" className="text-kumo-brand shrink-0 mt-0" />
-            <div>
-              <h4 className="text-xs font-semibold text-kumo-strong">
-                Community Members Only
-              </h4>
-              <p className="text-xs leading-4 text-kumo-subtle mt-0">
-                Visible to verified Angkatan 5 members in directory searches.
-              </p>
-            </div>
-          </div>
-
-          <div
-            onClick={() => {
-              setVisibility("hidden");
-              updateProfile(currentUser.id, { visibility: "hidden" });
-            }}
-            className={`p-4 rounded-xl border-2 cursor-pointer transition-colors flex items-start gap-3 ${
-              currentUser.visibility === "hidden"
-                ? "border-warning-base bg-warning-lighter/40"
-                : "border-kumo-line hover:border-kumo-line"
-            }`}
-          >
-            <LockSimpleIcon size={20} weight="regular" className="text-warning-base shrink-0 mt-0" />
-            <div>
-              <h4 className="text-xs font-semibold text-kumo-strong">
-                Hidden from Directory
-              </h4>
-              <p className="text-xs leading-4 text-kumo-subtle mt-0">
-                Your profile will not appear in search results or suggestions.
-              </p>
-            </div>
-          </div>
+        <p className="text-sm text-error-dark">Irreversible actions. Proceed with caution.</p>
+        <div className="flex items-center gap-3">
+          <Button variant="danger" size="sm" onClick={() => addToast("Coming soon", "Account deletion not yet implemented", "info")}>
+            Delete Account
+          </Button>
+          <Button variant="outline" size="sm" onClick={() => addToast("Coming soon", "Data export not yet implemented", "info")}>
+            Export Data
+          </Button>
         </div>
       </div>
+    </div>
+  );
+}
+
+function Select({
+  label,
+  value,
+  onValueChange,
+  items,
+}: {
+  label: string;
+  value: string;
+  onValueChange: (v: string) => void;
+  items: { label: string; value: string }[];
+}) {
+  return (
+    <div className="space-y-1.5">
+      <label className="text-xs font-semibold text-kumo-subtle">{label}</label>
+      <select
+        value={value}
+        onChange={(e) => onValueChange(e.target.value)}
+        className="w-full h-9 px-3 bg-kumo-base border border-kumo-line rounded-xl text-sm text-kumo-strong outline-none focus:ring-2 focus:ring-kumo-brand focus:ring-offset-1 appearance-none cursor-pointer"
+      >
+        {items.map((item) => (
+          <option key={item.value} value={item.value}>
+            {item.label}
+          </option>
+        ))}
+      </select>
     </div>
   );
 }
