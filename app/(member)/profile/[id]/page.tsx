@@ -68,7 +68,7 @@ export default function MemberProfilePage() {
       </div>
 
       {/* Header Profile Card */}
-      <div className="bg-kumo-base border border-kumo-line rounded-lg p-6 sm:p-8">
+      <div className="bg-kumo-base border border-kumo-line rounded-xl p-6 sm:p-8">
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
           <div className="flex items-start sm:items-center gap-5">
             <div className="relative">
@@ -136,7 +136,7 @@ export default function MemberProfilePage() {
         {/* Left 2 Columns: Main Details */}
         <div className="md:col-span-2 space-y-8">
           {/* About Section */}
-          <div className="bg-kumo-base border border-kumo-line rounded-lg p-6">
+          <div className="bg-kumo-base border border-kumo-line rounded-xl p-6">
             <h2 className="text-section-title text-kumo-strong mb-3">
               About
             </h2>
@@ -146,7 +146,7 @@ export default function MemberProfilePage() {
           </div>
 
           {/* Experience Timeline */}
-          <div className="bg-kumo-base border border-kumo-line rounded-lg p-6">
+          <div className="bg-kumo-base border border-kumo-line rounded-xl p-6">
             <h2 className="text-section-title text-kumo-strong mb-4">
               Professional Experience
             </h2>
@@ -188,7 +188,7 @@ export default function MemberProfilePage() {
 
           {/* Capabilities & What I Can Offer */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div className="bg-kumo-base border border-kumo-line rounded-lg p-5">
+            <div className="bg-kumo-base border border-kumo-line rounded-xl p-5">
               <div className="flex items-center gap-2 mb-3">
                 <SparkleIcon size={16} weight="regular" className="text-success-base" />
                 <h3 className="text-sm font-semibold text-kumo-strong">
@@ -210,7 +210,7 @@ export default function MemberProfilePage() {
               </div>
             </div>
 
-            <div className="bg-kumo-base border border-kumo-line rounded-lg p-5">
+            <div className="bg-kumo-base border border-kumo-line rounded-xl p-5">
               <div className="flex items-center gap-2 mb-3">
                 <MagnifyingGlassIcon size={16} weight="regular" className="text-kumo-brand" />
                 <h3 className="text-sm font-semibold text-kumo-strong">
@@ -237,7 +237,7 @@ export default function MemberProfilePage() {
         {/* Right Sidebar: Skills, Links & Privacy */}
         <div className="space-y-8">
           {/* Skills Tag Cloud */}
-          <div className="bg-kumo-base border border-kumo-line rounded-lg p-6">
+          <div className="bg-kumo-base border border-kumo-line rounded-xl p-6">
             <h2 className="text-xs font-semibold uppercase leading-4 tracking-widest text-kumo-inactive mb-3">
               Skills & Expertise
             </h2>
@@ -254,7 +254,7 @@ export default function MemberProfilePage() {
           </div>
 
           {/* Social / Portfolio Links */}
-          <div className="bg-kumo-base border border-kumo-line rounded-lg p-6">
+          <div className="bg-kumo-base border border-kumo-line rounded-xl p-6">
             <h2 className="text-xs font-semibold uppercase leading-4 tracking-widest text-kumo-inactive mb-3">
               Links & Portfolio
             </h2>

@@ -153,7 +153,7 @@ export default function AdminSkillsPage() {
                   <div key={skill.id} className="group relative flex items-center gap-1.5 bg-kumo-tint border border-kumo-line rounded-lg px-2.5 py-1.5 text-sm text-kumo-strong hover:border-kumo-subtle transition-colors">
                     <span>{skill.name}</span>
                     <div className="relative">
-                      <button onClick={() => setActiveMenu(activeMenu === skill.id ? null : skill.id)} className="text-kumo-inactive hover:text-kumo-strong transition-colors p-0.5 -mr-0.5" aria-label={`Actions for ${skill.name}`}>
+                      <button onClick={() => setActiveMenu(activeMenu === skill.id ? null : skill.id)} className="text-kumo-inactive hover:text-kumo-strong transition-colors p-1 -mr-1" aria-label={`Actions for ${skill.name}`}>
                         <DotsThreeVerticalIcon size={14} weight="bold" />
                       </button>
                       {activeMenu === skill.id && (

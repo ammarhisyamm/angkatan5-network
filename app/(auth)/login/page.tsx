@@ -49,7 +49,7 @@ export default function LoginPage() {
       </div>
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md px-4">
-        <div className="flex flex-col gap-6 rounded-lg border border-kumo-line bg-kumo-base px-6 py-8 sm:px-10 shadow-xs">
+        <div className="flex flex-col gap-6 rounded-xl border border-kumo-line bg-kumo-base px-6 py-8 sm:px-10 shadow-xs">
           <form onSubmit={handleSubmit} className="flex flex-col gap-4">
             {error && <div className="rounded-xl border border-error-light bg-error-lighter p-3 text-xs leading-4 font-medium text-error-dark">{error}</div>}
 

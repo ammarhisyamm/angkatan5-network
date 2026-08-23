@@ -75,7 +75,7 @@ export default function MemberDashboardPage() {
             return (
               <Link key={a.href} href={a.href} className="group">
                 <LayerCard className="h-full w-full p-5 hover:border-kumo-brand/30 transition-colors hover:shadow-sm">
-                  <span className="mb-4 flex size-10 items-center justify-center rounded-lg bg-kumo-brand/10 text-kumo-brand">
+                  <span className="mb-4 flex size-10 items-center justify-center rounded-xl bg-kumo-brand/10 text-kumo-brand">
                     <Icon className="size-5 sm:size-6" strokeWidth={1.5} />
                   </span>
                   <h3 className="text-card-title text-kumo-strong group-hover:text-kumo-brand">{a.title}</h3>
@@ -96,7 +96,7 @@ export default function MemberDashboardPage() {
           {metrics.map((m) => (
             <div key={m.label} className="flex flex-col min-w-0">
               <dt className="text-meta text-kumo-subtle">{m.label}</dt>
-              <dd className="mt-1 text-[28px] font-semibold leading-8 tracking-tight text-kumo-strong" data-numeric>{m.value}</dd>
+              <dd className="mt-1 text-kpi text-kumo-strong" data-numeric>{m.value}</dd>
               <span className={`mt-0.5 text-meta ${m.metaTone}`}>{m.meta}</span>
             </div>
           ))}
