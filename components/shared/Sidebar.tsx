@@ -29,10 +29,12 @@ function SidebarInner() {
   const pathname = usePathname();
   const router = useRouter();
   const { currentUser, logout, users, opportunities, switchUser } = useApp();
-  const { state, toggleSidebar } = useSidebar();
+  const { state, open, setOpen } = useSidebar();
   const isCollapsed = state === "collapsed";
   const isAdminSection = pathname.startsWith("/admin");
   const [showUserMenu, setShowUserMenu] = useState(false);
+
+  const toggleSidebar = () => setOpen(!open);
 
   const memberCounts: Record<string, number | null> = {
     "/discover": users.length,
