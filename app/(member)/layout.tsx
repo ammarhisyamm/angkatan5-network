@@ -18,6 +18,8 @@ export default function MemberLayout({
       minWidth={260}
       maxWidth={320}
       resizable
+      collapsible="icon"
+      peekable
       className="bg-kumo-tint text-kumo-strong"
     >
       {/* Inner flex row gives the sidebar gap aside a definite height */}
