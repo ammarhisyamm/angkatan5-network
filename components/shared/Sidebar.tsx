@@ -23,6 +23,7 @@ import {
   BellIcon,
   UserIcon,
   ArrowsLeftRightIcon,
+  CaretDownIcon,
 } from "@phosphor-icons/react";
 
 function SidebarInner() {
@@ -36,21 +37,11 @@ function SidebarInner() {
 
   const toggleSidebar = () => setOpen(!open);
 
-  const memberCounts: Record<string, number | null> = {
-    "/discover": users.length,
-    "/opportunities": opportunities.filter((o) => o.status === "Published").length,
-  };
   const adminCounts: Record<string, number | null> = {
     "/admin/members": users.length,
     "/admin/opportunities": opportunities.length,
   };
 
-  const memberNav = [
-    { name: "Home", href: "/dashboard", icon: HouseIcon, group: "Overview", count: null },
-    { name: "Discover People", href: "/discover", icon: UsersIcon, group: "Overview", count: memberCounts["/discover"] },
-    { name: "Opportunities", href: "/opportunities", icon: BriefcaseIcon, group: "Overview", count: memberCounts["/opportunities"] },
-    { name: "My Profile", href: "/my-profile", icon: UserCircleIcon, group: "Overview", count: null },
-  ];
   const adminNav = [
     { name: "Dashboard", href: "/admin/dashboard", icon: HouseIcon, group: "Overview", count: null },
     { name: "Members", href: "/admin/members", icon: UsersIcon, group: "Projects", count: adminCounts["/admin/members"] },
@@ -58,7 +49,8 @@ function SidebarInner() {
     { name: "Skills", href: "/admin/skills", icon: StackIcon, group: "Projects", count: null },
     { name: "Analytics", href: "/admin/analytics", icon: ChartBarIcon, group: "Analytics", count: null },
   ];
-  const navItems = isAdminSection ? adminNav : memberNav;
+
+  const navItems = adminNav;
   const grouped = navItems.reduce((acc: any, item) => {
     (acc[item.group] = acc[item.group] || []).push(item);
     return acc;
@@ -66,114 +58,165 @@ function SidebarInner() {
 
   const otherUsers = users.filter((u) => u.id !== currentUser?.id).slice(0, 3);
 
+  const getIconColor = (active: boolean) => active ? "text-kumo-brand" : "text-kumo-inactive";
+  const getIconBg = (active: boolean) => active ? "bg-primary-alpha-10" : "bg-transparent";
+  const getHoverBg = (active: boolean) => active ? "hover:bg-primary-alpha-10" : "hover:bg-kumo-tint";
+  const getTextColor = (active: boolean) => active ? "text-kumo-brand" : "text-kumo-strong";
+
   return (
-    <KumoSidebar className="border-r border-kumo-line bg-white/50 shadow-[2px_0_12px_rgba(0,0,0,0.04)] backdrop-blur-sm">
-      <KumoSidebar.Header className="sticky top-0 z-10 bg-white/50 px-2.5 pt-3 pb-3 border-b border-kumo-line/60 flex flex-col gap-3 !h-auto min-h-[140px] backdrop-blur-sm">
-        <div className="flex items-center justify-between gap-2">
-          <Link href="/dashboard" className="flex items-center gap-2.5 rounded-lg px-1 py-1 -mx-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-kumo-brand min-w-0 flex-1">
-            <div className="flex size-8 items-center justify-center rounded-lg bg-kumo-brand text-white font-bold text-xs tracking-tight shrink-0 shadow-sm">A5</div>
+    <KumoSidebar
+      className="bg-white border-r border-kumo-line shadow-[2px_0_12px_rgba(0,0,0,0.03)]"
+    >
+      <KumoSidebar.Header className="sticky top-0 z-10 bg-white border-b border-kumo-line px-5 py-4 flex flex-col gap-4">
+        {/* Brand + Collapse Toggle */}
+        <div className="flex items-center justify-between gap-3">
+          <Link
+            href="/admin/dashboard"
+            className="flex items-center gap-3 rounded-lg px-2 py-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-kumo-brand focus-visible:ring-offset-2 -mx-2 -my-2 min-w-0 flex-1"
+            aria-label="A5 Network Home"
+          >
+            <div className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-kumo-brand text-white font-bold text-xs tracking-tight shadow-sm">
+              A5
+            </div>
             {!isCollapsed && (
-              <div className="min-w-0 flex-1">
-                <p className="text-sm font-semibold leading-4 text-kumo-strong tracking-tight">A5 Network</p>
-                <p className="text-meta text-kumo-inactive">Private Directory</p>
+              <div className="min-w-0 flex-1 overflow-hidden">
+                <p className="text-sm font-semibold leading-4 text-kumo-strong truncate">A5 Network</p>
+                <p className="text-xs leading-3 text-kumo-inactive truncate">Private Directory</p>
               </div>
             )}
           </Link>
           <button
-            onClick={toggleSidebar}
-            aria-label={isCollapsed ? "Expand sidebar" : "Collapse sidebar"}
-            className="flex size-7 items-center justify-center rounded-md border border-kumo-line bg-white text-kumo-inactive hover:bg-kumo-tint hover:text-kumo-strong transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-kumo-brand shrink-0"
-          >
-            {isCollapsed ? <CaretRightIcon size={14} /> : <CaretLeftIcon size={14} />}
-          </button>
+              onClick={toggleSidebar}
+              aria-label={isCollapsed ? "Expand sidebar" : "Collapse sidebar"}
+              title={isCollapsed ? "Expand sidebar" : "Collapse sidebar"}
+              className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-transparent text-kumo-inactive hover:bg-kumo-tint hover:text-kumo-strong focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-kumo-brand focus-visible:ring-offset-2 transition-colors duration-150"
+            >
+              {isCollapsed ? <CaretRightIcon size={16} /> : <CaretLeftIcon size={16} />}
+            </button>
         </div>
 
-        {!isCollapsed ? (
-          <div className="flex flex-col gap-2.5">
-<div className="relative">
-  <MagnifyingGlassIcon size={14} className="absolute left-2.5 top-1/2 -translate-y-1/2 text-kumo-inactive" aria-hidden="true" />
-  <input
-    placeholder="Quick search..."
-    aria-label="Quick search"
-    className="w-full h-9 pl-8 pr-3 bg-white/50 border border-kumo-line rounded-lg text-sm text-kumo-strong placeholder:text-kumo-inactive focus:outline-none focus:border-kumo-brand focus:ring-2 focus:ring-kumo-brand/20 transition-colors backdrop-blur-sm"
-  />
-</div>
-
+        {/* Workspace Switcher + Search */}
+        {!isCollapsed && (
+          <div className="flex flex-col gap-3 pt-1">
+            {/* Workspace Switcher */}
             <div>
-              <p className="px-1 pb-1 text-label font-semibold uppercase tracking-widest text-kumo-inactive">Workspace</p>
-              <div className="flex items-center gap-0.5 rounded-lg bg-kumo-tint/50 border border-kumo-line/50 p-0.5" role="tablist" aria-label="Workspace">
-              <Link
-                href="/dashboard"
-                role="tab"
-                aria-selected={!isAdminSection}
-                className={`flex h-7 flex-1 items-center justify-center rounded-md text-xs font-medium transition-colors ${!isAdminSection ? "bg-white ring-1 ring-kumo-line text-kumo-brand shadow-sm" : "text-kumo-subtle hover:text-kumo-strong"}`}
+              <p className="px-1 text-[10px] font-semibold uppercase tracking-[0.08em] text-kumo-inactive">Workspace</p>
+              <div className="mt-1.5 flex items-center gap-0.5 rounded-lg bg-kumo-tint/50 border border-kumo-line/50 p-0.5" role="tablist" aria-label="Workspace">
+                <Link
+                  href="/admin/dashboard"
+                  role="tab"
+                  aria-selected={!isAdminSection}
+                  aria-label="Member workspace"
+                  className="relative flex h-9 flex-1 items-center justify-center gap-2 rounded-md text-sm font-medium transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-kumo-brand focus-visible:ring-offset-2"
+                >
+                  <span className={`${!isAdminSection ? "text-kumo-brand font-semibold" : "text-kumo-inactive hover:text-kumo-strong"}`}>
+                    Member
+                  </span>
+                  {!isAdminSection && (
+                    <span className="absolute -top-1 right-1 flex size-4 items-center justify-center rounded-full bg-kumo-brand text-[9px] font-bold text-white">
+                      1
+                    </span>
+                  )}
+                </Link>
+                <Link
+                  href="/admin/dashboard"
+                  role="tab"
+                  aria-selected={isAdminSection}
+                  aria-label="Admin workspace"
+                  className="relative flex h-9 flex-1 items-center justify-center gap-2 rounded-md text-sm font-medium transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-kumo-brand focus-visible:ring-offset-2"
+                >
+                  <ShieldCheckIcon size={14} className={`${isAdminSection ? "text-kumo-brand" : "text-kumo-inactive hover:text-kumo-strong"}`} />
+                  <span className={`${isAdminSection ? "text-kumo-brand font-semibold" : "text-kumo-inactive hover:text-kumo-strong"}`}>
+                    Admin
+                  </span>
+                  {isAdminSection && (
+                    <span className="absolute -top-1 right-1 flex size-4 items-center justify-center rounded-full bg-kumo-brand text-[9px] font-bold text-white">
+                      1
+                    </span>
+                  )}
+                </Link>
+              </div>
+            </div>
+
+            {/* Quick Search */}
+            <div className="relative">
+              <MagnifyingGlassIcon size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-kumo-inactive" aria-hidden="true" />
+              <input
+                type="search"
+                placeholder="Quick search…"
+                aria-label="Quick search"
+                className="w-full h-10 pl-10 pr-4 bg-white border border-kumo-line rounded-xl text-sm text-kumo-strong placeholder:text-kumo-inactive outline-none transition-all duration-150 hover:border-kumo-line/50 focus:border-kumo-brand focus:ring-2 focus:ring-kumo-brand/20 focus:ring-offset-2"
+              />
+            </div>
+          </div>
+        )}
+
+        {/* Collapsed Workspace Switcher */}
+{isCollapsed && (
+          <div className="flex flex-col items-center gap-2" title="Switch workspace">
+            <Link
+                href="/admin/dashboard"
+                aria-label="Member workspace"
+                className={`flex size-9 items-center justify-center rounded-lg transition-colors duration-150 ${!isAdminSection ? "bg-primary-alpha-10 text-kumo-brand shadow-sm" : "text-kumo-inactive hover:bg-kumo-tint hover:text-kumo-strong"}`}
               >
-                Member
+                <UserIcon size={18} />
               </Link>
               <Link
                 href="/admin/dashboard"
-                role="tab"
-                aria-selected={isAdminSection}
-                className={`flex h-7 flex-1 items-center justify-center gap-1 rounded-md text-xs font-medium transition-colors ${isAdminSection ? "bg-white ring-1 ring-kumo-line text-kumo-brand shadow-sm" : "text-kumo-subtle hover:text-kumo-strong"}`}
+                aria-label="Admin workspace"
+                className={`flex size-9 items-center justify-center rounded-lg transition-colors duration-150 ${isAdminSection ? "bg-primary-alpha-10 text-kumo-brand shadow-sm" : "text-kumo-inactive hover:bg-kumo-tint hover:text-kumo-strong"}`}
               >
-                <ShieldCheckIcon size={12} />
-                Admin
+                <ShieldCheckIcon size={18} />
               </Link>
-              </div>
             </div>
-          </div>
-        ) : (
-          <div className="flex flex-col items-center gap-0.5 rounded-lg bg-kumo-tint border border-kumo-line p-0.5" role="tablist" aria-label="Workspace">
-            <Link
-              href="/dashboard"
-              role="tab"
-              aria-selected={!isAdminSection}
-              aria-label="Member workspace"
-              title="Member"
-              className={`flex size-7 items-center justify-center rounded-md transition-colors ${!isAdminSection ? "bg-white ring-1 ring-kumo-line text-kumo-brand shadow-sm" : "text-kumo-subtle hover:text-kumo-strong"}`}
-            >
-              <UserIcon size={14} />
-            </Link>
-            <Link
-              href="/admin/dashboard"
-              role="tab"
-              aria-selected={isAdminSection}
-              aria-label="Admin workspace"
-              title="Admin"
-              className={`flex size-7 items-center justify-center rounded-md transition-colors ${isAdminSection ? "bg-white ring-1 ring-kumo-line text-kumo-brand shadow-sm" : "text-kumo-subtle hover:text-kumo-strong"}`}
-            >
-              <ShieldCheckIcon size={14} />
-            </Link>
-          </div>
         )}
       </KumoSidebar.Header>
 
-      <KumoSidebar.Content className="px-2 py-3 flex-1 overflow-y-auto">
+      <KumoSidebar.Content className="px-3 py-4 flex-1 overflow-y-auto">
         {Object.entries(grouped).map(([group, items]: any) => (
-          <KumoSidebar.Group key={group} className="mb-4 last:mb-0">
+          <KumoSidebar.Group key={group} className="mb-6 last:mb-0">
             {!isCollapsed && (
-              <KumoSidebar.GroupLabel className="px-2 pb-1.5 text-label font-semibold tracking-widest uppercase text-kumo-inactive">
+              <KumoSidebar.GroupLabel className="px-3 pb-2 text-[10px] font-semibold uppercase tracking-[0.08em] text-kumo-inactive">
                 {group}
               </KumoSidebar.GroupLabel>
             )}
-            <KumoSidebar.Menu className="space-y-px">
+            <KumoSidebar.Menu className="space-y-1">
               {items.map((item: any) => {
-                const isActive = pathname === item.href || (item.href !== "/dashboard" && item.href !== "/admin/dashboard" && pathname.startsWith(item.href));
+                const isActive = pathname === item.href || (item.href !== "/admin/dashboard" && pathname.startsWith(item.href));
                 const Icon = item.icon;
                 return (
-                  <KumoSidebar.MenuButton
-                    key={item.href}
-                    icon={Icon}
-                    active={isActive}
-                    href={item.href}
-                    tooltip={item.name}
-                    className={`group/item relative ${isActive ? "bg-primary-alpha-10 text-kumo-brand" : "text-kumo-subtle hover:bg-kumo-tint hover:text-kumo-strong"} ${isCollapsed ? "justify-center" : ""}`}
-                  >
-                    <span className="flex-1 text-left truncate text-body-sm">{item.name}</span>
-                    {!isCollapsed && item.count !== null && (
-                      <span className={`ml-auto text-meta tabular-nums ${isActive ? "text-kumo-brand" : "text-kumo-inactive"}`}>{item.count}</span>
-                    )}
-                  </KumoSidebar.MenuButton>
+                    <KumoSidebar.MenuButton
+                      key={item.href}
+                      icon={Icon}
+                      active={isActive}
+                      href={item.href}
+                      title={isCollapsed ? item.name : undefined}
+                      className={`
+                        group/item relative flex h-10 items-center gap-3 rounded-lg px-3 transition-all duration-150
+                        ${isActive
+                          ? "bg-primary-alpha-10 text-kumo-brand"
+                          : "text-kumo-inactive hover:bg-kumo-tint hover:text-kumo-strong"
+                        }
+                        ${isCollapsed ? "justify-center px-0" : "px-3"}
+                        focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-kumo-brand focus-visible:ring-offset-2
+                      `}
+                    >
+                      <span className={`shrink-0 flex size-5 items-center justify-center ${getIconColor(isActive)} ${getIconBg(isActive)} ${getHoverBg(isActive)} transition-colors duration-150`}>
+                        <Icon size={18} weight={isActive ? "fill" : "regular"} strokeWidth={isActive ? 0 : 1.5} />
+                      </span>
+                      {!isCollapsed && (
+                        <>
+                          <span className={`flex-1 truncate text-sm font-medium ${getTextColor(isActive)}`}>
+                            {item.name}
+                          </span>
+                          {item.count !== null && (
+                            <span className={`shrink-0 flex items-center justify-center min-w-[20px] h-5 px-1.5 rounded-full text-[10px] font-semibold tabular-nums transition-colors duration-150 ${isActive ? "bg-primary-alpha-10 text-kumo-brand" : "bg-kumo-tint text-kumo-inactive hover:bg-kumo-line/50"}`}>
+                              {item.count}
+                            </span>
+                          )}
+                        </>
+                      )}
+                    </KumoSidebar.MenuButton>
                 );
               })}
             </KumoSidebar.Menu>
@@ -181,88 +224,142 @@ function SidebarInner() {
         ))}
       </KumoSidebar.Content>
 
-      <KumoSidebar.Footer className="sticky bottom-0 z-10 bg-white/50 border-t border-kumo-line/60 p-2.5 backdrop-blur-sm">
+      <KumoSidebar.Footer className="sticky bottom-0 z-10 bg-white border-t border-kumo-line p-3">
         <div className="relative">
+          {/* User Profile Trigger */}
           <button
             onClick={() => setShowUserMenu(!showUserMenu)}
-            className="flex w-full items-center gap-2.5 rounded-lg p-1.5 hover:bg-kumo-tint transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-kumo-brand text-left"
+            className="group flex w-full items-center gap-3 rounded-xl p-2 hover:bg-kumo-tint transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-kumo-brand focus-visible:ring-offset-2"
             aria-expanded={showUserMenu}
             aria-haspopup="menu"
+            aria-label="User menu"
           >
-            <img
-              src={currentUser?.avatar || "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&auto=format&fit=crop&q=60"}
-              alt={currentUser?.name || "User"}
-              width={32}
-              height={32}
-              className="size-8 shrink-0 rounded-full object-cover bg-kumo-tint ring-1 ring-kumo-line"
-            />
+            <div className="relative shrink-0">
+              <img
+                src={currentUser?.avatar || "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&auto=format&fit=crop&q=60"}
+                alt=""
+                width={36}
+                height={36}
+                className="size-9 rounded-full object-cover ring-1 ring-kumo-line"
+              />
+              <span className="absolute -bottom-0.5 -right-0.5 flex size-4.5 items-center justify-center rounded-full bg-kumo-brand text-white">
+                <ShieldCheckIcon size={10} weight="fill" />
+              </span>
+            </div>
             {!isCollapsed && (
-              <>
-                <div className="min-w-0 flex-1">
-                  <p className="truncate text-body-sm font-semibold leading-4 text-kumo-strong">{currentUser?.name || "Member"}</p>
-                  <p className="truncate text-meta text-kumo-inactive">{isAdminSection ? "Admin" : "Member"}</p>
-                </div>
-                <span className="text-kumo-inactive">
-                  <CaretLeftIcon size={10} className={showUserMenu ? "rotate-90" : "-rotate-90"} />
-                </span>
-              </>
+              <div className="min-w-0 flex-1 overflow-hidden">
+                <p className="truncate text-sm font-semibold leading-4 text-kumo-strong">
+                  {currentUser?.name || "Admin Angkatan 5"}
+                </p>
+                <p className="truncate text-xs leading-3 text-kumo-inactive">
+                  Admin Angkatan 5
+                </p>
+              </div>
             )}
+            <CaretDownIcon
+              size={14}
+              className={`shrink-0 text-kumo-inactive transition-transform duration-150 ${showUserMenu ? "rotate-180" : ""}`}
+              aria-hidden="true"
+            />
           </button>
 
+          {/* User Dropdown Menu */}
           {showUserMenu && !isCollapsed && (
-            <div className="absolute bottom-full left-0 right-0 mb-2 rounded-xl border border-kumo-line bg-white shadow-[0_8px_24px_rgba(0,0,0,0.08)] p-1.5 z-50" role="menu">
-              <div className="px-2.5 py-2 border-b border-kumo-line/60 mb-1.5">
-                <p className="text-body-sm font-semibold text-kumo-strong truncate">{currentUser?.name || "Member"}</p>
-                <p className="text-meta text-kumo-inactive truncate">{currentUser?.email || ""}</p>
+            <div
+              className="absolute bottom-full left-0 right-0 mb-2 rounded-xl border border-kumo-line bg-white shadow-lg p-1.5 z-50 animate-[fade-in_150ms_ease-out]"
+              role="menu"
+            >
+              <style jsx>{`
+                @keyframes fade-in {
+                  from { opacity: 0; transform: translateY(4px); }
+                  to { opacity: 1; transform: translateY(0); }
+                }
+              `}</style>
+              <div className="px-3 py-2.5 border-b border-kumo-line/50 mb-1.5">
+                <p className="truncate text-sm font-semibold leading-4 text-kumo-strong">
+                  {currentUser?.name || "Admin Angkatan 5"}
+                </p>
+                <p className="truncate text-xs leading-3 text-kumo-inactive">
+                  {currentUser?.email || "admin@angkatan5.id"}
+                </p>
               </div>
 
               {otherUsers.length > 0 && (
                 <>
                   <div className="px-2.5 py-1.5">
-                    <p className="text-label font-semibold uppercase tracking-wider text-kumo-inactive mb-1.5">Switch Account</p>
+                    <p className="text-[10px] font-semibold uppercase tracking-[0.08em] text-kumo-inactive mb-1.5">Switch Account</p>
                     <div className="space-y-0.5">
                       {otherUsers.map((user) => (
                         <button
                           key={user.id}
                           role="menuitem"
                           onClick={() => { switchUser(user.id); setShowUserMenu(false); }}
-                          className="flex w-full items-center gap-2 rounded-md px-2 py-1.5 text-body-sm text-kumo-subtle hover:bg-kumo-tint hover:text-kumo-strong text-left transition-colors"
+                          className="group flex w-full items-center gap-2.5 rounded-lg px-2.5 py-2 text-sm text-kumo-subtle hover:bg-kumo-tint hover:text-kumo-strong transition-colors duration-150"
                         >
-                          <img src={user.avatar} alt="" className="size-6 rounded-full object-cover ring-1 ring-kumo-line" />
-                          <span className="truncate flex-1">{user.name}</span>
-                          <ArrowsLeftRightIcon size={12} className="text-kumo-inactive shrink-0" />
+                          <img
+                            src={user.avatar}
+                            alt=""
+                            className="size-8 rounded-full object-cover ring-1 ring-kumo-line"
+                          />
+                          <span className="truncate flex-1 font-medium group-hover:text-kumo-strong">{user.name}</span>
+                          <ArrowsLeftRightIcon size={14} className="text-kumo-inactive shrink-0" />
                         </button>
                       ))}
                     </div>
                   </div>
-                  <div className="border-t border-kumo-line/60 my-1" />
+                  <div className="border-t border-kumo-line/50 my-1" />
                 </>
               )}
 
+              <Link
+                href="/my-profile"
+                role="menuitem"
+                onClick={() => setShowUserMenu(false)}
+                className="flex w-full items-center gap-2.5 rounded-lg px-2.5 py-2 text-sm text-kumo-subtle hover:bg-kumo-tint hover:text-kumo-strong transition-colors duration-150"
+              >
+                <UserIcon size={16} weight="regular" />
+                Profile
+              </Link>
               <button
                 role="menuitem"
-                onClick={() => { router.push("/my-profile"); setShowUserMenu(false); }}
-                className="flex w-full items-center gap-2 rounded-md px-2.5 py-1.5 text-body-sm text-kumo-subtle hover:bg-kumo-tint hover:text-kumo-strong text-left"
+                onClick={() => setShowUserMenu(false)}
+                className="flex w-full items-center gap-2.5 rounded-lg px-2.5 py-2 text-sm text-kumo-subtle hover:bg-kumo-tint hover:text-kumo-strong transition-colors duration-150"
               >
-                <UserIcon size={14} /> Profile
+                <GearIcon size={16} weight="regular" />
+                Preferences
               </button>
-              <button role="menuitem" className="flex w-full items-center gap-2 rounded-md px-2.5 py-1.5 text-body-sm text-kumo-subtle hover:bg-kumo-tint hover:text-kumo-strong text-left">
-                <GearIcon size={14} /> Preferences
+              <button
+                role="menuitem"
+                onClick={() => setShowUserMenu(false)}
+                className="flex w-full items-center gap-2.5 rounded-lg px-2.5 py-2 text-sm text-kumo-subtle hover:bg-kumo-tint hover:text-kumo-strong transition-colors duration-150"
+              >
+                <BellIcon size={16} weight="regular" />
+                Notifications
               </button>
-              <button role="menuitem" className="flex w-full items-center gap-2 rounded-md px-2.5 py-1.5 text-body-sm text-kumo-subtle hover:bg-kumo-tint hover:text-kumo-strong text-left">
-                <BellIcon size={14} /> Notifications
-              </button>
-              <div className="border-t border-kumo-line/60 my-1" />
-              <button role="menuitem" onClick={logout} className="flex w-full items-center gap-2 rounded-md px-2.5 py-1.5 text-body-sm text-kumo-subtle hover:bg-kumo-tint hover:text-kumo-strong text-left">
-                <SignOutIcon size={14} /> Sign Out
+              <div className="border-t border-kumo-line/50 my-1" />
+              <button
+                role="menuitem"
+                onClick={logout}
+                className="flex w-full items-center gap-2.5 rounded-lg px-2.5 py-2 text-sm text-error-base hover:bg-error-lighter hover:text-error-dark transition-colors duration-150"
+              >
+                <SignOutIcon size={16} weight="regular" />
+                Sign Out
               </button>
             </div>
           )}
 
+          {/* Collapsed Footer */}
           {isCollapsed && (
-            <div className="mt-1.5 flex justify-center">
-              <Button variant="ghost" shape="square" size="sm" onClick={logout} aria-label="Sign out" icon={<SignOutIcon />} className="text-kumo-inactive" />
-            </div>
+            <Button
+              variant="ghost"
+              shape="square"
+              size="sm"
+              onClick={logout}
+              aria-label="Sign out"
+              title="Sign out"
+              icon={<SignOutIcon size={16} />}
+              className="text-kumo-inactive hover:text-error-base hover:bg-error-lighter mx-auto"
+            />
           )}
         </div>
       </KumoSidebar.Footer>
