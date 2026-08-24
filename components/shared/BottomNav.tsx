@@ -50,7 +50,7 @@ export function BottomNav() {
                 // 48px touch target, full-height tap area
                 "relative flex min-h-12 flex-1 flex-col items-center justify-center gap-1 rounded-xl touch-manipulation",
                 "transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70",
-                isActive ? "bg-kumo-brand text-static-white shadow-sm" : "text-white/70 hover:bg-white/10 hover:text-white active:bg-white/15",
+                isActive ? "bg-primary-base text-static-white shadow-sm" : "text-white/70 hover:bg-white/10 hover:text-white active:bg-white/15",
               )}
             >
               <Icon className="size-5" weight={isActive ? "fill" : "regular"} aria-hidden="true" />

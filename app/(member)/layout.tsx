@@ -13,7 +13,7 @@ export default function MemberLayout({
 }) {
   return (
     <SidebarProvider>
-      <a href="#main-content" className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-lg focus:bg-kumo-base focus:px-4 focus:py-3 focus:text-sm focus:font-semibold focus:text-kumo-strong focus:shadow-lg">Skip to main content</a>
+      <a href="#main-content" className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-lg focus:bg-bg-white-0 focus:px-4 focus:py-3 focus:text-sm focus:font-semibold focus:text-text-strong-950 focus:shadow-lg">Skip to main content</a>
       <div className="flex min-h-screen w-full">
         <Sidebar />
         <div className="flex flex-col min-w-0 flex-1 pb-28 lg:pb-0">

@@ -62,12 +62,12 @@ export default function AdminDashboardPage() {
       {/* Page Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <div className="mb-1.5 flex items-center gap-1.5 text-label text-kumo-inactive">
+          <div className="mb-1.5 flex items-center gap-1.5 text-label text-text-soft-400">
             <ShieldCheckIcon size={14} />
             <span>Community Overview</span>
           </div>
-          <h1 className="text-page-title text-kumo-strong">Dashboard</h1>
-          <p className="mt-1 text-body text-kumo-subtle">
+          <h1 className="text-page-title text-text-strong-950">Dashboard</h1>
+          <p className="mt-1 text-body text-text-sub-600">
             Manage members, review opportunities, and track skill growth.
           </p>
         </div>
@@ -85,15 +85,15 @@ export default function AdminDashboardPage() {
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-3 lg:grid-cols-6">
         {[
           { label: "Total Members", value: "182", accent: null, supporting: "+18 this month", supportColor: "text-success-base" },
-          { label: "Profile Completion", value: "81%", accent: null, supporting: "Average across pool", supportColor: "text-kumo-brand" },
-          { label: "Open to Work", value: "18", accent: "text-warning-base", supporting: "Available now", supportColor: "text-kumo-inactive" },
-          { label: "Collaboration", value: "24", accent: "text-verified-base", supporting: "Ready to partner", supportColor: "text-kumo-inactive" },
-          { label: "Active Opps", value: "15", accent: "text-kumo-brand", supporting: `${pendingOpportunities.length} pending`, supportColor: "text-kumo-inactive" },
-          { label: "Skills Indexed", value: "32", accent: "text-feature-base", supporting: "Across 7 fields", supportColor: "text-kumo-inactive" },
+          { label: "Profile Completion", value: "81%", accent: null, supporting: "Average across pool", supportColor: "text-primary-base" },
+          { label: "Open to Work", value: "18", accent: "text-warning-base", supporting: "Available now", supportColor: "text-text-soft-400" },
+          { label: "Collaboration", value: "24", accent: "text-verified-base", supporting: "Ready to partner", supportColor: "text-text-soft-400" },
+          { label: "Active Opps", value: "15", accent: "text-primary-base", supporting: `${pendingOpportunities.length} pending`, supportColor: "text-text-soft-400" },
+          { label: "Skills Indexed", value: "32", accent: "text-feature-base", supporting: "Across 7 fields", supportColor: "text-text-soft-400" },
         ].map((kpi) => (
           <LayerCard key={kpi.label} className="p-4">
-            <span className={`text-meta font-semibold block ${kpi.accent || "text-kumo-subtle"}`}>{kpi.label}</span>
-            <span className="mt-1 block text-kpi text-kumo-strong">{kpi.value}</span>
+            <span className={`text-meta font-semibold block ${kpi.accent || "text-text-sub-600"}`}>{kpi.label}</span>
+            <span className="mt-1 block text-kpi text-text-strong-950">{kpi.value}</span>
             <span className={`text-xs leading-4 block mt-0.5 ${kpi.supportColor}`}>{kpi.supporting}</span>
           </LayerCard>
         ))}
@@ -120,10 +120,10 @@ export default function AdminDashboardPage() {
         <LayerCard className="p-6">
           <div className="flex items-center justify-between mb-4">
             <div>
-              <h3 className="text-card-title text-kumo-strong">Member Growth</h3>
-              <p className="text-xs text-kumo-subtle mt-0.5">Cohort expansion over 7 months</p>
+              <h3 className="text-card-title text-text-strong-950">Member Growth</h3>
+              <p className="text-xs text-text-sub-600 mt-0.5">Cohort expansion over 7 months</p>
             </div>
-            <span className="text-xs font-semibold text-kumo-brand bg-primary-alpha-10 px-2 py-1 rounded-lg">+304%</span>
+            <span className="text-xs font-semibold text-primary-base bg-primary-alpha-10 px-2 py-1 rounded-lg">+304%</span>
           </div>
           <div className="h-56 w-full">
             <ResponsiveContainer width="100%" height="100%">
@@ -141,8 +141,8 @@ export default function AdminDashboardPage() {
         <LayerCard className="p-6">
           <div className="flex items-center justify-between mb-4">
             <div>
-              <h3 className="text-card-title text-kumo-strong">Top Indexed Skills</h3>
-              <p className="text-xs text-kumo-subtle mt-0.5">Most common skills across profiles</p>
+              <h3 className="text-card-title text-text-strong-950">Top Indexed Skills</h3>
+              <p className="text-xs text-text-sub-600 mt-0.5">Most common skills across profiles</p>
             </div>
             <Link href="/admin/skills">
               <Button variant="ghost" size="sm">Manage Skills</Button>
@@ -168,15 +168,15 @@ export default function AdminDashboardPage() {
 
       {/* Status Breakdown */}
       <LayerCard className="p-6">
-        <h3 className="text-card-title text-kumo-strong mb-4">Member Status Breakdown</h3>
+        <h3 className="text-card-title text-text-strong-950 mb-4">Member Status Breakdown</h3>
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
           {STATUS_DATA.map((st) => (
-            <div key={st.name} className="p-3 sm:p-4 rounded-xl bg-kumo-tint border border-kumo-line flex items-center gap-3">
+            <div key={st.name} className="p-3 sm:p-4 rounded-xl bg-bg-weak-50 border border-stroke-soft-200 flex items-center gap-3">
               <div className="size-2.5 rounded-full shrink-0" style={{ backgroundColor: st.color }} />
               <div>
-                <span className="text-xs text-kumo-subtle block">{st.name}</span>
-                <span className="text-kpi text-kumo-strong">{st.value}</span>
-                <span className="text-xs text-kumo-inactive ml-1">members</span>
+                <span className="text-xs text-text-sub-600 block">{st.name}</span>
+                <span className="text-kpi text-text-strong-950">{st.value}</span>
+                <span className="text-xs text-text-soft-400 ml-1">members</span>
               </div>
             </div>
           ))}

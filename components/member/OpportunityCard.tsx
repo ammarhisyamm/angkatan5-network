@@ -26,7 +26,7 @@ export function OpportunityCard({ opportunity }: { opportunity: Opportunity }) {
   };
 
   return (
-    <LayerCard className="group flex h-full w-full flex-col overflow-hidden rounded-lg border border-kumo-line p-0 shadow-none transition-[background-color,border-color,box-shadow,transform] duration-200 hover:-translate-y-px hover:border-kumo-brand/30 hover:bg-primary-alpha-10 hover:shadow-sm">
+    <LayerCard className="group flex h-full w-full flex-col overflow-hidden rounded-lg border border-stroke-soft-200 p-0 shadow-none transition-[background-color,border-color,box-shadow,transform] duration-200 hover:-translate-y-px hover:border-primary-base/30 hover:bg-primary-alpha-10 hover:shadow-sm">
       {/* Content */}
       <div className="flex flex-1 flex-col p-6">
         <div className="mb-3 flex items-start justify-between gap-2">
@@ -36,28 +36,28 @@ export function OpportunityCard({ opportunity }: { opportunity: Opportunity }) {
               <MapPinIcon size={12} weight="regular" className="shrink-0" />
               {opportunity.location}
             </Tag>
-            <span className="text-meta font-medium text-kumo-subtle">{opportunity.type}</span>
+            <span className="text-meta font-medium text-text-sub-600">{opportunity.type}</span>
           </div>
           <button
             onClick={() => toggleBookmark(opportunity.id)}
             title={bookmarked ? "Remove bookmark" : "Save opportunity"}
             aria-label={bookmarked ? "Remove bookmark" : "Save opportunity"}
             aria-pressed={bookmarked}
-            className={`flex size-8 shrink-0 items-center justify-center rounded-lg transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-kumo-brand ${
+            className={`flex size-8 shrink-0 items-center justify-center rounded-lg transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-base ${
               bookmarked
-                ? "bg-primary-alpha-10 text-kumo-brand"
-                : "text-kumo-inactive hover:bg-primary-alpha-10 hover:text-kumo-brand"
+                ? "bg-primary-alpha-10 text-primary-base"
+                : "text-text-soft-400 hover:bg-primary-alpha-10 hover:text-primary-base"
             }`}
           >
             {bookmarked ? <BookmarkSimpleIcon size={16} weight="regular" /> : <BookmarkSimpleIcon size={16} weight="regular" />}
           </button>
         </div>
 
-        <Link href={`/opportunities/${opportunity.id}`} className="rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-kumo-brand">
-          <h3 className="line-clamp-2 text-card-title text-kumo-strong transition-colors group-hover:text-kumo-brand">{opportunity.title}</h3>
+        <Link href={`/opportunities/${opportunity.id}`} className="rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-base">
+          <h3 className="line-clamp-2 text-card-title text-text-strong-950 transition-colors group-hover:text-primary-base">{opportunity.title}</h3>
         </Link>
 
-        <p className="mt-1.5 line-clamp-2 text-sm leading-6 text-kumo-subtle">{opportunity.description}</p>
+        <p className="mt-1.5 line-clamp-2 text-sm leading-6 text-text-sub-600">{opportunity.description}</p>
 
         {opportunity.requiredSkills && opportunity.requiredSkills.length > 0 && (
           <div className="mt-4 flex flex-wrap gap-2.5">
@@ -69,12 +69,12 @@ export function OpportunityCard({ opportunity }: { opportunity: Opportunity }) {
       </div>
 
       {/* Footer anchored to bottom */}
-      <div className="mt-auto flex items-center justify-between gap-3 border-t border-kumo-line px-6 py-4">
+      <div className="mt-auto flex items-center justify-between gap-3 border-t border-stroke-soft-200 px-6 py-4">
         <div className="flex min-w-0 items-center gap-3">
           <Avatar name={opportunity.authorName} className="size-7 text-[10px]" />
           <div className="min-w-0">
-            <p className="truncate text-sm font-medium leading-5 text-kumo-strong">{opportunity.authorName}</p>
-            <p className="truncate text-meta font-medium text-kumo-subtle">Posted {formattedDate}</p>
+            <p className="truncate text-sm font-medium leading-5 text-text-strong-950">{opportunity.authorName}</p>
+            <p className="truncate text-meta font-medium text-text-sub-600">Posted {formattedDate}</p>
           </div>
         </div>
         <Link href={`/opportunities/${opportunity.id}`} className="shrink-0">

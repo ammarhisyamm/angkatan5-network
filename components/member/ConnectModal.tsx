@@ -67,19 +67,19 @@ export function ConnectModal({
             <CheckCircleIcon size={24} weight="regular" />
           </span>
           <div>
-            <h4 className="text-base font-semibold leading-6 text-kumo-strong">Request sent</h4>
-            <p className="mt-0.5 text-sm leading-5 text-kumo-subtle">
+            <h4 className="text-base font-semibold leading-6 text-text-strong-950">Request sent</h4>
+            <p className="mt-0.5 text-sm leading-5 text-text-sub-600">
               {receiver?.name} will receive your note.
             </p>
           </div>
         </div>
       ) : (
         <form id="connect-form" onSubmit={handleSend} className="space-y-4">
-          <div className="flex items-center gap-3 rounded-xl border border-kumo-line bg-kumo-tint p-3">
+          <div className="flex items-center gap-3 rounded-xl border border-stroke-soft-200 bg-bg-weak-50 p-3">
             <Avatar name={receiver?.name || "Member"} className="size-10 text-xs" />
             <div className="min-w-0 flex-1">
-              <p className="truncate text-sm font-semibold leading-5 text-kumo-strong">{receiver?.name}</p>
-              <p className="truncate text-xs leading-[18px] text-kumo-subtle">
+              <p className="truncate text-sm font-semibold leading-5 text-text-strong-950">{receiver?.name}</p>
+              <p className="truncate text-xs leading-[18px] text-text-sub-600">
                 {receiver?.role} at {receiver?.company}
               </p>
             </div>

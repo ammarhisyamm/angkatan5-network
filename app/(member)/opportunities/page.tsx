@@ -80,14 +80,14 @@ export default function OpportunitiesPage() {
       {/* Page Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <div className="flex items-center gap-2 text-xs font-semibold text-kumo-brand mb-1">
+          <div className="flex items-center gap-2 text-xs font-semibold text-primary-base mb-1">
             <BriefcaseIcon size={16} weight="regular" />
             <span>Community Board</span>
           </div>
-          <h1 className="text-page-title text-kumo-strong">
+          <h1 className="text-page-title text-text-strong-950">
             Opportunities
           </h1>
-          <p className="text-sm text-kumo-subtle mt-1 max-w-2xl">
+          <p className="text-sm text-text-sub-600 mt-1 max-w-2xl">
             Discover jobs, collaborations, freelance projects, and other opportunities shared by the community.
           </p>
         </div>
@@ -133,7 +133,7 @@ export default function OpportunitiesPage() {
       {/* Opportunities List */}
       <div>
         <div className="flex items-center justify-between mb-4">
-          <span className="text-xs font-semibold text-kumo-subtle">
+          <span className="text-xs font-semibold text-text-sub-600">
             {filteredOpportunities.length}{" "}
             {filteredOpportunities.length === 1 ? "Opportunity" : "Opportunities"} Available
           </span>

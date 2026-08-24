@@ -62,12 +62,12 @@ export default function AdminMembersPage() {
       {/* Page Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <div className="mb-1.5 flex items-center gap-1.5 text-label text-kumo-inactive">
+          <div className="mb-1.5 flex items-center gap-1.5 text-label text-text-soft-400">
             <UsersIcon size={14} />
             <span>Member Directory</span>
           </div>
-          <h1 className="text-page-title text-kumo-strong">Member Management</h1>
-          <p className="mt-1 text-body text-kumo-subtle">Verify credentials, oversee profiles, and manage directory permissions.</p>
+          <h1 className="text-page-title text-text-strong-950">Member Management</h1>
+          <p className="mt-1 text-body text-text-sub-600">Verify credentials, oversee profiles, and manage directory permissions.</p>
         </div>
       </div>
 
@@ -103,28 +103,28 @@ export default function AdminMembersPage() {
                       <Avatar name={member.name} className="size-7 text-[10px]" />
                       <div className="min-w-0">
                         <div className="flex items-center gap-1.5">
-                          <span className="text-sm font-semibold text-kumo-strong truncate">{member.name}</span>
-                          {member.verified && <CheckCircleIcon size={14} weight="fill" className="text-kumo-brand shrink-0" />}
+                          <span className="text-sm font-semibold text-text-strong-950 truncate">{member.name}</span>
+                          {member.verified && <CheckCircleIcon size={14} weight="fill" className="text-primary-base shrink-0" />}
                         </div>
-                        <span className="text-xs text-kumo-inactive truncate block">{member.email}</span>
+                        <span className="text-xs text-text-soft-400 truncate block">{member.email}</span>
                       </div>
                     </div>
                   </Table.Cell>
                   <Table.Cell>
-                    <span className="text-sm font-medium text-kumo-strong block">{member.role}</span>
-                    <span className="text-xs text-kumo-subtle block">{member.company}</span>
+                    <span className="text-sm font-medium text-text-strong-950 block">{member.role}</span>
+                    <span className="text-xs text-text-sub-600 block">{member.company}</span>
                   </Table.Cell>
                   <Table.Cell className="hidden md:table-cell">
                     <div className="flex flex-wrap gap-1 max-w-[200px]">
                       {member.skills?.slice(0, 2).map((sk) => <Tag key={sk}>{sk}</Tag>)}
-                      {member.skills && member.skills.length > 2 && <span className="text-xs text-kumo-inactive">+{member.skills.length - 2}</span>}
+                      {member.skills && member.skills.length > 2 && <span className="text-xs text-text-soft-400">+{member.skills.length - 2}</span>}
                     </div>
                   </Table.Cell>
                   <Table.Cell><StatusBadge status={member.status} /></Table.Cell>
                   <Table.Cell className="hidden sm:table-cell text-center">
-                    <span className="text-sm font-semibold text-kumo-strong">{member.profileCompletion}%</span>
+                    <span className="text-sm font-semibold text-text-strong-950">{member.profileCompletion}%</span>
                   </Table.Cell>
-                  <Table.Cell className="hidden lg:table-cell text-xs text-kumo-inactive">{member.joinedAt}</Table.Cell>
+                  <Table.Cell className="hidden lg:table-cell text-xs text-text-soft-400">{member.joinedAt}</Table.Cell>
                   <Table.Cell className="text-right">
                     <div className="flex items-center justify-end gap-1">
                       <Link href={`/profile/${member.id}`}>
@@ -143,11 +143,11 @@ export default function AdminMembersPage() {
           </Table>
         </div>
 
-        <div className="px-4 sm:px-5 py-3 border-t border-kumo-line flex items-center justify-between text-xs text-kumo-subtle">
+        <div className="px-4 sm:px-5 py-3 border-t border-stroke-soft-200 flex items-center justify-between text-xs text-text-sub-600">
           <span>Showing <strong>{(currentPage - 1) * pageSize + 1}–{Math.min(currentPage * pageSize, filteredMembers.length)}</strong> of <strong>{filteredMembers.length}</strong></span>
           <div className="flex items-center gap-2">
             <Button variant="outline" size="sm" shape="square" icon={<CaretLeftIcon />} disabled={currentPage === 1} onClick={() => setCurrentPage(currentPage - 1)} aria-label="Previous" />
-            <span className="font-medium text-kumo-strong">{currentPage}/{totalPages}</span>
+            <span className="font-medium text-text-strong-950">{currentPage}/{totalPages}</span>
             <Button variant="outline" size="sm" shape="square" icon={<CaretRightIcon />} disabled={currentPage === totalPages} onClick={() => setCurrentPage(currentPage + 1)} aria-label="Next" />
           </div>
         </div>

@@ -5,11 +5,11 @@ import { cn } from "@/lib/utils/cn";
 
 export type TagTone = "neutral" | "success" | "warning" | "information" | "primary";
 const tones: Record<TagTone, string> = {
-  neutral: "bg-kumo-base text-kumo-strong ring-kumo-line",
+  neutral: "bg-bg-white-0 text-text-strong-950 ring-stroke-soft-200",
   success: "bg-success-lighter text-success-dark ring-success-base/20",
   warning: "bg-warning-lighter text-warning-dark ring-warning-base/20",
   information: "bg-information-lighter text-information-dark ring-information-base/20",
-  primary: "bg-primary-alpha-10 text-kumo-brand ring-kumo-brand/20",
+  primary: "bg-primary-alpha-10 text-primary-base ring-primary-base/20",
 };
 
 export interface TagProps extends React.HTMLAttributes<HTMLSpanElement> { tone?: TagTone; }

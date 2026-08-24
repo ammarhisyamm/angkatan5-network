@@ -16,27 +16,27 @@ export function Modal({ isOpen, onClose, title, description, children, footer, m
   if (centered) {
     return <Dialog.Root open={isOpen} onOpenChange={(open) => !open && onClose()}>
       <Dialog.Portal><Dialog.Overlay className="fixed inset-0 z-50 bg-black/40 backdrop-blur-[2px]" />
-        <Dialog.Content className={`fixed left-1/2 top-1/2 z-50 w-[calc(100%-2rem)] -translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-2xl bg-kumo-base shadow-2xl focus:outline-none ${widths[maxWidth]}`}>
+        <Dialog.Content className={`fixed left-1/2 top-1/2 z-50 w-[calc(100%-2rem)] -translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-2xl bg-bg-white-0 shadow-2xl focus:outline-none ${widths[maxWidth]}`}>
           <div className="relative flex flex-col items-center gap-4 px-6 pt-8 pb-6 text-center">
             <Dialog.Close asChild><Button variant="ghost" size="icon" aria-label="Close" className="absolute right-3 top-3"><XIcon size={16} /></Button></Dialog.Close>
             {Icon && <span className="grid size-12 place-items-center rounded-full bg-success-lighter text-success-base"><Icon size={24} weight="fill" /></span>}
-            <div>{title && <Dialog.Title className="text-base font-semibold text-kumo-strong">{title}</Dialog.Title>}{description && <Dialog.Description className="mt-1 text-sm leading-5 text-kumo-subtle">{description}</Dialog.Description>}</div>
+            <div>{title && <Dialog.Title className="text-base font-semibold text-text-strong-950">{title}</Dialog.Title>}{description && <Dialog.Description className="mt-1 text-sm leading-5 text-text-sub-600">{description}</Dialog.Description>}</div>
           </div>
-          {(children || footer) && <div className="border-t border-kumo-line bg-kumo-base px-6 py-4">{footer ? <div className="flex flex-col-reverse gap-2 sm:flex-row sm:justify-center">{footer}</div> : <div className="flex justify-center">{children}</div>}</div>}
+          {(children || footer) && <div className="border-t border-stroke-soft-200 bg-bg-white-0 px-6 py-4">{footer ? <div className="flex flex-col-reverse gap-2 sm:flex-row sm:justify-center">{footer}</div> : <div className="flex justify-center">{children}</div>}</div>}
         </Dialog.Content>
       </Dialog.Portal>
     </Dialog.Root>;
   }
   return <Dialog.Root open={isOpen} onOpenChange={(open) => !open && onClose()}>
     <Dialog.Portal><Dialog.Overlay className="fixed inset-0 z-50 bg-black/40 backdrop-blur-[2px]" />
-      <Dialog.Content className={`fixed left-1/2 top-1/2 z-50 w-[calc(100%-2rem)] -translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-xl bg-kumo-base shadow-2xl focus:outline-none ${widths[maxWidth]}`}>
-        <div className="flex items-start gap-3 border-b border-kumo-line px-5 py-4">
-          {Icon && <span className="grid size-9 shrink-0 place-items-center rounded-lg bg-kumo-tint text-kumo-brand"><Icon size={18} weight="fill" /></span>}
-          <div className="min-w-0 flex-1">{title && <Dialog.Title className="text-base font-semibold text-kumo-strong">{title}</Dialog.Title>}{description && <Dialog.Description className="mt-1 text-sm leading-5 text-kumo-subtle">{description}</Dialog.Description>}</div>
+      <Dialog.Content className={`fixed left-1/2 top-1/2 z-50 w-[calc(100%-2rem)] -translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-xl bg-bg-white-0 shadow-2xl focus:outline-none ${widths[maxWidth]}`}>
+        <div className="flex items-start gap-3 border-b border-stroke-soft-200 px-5 py-4">
+          {Icon && <span className="grid size-9 shrink-0 place-items-center rounded-lg bg-bg-weak-50 text-primary-base"><Icon size={18} weight="fill" /></span>}
+          <div className="min-w-0 flex-1">{title && <Dialog.Title className="text-base font-semibold text-text-strong-950">{title}</Dialog.Title>}{description && <Dialog.Description className="mt-1 text-sm leading-5 text-text-sub-600">{description}</Dialog.Description>}</div>
           <Dialog.Close asChild><Button variant="ghost" size="icon" aria-label="Close"><XIcon size={16} /></Button></Dialog.Close>
         </div>
         <div className="p-5">{children}</div>
-        {footer && <div className="flex flex-col-reverse gap-2 border-t border-kumo-line px-5 py-4 sm:flex-row sm:justify-end">{footer}</div>}
+        {footer && <div className="flex flex-col-reverse gap-2 border-t border-stroke-soft-200 px-5 py-4 sm:flex-row sm:justify-end">{footer}</div>}
       </Dialog.Content>
     </Dialog.Portal>
   </Dialog.Root>;

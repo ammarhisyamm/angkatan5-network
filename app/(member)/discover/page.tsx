@@ -153,14 +153,14 @@ export default function DiscoverPeoplePage() {
     <div className="space-y-6 sm:space-y-8 lg:space-y-10">
       {/* Page Header */}
       <div>
-        <div className="mb-1 flex items-center gap-2 text-sm font-medium leading-5 text-kumo-subtle">
+        <div className="mb-1 flex items-center gap-2 text-sm font-medium leading-5 text-text-sub-600">
           <UsersIcon size={12} weight="regular" />
           <span>Talent directory</span>
         </div>
-        <h1 className="text-page-title text-kumo-strong">
+        <h1 className="text-page-title text-text-strong-950">
           Discover People
         </h1>
-        <p className="text-sm leading-5 text-kumo-subtle mt-1 max-w-2xl">
+        <p className="text-sm leading-5 text-text-sub-600 mt-1 max-w-2xl">
           Find someone based on what they do, what they know, or what they can help with.
         </p>
       </div>
@@ -244,17 +244,17 @@ export default function DiscoverPeoplePage() {
         </div>
 
         {hasActiveFilters && (
-          <div className="flex items-center justify-between pt-3 mt-3 border-t border-kumo-line text-xs">
-            <span className="text-kumo-subtle">
+          <div className="flex items-center justify-between pt-3 mt-3 border-t border-stroke-soft-200 text-xs">
+            <span className="text-text-sub-600">
               Showing{" "}
-              <strong className="text-kumo-strong">
+              <strong className="text-text-strong-950">
                 {filteredUsers.length}
               </strong>{" "}
               members matching criteria
             </span>
             <button
               onClick={clearAllFilters}
-              className="text-kumo-brand font-semibold hover:underline flex items-center gap-2"
+              className="text-primary-base font-semibold hover:underline flex items-center gap-2"
             >
               <ArrowCounterClockwiseIcon size={12} weight="regular" />
               Reset All Filters
@@ -266,7 +266,7 @@ export default function DiscoverPeoplePage() {
       {/* Results Section */}
       <div>
         <div className="flex items-center justify-between mb-4">
-          <span className="text-xs leading-4 font-medium text-kumo-subtle">
+          <span className="text-xs leading-4 font-medium text-text-sub-600">
             {filteredUsers.length} {filteredUsers.length === 1 ? "Person" : "People"} Found
           </span>
         </div>

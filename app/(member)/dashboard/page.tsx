@@ -34,22 +34,22 @@ export default function MemberDashboardPage() {
 
   return (
     <div className="space-y-8 lg:space-y-10">
-      <section className="border-b border-kumo-line pb-6" aria-labelledby="welcome-heading">
+      <section className="border-b border-stroke-soft-200 pb-6" aria-labelledby="welcome-heading">
         <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex min-w-0 items-center gap-3">
             <Avatar name={currentUser?.name || "Member"} className="size-10 text-sm" />
             <div className="min-w-0">
-              <h1 id="welcome-heading" className="text-page-title text-kumo-strong">{getGreeting()}, {firstName}</h1>
-              <p className="mt-0.5 text-body text-kumo-subtle">Discover people and opportunities within your community.</p>
+              <h1 id="welcome-heading" className="text-page-title text-text-strong-950">{getGreeting()}, {firstName}</h1>
+              <p className="mt-0.5 text-body text-text-sub-600">Discover people and opportunities within your community.</p>
             </div>
           </div>
-          <div className="w-full rounded-xl border border-kumo-line bg-kumo-tint p-4 sm:max-w-[300px]">
+          <div className="w-full rounded-xl border border-stroke-soft-200 bg-bg-weak-50 p-4 sm:max-w-[300px]">
             <div className="mb-2 flex items-center justify-between">
-              <span className="text-meta text-kumo-subtle">Profile completion</span>
-              <span className="text-meta font-semibold text-kumo-brand" data-numeric>{completion}%</span>
+              <span className="text-meta text-text-sub-600">Profile completion</span>
+              <span className="text-meta font-semibold text-primary-base" data-numeric>{completion}%</span>
             </div>
-            <div className="h-1.5 w-full overflow-hidden rounded-full bg-kumo-line" role="progressbar" aria-valuenow={completion} aria-valuemin={0} aria-valuemax={100} aria-label="Profile completion">
-              <div className="h-full rounded-full bg-kumo-brand transition-[width] duration-500" style={{ width: `${completion}%` }} />
+            <div className="h-1.5 w-full overflow-hidden rounded-full bg-stroke-soft-200" role="progressbar" aria-valuenow={completion} aria-valuemin={0} aria-valuemax={100} aria-label="Profile completion">
+              <div className="h-full rounded-full bg-primary-base transition-[width] duration-500" style={{ width: `${completion}%` }} />
             </div>
             <Link href="/my-profile" className="mt-3 block">
               <Button variant="secondary" size="sm" className="w-full justify-center">Complete Profile <ArrowRightIcon size={14} weight="regular" /></Button>
@@ -59,18 +59,18 @@ export default function MemberDashboardPage() {
       </section>
 
       <section aria-labelledby="quick-actions-heading">
-        <h2 id="quick-actions-heading" className="mb-3 text-section-title text-kumo-strong">Quick Actions</h2>
+        <h2 id="quick-actions-heading" className="mb-3 text-section-title text-text-strong-950">Quick Actions</h2>
         <Grid variant="1-2-4up" gap="base">
           {quickActions.map((a) => {
             const Icon = a.icon;
             return (
               <Link key={a.href} href={a.href} className="group">
-                <LayerCard className="h-full w-full rounded-xl border border-kumo-line p-4 transition-[background-color,border-color,transform,box-shadow] hover:-translate-y-px hover:border-kumo-brand/30 hover:bg-primary-alpha-10 hover:shadow-sm sm:p-5">
-                  <span className="mb-4 flex size-9 items-center justify-center rounded-lg bg-primary-alpha-10 text-kumo-brand">
+                <LayerCard className="h-full w-full rounded-xl border border-stroke-soft-200 p-4 transition-[background-color,border-color,transform,box-shadow] hover:-translate-y-px hover:border-primary-base/30 hover:bg-primary-alpha-10 hover:shadow-sm sm:p-5">
+                  <span className="mb-4 flex size-9 items-center justify-center rounded-lg bg-primary-alpha-10 text-primary-base">
                     <Icon className="size-5 sm:size-6" strokeWidth={1.5} />
                   </span>
-                  <h3 className="text-card-title text-kumo-strong group-hover:text-kumo-brand">{a.title}</h3>
-                  <p className="mt-2 text-body text-kumo-subtle leading-relaxed">{a.desc}</p>
+                  <h3 className="text-card-title text-text-strong-950 group-hover:text-primary-base">{a.title}</h3>
+                  <p className="mt-2 text-body text-text-sub-600 leading-relaxed">{a.desc}</p>
                 </LayerCard>
               </Link>
             );
@@ -81,8 +81,8 @@ export default function MemberDashboardPage() {
       <section aria-labelledby="featured-heading">
         <div className="mb-4 flex items-end justify-between gap-4">
           <div>
-            <h2 id="featured-heading" className="text-section-title text-kumo-strong">Featured Community Members</h2>
-            <p className="mt-0.5 text-body text-kumo-subtle">Connect with talented peers across design, engineering, and business.</p>
+            <h2 id="featured-heading" className="text-section-title text-text-strong-950">Featured Community Members</h2>
+            <p className="mt-0.5 text-body text-text-sub-600">Connect with talented peers across design, engineering, and business.</p>
           </div>
           <Link href="/discover" className="shrink-0">
             <Button variant="secondary" size="sm">View All <ArrowRightIcon size={14} weight="regular" /></Button>
@@ -98,8 +98,8 @@ export default function MemberDashboardPage() {
       <section aria-labelledby="latest-opps-heading">
         <div className="mb-4 flex items-end justify-between gap-4">
           <div>
-            <h2 id="latest-opps-heading" className="text-section-title text-kumo-strong">Latest Opportunities</h2>
-            <p className="mt-0.5 text-body text-kumo-subtle">Fresh collaborations, job openings, and project gigs.</p>
+            <h2 id="latest-opps-heading" className="text-section-title text-text-strong-950">Latest Opportunities</h2>
+            <p className="mt-0.5 text-body text-text-sub-600">Fresh collaborations, job openings, and project gigs.</p>
           </div>
           <Link href="/opportunities" className="shrink-0">
             <Button variant="secondary" size="sm">View All <ArrowRightIcon size={14} weight="regular" /></Button>

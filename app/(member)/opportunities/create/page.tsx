@@ -122,7 +122,7 @@ export default function CreateOpportunityPage() {
       <div className="flex flex-wrap items-center justify-between gap-3">
         <Link
           href="/opportunities"
-          className="inline-flex items-center gap-1 text-xs font-semibold text-kumo-subtle hover:text-kumo-strong transition-colors"
+          className="inline-flex items-center gap-1 text-xs font-semibold text-text-sub-600 hover:text-text-strong-950 transition-colors"
         >
           <ArrowLeftIcon size={16} weight="regular" />
           Back to Opportunities
@@ -131,7 +131,7 @@ export default function CreateOpportunityPage() {
         <button
           type="button"
           onClick={() => setIsPreview(!isPreview)}
-          className="text-xs font-semibold text-kumo-brand hover:underline flex items-center gap-2"
+          className="text-xs font-semibold text-primary-base hover:underline flex items-center gap-2"
         >
           <EyeIcon size={16} weight="regular" />
           {isPreview ? "Back to Edit Form" : "Preview Opportunity"}
@@ -140,14 +140,14 @@ export default function CreateOpportunityPage() {
 
       {/* Header */}
       <div>
-        <div className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-primary-alpha-10 text-kumo-brand text-xs font-semibold mb-2">
+        <div className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-primary-alpha-10 text-primary-base text-xs font-semibold mb-2">
           <SparkleIcon size={12} weight="regular" />
           <span>New Community Post</span>
         </div>
-        <h1 className="text-page-title text-kumo-strong">
+        <h1 className="text-page-title text-text-strong-950">
           Share an Opportunity
         </h1>
-        <p className="text-sm text-kumo-subtle mt-1">
+        <p className="text-sm text-text-sub-600 mt-1">
           Post jobs, freelance projects, collaborations, or mentorship openings for your fellow alumni.
         </p>
       </div>
@@ -160,9 +160,9 @@ export default function CreateOpportunityPage() {
 
       {isPreview ? (
         /* LIVE PREVIEW CARD */
-        <div className="bg-kumo-base border border-kumo-line rounded-xl p-6 sm:p-8 space-y-8">
-          <div className="flex items-center justify-between pb-3 border-b border-kumo-line">
-            <span className="text-sm font-medium text-kumo-brand">
+        <div className="bg-bg-white-0 border border-stroke-soft-200 rounded-xl p-6 sm:p-8 space-y-8">
+          <div className="flex items-center justify-between pb-3 border-b border-stroke-soft-200">
+            <span className="text-sm font-medium text-primary-base">
               Live Preview
             </span>
             <Badge variant="success">
@@ -176,29 +176,29 @@ export default function CreateOpportunityPage() {
                 {category}
               </Badge>
               <Badge variant="neutral">
-                <MapPinIcon size={12} weight="regular" className="text-kumo-inactive" />
+                <MapPinIcon size={12} weight="regular" className="text-text-soft-400" />
                 {location || "Remote"}
               </Badge>
-              <span className="text-xs text-kumo-inactive">{type}</span>
+              <span className="text-xs text-text-soft-400">{type}</span>
             </div>
 
-            <h2 className="text-base font-semibold leading-6 text-kumo-strong">
+            <h2 className="text-base font-semibold leading-6 text-text-strong-950">
               {title || "Untitled Opportunity"}
             </h2>
 
-            <p className="text-sm text-kumo-subtle leading-relaxed whitespace-pre-line">
+            <p className="text-sm text-text-sub-600 leading-relaxed whitespace-pre-line">
               {description || "No description provided yet."}
             </p>
 
             {requirementsText && (
               <div>
-                <h4 className="text-xs font-bold text-kumo-strong mb-2">
+                <h4 className="text-xs font-bold text-text-strong-950 mb-2">
                   Requirements:
                 </h4>
-                <ul className="space-y-1 text-xs text-kumo-subtle">
+                <ul className="space-y-1 text-xs text-text-sub-600">
                   {requirementsText.split("\n").filter(Boolean).map((req, i) => (
                     <li key={i} className="flex items-start gap-2">
-                      <span className="w-1 h-1 rounded-full bg-kumo-brand mt-1 shrink-0" />
+                      <span className="w-1 h-1 rounded-full bg-primary-base mt-1 shrink-0" />
                       <span>{req}</span>
                     </li>
                   ))}
@@ -211,7 +211,7 @@ export default function CreateOpportunityPage() {
                 {selectedSkills.map((sk) => (
                   <span
                     key={sk}
-                    className="px-2 rounded-xl text-xs bg-kumo-tint text-kumo-subtle font-medium"
+                    className="px-2 rounded-xl text-xs bg-bg-weak-50 text-text-sub-600 font-medium"
                   >
                     {sk}
                   </span>
@@ -220,7 +220,7 @@ export default function CreateOpportunityPage() {
             )}
           </div>
 
-          <div className="flex flex-col-reverse sm:flex-row items-stretch sm:items-center justify-end gap-3 pt-6 border-t border-kumo-line">
+          <div className="flex flex-col-reverse sm:flex-row items-stretch sm:items-center justify-end gap-3 pt-6 border-t border-stroke-soft-200">
             <Button variant="outline" size="md" onClick={() => setIsPreview(false)} className="w-full sm:w-auto justify-center">
               Edit Details
             </Button>
@@ -234,7 +234,7 @@ export default function CreateOpportunityPage() {
         /* EDIT FORM */
         <form
           onSubmit={handleSubmit}
-          className="bg-kumo-base border border-kumo-line rounded-xl p-6 sm:p-8 space-y-8"
+          className="bg-bg-white-0 border border-stroke-soft-200 rounded-xl p-6 sm:p-8 space-y-8"
         >
           <Input
             label="Opportunity Title"
@@ -246,13 +246,13 @@ export default function CreateOpportunityPage() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="flex flex-col gap-2">
-              <label className="text-xs font-semibold text-kumo-subtle">
+              <label className="text-xs font-semibold text-text-sub-600">
                 Category
               </label>
               <select
                 value={category}
                 onChange={(e) => setCategory(e.target.value as OpportunityCategory)}
-                className="w-full h-10 px-3 bg-kumo-base text-kumo-strong border border-kumo-line rounded-xl text-sm focus:outline-none focus:border-kumo-brand"
+                className="w-full h-10 px-3 bg-bg-white-0 text-text-strong-950 border border-stroke-soft-200 rounded-xl text-sm focus:outline-none focus:border-primary-base"
               >
                 {CATEGORIES.map((cat) => (
                   <option key={cat} value={cat}>
@@ -263,13 +263,13 @@ export default function CreateOpportunityPage() {
             </div>
 
             <div className="flex flex-col gap-2">
-              <label className="text-xs font-semibold text-kumo-subtle">
+              <label className="text-xs font-semibold text-text-sub-600">
                 Engagement Type
               </label>
               <select
                 value={type}
                 onChange={(e) => setType(e.target.value as OpportunityType)}
-                className="w-full h-10 px-3 bg-kumo-base text-kumo-strong border border-kumo-line rounded-xl text-sm focus:outline-none focus:border-kumo-brand"
+                className="w-full h-10 px-3 bg-bg-white-0 text-text-strong-950 border border-stroke-soft-200 rounded-xl text-sm focus:outline-none focus:border-primary-base"
               >
                 {TYPES.map((t) => (
                   <option key={t} value={t}>
@@ -316,7 +316,7 @@ export default function CreateOpportunityPage() {
 
           {/* Skill Tagging */}
           <div className="space-y-2">
-            <label className="text-xs font-semibold text-kumo-subtle">
+            <label className="text-xs font-semibold text-text-sub-600">
               Required Skills
             </label>
             <div className="flex flex-wrap gap-2">
@@ -329,8 +329,8 @@ export default function CreateOpportunityPage() {
                     onClick={() => handleToggleSkill(sk)}
                     className={`px-3 py-1 rounded-xl text-xs font-medium border transition-colors ${
                       isSelected
-                        ? "bg-kumo-brand text-static-white border-kumo-brand"
-                        : "bg-kumo-tint text-kumo-subtle border-kumo-line"
+                        ? "bg-primary-base text-static-white border-primary-base"
+                        : "bg-bg-weak-50 text-text-sub-600 border-stroke-soft-200"
                     }`}
                   >
                     {isSelected ? "✓ " : "+ "}
@@ -348,7 +348,7 @@ export default function CreateOpportunityPage() {
                 value={customSkill}
                 onChange={(e) => setCustomSkill(e.target.value)}
                 placeholder="Add other skill tag..."
-                className="flex-1 h-9 px-3 bg-kumo-base border border-kumo-line rounded-xl text-xs"
+                className="flex-1 h-9 px-3 bg-bg-white-0 border border-stroke-soft-200 rounded-xl text-xs"
               />
               <Button type="button" variant="secondary" size="sm" onClick={handleAddCustomSkill} >
                 <PlusIcon size={12} weight="regular" />
@@ -364,7 +364,7 @@ export default function CreateOpportunityPage() {
             placeholder="e.g. Direct message via A5 Network or email to careers@example.com"
           />
 
-          <div className="flex flex-col-reverse sm:flex-row items-stretch sm:items-center justify-between gap-3 pt-6 border-t border-kumo-line">
+          <div className="flex flex-col-reverse sm:flex-row items-stretch sm:items-center justify-between gap-3 pt-6 border-t border-stroke-soft-200">
             <Button type="button" variant="outline" size="md" onClick={() => setIsPreview(true)} className="w-full sm:w-auto justify-center">
               <EyeIcon size={16} weight="regular" className="mr-1" />
               Preview First

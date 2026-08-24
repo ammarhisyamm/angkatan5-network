@@ -104,23 +104,23 @@ export default function AdminSkillsPage() {
       {/* Page Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <div className="mb-1.5 flex items-center gap-1.5 text-label text-kumo-inactive">
+          <div className="mb-1.5 flex items-center gap-1.5 text-label text-text-soft-400">
             <StackIcon size={14} />
             <span>Skill Taxonomy</span>
           </div>
-          <h1 className="text-page-title text-kumo-strong">Skill Management</h1>
-          <p className="mt-1 text-body text-kumo-subtle">Organize and standardize the skills available to the Angkatan 5 talent pool.</p>
+          <h1 className="text-page-title text-text-strong-950">Skill Management</h1>
+          <p className="mt-1 text-body text-text-sub-600">Organize and standardize the skills available to the Angkatan 5 talent pool.</p>
         </div>
       </div>
 
       {/* Add New Skill */}
       <LayerCard className="p-4 sm:p-5">
-        <h3 className="text-card-title text-kumo-strong mb-3">Add New Skill</h3>
+        <h3 className="text-card-title text-text-strong-950 mb-3">Add New Skill</h3>
         <div className="flex flex-col sm:flex-row items-start gap-3">
           <Input aria-label="New skill name" placeholder="Enter skill name..." value={newSkillName} onChange={(e: any) => setNewSkillName(e.target.value)}
             onKeyDown={(e: any) => { if (e.key === "Enter") handleAddSkill(); }} className="flex-1" />
           <select value={newSkillCategory} onChange={(e) => setNewSkillCategory(e.target.value as SkillCategory)}
-            className="w-full sm:w-56 h-10 rounded-xl border border-kumo-line bg-kumo-base px-3 text-sm text-kumo-strong outline-none focus:ring-2 focus:ring-kumo-brand focus:ring-offset-1 appearance-none cursor-pointer">
+            className="w-full sm:w-56 h-10 rounded-xl border border-stroke-soft-200 bg-bg-white-0 px-3 text-sm text-text-strong-950 outline-none focus:ring-2 focus:ring-primary-base focus:ring-offset-1 appearance-none cursor-pointer">
             {FIELD_CATEGORIES.map((cat) => <option key={cat} value={cat}>{cat}</option>)}
           </select>
           <Button variant="primary" size="md" onClick={handleAddSkill} disabled={!newSkillName.trim()} icon={<PlusIcon size={16} weight="bold" />} className="w-full sm:w-auto justify-center">Add Skill</Button>
@@ -146,12 +146,12 @@ export default function AdminSkillsPage() {
 
       {/* Skills Grid */}
       {displayedCategories.length === 0 ? (
-        <LayerCard className="p-16 text-center text-sm text-kumo-subtle">No skills match your search.</LayerCard>
+        <LayerCard className="p-16 text-center text-sm text-text-sub-600">No skills match your search.</LayerCard>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
           {displayedCategories.map(([category, count]) => (
             <LayerCard key={category} className="p-0 overflow-hidden">
-              <div className="px-4 sm:px-5 py-3.5 border-b border-kumo-line flex items-center justify-between">
+              <div className="px-4 sm:px-5 py-3.5 border-b border-stroke-soft-200 flex items-center justify-between">
                 <div className="flex items-center gap-3">
                   <div className={`flex size-8 items-center justify-center rounded-lg shrink-0 bg-white ring-1 ring-zinc-200 shadow-sm ${CATEGORY_COLORS[category] || "text-zinc-500"}`}>
                     {(() => {
@@ -160,27 +160,27 @@ export default function AdminSkillsPage() {
                     })()}
                   </div>
                   <div>
-                    <h3 className="text-card-title text-kumo-strong">{category}</h3>
-                    <span className="text-xs text-kumo-inactive">{count} {count === 1 ? "skill" : "skills"}</span>
+                    <h3 className="text-card-title text-text-strong-950">{category}</h3>
+                    <span className="text-xs text-text-soft-400">{count} {count === 1 ? "skill" : "skills"}</span>
                   </div>
                 </div>
               </div>
               <div className="p-4 flex flex-wrap gap-1.5 min-h-[88px]">
                 {skillsByCategory.get(category)!.map((skill) => (
-                  <div key={skill.id} className="group relative flex items-center gap-1.5 bg-kumo-tint border border-kumo-line rounded-lg px-2.5 py-1.5 text-sm text-kumo-strong hover:border-kumo-subtle transition-colors">
+                  <div key={skill.id} className="group relative flex items-center gap-1.5 bg-bg-weak-50 border border-stroke-soft-200 rounded-lg px-2.5 py-1.5 text-sm text-text-strong-950 hover:border-text-sub-600 transition-colors">
                     <span>{skill.name}</span>
                     <div className="relative">
-                      <button onClick={() => setActiveMenu(activeMenu === skill.id ? null : skill.id)} className="text-kumo-inactive hover:text-kumo-strong transition-colors p-1 -mr-1" aria-label={`Actions for ${skill.name}`}>
+                      <button onClick={() => setActiveMenu(activeMenu === skill.id ? null : skill.id)} className="text-text-soft-400 hover:text-text-strong-950 transition-colors p-1 -mr-1" aria-label={`Actions for ${skill.name}`}>
                         <DotsThreeVerticalIcon size={14} weight="bold" />
                       </button>
                       {activeMenu === skill.id && (
                         <>
                           <div className="fixed inset-0 z-40" onClick={() => setActiveMenu(null)} />
-                          <div className="absolute right-0 top-full mt-1 w-44 bg-kumo-base border border-kumo-line rounded-xl shadow-lg z-50 py-1 overflow-hidden">
-                            <button onClick={() => { setEditingSkill({ id: skill.id, name: skill.name }); setActiveMenu(null); }} className="flex items-center gap-2 w-full px-3 py-2 text-sm text-kumo-strong hover:bg-kumo-tint transition-colors">
+                          <div className="absolute right-0 top-full mt-1 w-44 bg-bg-white-0 border border-stroke-soft-200 rounded-xl shadow-lg z-50 py-1 overflow-hidden">
+                            <button onClick={() => { setEditingSkill({ id: skill.id, name: skill.name }); setActiveMenu(null); }} className="flex items-center gap-2 w-full px-3 py-2 text-sm text-text-strong-950 hover:bg-bg-weak-50 transition-colors">
                               <PencilSimpleIcon size={14} /> Rename
                             </button>
-                            <button onClick={() => { setMergeTarget(skill); setActiveMenu(null); }} className="flex items-center gap-2 w-full px-3 py-2 text-sm text-kumo-strong hover:bg-kumo-tint transition-colors">
+                            <button onClick={() => { setMergeTarget(skill); setActiveMenu(null); }} className="flex items-center gap-2 w-full px-3 py-2 text-sm text-text-strong-950 hover:bg-bg-weak-50 transition-colors">
                               <ArrowsMergeIcon size={14} /> Merge into...
                             </button>
                             <button onClick={() => { setDeleteTarget(skill); setActiveMenu(null); }} className="flex items-center gap-2 w-full px-3 py-2 text-sm text-error-base hover:bg-error-lighter transition-colors">
@@ -214,7 +214,7 @@ export default function AdminSkillsPage() {
       <Modal isOpen={!!mergeTarget} onClose={() => { setMergeTarget(null); setMergeIntoSkill(""); }} title="Merge Skill" description={`Merge "${mergeTarget?.name}" into another skill. All users with this skill will be updated.`}>
         <div className="space-y-4 pt-4">
           <select value={mergeIntoSkill} onChange={(e) => setMergeIntoSkill(e.target.value)}
-            className="w-full h-10 rounded-xl border border-kumo-line bg-kumo-base px-3 text-sm text-kumo-strong outline-none focus:ring-2 focus:ring-kumo-brand focus:ring-offset-1 appearance-none cursor-pointer">
+            className="w-full h-10 rounded-xl border border-stroke-soft-200 bg-bg-white-0 px-3 text-sm text-text-strong-950 outline-none focus:ring-2 focus:ring-primary-base focus:ring-offset-1 appearance-none cursor-pointer">
             <option value="">Select target skill...</option>
             {skills.filter((s) => s.id !== mergeTarget?.id).map((s) => <option key={s.id} value={s.id}>{s.name} ({s.category})</option>)}
           </select>

@@ -52,12 +52,12 @@ export default function AdminOpportunitiesPage() {
       {/* Page Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <div className="mb-1.5 flex items-center gap-1.5 text-label text-kumo-inactive">
+          <div className="mb-1.5 flex items-center gap-1.5 text-label text-text-soft-400">
             <UsersIcon size={14} />
             <span>Moderation Console</span>
           </div>
-          <h1 className="text-page-title text-kumo-strong">Opportunities</h1>
-          <p className="mt-1 text-body text-kumo-subtle">Review, approve, and manage community opportunity posts.</p>
+          <h1 className="text-page-title text-text-strong-950">Opportunities</h1>
+          <p className="mt-1 text-body text-text-sub-600">Review, approve, and manage community opportunity posts.</p>
         </div>
         <Link href="/opportunities/new">
           <Button variant="primary" size="md" icon={<PlusIcon size={16} weight="bold" />} className="w-full sm:w-auto justify-center">New Opportunity</Button>
@@ -65,15 +65,15 @@ export default function AdminOpportunitiesPage() {
       </div>
 
       {/* Tabs */}
-      <div className="flex items-center gap-1 overflow-x-auto rounded-xl bg-kumo-tint p-1">
+      <div className="flex items-center gap-1 overflow-x-auto rounded-xl bg-bg-weak-50 p-1">
         {TABS.map((tab) => {
           const isActive = activeTab === tab.id;
           const Icon = tab.icon;
           return (
             <button key={tab.id} onClick={() => setActiveTab(tab.id)}
               className={`group relative flex min-h-9 items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium transition-colors
-                ${isActive ? "bg-kumo-base text-kumo-strong shadow-sm" : "text-kumo-subtle hover:bg-kumo-base/70 hover:text-kumo-strong"}`}>
-              <Icon size={16} weight={isActive ? "fill" : "regular"} className={isActive ? "text-kumo-brand" : "text-kumo-inactive group-hover:text-kumo-subtle"} />
+                ${isActive ? "bg-bg-white-0 text-text-strong-950 shadow-sm" : "text-text-sub-600 hover:bg-bg-white-0/70 hover:text-text-strong-950"}`}>
+              <Icon size={16} weight={isActive ? "fill" : "regular"} className={isActive ? "text-primary-base" : "text-text-soft-400 group-hover:text-text-sub-600"} />
               <span>{tab.label}</span>
               <Badge variant={tab.id === "Pending" ? "warning" : "neutral"}>{counts[tab.id]}</Badge>
             </button>
@@ -84,7 +84,7 @@ export default function AdminOpportunitiesPage() {
       {/* Table */}
       <LayerCard className="p-0 overflow-hidden">
         {filtered.length === 0 ? (
-          <div className="py-20 text-center text-sm text-kumo-subtle">No opportunities in this category.</div>
+          <div className="py-20 text-center text-sm text-text-sub-600">No opportunities in this category.</div>
         ) : (
           <div className="overflow-x-auto">
             <Table>
@@ -103,16 +103,16 @@ export default function AdminOpportunitiesPage() {
                   <Table.Row key={opp.id}>
                     <Table.Cell>
                       <div className="max-w-[300px]">
-                        <span className="text-sm font-semibold text-kumo-strong block truncate">{opp.title}</span>
-                        <span className="text-xs text-kumo-inactive line-clamp-1 block">{opp.description}</span>
+                        <span className="text-sm font-semibold text-text-strong-950 block truncate">{opp.title}</span>
+                        <span className="text-xs text-text-soft-400 line-clamp-1 block">{opp.description}</span>
                       </div>
                     </Table.Cell>
-                    <Table.Cell className="hidden md:table-cell text-sm text-kumo-strong">{opp.authorName}</Table.Cell>
+                    <Table.Cell className="hidden md:table-cell text-sm text-text-strong-950">{opp.authorName}</Table.Cell>
                     <Table.Cell>
                       <Badge variant="secondary">{CATEGORY_MAP[opp.category] || opp.category}</Badge>
                     </Table.Cell>
                     <Table.Cell><Badge variant={BADGE_MAP[opp.status]?.variant || "secondary"}>{opp.status}</Badge></Table.Cell>
-                    <Table.Cell className="hidden sm:table-cell text-xs text-kumo-inactive whitespace-nowrap">{new Date(opp.createdAt).toLocaleDateString()}</Table.Cell>
+                    <Table.Cell className="hidden sm:table-cell text-xs text-text-soft-400 whitespace-nowrap">{new Date(opp.createdAt).toLocaleDateString()}</Table.Cell>
                     <Table.Cell className="text-right">
                       <div className="flex items-center justify-end gap-1">
                         {activeTab === "Pending" && (

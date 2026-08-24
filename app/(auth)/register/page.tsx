@@ -34,21 +34,21 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="min-h-screen bg-kumo-tint flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-bg-weak-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md text-center px-4">
-        <div className="inline-flex items-center justify-center size-14 rounded-xl bg-kumo-brand text-static-white font-bold text-2xl  mb-4">
+        <div className="inline-flex items-center justify-center size-14 rounded-xl bg-primary-base text-static-white font-bold text-2xl  mb-4">
           A5
         </div>
-        <h1 className="text-page-title text-kumo-strong">
+        <h1 className="text-page-title text-text-strong-950">
           Join Angkatan 5 Network
         </h1>
-        <p className="mt-1 text-body text-kumo-subtle">
+        <p className="mt-1 text-body text-text-sub-600">
           Create your talent profile to connect with fellow alumni
         </p>
       </div>
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md px-4">
-        <div className="bg-kumo-base py-8 px-6 sm:px-10 shadow-xs border border-kumo-line rounded-xl flex flex-col gap-6">
+        <div className="bg-bg-white-0 py-8 px-6 sm:px-10 shadow-xs border border-stroke-soft-200 rounded-xl flex flex-col gap-6">
           <form onSubmit={handleSubmit} className="flex flex-col gap-4">
             {error && (
               <div className="p-3 text-xs bg-error-lighter border border-error-light text-error-base rounded-xl font-medium">
@@ -84,13 +84,13 @@ export default function RegisterPage() {
             />
 
             <div className="flex flex-col gap-2">
-              <label className="text-xs font-semibold text-kumo-subtle">
+              <label className="text-xs font-semibold text-text-sub-600">
                 School Batch
               </label>
               <select
                 value={batch}
                 onChange={(e) => setBatch(e.target.value)}
-                className="w-full h-10 px-3 bg-kumo-base text-kumo-strong border border-kumo-line rounded-xl text-sm focus:outline-none focus:border-kumo-brand focus:ring-2 focus:ring-kumo-brand/10"
+                className="w-full h-10 px-3 bg-bg-white-0 text-text-strong-950 border border-stroke-soft-200 rounded-xl text-sm focus:outline-none focus:border-primary-base focus:ring-2 focus:ring-primary-base/10"
               >
                 <option value="Angkatan 5 (2018)">Angkatan 5 (2018) — Core Cohort</option>
                 <option value="Angkatan 4 (2017)">Angkatan 4 (2017)</option>
@@ -104,11 +104,11 @@ export default function RegisterPage() {
             </Button>
           </form>
 
-          <p className="text-center text-xs text-kumo-subtle">
+          <p className="text-center text-xs text-text-sub-600">
             Already have an account?{" "}
             <Link
               href="/login"
-              className="text-kumo-brand font-semibold hover:underline"
+              className="text-primary-base font-semibold hover:underline"
             >
               Sign in
             </Link>

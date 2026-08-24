@@ -8,5 +8,5 @@ function initials(name: string) {
 }
 
 export function Avatar({ name, className, ...props }: React.HTMLAttributes<HTMLSpanElement> & { name: string }) {
-  return <span aria-label={name} role="img" className={cn("grid shrink-0 place-items-center rounded-full bg-primary-alpha-10 font-semibold text-kumo-brand ring-1 ring-kumo-line", className)} {...props}>{initials(name)}</span>;
+  return <span aria-label={name} role="img" className={cn("grid shrink-0 place-items-center rounded-full bg-primary-alpha-10 font-semibold text-primary-base ring-1 ring-stroke-soft-200", className)} {...props}>{initials(name)}</span>;
 }

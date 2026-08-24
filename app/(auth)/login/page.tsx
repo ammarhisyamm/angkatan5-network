@@ -41,15 +41,15 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-kumo-tint flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-bg-weak-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md text-center px-4">
-        <div className="inline-flex items-center justify-center size-14 rounded-xl bg-kumo-brand text-title-h5 font-semibold text-static-white shadow-xs mb-4">A5</div>
-        <h1 className="text-page-title text-kumo-strong">Angkatan 5 Network</h1>
-        <p className="mt-1 text-sm leading-5 text-kumo-subtle">Private talent directory for members of Angkatan 5 SMP & IHBS</p>
+        <div className="inline-flex items-center justify-center size-14 rounded-xl bg-primary-base text-title-h5 font-semibold text-static-white shadow-xs mb-4">A5</div>
+        <h1 className="text-page-title text-text-strong-950">Angkatan 5 Network</h1>
+        <p className="mt-1 text-sm leading-5 text-text-sub-600">Private talent directory for members of Angkatan 5 SMP & IHBS</p>
       </div>
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md px-4">
-        <div className="flex flex-col gap-6 rounded-xl border border-kumo-line bg-kumo-base px-6 py-8 sm:px-10 shadow-xs">
+        <div className="flex flex-col gap-6 rounded-xl border border-stroke-soft-200 bg-bg-white-0 px-6 py-8 sm:px-10 shadow-xs">
           <form onSubmit={handleSubmit} className="flex flex-col gap-4">
             {error && <div className="rounded-xl border border-error-light bg-error-lighter p-3 text-xs leading-4 font-medium text-error-dark">{error}</div>}
 
@@ -57,8 +57,8 @@ export default function LoginPage() {
             <Input label="Password" type="password" placeholder="••••••••" value={password} onChange={(e) => setPassword(e.target.value)} />
 
             <div className="flex items-center justify-between text-xs leading-4">
-              <label className="flex cursor-pointer items-center gap-2 text-kumo-subtle">
-                <input type="checkbox" checked={rememberMe} onChange={(e) => setRememberMe(e.target.checked)} className="size-4 rounded border-kumo-line text-kumo-brand focus:ring-kumo-brand" />
+              <label className="flex cursor-pointer items-center gap-2 text-text-sub-600">
+                <input type="checkbox" checked={rememberMe} onChange={(e) => setRememberMe(e.target.checked)} className="size-4 rounded border-stroke-soft-200 text-primary-base focus:ring-primary-base" />
                 <span>Remember me</span>
               </label>
               <a
@@ -67,7 +67,7 @@ export default function LoginPage() {
                   e.preventDefault();
                   addToast("Demo mode", "Password recovery is disabled for demo.", "info");
                 }}
-                className="font-medium text-kumo-brand hover:underline"
+                className="font-medium text-primary-base hover:underline"
               >
                 Forgot password?
               </a>
@@ -78,37 +78,37 @@ export default function LoginPage() {
             </Button>
           </form>
 
-          <div className="border-t border-kumo-line pt-5">
-            <div className="mb-3 text-sm font-medium leading-5 text-kumo-subtle">Instant demo access</div>
+          <div className="border-t border-stroke-soft-200 pt-5">
+            <div className="mb-3 text-sm font-medium leading-5 text-text-sub-600">Instant demo access</div>
             <div className="grid grid-cols-2 gap-2">
               <button
                 type="button"
                 onClick={() => handleQuickDemo("member@example.com", "/dashboard")}
-                className="flex flex-col gap-1 rounded-xl border border-kumo-brand/20 bg-primary-alpha-10 p-3 text-left transition hover:bg-primary-alpha-10/80"
+                className="flex flex-col gap-1 rounded-xl border border-primary-base/20 bg-primary-alpha-10 p-3 text-left transition hover:bg-primary-alpha-10/80"
               >
-                <span className="flex items-center gap-1 text-xs leading-4 font-medium text-kumo-brand">
+                <span className="flex items-center gap-1 text-xs leading-4 font-medium text-primary-base">
                   <UserCheckIcon size={12} weight="regular" /> Member <ArrowRightIcon size={12} weight="regular" className="ml-auto" />
                 </span>
-                <span className="font-mono text-xs leading-4 text-kumo-subtle">member@example.com</span>
-                <span className="text-xs leading-4 text-kumo-inactive">Ammar Hisyam (Designer)</span>
+                <span className="font-mono text-xs leading-4 text-text-sub-600">member@example.com</span>
+                <span className="text-xs leading-4 text-text-soft-400">Ammar Hisyam (Designer)</span>
               </button>
               <button
                 type="button"
                 onClick={() => handleQuickDemo("admin@example.com", "/admin/dashboard")}
-                className="flex flex-col gap-1 rounded-xl border border-kumo-line bg-kumo-tint p-3 text-left transition hover:bg-kumo-base hover:shadow-xs"
+                className="flex flex-col gap-1 rounded-xl border border-stroke-soft-200 bg-bg-weak-50 p-3 text-left transition hover:bg-bg-white-0 hover:shadow-xs"
               >
-                <span className="flex items-center gap-1 text-xs leading-4 font-medium text-kumo-strong">
-                  <ShieldCheckIcon size={12} weight="regular" /> Admin <ArrowRightIcon size={12} weight="regular" className="ml-auto text-kumo-inactive" />
+                <span className="flex items-center gap-1 text-xs leading-4 font-medium text-text-strong-950">
+                  <ShieldCheckIcon size={12} weight="regular" /> Admin <ArrowRightIcon size={12} weight="regular" className="ml-auto text-text-soft-400" />
                 </span>
-                <span className="font-mono text-xs leading-4 text-kumo-subtle">admin@example.com</span>
-                <span className="text-xs leading-4 text-kumo-inactive">Secretariat Admin</span>
+                <span className="font-mono text-xs leading-4 text-text-sub-600">admin@example.com</span>
+                <span className="text-xs leading-4 text-text-soft-400">Secretariat Admin</span>
               </button>
             </div>
           </div>
 
-          <p className="text-center text-xs leading-4 text-kumo-inactive">
+          <p className="text-center text-xs leading-4 text-text-soft-400">
             Don&apos;t have an account?{" "}
-            <Link href="/register" className="font-medium text-kumo-brand hover:underline">
+            <Link href="/register" className="font-medium text-primary-base hover:underline">
               Register here
             </Link>
           </p>

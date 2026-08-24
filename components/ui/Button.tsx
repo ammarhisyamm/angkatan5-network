@@ -18,13 +18,13 @@ const sizes = {
 } as const;
 
 const variants = {
-  primary: "bg-kumo-brand text-static-white hover:bg-kumo-brand-hover focus-visible:ring-kumo-brand/40",
-  secondary: "bg-kumo-base text-kumo-strong ring-1 ring-kumo-line hover:bg-kumo-tint focus-visible:ring-kumo-brand/40",
-  outline: "bg-transparent text-kumo-strong ring-1 ring-kumo-line hover:bg-kumo-tint focus-visible:ring-kumo-brand/40",
-  ghost: "bg-transparent text-kumo-subtle hover:bg-kumo-tint hover:text-kumo-strong focus-visible:ring-kumo-brand/40",
+  primary: "bg-primary-base text-static-white hover:bg-primary-darker focus-visible:ring-primary-base/40",
+  secondary: "bg-bg-white-0 text-text-strong-950 ring-1 ring-stroke-soft-200 hover:bg-bg-weak-50 focus-visible:ring-primary-base/40",
+  outline: "bg-transparent text-text-strong-950 ring-1 ring-stroke-soft-200 hover:bg-bg-weak-50 focus-visible:ring-primary-base/40",
+  ghost: "bg-transparent text-text-sub-600 hover:bg-bg-weak-50 hover:text-text-strong-950 focus-visible:ring-primary-base/40",
   danger: "bg-error-base text-static-white hover:bg-error-dark focus-visible:ring-error-base/40",
-  subtle: "bg-primary-alpha-10 text-kumo-brand hover:bg-kumo-base hover:ring-1 hover:ring-kumo-brand focus-visible:ring-kumo-brand/40",
-  link: "h-auto px-0 text-kumo-brand underline-offset-4 hover:underline focus-visible:ring-kumo-brand/40",
+  subtle: "bg-primary-alpha-10 text-primary-base hover:bg-bg-white-0 hover:ring-1 hover:ring-primary-base focus-visible:ring-primary-base/40",
+  link: "h-auto px-0 text-primary-base underline-offset-4 hover:underline focus-visible:ring-primary-base/40",
 } as const;
 
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(function Button(

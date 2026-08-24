@@ -149,7 +149,7 @@ export default function MyProfilePage() {
   return (
     <div className="mx-auto max-w-[1120px] space-y-6">
       {/* HERO */}
-      <div className="overflow-hidden rounded-xl border border-kumo-line bg-white shadow-none">
+      <div className="overflow-hidden rounded-xl border border-stroke-soft-200 bg-white shadow-none">
         <div className="p-6 sm:p-8">
           <div className="flex flex-col gap-8 lg:flex-row lg:items-start lg:justify-between">
             {/* Left: avatar + identity */}
@@ -180,7 +180,7 @@ export default function MyProfilePage() {
             </div>
 
             {/* Right: completion card */}
-            <div className="w-full rounded-xl border border-kumo-line bg-kumo-tint p-5 lg:w-[320px] lg:shrink-0">
+            <div className="w-full rounded-xl border border-stroke-soft-200 bg-bg-weak-50 p-5 lg:w-[320px] lg:shrink-0">
               <div className="flex items-center justify-between">
                 <p className="text-xs font-semibold tracking-wide text-zinc-500">Profile completion</p>
                 <span className="text-sm font-semibold text-[#111827]">{completion}%</span>
@@ -219,7 +219,7 @@ export default function MyProfilePage() {
       </div>
 
       {/* ABOUT */}
-      <div className="rounded-xl border border-kumo-line bg-white p-6 shadow-none sm:p-7">
+      <div className="rounded-xl border border-stroke-soft-200 bg-white p-6 shadow-none sm:p-7">
         <div className="flex items-center justify-between">
           <h2 className="text-[19px] font-bold leading-7 tracking-tight text-[#111827]">About</h2>
           {editingSection === "personal" ? (
@@ -277,7 +277,7 @@ export default function MyProfilePage() {
         {/* Left 8 */}
         <div className="space-y-6 lg:col-span-8">
           {/* Professional */}
-          <div className="rounded-xl border border-kumo-line bg-white p-6 shadow-none sm:p-7">
+          <div className="rounded-xl border border-stroke-soft-200 bg-white p-6 shadow-none sm:p-7">
             <div className="flex items-center justify-between">
               <h2 className="inline-flex items-center gap-2 text-[19px] font-bold leading-7 text-[#111827]">
                 <BriefcaseIcon size={16} weight="regular" className="text-zinc-400" />
@@ -328,7 +328,7 @@ export default function MyProfilePage() {
           </div>
 
           {/* Skills */}
-          <div className="rounded-xl border border-kumo-line bg-white p-6 shadow-none sm:p-7">
+          <div className="rounded-xl border border-stroke-soft-200 bg-white p-6 shadow-none sm:p-7">
             <div className="flex items-center justify-between">
               <h2 className="inline-flex items-center gap-2 text-[19px] font-bold leading-7 text-[#111827]">
                 <StackIcon size={16} weight="regular" className="text-zinc-400" />
@@ -399,7 +399,7 @@ export default function MyProfilePage() {
         {/* Right 4 */}
         <div className="space-y-6 lg:col-span-4">
           {/* Availability */}
-          <div className="rounded-xl border border-kumo-line bg-white p-6 shadow-none">
+          <div className="rounded-xl border border-stroke-soft-200 bg-white p-6 shadow-none">
             <div className="flex items-center justify-between">
               <h3 className="inline-flex items-center gap-2 text-[19px] font-bold leading-7 text-[#111827]">
                 <ShieldIcon size={16} weight="regular" className="text-zinc-400" />
@@ -487,7 +487,7 @@ export default function MyProfilePage() {
           </div>
 
           {/* Social */}
-          <div className="rounded-xl border border-kumo-line bg-white p-6 shadow-none">
+          <div className="rounded-xl border border-stroke-soft-200 bg-white p-6 shadow-none">
             <div className="flex items-center justify-between">
               <h3 className="inline-flex items-center gap-2 text-[19px] font-bold leading-7 text-[#111827]">
                 <GlobeIcon size={16} weight="regular" className="text-zinc-400" />
