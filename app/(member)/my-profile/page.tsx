@@ -15,13 +15,17 @@ import {
   ShieldIcon,
   PencilSimpleIcon,
   CheckIcon,
-  XIcon,
   SparkleIcon,
   LockSimpleIcon,
   EyeIcon,
   PlusIcon,
   TrashSimpleIcon,
   CheckCircleIcon,
+  ShareNetworkIcon,
+  CalendarIcon,
+  EnvelopeSimpleIcon,
+  ArrowRightIcon,
+  InfoIcon,
 } from "@phosphor-icons/react";
 import { UserStatus, LookingForOption, CanOfferOption, UserVisibility } from "@/lib/types";
 
@@ -51,50 +55,34 @@ const ALL_SKILLS = [
   "Teaching & Coaching",
 ];
 
-const LOOKING_FOR_OPTIONS: LookingForOption[] = [
-  "Open to Work",
-  "Freelance",
-  "Collaboration",
-  "Mentorship",
-  "Networking",
-];
-
-const CAN_OFFER_OPTIONS: CanOfferOption[] = [
-  "Consultation",
-  "Mentoring",
-  "Collaboration",
-  "Hiring",
-  "Professional Help",
-];
+const LOOKING_FOR_OPTIONS: LookingForOption[] = ["Open to Work", "Freelance", "Collaboration", "Mentorship", "Networking"];
+const CAN_OFFER_OPTIONS: CanOfferOption[] = ["Consultation", "Mentoring", "Collaboration", "Hiring", "Professional Help"];
 
 export default function MyProfilePage() {
   const { currentUser, updateProfile, addToast } = useApp();
 
   const [editingSection, setEditingSection] = useState<string | null>(null);
   const [saveModal, setSaveModal] = useState<{ open: boolean; section: string } | null>(null);
+  const [showFullBio, setShowFullBio] = useState(false);
+  const [showShareModal, setShowShareModal] = useState(false);
 
   const [name, setName] = useState(currentUser?.name || "");
   const [avatar, setAvatar] = useState(currentUser?.avatar || "");
   const [location, setLocation] = useState(currentUser?.location || "");
   const [batch, setBatch] = useState(currentUser?.batch || "");
-
   const [role, setRole] = useState(currentUser?.role || "");
   const [company, setCompany] = useState(currentUser?.company || "");
   const [industry, setIndustry] = useState(currentUser?.industry || "Technology");
   const [experience, setExperience] = useState(currentUser?.experience || "3+ years");
   const [bio, setBio] = useState(currentUser?.bio || "");
-
   const [skills, setSkills] = useState<string[]>(currentUser?.skills || []);
   const [customSkill, setCustomSkill] = useState("");
-
   const [status, setStatus] = useState<UserStatus>(currentUser?.status || "Available to Help");
   const [lookingFor, setLookingFor] = useState<LookingForOption[]>(currentUser?.lookingFor || []);
   const [canOffer, setCanOffer] = useState<CanOfferOption[]>(currentUser?.canOffer || []);
-
   const [linkedin, setLinkedin] = useState(currentUser?.linkedin || "");
   const [portfolio, setPortfolio] = useState(currentUser?.portfolio || "");
   const [website, setWebsite] = useState(currentUser?.website || "");
-
   const [visibility, setVisibility] = useState<UserVisibility>(currentUser?.visibility || "community");
 
   if (!currentUser) return null;
@@ -123,25 +111,13 @@ export default function MyProfilePage() {
     setEditingSection(null);
   };
 
-  const handleRequestSave = (sectionName: string) => {
-    setSaveModal({ open: true, section: sectionName });
-  };
-
+  const handleRequestSave = (sectionName: string) => setSaveModal({ open: true, section: sectionName });
   const handleConfirmSave = () => {
-    if (saveModal) {
-      handleSaveSection(saveModal.section);
-    }
+    if (saveModal) handleSaveSection(saveModal.section);
     setSaveModal(null);
   };
 
-  const handleToggleSkill = (sk: string) => {
-    if (skills.includes(sk)) {
-      setSkills(skills.filter((s) => s !== sk));
-    } else {
-      setSkills([...skills, sk]);
-    }
-  };
-
+  const handleToggleSkill = (sk: string) => setSkills(skills.includes(sk) ? skills.filter((s) => s !== sk) : [...skills, sk]);
   const handleAddCustomSkill = (e: React.FormEvent) => {
     e.preventDefault();
     if (customSkill.trim() && !skills.includes(customSkill.trim())) {
@@ -149,66 +125,489 @@ export default function MyProfilePage() {
       setCustomSkill("");
     }
   };
+  const handleToggleLooking = (item: LookingForOption) => setLookingFor(lookingFor.includes(item) ? lookingFor.filter((i) => i !== item) : [...lookingFor, item]);
+  const handleToggleOffer = (item: CanOfferOption) => setCanOffer(canOffer.includes(item) ? canOffer.filter((i) => i !== item) : [...canOffer, item]);
 
-  const handleToggleLooking = (item: LookingForOption) => {
-    if (lookingFor.includes(item)) {
-      setLookingFor(lookingFor.filter((i) => i !== item));
-    } else {
-      setLookingFor([...lookingFor, item]);
+  const handleCopyLink = () => {
+    if (typeof window !== "undefined") {
+      navigator.clipboard.writeText(window.location.href);
+      addToast("Link copied", "Profile link ready to share", "success");
+      setShowShareModal(false);
     }
   };
 
-  const handleToggleOffer = (item: CanOfferOption) => {
-    if (canOffer.includes(item)) {
-      setCanOffer(canOffer.filter((i) => i !== item));
-    } else {
-      setCanOffer([...canOffer, item]);
-    }
-  };
+  const headline = currentUser.role && currentUser.company ? `${currentUser.role} · ${currentUser.industry}` : currentUser.role || "Product Designer · Fintech & SaaS";
+  const displayBio =
+    currentUser.bio ||
+    "Product designer with 5+ years building fintech and SaaS products. Passionate about design systems, user research, and helping early-stage teams ship faster. Open to collaboration and mentoring.";
+  const isLongBio = displayBio.length > 180;
+
+  const completion = currentUser.profileCompletion || 42;
+  const missingSteps = [
+    !currentUser.bio && "Add a bio",
+    currentUser.skills.length < 3 && "Add at least 3 skills",
+    !currentUser.linkedin && !currentUser.portfolio && "Add a social link",
+  ].filter(Boolean) as string[];
 
   return (
-    <div className="space-y-8">
-      {/* Page Header */}
-      <div className="bg-kumo-base border border-kumo-line rounded-2xl p-6 sm:p-8">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6">
-          <div className="flex items-center gap-4">
-            <img
-              src={currentUser.avatar}
-              alt={currentUser.name}
-              width={80}
-              height={80}
-              className="w-16 h-16 sm:w-20 sm:h-20 rounded-full object-cover aspect-square shrink-0 border-2 border-kumo-line"
-            />
-            <div className="min-w-0 flex-1">
-              <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
-                <h1 className="text-page-title text-kumo-strong break-words min-w-0">
-                  {currentUser.name}
-                </h1>
-                <StatusBadge status={currentUser.status} />
+    <div className="mx-auto max-w-[1120px] space-y-6">
+      {/* HERO */}
+      <div className="overflow-hidden rounded-2xl border border-zinc-200 bg-white">
+        <div className="h-1.5 w-full bg-gradient-to-r from-[#2563EB] via-[#3B82F6] to-[#60A5FA]" />
+        <div className="p-6 sm:p-8">
+          <div className="flex flex-col gap-8 lg:flex-row lg:items-start lg:justify-between">
+            {/* Left: avatar + identity */}
+            <div className="flex gap-5 sm:gap-6">
+              <div className="relative shrink-0">
+                <img
+                  src={currentUser.avatar}
+                  alt={currentUser.name}
+                  width={96}
+                  height={96}
+                  className="size-20 sm:size-24 rounded-2xl object-cover aspect-square bg-zinc-100 ring-1 ring-zinc-200"
+                />
+                <span className="absolute -bottom-1 -right-1 flex size-6 items-center justify-center rounded-full bg-[#12B76A] ring-4 ring-white" title={currentUser.status}>
+                  <span className="size-2 rounded-full bg-white" />
+                </span>
               </div>
-              <p className="text-xs sm:text-sm text-kumo-subtle mt-0">
-                {currentUser.role} at {currentUser.company}
-              </p>
-              <p className="text-xs leading-4 text-kumo-inactive mt-1">{currentUser.email}</p>
+
+              <div className="min-w-0 flex-1 pt-1">
+                <div className="flex flex-wrap items-center gap-2">
+                  <h1 className="text-[22px] font-semibold leading-6 tracking-tight text-[#111827]">{currentUser.name?.split(" ")[0] || "Ammar"}</h1>
+                  <span className="inline-flex items-center gap-1.5 rounded-full border border-[#12B76A]/20 bg-[#ECFDF3] px-2.5 py-1 text-[11px] font-semibold tracking-wide text-[#027A48]">
+                    <span className="size-1.5 rounded-full bg-[#12B76A]" />
+                    Available for collaboration
+                  </span>
+                </div>
+                <p className="mt-1.5 text-[13.5px] font-medium leading-5 text-zinc-600">{headline}</p>
+                <div className="mt-2 flex flex-wrap items-center gap-3 text-[13px] text-zinc-500">
+                  <span className="inline-flex items-center gap-1.5">
+                    <MapPinIcon size={14} weight="regular" className="text-zinc-400" />
+                    {currentUser.location || "Jakarta, Indonesia"}
+                  </span>
+                  <span className="size-1 rounded-full bg-zinc-300" />
+                  <span className="inline-flex items-center gap-1.5">
+                    <StackIcon size={14} weight="regular" className="text-zinc-400" />
+                    {currentUser.batch || "Batch 1"}
+                  </span>
+                  <span className="hidden sm:inline-flex size-1 rounded-full bg-zinc-300" />
+                  <StatusBadge status={currentUser.status} />
+                </div>
+                <p className="mt-1 hidden sm:block text-xs text-zinc-400">{currentUser.email}</p>
+              </div>
+            </div>
+
+            {/* Right: completion card */}
+            <div className="w-full lg:w-[320px] shrink-0 rounded-2xl border border-zinc-200 bg-zinc-50 p-5">
+              <div className="flex items-center justify-between">
+                <p className="text-xs font-semibold tracking-wide text-zinc-500">Profile completion</p>
+                <span className="text-sm font-semibold text-[#111827]">{completion}%</span>
+              </div>
+              <div className="mt-3 h-2 w-full overflow-hidden rounded-full bg-white ring-1 ring-zinc-200">
+                <div className="h-full rounded-full bg-[#2563EB] transition-all" style={{ width: `${completion}%` }} />
+              </div>
+              {missingSteps.length > 0 && (
+                <ul className="mt-3 space-y-1.5">
+                  {missingSteps.slice(0, 3).map((s) => (
+                    <li key={s} className="flex items-center gap-2 text-xs text-zinc-600">
+                      <span className="flex size-4 items-center justify-center rounded-full border border-zinc-200 bg-white">
+                        <span className="size-1.5 rounded-full bg-zinc-300" />
+                      </span>
+                      {s}
+                    </li>
+                  ))}
+                </ul>
+              )}
+              <div className="mt-4 grid grid-cols-2 gap-2">
+                <Button variant="primary" size="sm" className="w-full justify-center" onClick={() => setEditingSection("personal")}>
+                  Complete profile
+                </Button>
+                <Button variant="outline" size="sm" className="w-full justify-center bg-white" onClick={() => setShowShareModal(true)}>
+                  <ShareNetworkIcon size={14} weight="regular" className="mr-1" />
+                  Share
+                </Button>
+              </div>
+              <p className="mt-2 text-center text-[11px] text-zinc-400">Visible to community • {currentUser.visibility}</p>
             </div>
           </div>
 
-          <div className="bg-kumo-tint p-4 rounded-xl border border-kumo-line w-full sm:w-64 shrink-0">
-            <div className="flex items-center justify-between text-xs mb-1 font-semibold">
-              <span className="text-kumo-subtle">Profile Completion</span>
-              <span className="text-kumo-brand">{currentUser.profileCompletion}%</span>
-            </div>
-            <div className="w-full h-2 bg-kumo-line rounded-full overflow-hidden">
-              <div
-                className="h-full bg-kumo-brand rounded-full transition-colors duration-500"
-                style={{ width: `${currentUser.profileCompletion}%` }}
-              />
-            </div>
+          {/* Actions bar */}
+          <div className="mt-6 flex flex-wrap items-center gap-3 border-t border-zinc-100 pt-6">
+            <Button variant="primary" size="md" className="justify-center px-5" onClick={() => setEditingSection("personal")}>
+              <PencilSimpleIcon size={14} weight="regular" className="mr-1.5" />
+              Edit profile
+            </Button>
+            <Button variant="outline" size="md" className="justify-center bg-white px-5" onClick={() => setShowShareModal(true)}>
+              <ShareNetworkIcon size={14} weight="regular" className="mr-1.5" />
+              Share profile
+            </Button>
+            <span className="ml-auto hidden items-center gap-2 text-xs text-zinc-400 sm:inline-flex">
+              <EnvelopeSimpleIcon size={14} /> {currentUser.email}
+            </span>
           </div>
         </div>
       </div>
 
-      {/* Confirmation Modal */}
+      {/* ABOUT */}
+      <div className="rounded-2xl border border-zinc-200 bg-white p-6 sm:p-7">
+        <div className="flex items-center justify-between">
+          <h2 className="text-[14px] font-semibold tracking-tight text-[#111827]">About</h2>
+          {editingSection === "personal" ? (
+            <div className="flex items-center gap-2">
+              <Button variant="ghost" size="sm" onClick={() => setEditingSection(null)}>
+                Cancel
+              </Button>
+              <Button variant="primary" size="sm" onClick={() => handleRequestSave("personal")}>
+                <CheckCircleIcon size={12} weight="fill" className="mr-1" />
+                Save
+              </Button>
+            </div>
+          ) : (
+            <Button variant="outline" size="sm" className="bg-white" onClick={() => setEditingSection("personal")}>
+              <PencilSimpleIcon size={12} weight="regular" className="mr-1" />
+              Edit
+            </Button>
+          )}
+        </div>
+
+        {editingSection === "personal" ? (
+          <div className="mt-4 space-y-4">
+            <Input label="Full Name" value={name} onChange={(e) => setName(e.target.value)} />
+            <Input label="Profile Photo URL" value={avatar} onChange={(e) => setAvatar(e.target.value)} />
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <Input label="Location" value={location} onChange={(e) => setLocation(e.target.value)} />
+              <Input label="Batch" value={batch} onChange={(e) => setBatch(e.target.value)} />
+            </div>
+            <Textarea label="Bio" rows={4} value={bio} onChange={(e) => setBio(e.target.value)} placeholder="Tell the community who you are..." />
+          </div>
+        ) : (
+          <div className="mt-3">
+            <p className={`text-[14px] leading-6 text-zinc-600 ${!showFullBio && isLongBio ? "line-clamp-3" : ""}`}>{displayBio}</p>
+            {isLongBio && (
+              <button onClick={() => setShowFullBio(!showFullBio)} className="mt-2 text-sm font-medium text-[#2563EB] hover:underline">
+                {showFullBio ? "Show less" : "Read more"}
+              </button>
+            )}
+            <div className="mt-4 flex flex-wrap gap-2">
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-zinc-50 px-3 py-1.5 text-xs font-medium text-zinc-700 ring-1 ring-zinc-200">
+                <BriefcaseIcon size={12} weight="regular" /> {currentUser.experience || "3+ years"}
+              </span>
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-zinc-50 px-3 py-1.5 text-xs font-medium text-zinc-700 ring-1 ring-zinc-200">
+                <GlobeIcon size={12} weight="regular" /> {currentUser.industry || "Technology"}
+              </span>
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-zinc-50 px-3 py-1.5 text-xs font-medium text-zinc-700 ring-1 ring-zinc-200">
+                <CalendarIcon size={12} weight="regular" /> Joined {currentUser.batch || "Batch 1"}
+              </span>
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* TWO COLUMN */}
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-12">
+        {/* Left 8 */}
+        <div className="space-y-6 lg:col-span-8">
+          {/* Professional */}
+          <div className="rounded-2xl border border-zinc-200 bg-white p-6 sm:p-7">
+            <div className="flex items-center justify-between">
+              <h2 className="inline-flex items-center gap-2 text-[14px] font-semibold text-[#111827]">
+                <BriefcaseIcon size={16} weight="regular" className="text-zinc-400" />
+                Professional
+              </h2>
+              {editingSection === "professional" ? (
+                <div className="flex items-center gap-2">
+                  <Button variant="ghost" size="sm" onClick={() => setEditingSection(null)}>
+                    Cancel
+                  </Button>
+                  <Button variant="primary" size="sm" onClick={() => handleRequestSave("professional")}>
+                    <CheckCircleIcon size={12} weight="fill" className="mr-1" />
+                    Save
+                  </Button>
+                </div>
+              ) : (
+                <Button variant="outline" size="sm" className="bg-white" onClick={() => setEditingSection("professional")}>
+                  <PencilSimpleIcon size={12} weight="regular" className="mr-1" />
+                  Edit
+                </Button>
+              )}
+            </div>
+
+            {editingSection === "professional" ? (
+              <div className="mt-4 space-y-4">
+                <Input label="Role" value={role} onChange={(e) => setRole(e.target.value)} />
+                <Input label="Company" value={company} onChange={(e) => setCompany(e.target.value)} />
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <Select label="Industry" value={industry} onValueChange={(v) => setIndustry(v)} items={["Technology", "Design", "Marketing", "Business", "Finance", "Media & Creative", "Education", "Healthcare", "Other"].map((v) => ({ label: v, value: v }))} />
+                  <Select label="Experience" value={experience} onValueChange={(v) => setExperience(v)} items={["0-1 years", "1-3 years", "3-5 years", "5-10 years", "10+ years"].map((v) => ({ label: v, value: v }))} />
+                </div>
+                <Textarea label="Bio" rows={4} value={bio} onChange={(e) => setBio(e.target.value)} />
+              </div>
+            ) : (
+              <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
+                <div className="rounded-xl bg-zinc-50 p-4 ring-1 ring-zinc-200">
+                  <p className="text-xs font-medium text-zinc-500">Role</p>
+                  <p className="mt-1 text-sm font-semibold text-[#111827]">{currentUser.role || "—"}</p>
+                  <p className="text-xs text-zinc-500">{currentUser.company || "—"}</p>
+                </div>
+                <div className="rounded-xl bg-zinc-50 p-4 ring-1 ring-zinc-200">
+                  <p className="text-xs font-medium text-zinc-500">Focus</p>
+                  <p className="mt-1 text-sm font-semibold text-[#111827]">{currentUser.industry}</p>
+                  <p className="text-xs text-zinc-500">{currentUser.experience}</p>
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* Skills */}
+          <div className="rounded-2xl border border-zinc-200 bg-white p-6 sm:p-7">
+            <div className="flex items-center justify-between">
+              <h2 className="inline-flex items-center gap-2 text-[14px] font-semibold text-[#111827]">
+                <StackIcon size={16} weight="regular" className="text-zinc-400" />
+                Skills
+                <span className="ml-1 rounded-md bg-zinc-100 px-1.5 py-0.5 text-xs font-medium text-zinc-600">{skills.length}</span>
+              </h2>
+              {editingSection === "skills" ? (
+                <div className="flex items-center gap-2">
+                  <Button variant="ghost" size="sm" onClick={() => setEditingSection(null)}>
+                    Cancel
+                  </Button>
+                  <Button variant="primary" size="sm" onClick={() => handleRequestSave("skills")}>
+                    <CheckCircleIcon size={12} weight="fill" className="mr-1" />
+                    Save
+                  </Button>
+                </div>
+              ) : (
+                <Button variant="outline" size="sm" className="bg-white" onClick={() => setEditingSection("skills")}>
+                  <PencilSimpleIcon size={12} weight="regular" className="mr-1" />
+                  Edit
+                </Button>
+              )}
+            </div>
+
+            {editingSection === "skills" ? (
+              <div className="mt-4 space-y-4">
+                <div className="flex flex-wrap gap-2">
+                  {ALL_SKILLS.map((sk) => {
+                    const isSelected = skills.includes(sk);
+                    return (
+                      <button
+                        key={sk}
+                        type="button"
+                        onClick={() => handleToggleSkill(sk)}
+                        className={`inline-flex items-center justify-center gap-1.5 rounded-full px-3.5 py-2 text-xs font-medium ring-1 transition-colors ${
+                          isSelected ? "bg-[#111827] text-white ring-[#111827]" : "bg-white text-zinc-600 ring-zinc-200 hover:bg-zinc-50"
+                        }`}
+                      >
+                        {isSelected ? <CheckIcon size={12} weight="bold" /> : <PlusIcon size={10} weight="regular" />}
+                        {sk}
+                      </button>
+                    );
+                  })}
+                </div>
+                <form onSubmit={handleAddCustomSkill} className="flex gap-2">
+                  <Input aria-label="Add custom skill" value={customSkill} onChange={(e) => setCustomSkill(e.target.value)} placeholder="Add custom skill..." className="flex-1" />
+                  <Button type="submit" variant="secondary" size="sm" disabled={!customSkill.trim()}>
+                    Add
+                  </Button>
+                </form>
+              </div>
+            ) : (
+              <div className="mt-4 flex flex-wrap gap-2">
+                {skills.length ? (
+                  skills.map((sk) => (
+                    <span key={sk} className="inline-flex items-center rounded-full bg-white px-3 py-1.5 text-xs font-medium text-zinc-700 ring-1 ring-zinc-200">
+                      {sk}
+                    </span>
+                  ))
+                ) : (
+                  <p className="text-sm text-zinc-500">Add skills to help others find you. Try “Design Systems”, “React”, “Finance”.</p>
+                )}
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* Right 4 */}
+        <div className="space-y-6 lg:col-span-4">
+          {/* Availability */}
+          <div className="rounded-2xl border border-zinc-200 bg-white p-6">
+            <div className="flex items-center justify-between">
+              <h3 className="inline-flex items-center gap-2 text-[14px] font-semibold text-[#111827]">
+                <ShieldIcon size={16} weight="regular" className="text-zinc-400" />
+                Availability
+              </h3>
+              {editingSection === "availability" ? (
+                <div className="flex items-center gap-2">
+                  <Button variant="ghost" size="sm" onClick={() => setEditingSection(null)}>
+                    Cancel
+                  </Button>
+                  <Button variant="primary" size="sm" onClick={() => handleRequestSave("availability")}>
+                    Save
+                  </Button>
+                </div>
+              ) : (
+                <Button variant="outline" size="sm" className="bg-white" onClick={() => setEditingSection("availability")}>
+                  <PencilSimpleIcon size={12} weight="regular" className="mr-1" />
+                  Edit
+                </Button>
+              )}
+            </div>
+
+            {editingSection === "availability" ? (
+              <div className="mt-4 space-y-4">
+                <Select label="Current Status" value={status} onValueChange={(v) => setStatus(v as UserStatus)} items={["Available to Help", "Open to Work", "Open to Collaboration", "Hiring"].map((v) => ({ label: v, value: v }))} />
+                <div>
+                  <label className="mb-2 block text-xs font-semibold text-zinc-500">Looking For</label>
+                  <div className="flex flex-wrap gap-2">
+                    {LOOKING_FOR_OPTIONS.map((item) => (
+                      <button
+                        key={item}
+                        type="button"
+                        onClick={() => handleToggleLooking(item)}
+                        className={`inline-flex items-center justify-center gap-1.5 rounded-full px-3 py-2 text-xs font-medium ring-1 transition-colors ${
+                          lookingFor.includes(item) ? "bg-[#111827] text-white ring-[#111827]" : "bg-white text-zinc-600 ring-zinc-200"
+                        }`}
+                      >
+                        {lookingFor.includes(item) && <CheckIcon size={12} weight="bold" />}
+                        {item}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+                <div>
+                  <label className="mb-2 block text-xs font-semibold text-zinc-500">Can Offer</label>
+                  <div className="flex flex-wrap gap-2">
+                    {CAN_OFFER_OPTIONS.map((item) => (
+                      <button
+                        key={item}
+                        type="button"
+                        onClick={() => handleToggleOffer(item)}
+                        className={`inline-flex items-center justify-center gap-1.5 rounded-full px-3 py-2 text-xs font-medium ring-1 transition-colors ${
+                          canOffer.includes(item) ? "bg-[#111827] text-white ring-[#111827]" : "bg-white text-zinc-600 ring-zinc-200"
+                        }`}
+                      >
+                        {canOffer.includes(item) && <CheckIcon size={12} weight="bold" />}
+                        {item}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+                <Select label="Profile Visibility" value={visibility} onValueChange={(v) => setVisibility(v as UserVisibility)} items={[{ label: "Community Only", value: "community" }, { label: "Public", value: "public" }, { label: "Private", value: "private" }]} />
+              </div>
+            ) : (
+              <div className="mt-4 space-y-4">
+                <div>
+                  <p className="text-xs font-medium text-zinc-500">Status</p>
+                  <div className="mt-1.5">
+                    <StatusBadge status={currentUser.status} />
+                  </div>
+                </div>
+                <div>
+                  <p className="text-xs font-medium text-zinc-500">Looking for</p>
+                  <div className="mt-1.5 flex flex-wrap gap-1.5">
+                    {currentUser.lookingFor?.length ? currentUser.lookingFor.map((l) => <Badge key={l} variant="secondary" className="bg-zinc-50">{l}</Badge>) : <span className="text-xs text-zinc-400">—</span>}
+                  </div>
+                </div>
+                <div>
+                  <p className="text-xs font-medium text-zinc-500">Can offer</p>
+                  <div className="mt-1.5 flex flex-wrap gap-1.5">
+                    {currentUser.canOffer?.length ? currentUser.canOffer.map((c) => <Badge key={c} variant="secondary" className="bg-zinc-50">{c}</Badge>) : <span className="text-xs text-zinc-400">—</span>}
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* Social */}
+          <div className="rounded-2xl border border-zinc-200 bg-white p-6">
+            <div className="flex items-center justify-between">
+              <h3 className="inline-flex items-center gap-2 text-[14px] font-semibold text-[#111827]">
+                <GlobeIcon size={16} weight="regular" className="text-zinc-400" />
+                Social
+              </h3>
+              {editingSection === "links" ? (
+                <div className="flex items-center gap-2">
+                  <Button variant="ghost" size="sm" onClick={() => setEditingSection(null)}>
+                    Cancel
+                  </Button>
+                  <Button variant="primary" size="sm" onClick={() => handleRequestSave("links")}>
+                    Save
+                  </Button>
+                </div>
+              ) : (
+                <Button variant="outline" size="sm" className="bg-white" onClick={() => setEditingSection("links")}>
+                  <PencilSimpleIcon size={12} weight="regular" className="mr-1" />
+                  Edit
+                </Button>
+              )}
+            </div>
+
+            {editingSection === "links" ? (
+              <div className="mt-4 space-y-4">
+                <Input label="LinkedIn URL" value={linkedin} onChange={(e) => setLinkedin(e.target.value)} placeholder="https://linkedin.com/in/..." />
+                <Input label="Portfolio URL" value={portfolio} onChange={(e) => setPortfolio(e.target.value)} placeholder="https://..." />
+                <Input label="Website" value={website} onChange={(e) => setWebsite(e.target.value)} placeholder="https://..." />
+              </div>
+            ) : (
+              <div className="mt-4 space-y-2">
+                {currentUser.linkedin && (
+                  <a href={currentUser.linkedin} target="_blank" rel="noopener noreferrer" className="flex items-center justify-between rounded-xl bg-zinc-50 p-3 ring-1 ring-zinc-200 hover:bg-white transition-colors">
+                    <span className="inline-flex items-center gap-2 text-sm font-medium text-zinc-700">
+                      <GlobeIcon size={14} /> LinkedIn
+                    </span>
+                    <ArrowRightIcon size={14} className="text-zinc-400" />
+                  </a>
+                )}
+                {currentUser.portfolio && (
+                  <a href={currentUser.portfolio} target="_blank" rel="noopener noreferrer" className="flex items-center justify-between rounded-xl bg-zinc-50 p-3 ring-1 ring-zinc-200 hover:bg-white transition-colors">
+                    <span className="inline-flex items-center gap-2 text-sm font-medium text-zinc-700">
+                      <GlobeIcon size={14} /> Portfolio
+                    </span>
+                    <ArrowRightIcon size={14} className="text-zinc-400" />
+                  </a>
+                )}
+                {currentUser.website && (
+                  <a href={currentUser.website} target="_blank" rel="noopener noreferrer" className="flex items-center justify-between rounded-xl bg-zinc-50 p-3 ring-1 ring-zinc-200 hover:bg-white transition-colors">
+                    <span className="inline-flex items-center gap-2 text-sm font-medium text-zinc-700">
+                      <GlobeIcon size={14} /> Website
+                    </span>
+                    <ArrowRightIcon size={14} className="text-zinc-400" />
+                  </a>
+                )}
+                {!currentUser.linkedin && !currentUser.portfolio && !currentUser.website && <p className="text-sm text-zinc-500">No links yet. Add LinkedIn or portfolio to get discovered.</p>}
+              </div>
+            )}
+          </div>
+
+          {/* Visibility hint */}
+          <div className="rounded-2xl border border-zinc-200 bg-zinc-50 p-5">
+            <p className="inline-flex items-center gap-2 text-xs font-semibold text-zinc-600">
+              <EyeIcon size={14} /> Visibility
+            </p>
+            <p className="mt-1 text-sm font-medium capitalize text-[#111827]">{currentUser.visibility}</p>
+            <p className="mt-1 text-xs leading-4 text-zinc-500">Control who can find you in Discover and search.</p>
+          </div>
+        </div>
+      </div>
+
+      {/* Danger zone — subtle */}
+      <div className="flex items-center justify-between rounded-2xl border border-red-200 bg-red-50 px-6 py-4">
+        <div>
+          <p className="text-sm font-semibold text-red-700">Danger zone</p>
+          <p className="text-xs text-red-600">Export or delete your profile data.</p>
+        </div>
+        <div className="flex items-center gap-2">
+          <Button variant="outline" size="sm" className="bg-white" onClick={() => addToast("Coming soon", "Data export not yet implemented", "info")}>
+            Export Data
+          </Button>
+          <Button variant="danger" size="sm" onClick={() => addToast("Coming soon", "Account deletion not yet implemented", "info")}>
+            <TrashSimpleIcon size={14} weight="regular" className="mr-1" />
+            Delete
+          </Button>
+        </div>
+      </div>
+
+      {/* Confirm save */}
       <ConfirmModal
         isOpen={!!saveModal}
         onClose={() => setSaveModal(null)}
@@ -221,432 +620,27 @@ export default function MyProfilePage() {
         variant="primary"
       />
 
-      {/* 1. PERSONAL INFORMATION */}
-      <div className="bg-kumo-base border border-kumo-line rounded-2xl p-6 space-y-4">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <UserIcon size={16} weight="regular" className="text-kumo-brand" />
-            <h2 className="text-section-title text-kumo-strong">Personal Information</h2>
-          </div>
-          {editingSection === "personal" ? (
-            <div className="flex items-center gap-2">
-              <Button variant="ghost" size="sm" onClick={() => setEditingSection(null)}>Cancel</Button>
-              <Button variant="primary" size="sm" onClick={() => handleRequestSave("personal")}>
-                <CheckCircleIcon size={12} weight="fill" className="mr-1" />
-                Save
-              </Button>
+      {/* Share */}
+      <Modal isOpen={showShareModal} onClose={() => setShowShareModal(false)} title="Share profile" description="Copy your profile link" icon="info" maxWidth="sm">
+        <div className="space-y-4">
+          <div className="flex items-center justify-center py-2">
+            <div className="flex size-12 items-center justify-center rounded-2xl bg-zinc-50 ring-1 ring-zinc-200">
+              <ShareNetworkIcon size={20} weight="regular" className="text-zinc-700" />
             </div>
-          ) : (
-            <Button variant="outline" size="sm" onClick={() => setEditingSection("personal")}>
-              <PencilSimpleIcon size={12} weight="regular" className="mr-1" />
-              Edit
+          </div>
+          <div className="flex items-center gap-2 rounded-xl bg-zinc-50 p-3 ring-1 ring-zinc-200">
+            <span className="min-w-0 flex-1 truncate text-sm text-zinc-700">{typeof window !== "undefined" ? window.location.href : ""}</span>
+          </div>
+          <div className="flex justify-end gap-3">
+            <Button variant="outline" size="md" onClick={() => setShowShareModal(false)} className="px-5">
+              Cancel
             </Button>
-          )}
-        </div>
-
-        {editingSection === "personal" ? (
-          <div className="space-y-4 pt-2">
-            <Input label="Full Name" value={name} onChange={(e) => setName(e.target.value)} />
-            <Input label="Profile Photo URL" value={avatar} onChange={(e) => setAvatar(e.target.value)} />
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <Input label="Current City / Location" value={location} onChange={(e) => setLocation(e.target.value)} />
-              <Input label="Batch" value={batch} onChange={(e) => setBatch(e.target.value)} />
-            </div>
-          </div>
-        ) : (
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-xs pt-2">
-            <div>
-              <p className="text-kumo-subtle mb-1">Name</p>
-              <p className="text-kumo-strong">{currentUser.name}</p>
-            </div>
-            <div>
-              <p className="text-kumo-subtle mb-1">Location</p>
-              <p className="text-kumo-strong">{currentUser.location || "—"}</p>
-            </div>
-            <div>
-              <p className="text-kumo-subtle mb-1">Batch</p>
-              <p className="text-kumo-strong">{currentUser.batch || "—"}</p>
-            </div>
-            <div>
-              <p className="text-kumo-subtle mb-1">Email</p>
-              <p className="text-kumo-strong truncate">{currentUser.email}</p>
-            </div>
-          </div>
-        )}
-
-        <div className="border-t border-kumo-line pt-4">
-          <div className="flex items-center gap-2">
-            <MapPinIcon size={14} weight="regular" className="text-kumo-brand" />
-            <h3 className="text-card-title text-kumo-strong">Address Details</h3>
-          </div>
-          <p className="mt-2 text-sm text-kumo-subtle text-center py-4 bg-kumo-tint rounded-xl">
-            {currentUser.location || "No address provided"}
-          </p>
-        </div>
-      </div>
-
-      {/* 2. PROFESSIONAL INFORMATION */}
-      <div className="bg-kumo-base border border-kumo-line rounded-2xl p-6 space-y-4">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <BriefcaseIcon size={16} weight="regular" className="text-kumo-brand" />
-            <h2 className="text-section-title text-kumo-strong">Professional Information</h2>
-          </div>
-          {editingSection === "professional" ? (
-            <div className="flex items-center gap-2">
-              <Button variant="ghost" size="sm" onClick={() => setEditingSection(null)}>Cancel</Button>
-              <Button variant="primary" size="sm" onClick={() => handleRequestSave("professional")}>
-                <CheckCircleIcon size={12} weight="fill" className="mr-1" />
-                Save
-              </Button>
-            </div>
-          ) : (
-            <Button variant="outline" size="sm" onClick={() => setEditingSection("professional")}>
-              <PencilSimpleIcon size={12} weight="regular" className="mr-1" />
-              Edit
+            <Button variant="primary" size="md" onClick={handleCopyLink} className="px-5">
+              Copy Link
             </Button>
-          )}
+          </div>
         </div>
-
-        {editingSection === "professional" ? (
-          <div className="space-y-4 pt-2">
-            <Input label="Current Role / Title" value={role} onChange={(e) => setRole(e.target.value)} />
-            <Input label="Company / Organization" value={company} onChange={(e) => setCompany(e.target.value)} />
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <Select
-                label="Industry"
-                value={industry}
-                onValueChange={(v) => setIndustry(v)}
-                items={[
-                  "Technology",
-                  "Design",
-                  "Marketing",
-                  "Business",
-                  "Finance",
-                  "Media & Creative",
-                  "Education",
-                  "Healthcare",
-                  "Other",
-                ].map((v) => ({ label: v, value: v }))}
-              />
-              <Select
-                label="Experience Level"
-                value={experience}
-                onValueChange={(v) => setExperience(v)}
-                items={[
-                  "0-1 years",
-                  "1-3 years",
-                  "3-5 years",
-                  "5-10 years",
-                  "10+ years",
-                ].map((v) => ({ label: v, value: v }))}
-              />
-            </div>
-            <Textarea
-              label="Bio / About Me"
-              rows={4}
-              value={bio}
-              onChange={(e) => setBio(e.target.value)}
-              placeholder="Tell us about yourself, your background, and what you're passionate about..."
-            />
-          </div>
-        ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs pt-2">
-            <div>
-              <p className="text-kumo-subtle mb-1">Role</p>
-              <p className="text-kumo-strong">{currentUser.role || "—"}</p>
-            </div>
-            <div>
-              <p className="text-kumo-subtle mb-1">Company</p>
-              <p className="text-kumo-strong">{currentUser.company || "—"}</p>
-            </div>
-            <div>
-              <p className="text-kumo-subtle mb-1">Industry</p>
-              <p className="text-kumo-strong">{currentUser.industry || "—"}</p>
-            </div>
-            <div>
-              <p className="text-kumo-subtle mb-1">Experience</p>
-              <p className="text-kumo-strong">{currentUser.experience || "—"}</p>
-            </div>
-          </div>
-        )}
-
-        {currentUser.bio && (
-          <div className="border-t border-kumo-line pt-4">
-            <p className="text-xs text-kumo-subtle mb-2">Bio</p>
-            <p className="text-sm text-kumo-strong">{currentUser.bio}</p>
-          </div>
-        )}
-      </div>
-
-      {/* 3. SKILLS */}
-      <div className="bg-kumo-base border border-kumo-line rounded-2xl p-6 space-y-4">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <StackIcon size={16} weight="regular" className="text-kumo-brand" />
-            <h2 className="text-section-title text-kumo-strong">Skills</h2>
-          </div>
-          {editingSection === "skills" ? (
-            <div className="flex items-center gap-2">
-              <Button variant="ghost" size="sm" onClick={() => setEditingSection(null)}>Cancel</Button>
-              <Button variant="primary" size="sm" onClick={() => handleRequestSave("skills")}>
-                <CheckCircleIcon size={12} weight="fill" className="mr-1" />
-                Save
-              </Button>
-            </div>
-          ) : (
-            <Button variant="outline" size="sm" onClick={() => setEditingSection("skills")}>
-              <PencilSimpleIcon size={12} weight="regular" className="mr-1" />
-              Edit
-            </Button>
-          )}
-        </div>
-
-        {editingSection === "skills" ? (
-          <div className="space-y-4 pt-2">
-            <div className="flex flex-wrap gap-2">
-              {ALL_SKILLS.map((sk) => {
-                const isSelected = skills.includes(sk);
-                return (
-                  <button
-                    key={sk}
-                    type="button"
-                    onClick={() => handleToggleSkill(sk)}
-                    className={`inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-medium border transition-colors ${
-                      isSelected
-                        ? "bg-kumo-brand text-white border-kumo-brand"
-                        : "bg-kumo-tint text-kumo-subtle border-kumo-line"
-                    }`}
-                  >
-                    {isSelected ? <CheckIcon size={12} weight="bold" /> : <PlusIcon size={10} weight="regular" />}
-                    {sk}
-                  </button>
-                );
-              })}
-            </div>
-            <form onSubmit={handleAddCustomSkill} className="flex gap-2">
-              <Input
-                aria-label="Add custom skill"
-                value={customSkill}
-                onChange={(e) => setCustomSkill(e.target.value)}
-                placeholder="Add custom skill..."
-                className="flex-1"
-              />
-              <Button type="submit" variant="secondary" size="sm" disabled={!customSkill.trim()}>
-                <PlusIcon size={12} weight="regular" className="mr-1" />
-                Add
-              </Button>
-            </form>
-          </div>
-        ) : (
-          <div className="flex flex-wrap gap-2">
-            {skills.length > 0 ? (
-              skills.map((sk) => <Badge key={sk} variant="secondary">{sk}</Badge>)
-            ) : (
-              <span className="text-sm text-kumo-inactive">No skills added yet</span>
-            )}
-          </div>
-        )}
-      </div>
-
-      {/* 4. AVAILABILITY & STATUS */}
-      <div className="bg-kumo-base border border-kumo-line rounded-2xl p-6 space-y-4">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <ShieldIcon size={16} weight="regular" className="text-kumo-brand" />
-            <h2 className="text-section-title text-kumo-strong">Availability & Status</h2>
-          </div>
-          {editingSection === "availability" ? (
-            <div className="flex items-center gap-2">
-              <Button variant="ghost" size="sm" onClick={() => setEditingSection(null)}>Cancel</Button>
-              <Button variant="primary" size="sm" onClick={() => handleRequestSave("availability")}>
-                <CheckCircleIcon size={12} weight="fill" className="mr-1" />
-                Save
-              </Button>
-            </div>
-          ) : (
-            <Button variant="outline" size="sm" onClick={() => setEditingSection("availability")}>
-              <PencilSimpleIcon size={12} weight="regular" className="mr-1" />
-              Edit
-            </Button>
-          )}
-        </div>
-
-        {editingSection === "availability" ? (
-          <div className="space-y-4 pt-2">
-            <Select
-              label="Current Status"
-              value={status}
-              onValueChange={(v) => setStatus(v as UserStatus)}
-              items={["Available to Help", "Open to Work", "Open to Collaboration", "Hiring"].map((v) => ({ label: v, value: v }))}
-            />
-            <div>
-              <label className="text-xs font-semibold text-kumo-subtle mb-2 block">Looking For</label>
-              <div className="flex flex-wrap gap-2">
-                {LOOKING_FOR_OPTIONS.map((item) => (
-                  <button
-                    key={item}
-                    type="button"
-                    onClick={() => handleToggleLooking(item)}
-                    className={`inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-medium border transition-colors ${
-                      lookingFor.includes(item)
-                        ? "bg-kumo-brand text-white border-kumo-brand"
-                        : "bg-kumo-tint text-kumo-subtle border-kumo-line"
-                    }`}
-                  >
-                    {lookingFor.includes(item) && <CheckIcon size={12} weight="bold" />}
-                    {item}
-                  </button>
-                ))}
-              </div>
-            </div>
-            <div>
-              <label className="text-xs font-semibold text-kumo-subtle mb-2 block">Can Offer</label>
-              <div className="flex flex-wrap gap-2">
-                {CAN_OFFER_OPTIONS.map((item) => (
-                  <button
-                    key={item}
-                    type="button"
-                    onClick={() => handleToggleOffer(item)}
-                    className={`inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-medium border transition-colors ${
-                      canOffer.includes(item)
-                        ? "bg-kumo-brand text-white border-kumo-brand"
-                        : "bg-kumo-tint text-kumo-subtle border-kumo-line"
-                    }`}
-                  >
-                    {canOffer.includes(item) && <CheckIcon size={12} weight="bold" />}
-                    {item}
-                  </button>
-                ))}
-              </div>
-            </div>
-            <Select
-              label="Profile Visibility"
-              value={visibility}
-              onValueChange={(v) => setVisibility(v as UserVisibility)}
-              items={[
-                { label: "Community Only", value: "community" },
-                { label: "Public", value: "public" },
-                { label: "Private", value: "private" },
-              ]}
-            />
-          </div>
-        ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-xs pt-2">
-            <div>
-              <p className="text-kumo-subtle mb-1">Status</p>
-              <StatusBadge status={currentUser.status} />
-            </div>
-            <div>
-              <p className="text-kumo-subtle mb-1">Looking For</p>
-              <div className="flex flex-wrap gap-1.5">
-                {lookingFor.length > 0 ? (
-                  lookingFor.map((l) => <Badge key={l} variant="secondary" className="text-xs">{l}</Badge>)
-                ) : (
-                  <span className="text-kumo-inactive">—</span>
-                )}
-              </div>
-            </div>
-            <div>
-              <p className="text-kumo-subtle mb-1">Can Offer</p>
-              <div className="flex flex-wrap gap-1.5">
-                {canOffer.length > 0 ? (
-                  canOffer.map((c) => <Badge key={c} variant="secondary" className="text-xs">{c}</Badge>)
-                ) : (
-                  <span className="text-kumo-inactive">—</span>
-                )}
-              </div>
-            </div>
-            <div>
-              <p className="text-kumo-subtle mb-1">Visibility</p>
-              <p className="text-kumo-strong capitalize">{currentUser.visibility}</p>
-            </div>
-          </div>
-        )}
-      </div>
-
-      {/* 5. SOCIAL LINKS */}
-      <div className="bg-kumo-base border border-kumo-line rounded-2xl p-6 space-y-4">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <GlobeIcon size={16} weight="regular" className="text-kumo-brand" />
-            <h2 className="text-section-title text-kumo-strong">Social Links</h2>
-          </div>
-          {editingSection === "links" ? (
-            <div className="flex items-center gap-2">
-              <Button variant="ghost" size="sm" onClick={() => setEditingSection(null)}>Cancel</Button>
-              <Button variant="primary" size="sm" onClick={() => handleRequestSave("links")}>
-                <CheckCircleIcon size={12} weight="fill" className="mr-1" />
-                Save
-              </Button>
-            </div>
-          ) : (
-            <Button variant="outline" size="sm" onClick={() => setEditingSection("links")}>
-              <PencilSimpleIcon size={12} weight="regular" className="mr-1" />
-              Edit
-            </Button>
-          )}
-        </div>
-
-        {editingSection === "links" ? (
-          <div className="space-y-4 pt-2">
-            <Input
-              label="LinkedIn URL"
-              value={linkedin}
-              onChange={(e) => setLinkedin(e.target.value)}
-              placeholder="https://linkedin.com/in/yourname"
-            />
-            <Input
-              label="Portfolio / Website URL"
-              value={portfolio}
-              onChange={(e) => setPortfolio(e.target.value)}
-              placeholder="https://yourportfolio.com"
-            />
-            <Input
-              label="Personal Website URL"
-              value={website}
-              onChange={(e) => setWebsite(e.target.value)}
-              placeholder="https://yourwebsite.com"
-            />
-          </div>
-        ) : (
-          <div className="space-y-3">
-            {linkedin && (
-              <a href={linkedin} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm text-kumo-brand hover:underline">
-                <GlobeIcon size={14} weight="regular" /> LinkedIn
-              </a>
-            )}
-            {portfolio && (
-              <a href={portfolio} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm text-kumo-brand hover:underline">
-                <GlobeIcon size={14} weight="regular" /> Portfolio
-              </a>
-            )}
-            {website && (
-              <a href={website} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm text-kumo-brand hover:underline">
-                <GlobeIcon size={14} weight="regular" /> Website
-              </a>
-            )}
-            {!linkedin && !portfolio && !website && <p className="text-sm text-kumo-inactive">No social links added yet</p>}
-          </div>
-        )}
-      </div>
-
-      {/* 6. DANGER ZONE */}
-      <div className="bg-error-lighter border border-error-light rounded-2xl p-6 space-y-4">
-        <div className="flex items-center gap-2">
-          <TrashSimpleIcon size={16} weight="fill" className="text-error-base" />
-          <h2 className="text-section-title text-error-dark">Danger Zone</h2>
-        </div>
-        <p className="text-sm text-error-dark">Irreversible actions. Proceed with caution.</p>
-        <div className="flex items-center gap-3">
-          <Button variant="danger" size="sm" onClick={() => addToast("Coming soon", "Account deletion not yet implemented", "info")}>
-            Delete Account
-          </Button>
-          <Button variant="outline" size="sm" onClick={() => addToast("Coming soon", "Data export not yet implemented", "info")}>
-            Export Data
-          </Button>
-        </div>
-      </div>
+      </Modal>
     </div>
   );
 }
@@ -664,11 +658,11 @@ function Select({
 }) {
   return (
     <div className="space-y-1.5">
-      <label className="text-xs font-semibold text-kumo-subtle">{label}</label>
+      <label className="text-xs font-semibold text-zinc-500">{label}</label>
       <select
         value={value}
         onChange={(e) => onValueChange(e.target.value)}
-        className="w-full h-9 px-3 bg-kumo-base border border-kumo-line rounded-xl text-sm text-kumo-strong outline-none focus:ring-2 focus:ring-kumo-brand focus:ring-offset-1 appearance-none cursor-pointer"
+        className="w-full h-10 rounded-xl border border-zinc-200 bg-white px-3 text-sm text-[#111827] outline-none focus:border-[#2563EB] focus:ring-2 focus:ring-[#2563EB]/15"
       >
         {items.map((item) => (
           <option key={item.value} value={item.value}>
