@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 import { LayerCard } from "@/components/ui/Surface";
 import { Modal } from "@/components/ui/Modal";
-import { StackIcon, PlusIcon, DotsThreeVerticalIcon, PencilSimpleIcon, ArrowsMergeIcon, TrashIcon, MagnifyingGlassIcon } from "@phosphor-icons/react";
+import { StackIcon, PlusIcon, DotsThreeVerticalIcon, PencilSimpleIcon, ArrowsMergeIcon, TrashIcon, MagnifyingGlassIcon, CodeIcon, PaletteIcon, BriefcaseIcon, MegaphoneIcon, BankIcon, FilmSlateIcon, DotsThreeIcon } from "@phosphor-icons/react";
 
 const FIELD_CATEGORIES: SkillCategory[] = ["Design", "Technology", "Business", "Marketing", "Finance", "Media & Creative", "Other"];
 
@@ -19,6 +19,16 @@ const CATEGORY_COLORS: Record<string, string> = {
   "Finance": "bg-warning-base",
   "Media & Creative": "bg-primary-base",
   "Other": "bg-kumo-subtle",
+};
+
+const CATEGORY_ICONS: Record<string, any> = {
+  "Technology": CodeIcon,
+  "Design": PaletteIcon,
+  "Business": BriefcaseIcon,
+  "Marketing": MegaphoneIcon,
+  "Finance": BankIcon,
+  "Media & Creative": FilmSlateIcon,
+  "Other": DotsThreeIcon,
 };
 
 export default function AdminSkillsPage() {
@@ -143,7 +153,12 @@ export default function AdminSkillsPage() {
             <LayerCard key={category} className="p-0 overflow-hidden">
               <div className="px-4 sm:px-5 py-3.5 border-b border-kumo-line flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                  <div className={`size-2.5 rounded-full shrink-0 ${CATEGORY_COLORS[category] || "bg-kumo-inactive"}`} />
+                  <div className={`flex size-8 items-center justify-center rounded-lg shrink-0 ${CATEGORY_COLORS[category] || "bg-kumo-inactive"} text-white`}>
+                    {(() => {
+                      const Icon = CATEGORY_ICONS[category] || DotsThreeIcon;
+                      return <Icon size={16} weight="regular" />;
+                    })()}
+                  </div>
                   <div>
                     <h3 className="text-card-title text-kumo-strong">{category}</h3>
                     <span className="text-xs text-kumo-inactive">{count} {count === 1 ? "skill" : "skills"}</span>
