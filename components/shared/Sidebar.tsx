@@ -246,12 +246,8 @@ function SidebarInner() {
       {/* User card — bottom */}
       <KumoSidebar.Footer className="bg-white border-t border-zinc-100 p-2">
         <div className="relative">
-          <button
-            type="button"
-            onClick={() => setShowUserMenu(!showUserMenu)}
-            className={`flex w-full items-center gap-3 rounded-xl p-3 hover:bg-zinc-50 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-kumo-brand ${isCollapsed ? "justify-center" : ""}`}
-            aria-expanded={showUserMenu}
-            aria-haspopup="menu"
+          <div
+            className={`flex w-full items-center gap-3 rounded-xl p-3 ${isCollapsed ? "justify-center" : ""}`}
           >
             <img
               src={currentUser?.avatar || "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&auto=format&fit=crop&q=60"}
@@ -261,15 +257,12 @@ function SidebarInner() {
               className="size-6 shrink-0 rounded-full object-cover aspect-square bg-kumo-tint ring-1 ring-zinc-200"
             />
             {!isCollapsed && (
-              <>
-                <div className="min-w-0 flex-1 text-left">
-                  <p className="truncate text-[13px] font-semibold leading-4 text-[#111827]">{currentUser?.name || "Admin Angkatan 5"}</p>
-                  <p className="truncate text-[11px] leading-3 text-zinc-500">{currentUser?.email || "admin@angkatan5.id"}</p>
-                </div>
-                <CaretDownIcon size={12} weight="bold" className={`shrink-0 text-zinc-400 transition-transform ${showUserMenu ? "rotate-180" : ""}`} />
-              </>
+              <div className="min-w-0 flex-1 text-left">
+                <p className="truncate text-[13px] font-semibold leading-4 text-[#111827]">{currentUser?.name || "Admin Angkatan 5"}</p>
+                <p className="truncate text-[11px] leading-3 text-zinc-500">{currentUser?.email || "admin@angkatan5.id"}</p>
+              </div>
             )}
-          </button>
+          </div>
 
           {showUserMenu && !isCollapsed && (
             <div className="absolute bottom-full left-0 right-0 mb-2 rounded-xl border border-zinc-200 bg-white shadow-[0_8px_24px_rgba(0,0,0,0.08)] p-1.5 z-50" role="menu">
