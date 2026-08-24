@@ -6,9 +6,8 @@ import { useApp } from "@/lib/store/AppContext";
 import { OpportunityCard } from "@/components/member/OpportunityCard";
 import { Button } from "@/components/ui/Button";
 import { EmptyState } from "@/components/ui/EmptyState";
-import { Grid } from "@cloudflare/kumo/components/grid";
-import { LayerCard } from "@cloudflare/kumo/components/layer-card";
-import { Input } from "@cloudflare/kumo/components/input";
+import { Grid, LayerCard } from "@/components/ui/Surface";
+import { Input } from "@/components/ui/Input";
 import { BriefcaseIcon, PlusCircleIcon, MagnifyingGlassIcon, XIcon, BookmarkSimpleIcon, SparkleIcon, SlidersHorizontalIcon } from "@phosphor-icons/react";
 import { OpportunityCategory, OpportunityType } from "@/lib/types";
 

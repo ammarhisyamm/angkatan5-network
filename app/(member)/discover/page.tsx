@@ -6,10 +6,9 @@ import { ProfileCard } from "@/components/member/ProfileCard";
 import { ProfileCardSkeleton } from "@/components/ui/Skeleton";
 import { Button } from "@/components/ui/Button";
 import { EmptyState } from "@/components/ui/EmptyState";
-import { Grid } from "@cloudflare/kumo/components/grid";
-import { LayerCard } from "@cloudflare/kumo/components/layer-card";
-import { Input } from "@cloudflare/kumo/components/input";
-import { Select } from "@cloudflare/kumo/components/select";
+import { Grid, LayerCard } from "@/components/ui/Surface";
+import { Input } from "@/components/ui/Input";
+import { Select } from "@/components/ui/Select";
 import { MagnifyingGlassIcon, FunnelIcon, XIcon, SlidersHorizontalIcon, UsersIcon, SparkleIcon, ArrowCounterClockwiseIcon } from "@phosphor-icons/react";
 import { UserStatus } from "@/lib/types";
 

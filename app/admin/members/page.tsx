@@ -8,10 +8,10 @@ import { StatusBadge } from "@/components/ui/Badge";
 import { Tag } from "@/components/ui/Tag";
 import { Button } from "@/components/ui/Button";
 import { Modal } from "@/components/ui/Modal";
-import { Table } from "@cloudflare/kumo/components/table";
-import { LayerCard } from "@cloudflare/kumo/components/layer-card";
-import { Input } from "@cloudflare/kumo/components/input";
-import { Select } from "@cloudflare/kumo/components/select";
+import { Table } from "@/components/ui/Table";
+import { LayerCard } from "@/components/ui/Surface";
+import { Input } from "@/components/ui/Input";
+import { Select } from "@/components/ui/Select";
 import {
   UsersIcon,
   CheckCircleIcon,

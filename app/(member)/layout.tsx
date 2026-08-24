@@ -4,7 +4,7 @@ import React from "react";
 import { Sidebar } from "@/components/shared/Sidebar";
 import { Header } from "@/components/shared/Header";
 import { BottomNav } from "@/components/shared/BottomNav";
-import { Sidebar as KumoSidebar } from "@cloudflare/kumo/components/sidebar";
+import { SidebarProvider } from "@/components/shared/SidebarContext";
 
 export default function MemberLayout({
   children,
@@ -12,16 +12,7 @@ export default function MemberLayout({
   children: React.ReactNode;
 }) {
   return (
-    <KumoSidebar.Provider
-      defaultOpen
-      defaultWidth={280}
-      minWidth={260}
-      maxWidth={320}
-      resizable
-      collapsible="icon"
-      peekable
-      className="bg-kumo-tint text-kumo-strong"
-    >
+    <SidebarProvider>
       <a href="#main-content" className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-lg focus:bg-kumo-base focus:px-4 focus:py-3 focus:text-sm focus:font-semibold focus:text-kumo-strong focus:shadow-lg">Skip to main content</a>
       <div className="flex min-h-screen w-full">
         <Sidebar />
@@ -31,6 +22,6 @@ export default function MemberLayout({
         </div>
       </div>
       <BottomNav />
-    </KumoSidebar.Provider>
+    </SidebarProvider>
   );
 }

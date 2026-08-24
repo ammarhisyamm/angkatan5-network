@@ -6,7 +6,7 @@ import { User } from "@/lib/types";
 import { StatusBadge } from "@/components/ui/Badge";
 import { Tag } from "@/components/ui/Tag";
 import { Button } from "@/components/ui/Button";
-import { LayerCard } from "@cloudflare/kumo/components/layer-card";
+import { LayerCard } from "@/components/ui/Surface";
 import { SealCheckIcon, ArrowRightIcon } from "@phosphor-icons/react";
 
 export function ProfileCard({ member }: { member: User }) {

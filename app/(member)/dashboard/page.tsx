@@ -6,8 +6,7 @@ import { useApp } from "@/lib/store/AppContext";
 import { ProfileCard } from "@/components/member/ProfileCard";
 import { OpportunityCard } from "@/components/member/OpportunityCard";
 import { Button } from "@/components/ui/Button";
-import { LayerCard } from "@cloudflare/kumo/components/layer-card";
-import { Grid } from "@cloudflare/kumo/components/grid";
+import { LayerCard, Grid } from "@/components/ui/Surface";
 import { MagnifyingGlassIcon, BriefcaseIcon, PlusCircleIcon, ArrowRightIcon, UsersIcon, HandshakeIcon } from "@phosphor-icons/react";
 
 export default function MemberDashboardPage() {

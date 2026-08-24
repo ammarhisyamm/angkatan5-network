@@ -1,69 +1,45 @@
 "use client";
 
 import * as React from "react";
-import { Banner as KumoBanner } from "@cloudflare/kumo/components/banner";
-import { InfoIcon, WarningCircleIcon, CheckCircleIcon, XCircleIcon } from "@phosphor-icons/react";
+import { CheckCircleIcon, InfoIcon, WarningCircleIcon, XCircleIcon, XIcon } from "@phosphor-icons/react";
+import { cn } from "@/lib/utils/cn";
 
-// Wrapper keeping legacy Alert API but rendering Kumo Banner
 export const alertVariants = () => ({ root: () => "", wrapper: () => "", icon: () => "", closeIcon: () => "" });
 
 type AlertStatus = "error" | "warning" | "success" | "information" | "feature";
 type AlertVariant = "filled" | "light" | "lighter" | "stroke";
 
-function mapStatusToKumoVariant(status: AlertStatus): "default" | "alert" | "error" | "secondary" {
-  switch (status) {
-    case "error": return "error";
-    case "warning": return "alert";
-    case "success": return "default";
-    case "information": return "default";
-    case "feature": return "secondary";
-    default: return "default";
-  }
+function statusIcon(status: AlertStatus) {
+  const props = { weight: "fill" as const, size: 20 };
+  if (status === "error") return <XCircleIcon {...props} />;
+  if (status === "warning") return <WarningCircleIcon {...props} />;
+  if (status === "success") return <CheckCircleIcon {...props} />;
+  return <InfoIcon {...props} />;
 }
 
-function mapStatusToIcon(status: AlertStatus) {
-  switch (status) {
-    case "error": return <XCircleIcon weight="fill" />;
-    case "warning": return <WarningCircleIcon weight="fill" />;
-    case "success": return <CheckCircleIcon weight="fill" />;
-    case "information": return <InfoIcon weight="fill" />;
-    case "feature": return <InfoIcon weight="fill" />;
-    default: return <InfoIcon weight="fill" />;
-  }
+export function Root({ children, status = "information", variant: _variant, size: _size, className, ...rest }: React.HTMLAttributes<HTMLDivElement> & { status?: AlertStatus; variant?: AlertVariant; size?: string }) {
+  const tone = {
+    error: "border-error-base/30 bg-error-lighter text-error-dark",
+    warning: "border-warning-base/30 bg-warning-lighter text-warning-dark",
+    success: "border-success-base/30 bg-success-lighter text-success-dark",
+    information: "border-information-base/30 bg-information-lighter text-information-dark",
+    feature: "border-purple-300 bg-purple-50 text-purple-950",
+  }[status];
+  return <div role="status" className={cn("flex items-start gap-3 rounded-xl border px-4 py-3 text-sm", tone, className)} {...rest}>
+    <span className="mt-0.5 shrink-0" aria-hidden="true">{statusIcon(status)}</span>
+    <div className="flex min-w-0 flex-1 flex-col gap-0">{children}</div>
+  </div>;
 }
 
-export function Root({ children, status = "information", variant: _variant, size: _size, className, ...rest }: any) {
-  const kumoVariant = mapStatusToKumoVariant(status);
-  // Extract text from children for Banner title/description if possible, else render as children
-  // For Toast usage, children contains Alert.Icon + div with title/description + close
-  // We detect if children is the legacy structure and map appropriately, otherwise render Banner with children
-  const hasLegacyStructure = React.Children.toArray(children).some((c: any) => c?.props?.children);
-  if (hasLegacyStructure && React.Children.count(children) > 1) {
-    // Legacy Toast pattern: Icon + div + CloseIcon — render as Banner with title/description
-    // Fallback: just render Banner with children as is for flexibility
-    return (
-      <KumoBanner variant={kumoVariant} icon={mapStatusToIcon(status)} className={className} {...rest}>
-        <div className="flex flex-1 flex-col gap-0">{children}</div>
-      </KumoBanner>
-    );
-  }
-  return (
-    <KumoBanner variant={kumoVariant} icon={mapStatusToIcon(status)} className={className} {...rest}>
-      {children}
-    </KumoBanner>
-  );
-}
-
-export function Icon({ as: As, ...props }: any) {
+export function Icon({ as: As, ...props }: { as?: React.ElementType } & React.HTMLAttributes<HTMLElement>) {
   const Component = As || "span";
   return <Component {...props} />;
 }
 
-export function CloseIcon(props: any) {
-  return <span {...props} />;
+export function CloseIcon(props: React.ButtonHTMLAttributes<HTMLButtonElement>) {
+  return <button type="button" aria-label="Close" className="shrink-0 rounded-md p-1 opacity-70 transition-opacity hover:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-current" {...props}><XIcon size={16} aria-hidden="true" /></button>;
 }
 
-// Legacy exports
 export const AlertRoot = Root;
 export const AlertIcon = Icon;
 export const AlertCloseIcon = CloseIcon;

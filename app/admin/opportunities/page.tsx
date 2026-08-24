@@ -7,8 +7,8 @@ import { Opportunity, OpportunityStatus } from "@/lib/types";
 import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
 import { Modal } from "@/components/ui/Modal";
-import { Table } from "@cloudflare/kumo/components/table";
-import { LayerCard } from "@cloudflare/kumo/components/layer-card";
+import { Table } from "@/components/ui/Table";
+import { LayerCard } from "@/components/ui/Surface";
 import { CheckCircleIcon, ClockCounterClockwiseIcon, UsersIcon, XCircleIcon, ArrowRightIcon, ArchiveIcon, PlusIcon } from "@phosphor-icons/react";
 
 const TABS = [

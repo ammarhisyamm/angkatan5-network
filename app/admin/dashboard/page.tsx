@@ -4,7 +4,7 @@ import React from "react";
 import Link from "next/link";
 import { useApp } from "@/lib/store/AppContext";
 import { Button } from "@/components/ui/Button";
-import { LayerCard } from "@cloudflare/kumo/components/layer-card";
+import { LayerCard } from "@/components/ui/Surface";
 import {
   ResponsiveContainer,
   LineChart,

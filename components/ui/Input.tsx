@@ -1,84 +1,32 @@
 "use client";
 
 import * as React from "react";
-import { Input as KumoInput, InputArea as KumoInputArea } from "@cloudflare/kumo/components/input";
+import { cn } from "@/lib/utils/cn";
 
-export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
-  label?: string;
-  error?: string;
-  helperText?: string;
-  leftIcon?: React.ReactNode;
-  rightIcon?: React.ReactNode;
-}
+export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> { label?: string; error?: string; helperText?: string; leftIcon?: React.ReactNode; rightIcon?: React.ReactNode; }
 
-export const Input = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ label, error, helperText, leftIcon, rightIcon, id, className, autoComplete, name, type, inputMode, spellCheck, ...props }, ref) => {
-    const hasError = !!error;
-    const inputProps: any = { autoComplete, name, type, inputMode, spellCheck, ...props };
-    // Ensure non-auth fields don't trigger password manager
-    if (!autoComplete && !name?.includes("password") && !name?.includes("email")) {
-      inputProps.autoComplete = "off";
-    }
-    if (leftIcon || rightIcon) {
-      return (
-        <div className="w-full flex flex-col gap-2">
-          <KumoInput
-            ref={ref as any}
-            label={label}
-            description={error ? undefined : helperText}
-            error={error}
-            variant={hasError ? "error" : "default"}
-            size="lg"
-            id={id}
-            className={className}
-            {...inputProps}
-          />
-          {(leftIcon || rightIcon) && <span className="sr-only">icon adornment</span>}
-        </div>
-      );
-    }
-    return (
-      <KumoInput
-        ref={ref as any}
-        label={label}
-        description={error ? undefined : helperText}
-        error={error}
-        variant={hasError ? "error" : "default"}
-        size="lg"
-        id={id}
-        className={className}
-        {...inputProps}
-      />
-    );
-  },
-);
+export const Input = React.forwardRef<HTMLInputElement, InputProps>(function Input({ label, error, helperText, leftIcon, rightIcon, id, className, ...props }, ref) {
+  const inputId = id ?? props.name;
+  return <label className="flex w-full flex-col gap-1.5" htmlFor={inputId}>
+    {label && <span className="text-sm font-medium text-kumo-strong">{label}</span>}
+    <span className="relative flex items-center">
+      {leftIcon && <span aria-hidden="true" className="pointer-events-none absolute left-3 text-kumo-subtle">{leftIcon}</span>}
+      <input ref={ref} id={inputId} aria-invalid={error ? true : undefined} className={cn("h-11 w-full rounded-lg bg-kumo-base px-3.5 text-base text-kumo-strong ring-1 ring-kumo-line outline-none transition-colors placeholder:text-kumo-inactive hover:ring-kumo-subtle focus:ring-2 focus:ring-kumo-brand/40", leftIcon && "pl-10", rightIcon && "pr-10", error && "ring-error-base focus:ring-error-base/40", className)} {...props} />
+      {rightIcon && <span aria-hidden="true" className="pointer-events-none absolute right-3 text-kumo-subtle">{rightIcon}</span>}
+    </span>
+    {(error || helperText) && <span className={cn("text-xs", error ? "text-error-base" : "text-kumo-subtle")}>{error || helperText}</span>}
+  </label>;
+});
 Input.displayName = "Input";
 
-export interface TextareaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
-  label?: string;
-  error?: string;
-  helperText?: string;
-}
-
-export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
-  ({ label, error, helperText, id, className, ...props }, ref) => {
-    const hasError = !!error;
-    return (
-      <KumoInputArea
-        ref={ref as any}
-        label={label}
-        description={error ? undefined : helperText}
-        error={error}
-        variant={hasError ? "error" : "default"}
-        size="lg"
-        id={id}
-        className={className}
-        {...(props as any)}
-      />
-    );
-  },
-);
+export interface TextareaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> { label?: string; error?: string; helperText?: string; }
+export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(function Textarea({ label, error, helperText, id, className, ...props }, ref) {
+  const textareaId = id ?? props.name;
+  return <label className="flex w-full flex-col gap-1.5" htmlFor={textareaId}>
+    {label && <span className="text-sm font-medium text-kumo-strong">{label}</span>}
+    <textarea ref={ref} id={textareaId} aria-invalid={error ? true : undefined} className={cn("min-h-28 w-full rounded-lg bg-kumo-base px-3.5 py-3 text-base text-kumo-strong ring-1 ring-kumo-line outline-none transition-colors placeholder:text-kumo-inactive focus:ring-2 focus:ring-kumo-brand/40", error && "ring-error-base", className)} {...props} />
+    {(error || helperText) && <span className={cn("text-xs", error ? "text-error-base" : "text-kumo-subtle")}>{error || helperText}</span>}
+  </label>;
+});
 Textarea.displayName = "Textarea";
-
-// Keep legacy export for any variant helper (not used now)
 export const inputVariants = () => ({ root: () => "", wrapper: () => "", input: () => "" });

@@ -1,73 +1,24 @@
 "use client";
 
 import React from "react";
-import { Badge as KumoBadge } from "@cloudflare/kumo/components/badge";
 import { cn } from "@/lib/utils/cn";
 
 export type TagTone = "neutral" | "success" | "warning" | "information" | "primary";
-
-const toneMap: Record<TagTone, "neutral" | "success" | "warning" | "info" | "blue"> = {
-  neutral: "neutral",
-  success: "success",
-  warning: "warning",
-  information: "info",
-  primary: "blue",
+const tones: Record<TagTone, string> = {
+  neutral: "bg-kumo-base text-kumo-strong ring-kumo-line",
+  success: "bg-success-lighter text-success-dark ring-success-base/20",
+  warning: "bg-warning-lighter text-warning-dark ring-warning-base/20",
+  information: "bg-information-lighter text-information-dark ring-information-base/20",
+  primary: "bg-primary-alpha-10 text-kumo-brand ring-kumo-brand/20",
 };
 
-export interface TagProps extends React.HTMLAttributes<HTMLSpanElement> {
-  tone?: TagTone;
-}
-
+export interface TagProps extends React.HTMLAttributes<HTMLSpanElement> { tone?: TagTone; }
 export function Tag({ className, tone = "neutral", children, ...props }: TagProps) {
-  const variant = toneMap[tone] ?? "neutral";
-  const isNeutral = variant === "neutral";
-  return (
-    <KumoBadge
-      variant={variant}
-      className={cn(
-        "rounded-full px-2.5 py-0.5 text-xs font-medium leading-none min-h-[24px] h-auto",
-        isNeutral && "bg-white text-kumo-strong border border-kumo-line",
-        className,
-      )}
-      {...(props as any)}
-    >
-      {children}
-    </KumoBadge>
-  );
+  return <span className={cn("inline-flex min-h-6 items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-medium leading-none ring-1", tones[tone], className)} {...props}>{children}</span>;
 }
 
-/* StatusBadge — uses Kumo dot appearance for semantic status */
 export type StatusTone = "success" | "warning" | "information" | "primary" | "neutral";
-
-const statusVariantMap: Record<StatusTone, "success" | "warning" | "info" | "blue" | "neutral"> = {
-  success: "success",
-  warning: "warning",
-  information: "info",
-  primary: "blue",
-  neutral: "neutral",
-};
-
-export interface StatusBadgeProps extends React.HTMLAttributes<HTMLSpanElement> {
-  tone: StatusTone;
-  label: string;
-}
-
+export interface StatusBadgeProps extends React.HTMLAttributes<HTMLSpanElement> { tone: StatusTone; label: string; }
 export function StatusBadge({ tone, label, className, ...props }: StatusBadgeProps) {
-  const variant = statusVariantMap[tone] ?? "neutral";
-  const isNeutral = variant === "neutral";
-  const useDot = variant === "success" || variant === "warning" || variant === "neutral";
-  return (
-    <KumoBadge
-      variant={variant as any}
-      appearance={useDot ? "dot" : undefined}
-      className={cn(
-        "rounded-full px-2.5 py-0.5 gap-1.5 text-xs font-semibold min-h-[24px] h-auto",
-        isNeutral && "bg-white text-kumo-strong border border-kumo-line",
-        className,
-      )}
-      {...(props as any)}
-    >
-      {label}
-    </KumoBadge>
-  );
+  return <Tag tone={tone} className={cn("gap-1.5", className)} {...props}><span aria-hidden="true" className="size-1.5 rounded-full bg-current" />{label}</Tag>;
 }

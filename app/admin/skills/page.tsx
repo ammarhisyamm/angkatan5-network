@@ -4,8 +4,8 @@ import React, { useState, useMemo } from "react";
 import { useApp } from "@/lib/store/AppContext";
 import { SkillCategory } from "@/lib/types";
 import { Button } from "@/components/ui/Button";
-import { Input } from "@cloudflare/kumo/components/input";
-import { LayerCard } from "@cloudflare/kumo/components/layer-card";
+import { Input } from "@/components/ui/Input";
+import { LayerCard } from "@/components/ui/Surface";
 import { Modal } from "@/components/ui/Modal";
 import { StackIcon, PlusIcon, DotsThreeVerticalIcon, PencilSimpleIcon, ArrowsMergeIcon, TrashIcon, MagnifyingGlassIcon } from "@phosphor-icons/react";
 

@@ -5,7 +5,7 @@ import Link from "next/link";
 import { Opportunity } from "@/lib/types";
 import { Tag } from "@/components/ui/Tag";
 import { Button } from "@/components/ui/Button";
-import { LayerCard } from "@cloudflare/kumo/components/layer-card";
+import { LayerCard } from "@/components/ui/Surface";
 import { useApp } from "@/lib/store/AppContext";
 import { BookmarkSimpleIcon, MapPinIcon, ArrowRightIcon } from "@phosphor-icons/react";
 

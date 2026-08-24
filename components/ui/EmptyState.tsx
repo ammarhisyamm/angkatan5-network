@@ -1,8 +1,6 @@
 "use client";
 
 import React from "react";
-import { Empty as KumoEmpty } from "@cloudflare/kumo/components/empty";
-import { Button } from "@cloudflare/kumo/components/button";
 
 export interface EmptyStateProps {
   icon: React.ElementType;
@@ -13,14 +11,10 @@ export interface EmptyStateProps {
 }
 
 export function EmptyState({ icon: Icon, title, description, action, className }: EmptyStateProps) {
-  return (
-    <KumoEmpty
-      icon={<Icon size={32} className="text-kumo-inactive" />}
-      title={title}
-      description={description}
-      contents={action}
-      className={className}
-      size="base"
-    />
-  );
+  return <div className={`flex min-h-56 flex-col items-center justify-center rounded-xl border border-dashed border-kumo-line bg-kumo-tint p-8 text-center ${className ?? ""}`}>
+    <Icon size={32} className="text-kumo-subtle" aria-hidden="true" />
+    <h2 className="mt-4 text-base font-semibold text-kumo-strong">{title}</h2>
+    {description && <p className="mt-1 max-w-md text-sm leading-6 text-kumo-subtle">{description}</p>}
+    {action && <div className="mt-5">{action}</div>}
+  </div>;
 }
