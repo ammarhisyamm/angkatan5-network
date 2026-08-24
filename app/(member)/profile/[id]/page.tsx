@@ -6,12 +6,14 @@ import { notFound, useParams } from "next/navigation";
 import { useApp } from "@/lib/store/AppContext";
 import { StatusBadge, Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
+import { Modal } from "@/components/ui/Modal";
 import { MapPinIcon, SealCheckIcon, BriefcaseIcon, CalendarIcon, ShareNetworkIcon, UserPlusIcon, GlobeIcon, ArrowSquareOutIcon, CheckCircleIcon, ArrowLeftIcon, SparkleIcon, QuestionIcon, MagnifyingGlassIcon } from "@phosphor-icons/react";
 
 export default function MemberProfilePage() {
   const params = useParams();
   const profileId = params.id as string;
   const { users, currentUser, addToast } = useApp();
+  const [showShareModal, setShowShareModal] = useState(false);
 
   const member = users.find((u) => u.id === profileId);
 
@@ -34,13 +36,14 @@ export default function MemberProfilePage() {
   }
 
   const handleShare = () => {
+    setShowShareModal(true);
+  };
+
+  const handleCopyLink = () => {
     if (typeof window !== "undefined") {
       navigator.clipboard.writeText(window.location.href);
-      addToast(
-        "Profile link copied!",
-        "Share it with your colleagues or WhatsApp groups.",
-        "success"
-      );
+      addToast("Profile link copied!", "Share it with your colleagues.", "success");
+      setShowShareModal(false);
     }
   };
 
@@ -313,6 +316,36 @@ export default function MemberProfilePage() {
           </div>
         </div>
       </div>
+
+      <Modal
+        isOpen={showShareModal}
+        onClose={() => setShowShareModal(false)}
+        title="Share Profile"
+        description="Copy link to share this profile"
+        icon="info"
+        maxWidth="sm"
+      >
+        <div className="space-y-4">
+          <div className="flex items-center justify-center py-2">
+            <div className="size-12 rounded-full bg-kumo-tint flex items-center justify-center">
+              <ShareNetworkIcon size={24} weight="regular" className="text-kumo-brand" />
+            </div>
+          </div>
+          <div className="bg-kumo-tint rounded-xl p-3 flex items-center gap-2">
+            <span className="flex-1 truncate text-sm text-kumo-strong">
+              {typeof window !== "undefined" ? window.location.href : ""}
+            </span>
+          </div>
+          <div className="flex items-center justify-end gap-2 pt-3 border-t border-kumo-line">
+            <Button variant="outline" size="sm" onClick={() => setShowShareModal(false)}>
+              Cancel
+            </Button>
+            <Button variant="primary" size="sm" onClick={handleCopyLink}>
+              Copy Link
+            </Button>
+          </div>
+        </div>
+      </Modal>
     </div>
   );
 }
