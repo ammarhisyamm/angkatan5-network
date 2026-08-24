@@ -227,7 +227,7 @@ export default function OnboardingPage() {
                       src={url}
                       alt="avatar"
                       onClick={() => setAvatar(url)}
-                      className={`size-12 rounded-full bg-kumo-tint object-cover ring-1 transition-colors cursor-pointer ${
+                      className={`size-12 rounded-full bg-kumo-tint object-cover aspect-square ring-1 transition-colors cursor-pointer ${
                         avatar === url
                           ? "ring-2 ring-kumo-brand"
                           : "ring-kumo-line hover:ring-stroke-sub-300"
