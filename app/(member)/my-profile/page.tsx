@@ -66,6 +66,7 @@ export default function MyProfilePage() {
   const [saveModal, setSaveModal] = useState<{ open: boolean; section: string } | null>(null);
   const [showFullBio, setShowFullBio] = useState(false);
   const [showShareModal, setShowShareModal] = useState(false);
+  const [successModal, setSuccessModal] = useState<{ title: string; desc: string } | null>(null);
 
   const [name, setName] = useState(currentUser?.name || "");
   const [location, setLocation] = useState(currentUser?.location || "");
@@ -104,8 +105,8 @@ export default function MyProfilePage() {
       portfolio,
       website,
     });
-    addToast("Saved", `${sectionName} updated successfully`, "success");
     setEditingSection(null);
+    setSuccessModal({ title: "Profile updated", desc: "Your profile changes have been saved." });
   };
 
   const handleRequestSave = (sectionName: string) => setSaveModal({ open: true, section: sectionName });
@@ -578,6 +579,21 @@ export default function MyProfilePage() {
         cancelText="Cancel"
         variant="primary"
       />
+
+      <Modal
+        isOpen={!!successModal}
+        onClose={() => setSuccessModal(null)}
+        title={successModal?.title || "Profile updated"}
+        description={successModal?.desc || "Your profile changes have been saved."}
+        icon="success"
+        maxWidth="sm"
+      >
+        <div className="flex justify-end">
+          <Button variant="primary" size="md" onClick={() => setSuccessModal(null)} className="px-5">
+            Done
+          </Button>
+        </div>
+      </Modal>
 
       {/* Share */}
       <Modal isOpen={showShareModal} onClose={() => setShowShareModal(false)} title="Share profile" description="Copy your profile link" icon="info" maxWidth="sm">
