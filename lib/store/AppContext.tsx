@@ -110,6 +110,8 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
         ? JSON.parse(storedBookmarks)
         : [];
 
+      // These state updates hydrate client-only localStorage data once on mount.
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setUsers(parsedUsers);
       setOpportunities(parsedOpps);
       setSkills(parsedSkills);
@@ -171,7 +173,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     description?: string,
     type: "success" | "error" | "info" | "warning" = "success"
   ) => {
-    const id = Math.random().toString(36).substring(2, 9);
+    const id = globalThis.crypto.randomUUID();
     const newToast: ToastMessage = { id, title, description, type };
     setToasts((prev) => [...prev, newToast]);
     setTimeout(() => {

@@ -2,7 +2,7 @@ import * as React from "react";
 
 export function recursiveCloneChildren(
   children: React.ReactNode,
-  additionalProps: any,
+  additionalProps: Record<string, unknown>,
   displayNames: string[],
   uniqueId: string,
   asChild?: boolean,
@@ -20,7 +20,7 @@ export function recursiveCloneChildren(
         ? additionalProps
         : {};
 
-      const childProps = (child as React.ReactElement<any>).props;
+      const childProps = (child as React.ReactElement<{ children?: React.ReactNode; asChild?: boolean }>).props;
 
       return React.cloneElement(
         child,
