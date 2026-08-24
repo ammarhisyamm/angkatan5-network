@@ -7,7 +7,8 @@ import { ProfileCard } from "@/components/member/ProfileCard";
 import { OpportunityCard } from "@/components/member/OpportunityCard";
 import { Button } from "@/components/ui/Button";
 import { LayerCard, Grid } from "@/components/ui/Surface";
-import { MagnifyingGlassIcon, BriefcaseIcon, PlusCircleIcon, ArrowRightIcon, UsersIcon, HandshakeIcon } from "@phosphor-icons/react";
+import { Avatar } from "@/components/ui/Avatar";
+import { BriefcaseIcon, PlusCircleIcon, ArrowRightIcon, UsersIcon, HandshakeIcon } from "@phosphor-icons/react";
 
 export default function MemberDashboardPage() {
   const { currentUser, users, opportunities } = useApp();
@@ -44,7 +45,7 @@ export default function MemberDashboardPage() {
       <section className="border-b border-kumo-line pb-6" aria-labelledby="welcome-heading">
         <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex min-w-0 items-center gap-3">
-            {currentUser?.avatar ? <img src={currentUser.avatar} alt="" width={40} height={40} className="size-10 shrink-0 rounded-full object-cover ring-1 ring-kumo-line" /> : <span aria-hidden="true" className="grid size-10 shrink-0 place-items-center rounded-full bg-primary-alpha-10 text-sm font-semibold text-kumo-brand ring-1 ring-kumo-line">{firstName.charAt(0)}</span>}
+            <Avatar name={currentUser?.name || "Member"} className="size-10 text-sm" />
             <div className="min-w-0">
               <h1 id="welcome-heading" className="text-page-title text-kumo-strong">{getGreeting()}, {firstName}</h1>
               <p className="mt-0.5 text-body text-kumo-subtle">Discover people and opportunities within your community.</p>

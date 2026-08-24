@@ -22,7 +22,7 @@ export function Modal({ isOpen, onClose, title, description, children, footer, m
           <Dialog.Close asChild><Button variant="ghost" size="icon" aria-label="Close"><XIcon size={16} /></Button></Dialog.Close>
         </div>
         <div className="p-5">{children}</div>
-        {footer && <div className="flex justify-end gap-2 border-t border-kumo-line px-5 py-4">{footer}</div>}
+        {footer && <div className="flex flex-col-reverse gap-2 border-t border-kumo-line px-5 py-4 sm:flex-row sm:justify-end">{footer}</div>}
       </Dialog.Content>
     </Dialog.Portal>
   </Dialog.Root>;

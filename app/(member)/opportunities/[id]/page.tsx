@@ -8,6 +8,7 @@ import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
 import { Modal } from "@/components/ui/Modal";
 import { Textarea } from "@/components/ui/Input";
+import { Avatar } from "@/components/ui/Avatar";
 import { ArrowLeftIcon, CalendarIcon, MapPinIcon, ClockIcon, ShareNetworkIcon, BookmarkSimpleIcon, EnvelopeSimpleIcon, PaperPlaneTiltIcon, CheckCircleIcon, BriefcaseIcon, UserIcon, ArrowRightIcon } from "@phosphor-icons/react";
 
 export default function OpportunityDetailPage() {
@@ -137,14 +138,7 @@ export default function OpportunityDetailPage() {
             href={`/profile/${opportunity.authorId}`}
             className="flex items-center gap-3 group"
           >
-            <img
-              src={opportunity.authorAvatar}
-              alt={opportunity.authorName}
-              width={48}
-              height={48}
-              loading="lazy"
-              className="w-12 h-12 shrink-0 rounded-full object-cover aspect-square border border-kumo-line group-hover:ring-2 group-hover:ring-kumo-brand/20 transition-colors bg-kumo-tint"
-            />
+            <Avatar name={opportunity.authorName} className="size-12 text-sm" />
             <div>
               <p className="text-sm font-semibold text-kumo-strong group-hover:text-kumo-brand transition-colors">
                 {opportunity.authorName}
@@ -155,7 +149,7 @@ export default function OpportunityDetailPage() {
             </div>
           </Link>
 
-          <Button variant="primary" size="lg" onClick={() => setIsInterestModalOpen(true)} className="w-full sm:w-auto justify-center">
+          <Button variant="primary" size="lg" onClick={() => setIsInterestModalOpen(true)} className="w-full justify-center sm:w-auto">
             I&apos;m Interested
             <ArrowRightIcon size={16} weight="regular" className="ml-1" />
           </Button>

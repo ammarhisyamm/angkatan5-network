@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { useApp } from "@/lib/store/AppContext";
 import { Input, Textarea } from "@/components/ui/Input";
 import { Button } from "@/components/ui/Button";
+import { Avatar } from "@/components/ui/Avatar";
 import { Badge, StatusBadge } from "@/components/ui/Badge";
 import { Modal, ConfirmModal } from "@/components/ui/Modal";
 import {
@@ -67,7 +68,6 @@ export default function MyProfilePage() {
   const [showShareModal, setShowShareModal] = useState(false);
 
   const [name, setName] = useState(currentUser?.name || "");
-  const [avatar, setAvatar] = useState(currentUser?.avatar || "");
   const [location, setLocation] = useState(currentUser?.location || "");
   const [batch, setBatch] = useState(currentUser?.batch || "");
   const [role, setRole] = useState(currentUser?.role || "");
@@ -90,7 +90,6 @@ export default function MyProfilePage() {
   const handleSaveSection = (sectionName: string) => {
     updateProfile(currentUser.id, {
       name,
-      avatar,
       location,
       batch,
       role,
@@ -159,29 +158,12 @@ export default function MyProfilePage() {
             {/* Left: avatar + identity */}
             <div className="flex gap-5 sm:gap-6">
               <div className="relative shrink-0">
-                <img
-                  src={currentUser.avatar}
-                  alt={currentUser.name}
-                  width={96}
-                  height={96}
-                  onError={(event) => {
-                    event.currentTarget.onerror = null;
-                    event.currentTarget.src = "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=192&auto=format&fit=crop&q=80";
-                  }}
-                  className="size-20 sm:size-24 rounded-2xl object-cover aspect-square bg-zinc-100 ring-1 ring-zinc-200"
-                />
-                <span className="absolute -bottom-1 -right-1 flex size-6 items-center justify-center rounded-full bg-[#12B76A] ring-4 ring-white" title={currentUser.status}>
-                  <span className="size-2 rounded-full bg-white" />
-                </span>
+                <Avatar name={currentUser.name} className="size-20 rounded-2xl text-xl sm:size-24" />
               </div>
 
               <div className="min-w-0 flex-1 pt-1">
                 <div className="flex flex-wrap items-center gap-2">
                   <h1 className="text-[30px] font-bold leading-9 tracking-tight text-[#111827]">{currentUser.name?.split(" ")[0] || "Ammar"}</h1>
-                  <span className="inline-flex items-center gap-1.5 rounded-full border border-[#12B76A]/20 bg-[#ECFDF3] px-2.5 py-1 text-[11px] font-semibold tracking-wide text-[#027A48]">
-                    <span className="size-1.5 rounded-full bg-[#12B76A]" />
-                    Available for collaboration
-                  </span>
                 </div>
                 <p className="mt-1.5 text-base font-medium leading-6 text-zinc-700">{headline}</p>
                 <div className="mt-2 flex flex-wrap items-center gap-3 text-sm font-normal leading-5 text-zinc-600">
@@ -195,7 +177,6 @@ export default function MyProfilePage() {
                     {currentUser.batch || "Batch 1"}
                   </span>
                   <span className="hidden sm:inline-flex size-1 rounded-full bg-zinc-300" />
-                  <StatusBadge status={currentUser.status} />
                 </div>
                 <p className="mt-1 hidden sm:block text-xs text-zinc-400">{currentUser.email}</p>
               </div>
@@ -222,7 +203,7 @@ export default function MyProfilePage() {
                   ))}
                 </ul>
               )}
-              <div className="mt-4 grid grid-cols-2 gap-2">
+              <div className="mt-4 grid grid-cols-1 gap-2 sm:grid-cols-2">
                 <Button variant="primary" size="sm" className="w-full justify-center whitespace-nowrap px-2 text-[13px]" onClick={() => setEditingSection("personal")}>
                   Complete profile
                 </Button>
@@ -236,12 +217,12 @@ export default function MyProfilePage() {
           </div>
 
           {/* Actions bar */}
-          <div className="mt-6 flex flex-wrap items-center gap-3 border-t border-zinc-100 pt-6">
-            <Button variant="primary" size="md" className="justify-center px-5" onClick={() => setEditingSection("personal")}>
+          <div className="mt-6 flex flex-col items-stretch gap-3 border-t border-zinc-100 pt-6 sm:flex-row sm:items-center">
+            <Button variant="primary" size="md" className="w-full justify-center px-5 sm:w-auto" onClick={() => setEditingSection("personal")}>
               <PencilSimpleIcon size={14} weight="regular" className="mr-1.5" />
               Edit profile
             </Button>
-            <Button variant="outline" size="md" className="justify-center bg-white px-5" onClick={() => setShowShareModal(true)}>
+            <Button variant="outline" size="md" className="w-full justify-center bg-white px-5 sm:w-auto" onClick={() => setShowShareModal(true)}>
               <ShareNetworkIcon size={14} weight="regular" className="mr-1.5" />
               Share profile
             </Button>
@@ -277,7 +258,6 @@ export default function MyProfilePage() {
         {editingSection === "personal" ? (
           <div className="mt-4 space-y-4">
             <Input label="Full Name" value={name} onChange={(e) => setName(e.target.value)} />
-            <Input label="Profile Photo URL" value={avatar} onChange={(e) => setAvatar(e.target.value)} />
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <Input label="Location" value={location} onChange={(e) => setLocation(e.target.value)} />
               <Input label="Batch" value={batch} onChange={(e) => setBatch(e.target.value)} />

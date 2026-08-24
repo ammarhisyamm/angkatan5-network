@@ -7,6 +7,7 @@ import { useApp } from "@/lib/store/AppContext";
 import { useSidebarState } from "@/components/shared/SidebarContext";
 import { Button } from "@/components/ui/Button";
 import { Modal } from "@/components/ui/Modal";
+import { Avatar } from "@/components/ui/Avatar";
 import { HouseIcon, UsersIcon, BriefcaseIcon, ChartBarIcon, StackIcon, MagnifyingGlassIcon, CaretDoubleLeftIcon, CaretRightIcon, SignOutIcon, GearIcon, BellIcon, UserIcon, ArrowsLeftRightIcon, ShieldCheckIcon } from "@phosphor-icons/react";
 
 export function Sidebar() {
@@ -62,11 +63,11 @@ export function Sidebar() {
       </nav>
       <footer className="relative border-t border-kumo-line p-3">
         <button type="button" aria-haspopup="menu" aria-expanded={showUserMenu} onClick={() => open && setShowUserMenu((value) => !value)} className={`flex w-full items-center gap-3 rounded-lg p-2 text-left hover:bg-kumo-tint focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-kumo-brand ${open ? "" : "justify-center"}`}>
-          {currentUser?.avatar ? <img src={currentUser.avatar} alt="" width={32} height={32} className="size-8 shrink-0 rounded-full object-cover ring-1 ring-kumo-line" /> : <span aria-hidden="true" className="grid size-8 shrink-0 place-items-center rounded-full bg-primary-alpha-10 text-xs font-semibold text-kumo-brand ring-1 ring-kumo-line">{(currentUser?.name || "M").charAt(0)}</span>}
+          <Avatar name={currentUser?.name || "Member"} className="size-8 text-xs" />
           {open && <span className="min-w-0"><span className="block truncate text-sm font-semibold text-kumo-strong">{currentUser?.name || "Member"}</span><span className="block truncate text-xs text-kumo-subtle">{currentUser?.email || ""}</span></span>}
         </button>
         {showUserMenu && open && <div role="menu" className="absolute bottom-full left-3 right-3 z-50 mb-2 rounded-xl border border-kumo-line bg-kumo-base p-1.5 shadow-lg">
-          {otherUsers.length > 0 && <div className="border-b border-kumo-line px-2 pb-2 pt-1"><p className="mb-1 text-xs font-medium text-kumo-subtle">Switch account</p>{otherUsers.map((user) => <button key={user.id} role="menuitem" type="button" onClick={() => { switchUser(user.id); setShowUserMenu(false); }} className="flex w-full items-center gap-2 rounded-md px-2 py-2 text-sm text-kumo-subtle hover:bg-kumo-tint hover:text-kumo-strong"><img src={user.avatar} alt="" width={24} height={24} className="size-6 rounded-full object-cover" /><span className="flex-1 truncate text-left">{user.name}</span><ArrowsLeftRightIcon size={14} /></button>)}</div>}
+          {otherUsers.length > 0 && <div className="border-b border-kumo-line px-2 pb-2 pt-1"><p className="mb-1 text-xs font-medium text-kumo-subtle">Switch account</p>{otherUsers.map((user) => <button key={user.id} role="menuitem" type="button" onClick={() => { switchUser(user.id); setShowUserMenu(false); }} className="flex w-full items-center gap-2 rounded-md px-2 py-2 text-sm text-kumo-subtle hover:bg-kumo-tint hover:text-kumo-strong"><Avatar name={user.name} className="size-6 text-[9px]" /><span className="flex-1 truncate text-left">{user.name}</span><ArrowsLeftRightIcon size={14} /></button>)}</div>}
           <button role="menuitem" type="button" onClick={() => { router.push("/my-profile"); setShowUserMenu(false); }} className="flex w-full items-center gap-2 rounded-md px-2 py-2 text-sm text-kumo-subtle hover:bg-kumo-tint hover:text-kumo-strong"><UserIcon size={16} />Profile</button>
           <button role="menuitem" type="button" onClick={() => { setShowUserMenu(false); setInfoModal({ title: "Preferences", desc: "Preferences will be available soon." }); }} className="flex w-full items-center gap-2 rounded-md px-2 py-2 text-sm text-kumo-subtle hover:bg-kumo-tint hover:text-kumo-strong"><GearIcon size={16} />Preferences</button>
           <button role="menuitem" type="button" onClick={() => { setShowUserMenu(false); setInfoModal({ title: "Notifications", desc: "You have no new notifications." }); }} className="flex w-full items-center gap-2 rounded-md px-2 py-2 text-sm text-kumo-subtle hover:bg-kumo-tint hover:text-kumo-strong"><BellIcon size={16} />Notifications</button>

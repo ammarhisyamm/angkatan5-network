@@ -7,6 +7,7 @@ import { useApp } from "@/lib/store/AppContext";
 import { StatusBadge, Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
 import { Modal } from "@/components/ui/Modal";
+import { Avatar } from "@/components/ui/Avatar";
 import { MapPinIcon, SealCheckIcon, BriefcaseIcon, CalendarIcon, ShareNetworkIcon, UserPlusIcon, GlobeIcon, ArrowSquareOutIcon, CheckCircleIcon, ArrowLeftIcon, SparkleIcon, QuestionIcon, MagnifyingGlassIcon } from "@phosphor-icons/react";
 
 export default function MemberProfilePage() {
@@ -75,11 +76,7 @@ export default function MemberProfilePage() {
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
           <div className="flex items-start sm:items-center gap-5">
             <div className="relative">
-              <img
-                src={member.avatar}
-                alt={member.name}
-                className="size-20 shrink-0 rounded-full object-cover aspect-square bg-kumo-tint ring-1 ring-kumo-line sm:size-24"
-              />
+              <Avatar name={member.name} className="size-20 text-xl sm:size-24" />
               {member.verified && (
                 <div
                   className="absolute -bottom-0.5 -right-0.5 flex size-5 items-center justify-center rounded-full bg-kumo-brand text-static-white ring-2 ring-bg-white-0"
@@ -126,7 +123,7 @@ export default function MemberProfilePage() {
 
           {/* Action buttons */}
           <div className="flex items-center gap-2 w-full sm:w-auto">
-            <Button variant="outline" size="md" onClick={handleShare} className="flex-1 sm:flex-initial" >
+            <Button variant="outline" size="md" onClick={handleShare} className="w-full justify-center sm:w-auto" >
               <ShareNetworkIcon size={16} weight="regular" />
               Share
             </Button>

@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useApp } from "@/lib/store/AppContext";
 import { ShieldCheckIcon, SignOutIcon } from "@phosphor-icons/react";
+import { Avatar } from "@/components/ui/Avatar";
 
 export function Header() {
   const pathname = usePathname();
@@ -31,13 +32,7 @@ export function Header() {
           {currentUser && (
             <>
               <Link href="/my-profile" aria-label="My profile" className="rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-kumo-brand">
-                <img
-                  src={currentUser.avatar}
-                  alt=""
-                  width={32}
-                  height={32}
-                  className="size-8 shrink-0 rounded-full bg-kumo-tint object-cover aspect-square ring-1 ring-kumo-line"
-                />
+                <Avatar name={currentUser.name} className="size-8 text-xs" />
               </Link>
               <button
                 onClick={logout}

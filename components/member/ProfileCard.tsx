@@ -7,6 +7,7 @@ import { StatusBadge } from "@/components/ui/Badge";
 import { Tag } from "@/components/ui/Tag";
 import { Button } from "@/components/ui/Button";
 import { LayerCard } from "@/components/ui/Surface";
+import { Avatar } from "@/components/ui/Avatar";
 import { SealCheckIcon, ArrowRightIcon } from "@phosphor-icons/react";
 
 export function ProfileCard({ member }: { member: User }) {
@@ -17,14 +18,7 @@ export function ProfileCard({ member }: { member: User }) {
         <div className="flex flex-1 flex-col p-6">
           <div className="flex items-start gap-3">
             <Link href={`/profile/${member.id}`} className="relative shrink-0" aria-label={`View ${member.name}`}>
-              <img
-                src={member.avatar}
-                alt={`${member.name} avatar`}
-                width={48}
-                height={48}
-                loading="lazy"
-                className="size-12 rounded-full object-cover aspect-square bg-kumo-tint ring-1 ring-kumo-line"
-              />
+              <Avatar name={member.name} className="size-12 text-sm" />
               {member.verified && (
                 <span className="absolute -bottom-0.5 -right-0.5 flex size-4 items-center justify-center rounded-full bg-kumo-brand text-static-white" title="Verified member" aria-hidden="true">
                   <SealCheckIcon size={12} weight="bold" />

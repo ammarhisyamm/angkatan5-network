@@ -6,6 +6,7 @@ import { Opportunity } from "@/lib/types";
 import { Tag } from "@/components/ui/Tag";
 import { Button } from "@/components/ui/Button";
 import { LayerCard } from "@/components/ui/Surface";
+import { Avatar } from "@/components/ui/Avatar";
 import { useApp } from "@/lib/store/AppContext";
 import { BookmarkSimpleIcon, MapPinIcon, ArrowRightIcon } from "@phosphor-icons/react";
 
@@ -70,7 +71,7 @@ export function OpportunityCard({ opportunity }: { opportunity: Opportunity }) {
       {/* Footer anchored to bottom */}
       <div className="mt-auto flex items-center justify-between gap-3 border-t border-kumo-line px-6 py-4">
         <div className="flex min-w-0 items-center gap-3">
-          <img src={opportunity.authorAvatar} alt="" width={28} height={28} className="size-7 shrink-0 rounded-full object-cover aspect-square bg-kumo-tint ring-1 ring-kumo-line" />
+          <Avatar name={opportunity.authorName} className="size-7 text-[10px]" />
           <div className="min-w-0">
             <p className="truncate text-sm font-medium leading-5 text-kumo-strong">{opportunity.authorName}</p>
             <p className="truncate text-meta font-medium text-kumo-subtle">Posted {formattedDate}</p>

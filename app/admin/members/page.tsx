@@ -12,6 +12,7 @@ import { Table } from "@/components/ui/Table";
 import { LayerCard } from "@/components/ui/Surface";
 import { Input } from "@/components/ui/Input";
 import { Select } from "@/components/ui/Select";
+import { Avatar } from "@/components/ui/Avatar";
 import {
   UsersIcon,
   CheckCircleIcon,
@@ -99,7 +100,7 @@ export default function AdminMembersPage() {
                 <Table.Row key={member.id} className={member.suspended ? "opacity-50" : ""}>
                   <Table.Cell>
                     <div className="flex items-center gap-3">
-                      <img src={member.avatar} alt="" width={28} height={28} className="size-7 shrink-0 rounded-full bg-kumo-tint object-cover aspect-square ring-1 ring-kumo-line" />
+                      <Avatar name={member.name} className="size-7 text-[10px]" />
                       <div className="min-w-0">
                         <div className="flex items-center gap-1.5">
                           <span className="text-sm font-semibold text-kumo-strong truncate">{member.name}</span>

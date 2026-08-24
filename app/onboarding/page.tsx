@@ -9,15 +9,6 @@ import { Tag } from "@/components/ui/Tag";
 import { Check, CaretRightIcon, CaretLeftIcon, SparkleIcon, UserIcon, BriefcaseIcon, StackIcon, MagnifyingGlassIcon, GiftIcon, Plus } from "@phosphor-icons/react";
 import { LookingForOption, CanOfferOption } from "@/lib/types";
 
-const AVATAR_OPTIONS = [
-  "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&auto=format&fit=crop&q=80",
-  "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&auto=format&fit=crop&q=80",
-  "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&auto=format&fit=crop&q=80",
-  "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&auto=format&fit=crop&q=80",
-  "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&auto=format&fit=crop&q=80",
-  "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=400&auto=format&fit=crop&q=80",
-];
-
 const PREDEFINED_SKILLS = [
   "UI/UX Design",
   "Software Development",
@@ -60,7 +51,6 @@ export default function OnboardingPage() {
 
   // Form State
   const [name, setName] = useState(currentUser?.name || "Ammar Hisyam");
-  const [avatar, setAvatar] = useState(currentUser?.avatar || AVATAR_OPTIONS[0]);
   const [location, setLocation] = useState(currentUser?.location || "Jakarta, Indonesia");
   const [batch, setBatch] = useState(currentUser?.batch || "Angkatan 5 (2018)");
 
@@ -121,7 +111,6 @@ export default function OnboardingPage() {
   const handleComplete = () => {
     completeOnboarding({
       name,
-      avatar,
       location,
       batch,
       role,
@@ -211,30 +200,7 @@ export default function OnboardingPage() {
                 <h2 className="text-section-title text-kumo-strong">
                   Step 1 — About You
                 </h2>
-                <p className="mt-0.5 text-sm leading-5 text-kumo-subtle">
-                  Let&apos;s start with your identity and profile photo.
-                </p>
-              </div>
-
-              <div className="flex flex-col gap-2">
-                <label className="text-sm font-medium leading-5 text-kumo-strong">
-                  Choose Profile Photo
-                </label>
-                <div className="flex items-center gap-3 flex-wrap">
-                  {AVATAR_OPTIONS.map((url, i) => (
-                    <img
-                      key={i}
-                      src={url}
-                      alt="avatar"
-                      onClick={() => setAvatar(url)}
-                      className={`size-12 rounded-full bg-kumo-tint object-cover aspect-square ring-1 transition-colors cursor-pointer ${
-                        avatar === url
-                          ? "ring-2 ring-kumo-brand"
-                          : "ring-kumo-line hover:ring-stroke-sub-300"
-                      }`}
-                    />
-                  ))}
-                </div>
+                <p className="mt-0.5 text-sm leading-5 text-kumo-subtle">Let&apos;s start with your identity.</p>
               </div>
 
               <Input

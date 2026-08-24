@@ -5,6 +5,7 @@ import { User } from "@/lib/types";
 import { Modal } from "@/components/ui/Modal";
 import { Button } from "@/components/ui/Button";
 import { Textarea } from "@/components/ui/Input";
+import { Avatar } from "@/components/ui/Avatar";
 import { useApp } from "@/lib/store/AppContext";
 import { PaperPlaneTiltIcon, CheckCircleIcon } from "@phosphor-icons/react";
 
@@ -75,13 +76,7 @@ export function ConnectModal({
       ) : (
         <form id="connect-form" onSubmit={handleSend} className="space-y-4">
           <div className="flex items-center gap-3 rounded-xl border border-kumo-line bg-kumo-tint p-3">
-            <img
-              src={receiver?.avatar}
-              alt=""
-              width={40}
-              height={40}
-              className="size-10 shrink-0 rounded-full bg-kumo-tint object-cover aspect-square ring-1 ring-kumo-line"
-            />
+            <Avatar name={receiver?.name || "Member"} className="size-10 text-xs" />
             <div className="min-w-0 flex-1">
               <p className="truncate text-sm font-semibold leading-5 text-kumo-strong">{receiver?.name}</p>
               <p className="truncate text-xs leading-[18px] text-kumo-subtle">
