@@ -412,13 +412,13 @@ export default function MyProfilePage() {
                     key={sk}
                     type="button"
                     onClick={() => handleToggleSkill(sk)}
-                    className={`px-3 py-1.5 rounded-xl text-xs font-medium border transition-colors ${
+                    className={`inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-medium border transition-colors ${
                       isSelected
                         ? "bg-kumo-brand text-white border-kumo-brand"
                         : "bg-kumo-tint text-kumo-subtle border-kumo-line"
                     }`}
                   >
-                    {isSelected ? <CheckIcon size={10} weight="fill" className="mr-1" /> : <PlusIcon size={10} weight="regular" className="mr-1" />}
+                    {isSelected ? <CheckIcon size={12} weight="bold" /> : <PlusIcon size={10} weight="regular" />}
                     {sk}
                   </button>
                 );
@@ -488,13 +488,13 @@ export default function MyProfilePage() {
                     key={item}
                     type="button"
                     onClick={() => handleToggleLooking(item)}
-                    className={`px-3 py-1.5 rounded-xl text-xs font-medium border transition-colors ${
+                    className={`inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-medium border transition-colors ${
                       lookingFor.includes(item)
                         ? "bg-kumo-brand text-white border-kumo-brand"
                         : "bg-kumo-tint text-kumo-subtle border-kumo-line"
                     }`}
                   >
-                    {lookingFor.includes(item) && <CheckIcon size={10} weight="fill" className="mr-1" />}
+                    {lookingFor.includes(item) && <CheckIcon size={12} weight="bold" />}
                     {item}
                   </button>
                 ))}
@@ -508,13 +508,13 @@ export default function MyProfilePage() {
                     key={item}
                     type="button"
                     onClick={() => handleToggleOffer(item)}
-                    className={`px-3 py-1.5 rounded-xl text-xs font-medium border transition-colors ${
+                    className={`inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-medium border transition-colors ${
                       canOffer.includes(item)
                         ? "bg-kumo-brand text-white border-kumo-brand"
                         : "bg-kumo-tint text-kumo-subtle border-kumo-line"
                     }`}
                   >
-                    {canOffer.includes(item) && <CheckIcon size={10} weight="fill" className="mr-1" />}
+                    {canOffer.includes(item) && <CheckIcon size={12} weight="bold" />}
                     {item}
                   </button>
                 ))}
