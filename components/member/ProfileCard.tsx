@@ -13,7 +13,7 @@ import { SealCheckIcon, ArrowRightIcon } from "@phosphor-icons/react";
 export function ProfileCard({ member }: { member: User }) {
   return (
     <>
-      <LayerCard className="group flex h-full w-full flex-col overflow-hidden rounded-lg border border-stroke-soft-200 p-0 shadow-none transition-[background-color,border-color,box-shadow,transform] duration-200 hover:-translate-y-px hover:border-primary-base/30 hover:bg-primary-alpha-10 hover:shadow-sm">
+      <LayerCard className="group flex h-full w-full flex-col overflow-hidden rounded-lg border border-stroke-soft-200 p-0 shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition-[background-color,border-color,box-shadow,transform] duration-200 hover:-translate-y-px hover:border-primary-base/30 hover:shadow-[0_4px_12px_rgba(0,0,0,0.06)]">
         {/* Content */}
         <div className="flex flex-1 flex-col p-6">
           <div className="flex items-start gap-3">

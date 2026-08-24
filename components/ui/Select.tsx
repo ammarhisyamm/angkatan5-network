@@ -39,7 +39,7 @@ export function Select({ label, value, onValueChange, items, placeholder, classN
         if (event.key === "Escape") setOpen(false);
         if (event.key === "ArrowDown" && !open) { event.preventDefault(); setOpen(true); }
       }}
-      className="flex h-11 w-full min-w-0 items-center justify-between gap-3 rounded-lg bg-bg-white-0 px-3.5 text-left text-base text-text-strong-950 ring-1 ring-stroke-soft-200 transition-colors hover:bg-bg-weak-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-base/40"
+      className="flex h-11 w-full min-w-0 items-center justify-between gap-3 rounded-lg bg-bg-white-0 px-3.5 text-left text-base text-text-strong-950 ring-1 ring-stroke-soft-200 shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition-colors hover:bg-bg-weak-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-base/40"
     >
       <span className={cn("truncate", !selected && "text-text-soft-400")}>{selected?.label ?? placeholder ?? "Select an option"}</span>
       {open ? <CaretUpIcon size={18} className="shrink-0 text-text-sub-600" aria-hidden="true" /> : <CaretDownIcon size={18} className="shrink-0 text-text-sub-600" aria-hidden="true" />}
