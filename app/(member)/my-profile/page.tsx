@@ -173,14 +173,14 @@ export default function MyProfilePage() {
 
               <div className="min-w-0 flex-1 pt-1">
                 <div className="flex flex-wrap items-center gap-2">
-                  <h1 className="text-[22px] font-semibold leading-6 tracking-tight text-[#111827]">{currentUser.name?.split(" ")[0] || "Ammar"}</h1>
+                  <h1 className="text-[30px] font-bold leading-9 tracking-tight text-[#111827]">{currentUser.name?.split(" ")[0] || "Ammar"}</h1>
                   <span className="inline-flex items-center gap-1.5 rounded-full border border-[#12B76A]/20 bg-[#ECFDF3] px-2.5 py-1 text-[11px] font-semibold tracking-wide text-[#027A48]">
                     <span className="size-1.5 rounded-full bg-[#12B76A]" />
                     Available for collaboration
                   </span>
                 </div>
-                <p className="mt-1.5 text-[13.5px] font-medium leading-5 text-zinc-600">{headline}</p>
-                <div className="mt-2 flex flex-wrap items-center gap-3 text-[13px] text-zinc-500">
+                <p className="mt-1.5 text-base font-medium leading-6 text-zinc-700">{headline}</p>
+                <div className="mt-2 flex flex-wrap items-center gap-3 text-sm font-normal leading-5 text-zinc-600">
                   <span className="inline-flex items-center gap-1.5">
                     <MapPinIcon size={14} weight="regular" className="text-zinc-400" />
                     {currentUser.location || "Jakarta, Indonesia"}
@@ -219,10 +219,10 @@ export default function MyProfilePage() {
                 </ul>
               )}
               <div className="mt-4 grid grid-cols-2 gap-2">
-                <Button variant="primary" size="sm" className="w-full justify-center" onClick={() => setEditingSection("personal")}>
+                <Button variant="primary" size="sm" className="w-full justify-center whitespace-nowrap px-2 text-[13px]" onClick={() => setEditingSection("personal")}>
                   Complete profile
                 </Button>
-                <Button variant="outline" size="sm" className="w-full justify-center bg-white" onClick={() => setShowShareModal(true)}>
+                <Button variant="outline" size="sm" className="w-full justify-center whitespace-nowrap bg-white px-2 text-[13px]" onClick={() => setShowShareModal(true)}>
                   <ShareNetworkIcon size={14} weight="regular" className="mr-1" />
                   Share
                 </Button>
@@ -251,7 +251,7 @@ export default function MyProfilePage() {
       {/* ABOUT */}
       <div className="rounded-2xl border border-zinc-200 bg-white p-6 sm:p-7">
         <div className="flex items-center justify-between">
-          <h2 className="text-[14px] font-semibold tracking-tight text-[#111827]">About</h2>
+          <h2 className="text-[19px] font-bold leading-7 tracking-tight text-[#111827]">About</h2>
           {editingSection === "personal" ? (
             <div className="flex items-center gap-2">
               <Button variant="ghost" size="sm" onClick={() => setEditingSection(null)}>
@@ -289,13 +289,13 @@ export default function MyProfilePage() {
               </button>
             )}
             <div className="mt-4 flex flex-wrap gap-2">
-              <span className="inline-flex items-center gap-1.5 rounded-full bg-zinc-50 px-3 py-1.5 text-xs font-medium text-zinc-700 ring-1 ring-zinc-200">
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-zinc-50 px-3 py-1.5 text-[13px] font-medium leading-5 text-zinc-700 ring-1 ring-zinc-200">
                 <BriefcaseIcon size={12} weight="regular" /> {currentUser.experience || "3+ years"}
               </span>
-              <span className="inline-flex items-center gap-1.5 rounded-full bg-zinc-50 px-3 py-1.5 text-xs font-medium text-zinc-700 ring-1 ring-zinc-200">
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-zinc-50 px-3 py-1.5 text-[13px] font-medium leading-5 text-zinc-700 ring-1 ring-zinc-200">
                 <GlobeIcon size={12} weight="regular" /> {currentUser.industry || "Technology"}
               </span>
-              <span className="inline-flex items-center gap-1.5 rounded-full bg-zinc-50 px-3 py-1.5 text-xs font-medium text-zinc-700 ring-1 ring-zinc-200">
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-zinc-50 px-3 py-1.5 text-[13px] font-medium leading-5 text-zinc-700 ring-1 ring-zinc-200">
                 <CalendarIcon size={12} weight="regular" /> Joined {currentUser.batch || "Batch 1"}
               </span>
             </div>
@@ -310,7 +310,7 @@ export default function MyProfilePage() {
           {/* Professional */}
           <div className="rounded-2xl border border-zinc-200 bg-white p-6 sm:p-7">
             <div className="flex items-center justify-between">
-              <h2 className="inline-flex items-center gap-2 text-[14px] font-semibold text-[#111827]">
+              <h2 className="inline-flex items-center gap-2 text-[19px] font-bold leading-7 text-[#111827]">
                 <BriefcaseIcon size={16} weight="regular" className="text-zinc-400" />
                 Professional
               </h2>
@@ -361,7 +361,7 @@ export default function MyProfilePage() {
           {/* Skills */}
           <div className="rounded-2xl border border-zinc-200 bg-white p-6 sm:p-7">
             <div className="flex items-center justify-between">
-              <h2 className="inline-flex items-center gap-2 text-[14px] font-semibold text-[#111827]">
+              <h2 className="inline-flex items-center gap-2 text-[19px] font-bold leading-7 text-[#111827]">
                 <StackIcon size={16} weight="regular" className="text-zinc-400" />
                 Skills
                 <span className="ml-1 rounded-md bg-zinc-100 px-1.5 py-0.5 text-xs font-medium text-zinc-600">{skills.length}</span>
@@ -415,7 +415,7 @@ export default function MyProfilePage() {
               <div className="mt-4 flex flex-wrap gap-2">
                 {skills.length ? (
                   skills.map((sk) => (
-                    <span key={sk} className="inline-flex items-center rounded-full bg-white px-3 py-1.5 text-xs font-medium text-zinc-700 ring-1 ring-zinc-200">
+                    <span key={sk} className="inline-flex items-center rounded-full bg-white px-3 py-1.5 text-[13px] font-medium leading-5 text-zinc-700 ring-1 ring-zinc-200">
                       {sk}
                     </span>
                   ))
@@ -432,7 +432,7 @@ export default function MyProfilePage() {
           {/* Availability */}
           <div className="rounded-2xl border border-zinc-200 bg-white p-6">
             <div className="flex items-center justify-between">
-              <h3 className="inline-flex items-center gap-2 text-[14px] font-semibold text-[#111827]">
+              <h3 className="inline-flex items-center gap-2 text-[19px] font-bold leading-7 text-[#111827]">
                 <ShieldIcon size={16} weight="regular" className="text-zinc-400" />
                 Availability
               </h3>
@@ -521,7 +521,7 @@ export default function MyProfilePage() {
           {/* Social */}
           <div className="rounded-2xl border border-zinc-200 bg-white p-6">
             <div className="flex items-center justify-between">
-              <h3 className="inline-flex items-center gap-2 text-[14px] font-semibold text-[#111827]">
+              <h3 className="inline-flex items-center gap-2 text-[19px] font-bold leading-7 text-[#111827]">
                 <GlobeIcon size={16} weight="regular" className="text-zinc-400" />
                 Social
               </h3>
@@ -593,8 +593,8 @@ export default function MyProfilePage() {
       {/* Danger zone — subtle */}
       <div className="flex items-center justify-between rounded-2xl border border-red-200 bg-red-50 px-6 py-4">
         <div>
-          <p className="text-sm font-semibold text-red-700">Danger zone</p>
-          <p className="text-xs text-red-600">Export or delete your profile data.</p>
+          <p className="text-[19px] font-bold leading-7 text-red-700">Danger zone</p>
+          <p className="text-[13px] leading-5 text-red-600">Export or delete your profile data.</p>
         </div>
         <div className="flex items-center gap-2">
           <Button variant="outline" size="sm" className="bg-white" onClick={() => addToast("Coming soon", "Data export not yet implemented", "info")}>
