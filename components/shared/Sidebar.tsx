@@ -62,7 +62,7 @@ export function Sidebar() {
       </nav>
       <footer className="relative border-t border-kumo-line p-3">
         <button type="button" aria-haspopup="menu" aria-expanded={showUserMenu} onClick={() => open && setShowUserMenu((value) => !value)} className={`flex w-full items-center gap-3 rounded-lg p-2 text-left hover:bg-kumo-tint focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-kumo-brand ${open ? "" : "justify-center"}`}>
-          <img src={currentUser?.avatar} alt="" width={32} height={32} className="size-8 shrink-0 rounded-full object-cover ring-1 ring-kumo-line" />
+          {currentUser?.avatar ? <img src={currentUser.avatar} alt="" width={32} height={32} className="size-8 shrink-0 rounded-full object-cover ring-1 ring-kumo-line" /> : <span aria-hidden="true" className="grid size-8 shrink-0 place-items-center rounded-full bg-primary-alpha-10 text-xs font-semibold text-kumo-brand ring-1 ring-kumo-line">{(currentUser?.name || "M").charAt(0)}</span>}
           {open && <span className="min-w-0"><span className="block truncate text-sm font-semibold text-kumo-strong">{currentUser?.name || "Member"}</span><span className="block truncate text-xs text-kumo-subtle">{currentUser?.email || ""}</span></span>}
         </button>
         {showUserMenu && open && <div role="menu" className="absolute bottom-full left-3 right-3 z-50 mb-2 rounded-xl border border-kumo-line bg-kumo-base p-1.5 shadow-lg">

@@ -471,6 +471,19 @@
   --color-error-light: #FEECEC;
   --color-error-base: #C92A2A;
   --color-error-dark: #A21F1F;
+
+  /* Product semantic aliases kept during the source-owned migration. */
+  --color-kumo-base: var(--color-bg-white-0);
+  --color-kumo-tint: var(--color-bg-weak-50);
+  --color-kumo-line: var(--color-stroke-soft-200);
+  --color-kumo-strong: var(--color-text-strong-950);
+  --color-kumo-subtle: var(--color-text-sub-600);
+  --color-kumo-inactive: var(--color-text-soft-400);
+  --color-kumo-brand: var(--color-primary-base);
+  --color-kumo-brand-hover: var(--color-primary-darker);
+  --color-kumo-success: var(--color-success-base);
+  --color-kumo-verified: var(--color-verified-base);
+  --color-kumo-feature: var(--color-feature-base);
 }
 
 /* AlignUI v1.2 foundation: source-owned semantic aliases for the product UI. */
@@ -497,12 +510,6 @@
   --align-space-5: 1.25rem;
   --align-space-6: 1.5rem;
   --align-space-8: 2rem;
-  --text-color-kumo-brand: #4169D8;
-  --color-kumo-brand: #4169D8;
-  --color-kumo-brand-hover: #315BEF;
-  --bg-kumo-brand: #4169D8;
-  --border-kumo-brand: #4169D8;
-  --ring-kumo-brand: #4169D8;
   --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
   --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
 }
