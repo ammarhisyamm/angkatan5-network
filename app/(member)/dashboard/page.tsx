@@ -92,7 +92,7 @@ export default function MemberDashboardPage() {
           <h2 id="snapshot-heading" className="text-section-title text-kumo-strong">Community Snapshot</h2>
           <span className="text-meta text-kumo-inactive">Updated live</span>
         </div>
-        <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5 lg:gap-x-6">
+        <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
           {metrics.map((m) => (
             <div key={m.label} className="flex flex-col min-w-0">
               <dt className="text-meta text-kumo-subtle">{m.label}</dt>

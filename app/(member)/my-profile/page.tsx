@@ -175,7 +175,9 @@ export default function MyProfilePage() {
             <img
               src={currentUser.avatar}
               alt={currentUser.name}
-              className="w-16 h-16 sm:w-20 sm:h-20 rounded-full object-cover border-2 border-kumo-line"
+              width={80}
+              height={80}
+              className="w-16 h-16 sm:w-20 sm:h-20 rounded-full object-cover aspect-square shrink-0 border-2 border-kumo-line"
             />
             <div className="min-w-0 flex-1">
               <div className="flex flex-wrap items-center gap-x-2 gap-y-1">

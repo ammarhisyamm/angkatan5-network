@@ -116,7 +116,7 @@ export default function AdminDashboardPage() {
       )}
 
       {/* Charts */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
         <LayerCard className="p-6">
           <div className="flex items-center justify-between mb-4">
             <div>

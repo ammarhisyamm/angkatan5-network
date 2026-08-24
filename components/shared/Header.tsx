@@ -34,7 +34,9 @@ export function Header() {
                 <img
                   src={currentUser.avatar}
                   alt=""
-                  className="size-8 rounded-full bg-kumo-tint object-cover ring-1 ring-kumo-line"
+                  width={32}
+                  height={32}
+                  className="size-8 shrink-0 rounded-full bg-kumo-tint object-cover aspect-square ring-1 ring-kumo-line"
                 />
               </Link>
               <button

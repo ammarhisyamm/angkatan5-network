@@ -78,7 +78,9 @@ export function ConnectModal({
             <img
               src={receiver?.avatar}
               alt=""
-              className="size-10 shrink-0 rounded-full bg-kumo-tint object-cover ring-1 ring-kumo-line"
+              width={40}
+              height={40}
+              className="size-10 shrink-0 rounded-full bg-kumo-tint object-cover aspect-square ring-1 ring-kumo-line"
             />
             <div className="min-w-0 flex-1">
               <p className="truncate text-sm font-semibold leading-5 text-kumo-strong">{receiver?.name}</p>
