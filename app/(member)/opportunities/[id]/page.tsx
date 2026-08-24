@@ -143,7 +143,7 @@ export default function OpportunityDetailPage() {
               width={48}
               height={48}
               loading="lazy"
-              className="w-12 h-12 rounded-full object-cover border border-kumo-line group-hover:ring-2 group-hover:ring-kumo-brand/20 transition-colors bg-kumo-tint"
+              className="w-12 h-12 shrink-0 rounded-full object-cover aspect-square border border-kumo-line group-hover:ring-2 group-hover:ring-kumo-brand/20 transition-colors bg-kumo-tint"
             />
             <div>
               <p className="text-sm font-semibold text-kumo-strong group-hover:text-kumo-brand transition-colors">

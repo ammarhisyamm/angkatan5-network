@@ -70,7 +70,7 @@ export function OpportunityCard({ opportunity }: { opportunity: Opportunity }) {
       {/* Footer anchored to bottom */}
       <div className="mt-auto flex items-center justify-between gap-2 border-t border-kumo-line px-5 py-4 sm:px-6 sm:px-6">
         <div className="flex min-w-0 items-center gap-2.5">
-          <img src={opportunity.authorAvatar} alt="" className="size-8 shrink-0 rounded-full object-cover bg-kumo-tint ring-1 ring-kumo-line" />
+          <img src={opportunity.authorAvatar} alt="" width={28} height={28} className="size-7 shrink-0 rounded-full object-cover aspect-square bg-kumo-tint ring-1 ring-kumo-line" />
           <div className="min-w-0">
             <p className="truncate text-sm font-medium leading-5 text-kumo-strong">{opportunity.authorName}</p>
             <p className="truncate text-xs leading-[18px] text-kumo-inactive">Posted {formattedDate}</p>
