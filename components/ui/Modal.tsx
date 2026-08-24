@@ -60,17 +60,17 @@ export function Modal({
 
   return (
     <Dialog.Root open={isOpen} onOpenChange={(open: boolean) => !open && onClose()}>
-      <Dialog size={size} className="p-0 overflow-hidden">
+      <Dialog size={size} className="p-0 overflow-hidden rounded-2xl">
         {showHeader && (
-          <div className="flex items-start gap-3 border-b border-kumo-line px-5 py-4 pr-12">
+          <div className="flex items-start gap-4 border-b border-zinc-200 px-6 py-5 pr-12">
             {IconComponent && (
-              <span className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-kumo-tint ring-1 ring-inset ring-kumo-line">
-                <IconComponent size={24} weight="fill" className={`text-${icon === "success" ? "success" : icon === "error" ? "error" : icon === "warning" ? "warning" : "kumo-brand"}`} />
+              <span className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-zinc-50 border border-zinc-200">
+                <IconComponent size={20} weight="fill" className={icon === "success" ? "text-success-base" : icon === "error" ? "text-error-base" : icon === "warning" ? "text-warning-base" : "text-[#2563EB]"} />
               </span>
             )}
             <div className="min-w-0 flex-1">
-              {title && <Dialog.Title className="text-base font-semibold leading-6 text-kumo-strong">{title}</Dialog.Title>}
-              {description && <Dialog.Description className="mt-1 text-sm leading-5 text-kumo-subtle">{description}</Dialog.Description>}
+              {title && <Dialog.Title className="text-[16px] font-semibold leading-5 text-[#111827]">{title}</Dialog.Title>}
+              {description && <Dialog.Description className="mt-1.5 text-[13.5px] leading-5 text-zinc-500">{description}</Dialog.Description>}
             </div>
             <Dialog.Close
               aria-label="Close"
@@ -120,11 +120,11 @@ export function ConfirmModal({
 }) {
   return (
     <Modal isOpen={isOpen} onClose={onClose} title={title} description={description} icon={icon} maxWidth="sm">
-      <div className="flex items-center justify-end gap-2 pt-4 border-t border-kumo-line">
-        <Button variant="outline" size="sm" onClick={onClose} disabled={loading}>
+      <div className="flex items-center justify-end gap-3">
+        <Button variant="outline" size="base" onClick={onClose} disabled={loading} className="px-5">
           {cancelText}
         </Button>
-        <Button variant={variant as "primary" | "secondary" | "outline"} size="sm" onClick={onConfirm} isLoading={loading} {...({} as any)}>
+        <Button variant={variant as any} size="lg" onClick={onConfirm} loading={loading} {...({} as any)} className="px-5">
           {confirmText}
         </Button>
       </div>
