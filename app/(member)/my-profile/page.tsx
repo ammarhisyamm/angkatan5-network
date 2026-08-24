@@ -129,7 +129,6 @@ export default function MyProfilePage() {
   const handleCopyLink = () => {
     if (typeof window !== "undefined") {
       navigator.clipboard.writeText(window.location.href);
-      addToast("Link copied", "Profile link ready to share", "success");
       setShowShareModal(false);
     }
   };

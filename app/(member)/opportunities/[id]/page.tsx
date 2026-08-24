@@ -54,7 +54,6 @@ export default function OpportunityDetailPage() {
   const handleCopyLink = () => {
     if (typeof window !== "undefined") {
       navigator.clipboard.writeText(window.location.href);
-      addToast("Link copied!", "Share this opportunity with others.", "success");
       setShowShareModal(false);
     }
   };

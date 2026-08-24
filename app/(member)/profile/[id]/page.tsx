@@ -43,7 +43,6 @@ export default function MemberProfilePage() {
   const handleCopyLink = () => {
     if (typeof window !== "undefined") {
       navigator.clipboard.writeText(window.location.href);
-      addToast("Profile link copied!", "Share it with your colleagues.", "success");
       setShowShareModal(false);
     }
   };

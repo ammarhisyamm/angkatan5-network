@@ -319,7 +319,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     });
 
     saveUsers(updated);
-    if (currentUser?.id === userId) {
+      if (currentUser?.id === userId) {
       const updatedCurrent = updated.find((u) => u.id === userId);
       if (updatedCurrent) {
         setCurrentUser(updatedCurrent);
@@ -329,11 +329,6 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
         );
       }
     }
-    addToast(
-      "Profile updated",
-      "Your profile changes have been saved.",
-      "success"
-    );
   };
 
   const completeOnboarding = (data: Partial<User>) => {
