@@ -9,6 +9,7 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
   isLoading?: boolean;
   loading?: boolean;
   icon?: React.ReactNode;
+  mobileIconOnly?: boolean;
   shape?: "base" | "square" | "circle";
 }
 
@@ -27,11 +28,11 @@ const variants = {
 } as const;
 
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(function Button(
-  { className, variant = "primary", size = "md", isLoading = false, loading = false, disabled, children, icon, shape = "base", ...props }, ref,
+  { className, variant = "primary", size = "md", isLoading = false, loading = false, disabled, children, icon, mobileIconOnly = false, shape = "base", ...props }, ref,
 ) {
   const busy = isLoading || loading;
   return <button ref={ref} type={props.type ?? "button"} aria-busy={busy || undefined} disabled={disabled || busy} className={cn("inline-flex shrink-0 items-center justify-center gap-1.5 whitespace-nowrap rounded-lg font-medium leading-none transition-[background-color,border-color,color,box-shadow,transform] active:translate-y-px focus-visible:outline-none focus-visible:ring-2 disabled:pointer-events-none disabled:opacity-50", sizes[size], variants[variant], shape === "circle" && "rounded-full", variant === "link" && "rounded-sm", className)} {...props}>
-    {busy ? <span aria-hidden="true" className="size-4 animate-spin rounded-full border-2 border-current border-r-transparent" /> : icon}{children}
+    {busy ? <span aria-hidden="true" className="size-4 animate-spin rounded-full border-2 border-current border-r-transparent" /> : icon}{mobileIconOnly ? <span className="hidden sm:inline">{children}</span> : children}
   </button>;
 });
 

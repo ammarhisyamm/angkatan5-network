@@ -53,7 +53,7 @@ export default function MemberProfilePage() {
   return (
     <div className="space-y-6">
       {/* Back Button */}
-      <div className="flex items-center justify-between">
+      <div className="flex flex-wrap items-center justify-between gap-3">
         <Link
           href="/discover"
           className="inline-flex items-center gap-1 text-xs font-semibold text-kumo-subtle hover:text-kumo-strong transition-colors"

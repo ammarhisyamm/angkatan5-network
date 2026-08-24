@@ -169,8 +169,8 @@ export default function DiscoverPeoplePage() {
       <Input name="people-search" type="search" aria-label="Search people" placeholder="Search people, skills, roles, or companies…" value={searchQuery} onChange={(e: any) => setSearchQuery(e.target.value)} />
 
       {/* Quick Filter Chips */}
-      <div className="flex items-center justify-between gap-3 overflow-x-auto pb-1 scrollbar-none">
-        <div className="flex items-center gap-2">
+      <div className="flex items-center gap-3 overflow-x-auto pb-1 scrollbar-none">
+        <div className="flex min-w-0 flex-1 items-center gap-2">
           {QUICK_CHIPS.map((chip) => (
             <Button
               key={chip}

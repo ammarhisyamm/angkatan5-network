@@ -83,7 +83,7 @@ export default function OpportunityDetailPage() {
   return (
     <div className="space-y-6">
       {/* Back Button */}
-      <div className="flex items-center justify-between">
+      <div className="flex flex-wrap items-center justify-between gap-3">
         <Link
           href="/opportunities"
           className="inline-flex items-center gap-1 text-xs font-semibold text-kumo-subtle hover:text-kumo-strong transition-colors"
@@ -92,7 +92,7 @@ export default function OpportunityDetailPage() {
           Back to Opportunities
         </Link>
 
-        <div className="flex items-center gap-2">
+        <div className="flex min-w-0 flex-wrap items-center gap-2">
           <Button variant="outline" size="sm" onClick={handleShare} className="" >
             <ShareNetworkIcon size={12} weight="regular" className="mr-1" />
             Share
@@ -133,7 +133,7 @@ export default function OpportunityDetailPage() {
         </h1>
 
         {/* Author Ribbon */}
-        <div className="flex items-center justify-between pt-6 mt-6 border-t border-kumo-line flex-wrap gap-4">
+        <div className="flex flex-wrap items-center justify-between gap-4 border-t border-kumo-line pt-6 mt-6">
           <Link
             href={`/profile/${opportunity.authorId}`}
             className="flex items-center gap-3 group"

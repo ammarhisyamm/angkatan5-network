@@ -101,7 +101,7 @@ export default function AdminDashboardPage() {
 
       {/* Moderation Alert */}
       {pendingOpportunities.length > 0 && (
-        <div className="bg-warning-lighter border border-warning-light rounded-xl p-3 sm:p-4 flex items-center justify-between gap-4">
+        <div className="bg-warning-lighter border border-warning-light rounded-xl p-3 sm:p-4 flex flex-col items-stretch gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex items-center gap-3">
             <WarningCircleIcon size={20} weight="fill" className="text-warning-base shrink-0" />
             <div>
@@ -109,8 +109,8 @@ export default function AdminDashboardPage() {
               <p className="text-xs text-warning-dark mt-0.5">Community posts require admin approval before becoming visible.</p>
             </div>
           </div>
-          <Link href="/admin/opportunities">
-            <Button variant="secondary" size="sm">Review Queue</Button>
+          <Link href="/admin/opportunities" className="w-full sm:w-auto">
+            <Button variant="secondary" size="sm" className="w-full sm:w-auto">Review Queue</Button>
           </Link>
         </div>
       )}
