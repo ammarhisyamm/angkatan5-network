@@ -26,7 +26,7 @@ const variantMap: Record<string, "primary" | "secondary" | "ghost" | "outline" |
 const sizeMap: Record<string, "xs" | "sm" | "base" | "lg" | "xl"> = {
   sm: "base",
   md: "lg",
-  lg: "xl",
+  lg: "lg",
   icon: "sm",
 };
 
