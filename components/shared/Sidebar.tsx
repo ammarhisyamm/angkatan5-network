@@ -73,9 +73,9 @@ function SidebarInner() {
   const otherUsers = users.filter((u) => u.id !== currentUser?.id).slice(0, 3);
 
   return (
-    <KumoSidebar className="bg-white border-r border-zinc-200 [--sidebar-width-icon:72px]">
+    <KumoSidebar className="bg-kumo-base border-r border-kumo-line [--sidebar-width-icon:72px]">
       {/* Header — Logo + Collapse */}
-      <KumoSidebar.Header className="bg-white px-4 pt-4 pb-3 border-b-0 flex flex-col gap-4 !h-auto min-h-[140px]">
+      <KumoSidebar.Header className="bg-kumo-base px-4 pt-4 pb-3 border-b-0 flex flex-col gap-4 !h-auto min-h-[140px]">
         <div className="flex items-center justify-between gap-2">
           <Link
             href="/admin/dashboard"
@@ -83,7 +83,7 @@ function SidebarInner() {
             aria-label="A5 Network"
           >
             {/* Shopall-style blue 4-dot logo — adapted for A5 */}
-            <div className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-[#2563EB] shadow-sm">
+            <div className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-kumo-brand shadow-sm">
               <div className="grid grid-cols-2 gap-[3px]">
                 <span className="size-[7px] rounded-full bg-white/90" />
                 <span className="size-[7px] rounded-full bg-white/90" />
@@ -92,7 +92,7 @@ function SidebarInner() {
               </div>
             </div>
             {!isCollapsed && (
-              <span className="text-[15px] font-semibold tracking-tight text-[#111827]">A5 Network</span>
+              <span className="text-label-md font-semibold tracking-tight text-kumo-strong">A5 Network</span>
             )}
           </Link>
 
@@ -120,11 +120,11 @@ function SidebarInner() {
         {!isCollapsed ? (
           <div className="flex flex-col gap-3">
             <div>
-              <p className="px-1 pb-1.5 text-[12px] font-medium text-zinc-500">Workspace</p>
+              <p className="px-1 pb-1.5 text-label-sm font-medium text-kumo-subtle">Workspace</p>
               <div
                 role="tablist"
                 aria-label="Workspace"
-                className="flex items-center gap-1 rounded-xl bg-zinc-50 border border-zinc-200 p-1"
+                className="flex items-center gap-1 rounded-xl bg-kumo-tint border border-kumo-line p-1"
               >
                 <Link
                   href="/dashboard"
@@ -159,7 +159,9 @@ function SidebarInner() {
               <input
                 placeholder="Quick search"
                 aria-label="Quick search"
-                className="w-full h-9 pl-9 pr-3 bg-white border border-zinc-200 rounded-xl text-[13px] text-zinc-900 placeholder:text-zinc-400 outline-none hover:border-zinc-300 focus:border-[#2563EB] focus:ring-2 focus:ring-[#2563EB]/15 transition-colors"
+                name="quick-search"
+                type="search"
+                className="w-full h-10 pl-9 pr-3 bg-kumo-base border border-kumo-line rounded-xl text-body text-kumo-strong placeholder:text-kumo-inactive outline-none hover:border-kumo-brand focus:border-kumo-brand focus:ring-2 focus:ring-kumo-brand/20 transition-colors"
               />
             </div>
           </div>
@@ -192,11 +194,11 @@ function SidebarInner() {
       </KumoSidebar.Header>
 
       {/* Navigation */}
-      <KumoSidebar.Content className="px-3 py-4 flex-1 overflow-y-auto">
+      <KumoSidebar.Content className="px-3 py-5 flex-1 overflow-y-auto">
         {Object.entries(grouped).map(([group, items]: any, gi) => (
           <div key={group} className={gi !== 0 ? "mt-6 pt-6 border-t border-zinc-100" : ""}>
             {!isCollapsed && (
-              <p className="px-3 pb-2 text-[12px] font-medium text-zinc-500">{group}</p>
+              <p className="px-3 pb-2 text-label-sm font-medium text-kumo-subtle">{group}</p>
             )}
             <KumoSidebar.Menu className="space-y-0.5">
               {items.map((item: any) => {
@@ -244,10 +246,15 @@ function SidebarInner() {
       </KumoSidebar.Content>
 
       {/* User card — bottom */}
-      <KumoSidebar.Footer className="bg-white border-t border-zinc-100 p-2">
+      <KumoSidebar.Footer className="bg-kumo-base border-t border-kumo-line p-2">
         <div className="relative">
-          <div
-            className={`flex w-full items-center gap-3 rounded-xl p-3 ${isCollapsed ? "justify-center" : ""}`}
+          <button
+            type="button"
+            aria-label="Open account menu"
+            aria-haspopup="menu"
+            aria-expanded={showUserMenu}
+            onClick={() => !isCollapsed && setShowUserMenu((value) => !value)}
+            className={`flex w-full items-center gap-3 rounded-xl p-3 text-left transition-colors hover:bg-kumo-tint focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-kumo-brand ${isCollapsed ? "justify-center" : ""}`}
           >
             <img
               src={currentUser?.avatar || "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&auto=format&fit=crop&q=60"}
@@ -258,11 +265,11 @@ function SidebarInner() {
             />
             {!isCollapsed && (
               <div className="min-w-0 flex-1 text-left">
-                <p className="truncate text-[13px] font-semibold leading-4 text-[#111827]">{currentUser?.name || "Admin Angkatan 5"}</p>
-                <p className="truncate text-[11px] leading-3 text-zinc-500">{currentUser?.email || "admin@angkatan5.id"}</p>
+                <p className="truncate text-body-sm font-semibold leading-5 text-kumo-strong">{currentUser?.name || "Admin Angkatan 5"}</p>
+                <p className="truncate text-meta leading-4 text-kumo-subtle">{currentUser?.email || "admin@angkatan5.id"}</p>
               </div>
             )}
-          </div>
+          </button>
 
           {showUserMenu && !isCollapsed && (
             <div className="absolute bottom-full left-0 right-0 mb-2 rounded-xl border border-zinc-200 bg-white shadow-[0_8px_24px_rgba(0,0,0,0.08)] p-1.5 z-50" role="menu">

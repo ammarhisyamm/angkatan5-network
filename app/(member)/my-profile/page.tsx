@@ -164,6 +164,10 @@ export default function MyProfilePage() {
                   alt={currentUser.name}
                   width={96}
                   height={96}
+                  onError={(event) => {
+                    event.currentTarget.onerror = null;
+                    event.currentTarget.src = "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=192&auto=format&fit=crop&q=80";
+                  }}
                   className="size-20 sm:size-24 rounded-2xl object-cover aspect-square bg-zinc-100 ring-1 ring-zinc-200"
                 />
                 <span className="absolute -bottom-1 -right-1 flex size-6 items-center justify-center rounded-full bg-[#12B76A] ring-4 ring-white" title={currentUser.status}>
@@ -204,7 +208,7 @@ export default function MyProfilePage() {
                 <span className="text-sm font-semibold text-[#111827]">{completion}%</span>
               </div>
               <div className="mt-3 h-2 w-full overflow-hidden rounded-full bg-white ring-1 ring-zinc-200">
-                <div className="h-full rounded-full bg-[#2563EB] transition-all" style={{ width: `${completion}%` }} />
+                <div className="h-full rounded-full bg-[#2563EB] transition-[width] duration-500" style={{ width: `${completion}%` }} />
               </div>
               {missingSteps.length > 0 && (
                 <ul className="mt-3 space-y-1.5">
@@ -278,7 +282,7 @@ export default function MyProfilePage() {
               <Input label="Location" value={location} onChange={(e) => setLocation(e.target.value)} />
               <Input label="Batch" value={batch} onChange={(e) => setBatch(e.target.value)} />
             </div>
-            <Textarea label="Bio" rows={4} value={bio} onChange={(e) => setBio(e.target.value)} placeholder="Tell the community who you are..." />
+            <Textarea label="Bio" rows={4} value={bio} onChange={(e) => setBio(e.target.value)} placeholder="Tell the community who you are…" />
           </div>
         ) : (
           <div className="mt-3">
@@ -405,7 +409,7 @@ export default function MyProfilePage() {
                   })}
                 </div>
                 <form onSubmit={handleAddCustomSkill} className="flex gap-2">
-                  <Input aria-label="Add custom skill" value={customSkill} onChange={(e) => setCustomSkill(e.target.value)} placeholder="Add custom skill..." className="flex-1" />
+                  <Input name="custom-skill" aria-label="Add custom skill" value={customSkill} onChange={(e) => setCustomSkill(e.target.value)} placeholder="Add custom skill…" className="flex-1" />
                   <Button type="submit" variant="secondary" size="sm" disabled={!customSkill.trim()}>
                     Add
                   </Button>

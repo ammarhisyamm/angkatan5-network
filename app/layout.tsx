@@ -1,14 +1,7 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import "./globals.css";
 import { AppProvider } from "@/lib/store/AppContext";
 import { ToastContainer } from "@/components/ui/ToastContainer";
-
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-inter",
-  display: "swap",
-});
 
 export const metadata: Metadata = {
   title: "Angkatan 5 Network — Private Community Talent Network",
@@ -25,7 +18,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${inter.variable} h-full antialiased font-sans light`}>
+    <html lang="en" className="h-full antialiased font-sans light">
       <body className="min-h-full flex flex-col bg-kumo-tint text-kumo-strong selection:bg-kumo-brand selection:text-static-white">
         <AppProvider>
           {children}

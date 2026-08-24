@@ -26,7 +26,7 @@ export default function MemberDashboardPage() {
   const latestOpportunities = opportunities.filter((o) => o.status === "Published").slice(0, 3);
 
   const quickActions = [
-    { href: "/discover", icon: UsersIcon, title: "Find Someone", desc: "MagnifyingGlassIcon by skills, role, or experience." },
+    { href: "/discover", icon: UsersIcon, title: "Find Someone", desc: "Find people by skills, role, or experience." },
     { href: "/opportunities", icon: BriefcaseIcon, title: "Find Opportunities", desc: "Browse jobs, gigs, and collaborations." },
     { href: "/my-profile", icon: HandshakeIcon, title: "Offer Help", desc: "Share what you can help with." },
     { href: "/opportunities/create", icon: PlusCircleIcon, title: "Share Opportunity", desc: "Post an opening for the community." },

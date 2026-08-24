@@ -7,14 +7,14 @@ import { HouseIcon, UsersIcon, BriefcaseIcon, UserIcon, ShieldCheckIcon } from "
 import { cn } from "@/lib/utils/cn";
 
 const MEMBER_NAV = [
-  { name: "HouseIcon", short: "HouseIcon", href: "/dashboard", icon: HouseIcon },
+  { name: "Dashboard", short: "Home", href: "/dashboard", icon: HouseIcon },
   { name: "Discover People", short: "People", href: "/discover", icon: UsersIcon },
   { name: "Opportunities", short: "Jobs", href: "/opportunities", icon: BriefcaseIcon },
   { name: "My Profile", short: "Profile", href: "/my-profile", icon: UserIcon },
 ];
 
 const ADMIN_NAV = [
-  { name: "Dashboard", short: "HouseIcon", href: "/admin/dashboard", icon: HouseIcon },
+  { name: "Dashboard", short: "Home", href: "/admin/dashboard", icon: HouseIcon },
   { name: "Members", short: "Members", href: "/admin/members", icon: UsersIcon },
   { name: "Opportunities", short: "Jobs", href: "/admin/opportunities", icon: BriefcaseIcon },
   { name: "Skills", short: "Skills", href: "/admin/skills", icon: ShieldCheckIcon },
@@ -46,7 +46,7 @@ export function BottomNav() {
               aria-current={isActive ? "page" : undefined}
               className={cn(
                 // 48px touch target, full-height tap area
-                "relative flex min-h-12 flex-1 flex-col items-center justify-center gap-1 rounded-lg",
+                "relative flex min-h-12 flex-1 flex-col items-center justify-center gap-1 rounded-lg touch-manipulation",
                 "transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-kumo-brand",
                 isActive ? "text-kumo-brand" : "text-kumo-inactive active:text-kumo-subtle",
               )}

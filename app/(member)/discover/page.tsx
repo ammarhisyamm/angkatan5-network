@@ -25,7 +25,7 @@ const QUICK_CHIPS = [
 export default function DiscoverPeoplePage() {
   const { users } = useApp();
 
-  // MagnifyingGlassIcon & Filter state
+  // Search and filter state
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedChip, setSelectedChip] = useState("All");
   const [selectedIndustry, setSelectedIndustry] = useState("All");
@@ -64,7 +64,7 @@ export default function DiscoverPeoplePage() {
       // Must be visible in directory and not suspended
       if (user.visibility === "hidden" || user.suspended) return false;
 
-      // MagnifyingGlassIcon query (name, role, company, skills, bio)
+      // Search across name, role, company, skills, and bio
       if (searchQuery.trim()) {
         const q = searchQuery.toLowerCase();
         const matchesName = user.name.toLowerCase().includes(q);
@@ -166,8 +166,8 @@ export default function DiscoverPeoplePage() {
         </p>
       </div>
 
-      {/* Prominent MagnifyingGlassIcon Bar — Kumo Input */}
-      <Input aria-label="Search people" placeholder="Search people, skills, roles, or companies..." value={searchQuery} onChange={(e: any) => setSearchQuery(e.target.value)} />
+      {/* Prominent search bar — Kumo Input */}
+      <Input name="people-search" type="search" aria-label="Search people" placeholder="Search people, skills, roles, or companies…" value={searchQuery} onChange={(e: any) => setSearchQuery(e.target.value)} />
 
       {/* Quick Filter Chips */}
       <div className="flex items-center justify-between gap-3 overflow-x-auto pb-1 scrollbar-none">
@@ -275,7 +275,9 @@ export default function DiscoverPeoplePage() {
         {filteredUsers.length > 0 ? (
           <Grid variant="3up" gap="base">
             {filteredUsers.map((member) => (
-              <ProfileCard key={member.id} member={member} />
+              <div key={member.id} className="[content-visibility:auto] [contain-intrinsic-size:0_340px]">
+                <ProfileCard member={member} />
+              </div>
             ))}
           </Grid>
         ) : (
