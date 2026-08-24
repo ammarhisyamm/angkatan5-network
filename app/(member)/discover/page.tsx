@@ -154,9 +154,9 @@ export default function DiscoverPeoplePage() {
     <div className="space-y-6 sm:space-y-8 lg:space-y-10">
       {/* Page Header */}
       <div>
-        <div className="flex items-center gap-2 text-xs font-semibold uppercase leading-4 tracking-widest text-kumo-inactive mb-1">
+        <div className="mb-1 flex items-center gap-2 text-sm font-medium leading-5 text-kumo-subtle">
           <UsersIcon size={12} weight="regular" />
-          <span>Talent Directory</span>
+          <span>Talent directory</span>
         </div>
         <h1 className="text-page-title text-kumo-strong">
           Discover People

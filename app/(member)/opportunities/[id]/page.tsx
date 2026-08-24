@@ -198,7 +198,7 @@ export default function OpportunityDetailPage() {
         <div className="space-y-8">
           {/* Metadata Card */}
           <div className="bg-kumo-base border border-kumo-line rounded-xl p-6 space-y-4">
-            <h3 className="text-xs font-semibold uppercase leading-4 tracking-widest text-kumo-inactive">
+            <h3 className="text-sm font-medium leading-5 text-kumo-subtle">
               Details
             </h3>
 
@@ -229,7 +229,7 @@ export default function OpportunityDetailPage() {
           {/* Required Skills */}
           {opportunity.requiredSkills && opportunity.requiredSkills.length > 0 && (
             <div className="bg-kumo-base border border-kumo-line rounded-xl p-6">
-              <h3 className="text-xs font-semibold uppercase leading-4 tracking-widest text-kumo-inactive mb-3">
+              <h3 className="mb-3 text-sm font-medium leading-5 text-kumo-subtle">
                 Skills Required
               </h3>
               <div className="flex flex-wrap gap-2">

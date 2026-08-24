@@ -41,8 +41,8 @@ export default function MemberDashboardPage() {
   ];
 
   return (
-    <div className="space-y-6 lg:space-y-8">
-      <LayerCard className="w-full p-5 sm:p-6 lg:p-8">
+    <div className="space-y-8 lg:space-y-10">
+      <LayerCard className="w-full rounded-xl border border-kumo-line bg-kumo-base p-5 shadow-none sm:p-6 lg:p-8">
         <div className="flex flex-col gap-4 sm:gap-6 lg:flex-row lg:items-center lg:justify-between">
           <div className="min-w-0 flex-1">
             <h1 className="text-page-title text-kumo-strong">
@@ -50,7 +50,7 @@ export default function MemberDashboardPage() {
             </h1>
             <p className="mt-2 text-body text-kumo-subtle">Discover people and opportunities within your community.</p>
           </div>
-          <div className="w-full rounded-xl border border-kumo-line bg-kumo-tint p-4 sm:p-5 lg:w-[340px] lg:shrink-0">
+          <div className="w-full border-l-2 border-kumo-brand bg-kumo-tint p-4 sm:p-5 lg:w-[340px] lg:shrink-0">
             <div className="mb-2 flex items-center justify-between">
               <span className="text-meta text-kumo-subtle">Profile completion</span>
               <span className="text-meta font-semibold text-kumo-brand" data-numeric>{completion}%</span>
@@ -74,8 +74,8 @@ export default function MemberDashboardPage() {
             const Icon = a.icon;
             return (
               <Link key={a.href} href={a.href} className="group">
-                <LayerCard className="h-full w-full p-5 hover:border-kumo-brand/30 transition-colors hover:shadow-sm">
-                  <span className="mb-4 flex size-10 items-center justify-center rounded-xl bg-kumo-brand/10 text-kumo-brand">
+                <LayerCard className="h-full w-full rounded-lg border border-kumo-line p-5 shadow-none transition-colors hover:border-kumo-strong hover:bg-kumo-tint">
+                  <span className="mb-4 flex size-9 items-center justify-center rounded-lg bg-black/[.04] text-kumo-strong">
                     <Icon className="size-5 sm:size-6" strokeWidth={1.5} />
                   </span>
                   <h3 className="text-card-title text-kumo-strong group-hover:text-kumo-brand">{a.title}</h3>
@@ -87,7 +87,7 @@ export default function MemberDashboardPage() {
         </Grid>
       </section>
 
-      <LayerCard className="w-full p-5 sm:p-6">
+      <LayerCard className="w-full rounded-lg border-y border-kumo-line bg-transparent p-5 shadow-none sm:p-6">
         <div className="mb-4 flex items-center justify-between">
           <h2 id="snapshot-heading" className="text-section-title text-kumo-strong">Community Snapshot</h2>
           <span className="text-meta text-kumo-inactive">Updated live</span>

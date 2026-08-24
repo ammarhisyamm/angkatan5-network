@@ -162,7 +162,7 @@ export default function CreateOpportunityPage() {
         /* LIVE PREVIEW CARD */
         <div className="bg-kumo-base border border-kumo-line rounded-xl p-6 sm:p-8 space-y-8">
           <div className="flex items-center justify-between pb-3 border-b border-kumo-line">
-            <span className="text-xs font-bold uppercase tracking-wider text-kumo-brand">
+            <span className="text-sm font-medium text-kumo-brand">
               Live Preview
             </span>
             <Badge variant="success">

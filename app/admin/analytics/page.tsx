@@ -41,7 +41,7 @@ export default function AdminAnalyticsPage() {
     <div className="space-y-8">
       {/* Header */}
       <div>
-        <div className="flex items-center gap-1 mb-1 flex items-center gap-1.5 text-xs font-semibold uppercase leading-4 tracking-widest text-kumo-inactive">
+        <div className="mb-1 flex items-center gap-1.5 text-sm font-medium leading-5 text-kumo-subtle">
           <ChartBarIcon size={16} weight="regular" />
           <span>Talent Analytics</span>
         </div>

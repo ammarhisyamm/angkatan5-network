@@ -61,7 +61,7 @@ export function StatusBadge({ tone, label, className, ...props }: StatusBadgePro
       variant={variant as any}
       appearance={useDot ? "dot" : undefined}
       className={cn(
-        "rounded-full px-2.5 py-0.5 gap-1.5 text-xs font-semibold uppercase tracking-[0.02em] min-h-[24px] h-auto",
+        "rounded-full px-2.5 py-0.5 gap-1.5 text-xs font-semibold min-h-[24px] h-auto",
         isNeutral && "bg-white text-kumo-strong border border-kumo-line",
         className,
       )}

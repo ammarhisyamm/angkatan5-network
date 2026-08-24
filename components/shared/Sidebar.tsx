@@ -281,7 +281,7 @@ function SidebarInner() {
               {otherUsers.length > 0 && (
                 <>
                   <div className="px-2 py-1">
-                    <p className="text-[10px] font-semibold uppercase tracking-widest text-zinc-400 mb-1.5">Switch Account</p>
+                    <p className="mb-1.5 text-xs font-medium text-zinc-500">Switch account</p>
                     <div className="space-y-0.5">
                       {otherUsers.map((user) => (
                         <button

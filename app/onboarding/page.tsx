@@ -155,7 +155,7 @@ export default function OnboardingPage() {
       <div className="max-w-2xl w-full">
         {/* Header */}
         <div className="text-center mb-8">
-          <p className="mb-2 text-xs font-semibold uppercase leading-4 tracking-widest text-kumo-inactive">Profile Setup</p>
+          <p className="mb-2 text-sm font-medium leading-5 text-kumo-subtle">Profile setup</p>
           <h1 className="text-page-title text-kumo-strong">
             Welcome to Angkatan 5 Talent Network
           </h1>

@@ -79,7 +79,7 @@ export default function LoginPage() {
           </form>
 
           <div className="border-t border-kumo-line pt-5">
-            <div className="mb-3 text-xs font-semibold uppercase leading-4 tracking-widest text-kumo-inactive">Instant Demo Access</div>
+            <div className="mb-3 text-sm font-medium leading-5 text-kumo-subtle">Instant demo access</div>
             <div className="grid grid-cols-2 gap-2">
               <button
                 type="button"

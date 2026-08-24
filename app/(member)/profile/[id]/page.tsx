@@ -241,7 +241,7 @@ export default function MemberProfilePage() {
         <div className="space-y-8">
           {/* Skills Tag Cloud */}
           <div className="bg-kumo-base border border-kumo-line rounded-xl p-6">
-            <h2 className="text-xs font-semibold uppercase leading-4 tracking-widest text-kumo-inactive mb-3">
+            <h2 className="mb-3 text-sm font-medium leading-5 text-kumo-subtle">
               Skills & Expertise
             </h2>
             <div className="flex flex-wrap gap-2">
@@ -258,7 +258,7 @@ export default function MemberProfilePage() {
 
           {/* Social / Portfolio Links */}
           <div className="bg-kumo-base border border-kumo-line rounded-xl p-6">
-            <h2 className="text-xs font-semibold uppercase leading-4 tracking-widest text-kumo-inactive mb-3">
+            <h2 className="mb-3 text-sm font-medium leading-5 text-kumo-subtle">
               Links & Portfolio
             </h2>
             <div className="space-y-2">
