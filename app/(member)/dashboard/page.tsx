@@ -41,30 +41,29 @@ export default function MemberDashboardPage() {
 
   return (
     <div className="space-y-8 lg:space-y-10">
-      <LayerCard className="w-full rounded-xl border border-kumo-line bg-kumo-base p-5 shadow-none sm:p-6 lg:p-8">
-        <div className="flex flex-col gap-4 sm:gap-6 lg:flex-row lg:items-center lg:justify-between">
-          <div className="min-w-0 flex-1">
-            <h1 className="text-page-title text-kumo-strong">
-              {getGreeting()}, {firstName}
-            </h1>
-            <p className="mt-2 text-body text-kumo-subtle">Discover people and opportunities within your community.</p>
+      <section className="border-b border-kumo-line pb-6" aria-labelledby="welcome-heading">
+        <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex min-w-0 items-center gap-3">
+            <img src={currentUser?.avatar} alt="" width={40} height={40} className="size-10 shrink-0 rounded-full object-cover ring-1 ring-kumo-line" />
+            <div className="min-w-0">
+              <h1 id="welcome-heading" className="text-page-title text-kumo-strong">{getGreeting()}, {firstName}</h1>
+              <p className="mt-0.5 text-body text-kumo-subtle">Discover people and opportunities within your community.</p>
+            </div>
           </div>
-          <div className="w-full border-l-2 border-kumo-brand bg-kumo-tint p-4 sm:p-5 lg:w-[340px] lg:shrink-0">
+          <div className="w-full rounded-xl border border-kumo-line bg-kumo-tint p-4 sm:max-w-[300px]">
             <div className="mb-2 flex items-center justify-between">
               <span className="text-meta text-kumo-subtle">Profile completion</span>
               <span className="text-meta font-semibold text-kumo-brand" data-numeric>{completion}%</span>
             </div>
             <div className="h-1.5 w-full overflow-hidden rounded-full bg-kumo-line" role="progressbar" aria-valuenow={completion} aria-valuemin={0} aria-valuemax={100} aria-label="Profile completion">
-              <div className="h-full rounded-full bg-kumo-brand transition-colors duration-500" style={{ width: `${completion}%` }} />
+              <div className="h-full rounded-full bg-kumo-brand transition-[width] duration-500" style={{ width: `${completion}%` }} />
             </div>
             <Link href="/my-profile" className="mt-3 block">
-              <Button variant="secondary" size="sm" className="w-full justify-center">
-                Complete Profile <ArrowRightIcon size={14} weight="regular" />
-              </Button>
+              <Button variant="secondary" size="sm" className="w-full justify-center">Complete Profile <ArrowRightIcon size={14} weight="regular" /></Button>
             </Link>
           </div>
         </div>
-      </LayerCard>
+      </section>
 
       <section aria-labelledby="quick-actions-heading">
         <h2 id="quick-actions-heading" className="mb-3 text-section-title text-kumo-strong">Quick Actions</h2>
@@ -73,8 +72,8 @@ export default function MemberDashboardPage() {
             const Icon = a.icon;
             return (
               <Link key={a.href} href={a.href} className="group">
-                <LayerCard className="h-full w-full rounded-lg border border-kumo-line p-5 shadow-none transition-colors hover:border-kumo-strong hover:bg-kumo-tint">
-                  <span className="mb-4 flex size-9 items-center justify-center rounded-lg bg-black/[.04] text-kumo-strong">
+                <LayerCard className="h-full w-full rounded-xl border border-kumo-line p-4 transition-[background-color,border-color,transform] hover:-translate-y-px hover:border-kumo-brand hover:bg-kumo-tint sm:p-5">
+                  <span className="mb-4 flex size-9 items-center justify-center rounded-lg bg-primary-alpha-10 text-kumo-brand">
                     <Icon className="size-5 sm:size-6" strokeWidth={1.5} />
                   </span>
                   <h3 className="text-card-title text-kumo-strong group-hover:text-kumo-brand">{a.title}</h3>

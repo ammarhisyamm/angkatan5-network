@@ -31,7 +31,7 @@ export function BottomNav() {
       className="fixed inset-x-0 bottom-0 z-40 border-t border-kumo-line bg-kumo-base lg:hidden"
       style={{ paddingBottom: "env(safe-area-inset-bottom)" }}
     >
-      <div className="mx-auto flex h-16 max-w-md items-stretch px-2">
+      <div className="mx-auto flex h-[68px] max-w-md items-stretch px-2">
         {items.map((item) => {
           const isActive =
             pathname === item.href ||

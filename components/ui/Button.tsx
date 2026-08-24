@@ -13,7 +13,7 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
 }
 
 const sizes = {
-  xs: "h-7 px-2 text-xs", sm: "h-8 px-3 text-sm", base: "h-9 px-3.5 text-sm", md: "h-10 px-4 text-sm", lg: "h-11 px-4.5 text-sm", icon: "size-9 p-0 text-sm",
+  xs: "h-7 px-2 text-xs", sm: "h-8 px-3 text-sm", base: "h-9 px-3.5 text-sm", md: "h-10 px-4 text-sm", lg: "h-11 px-4 text-sm", icon: "size-9 p-0 text-sm",
 } as const;
 
 const variants = {
@@ -30,7 +30,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(function 
   { className, variant = "primary", size = "md", isLoading = false, loading = false, disabled, children, icon, shape = "base", ...props }, ref,
 ) {
   const busy = isLoading || loading;
-  return <button ref={ref} type={props.type ?? "button"} aria-busy={busy || undefined} disabled={disabled || busy} className={cn("inline-flex shrink-0 items-center justify-center gap-1.5 whitespace-nowrap rounded-lg font-medium leading-none transition-colors focus-visible:outline-none focus-visible:ring-2 disabled:pointer-events-none disabled:opacity-50", sizes[size], variants[variant], shape === "circle" && "rounded-full", variant === "link" && "rounded-sm", className)} {...props}>
+  return <button ref={ref} type={props.type ?? "button"} aria-busy={busy || undefined} disabled={disabled || busy} className={cn("inline-flex shrink-0 items-center justify-center gap-1.5 whitespace-nowrap rounded-lg font-medium leading-none transition-[background-color,border-color,color,box-shadow,transform] active:translate-y-px focus-visible:outline-none focus-visible:ring-2 disabled:pointer-events-none disabled:opacity-50", sizes[size], variants[variant], shape === "circle" && "rounded-full", variant === "link" && "rounded-sm", className)} {...props}>
     {busy ? <span aria-hidden="true" className="size-4 animate-spin rounded-full border-2 border-current border-r-transparent" /> : icon}{children}
   </button>;
 });

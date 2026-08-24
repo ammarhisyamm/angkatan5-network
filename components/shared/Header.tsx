@@ -13,7 +13,7 @@ export function Header() {
 
   return (
     <header className="sticky top-0 z-30 border-b border-kumo-line bg-kumo-base lg:hidden">
-      <div className="flex h-14 items-center justify-between px-4">
+      <div className="flex h-16 items-center justify-between px-4 sm:px-6">
         <Link href={isAdmin ? "/admin/dashboard" : "/dashboard"} className="flex items-center gap-2.5 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-kumo-brand">
           <span className="flex size-8 items-center justify-center rounded-lg bg-kumo-brand text-xs font-semibold text-static-white">A5</span>
           <span className="text-sm font-semibold leading-5 tracking-tight text-kumo-strong">A5 Network</span>

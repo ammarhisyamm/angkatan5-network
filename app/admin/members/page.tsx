@@ -73,7 +73,7 @@ export default function AdminMembersPage() {
       {/* Search & Filter */}
       <LayerCard className="p-4 sm:p-5 flex flex-col sm:flex-row items-center gap-3">
         <div className="flex-1 w-full">
-          <Input aria-label="Search members" placeholder="Search by name, email, company, role..." value={searchQuery} onChange={(e: any) => { setSearchQuery(e.target.value); setCurrentPage(1); }} />
+          <Input aria-label="Search members" placeholder="Search by name, email, company, role…" value={searchQuery} onChange={(e: any) => { setSearchQuery(e.target.value); setCurrentPage(1); }} />
         </div>
         <Select value={selectedStatus} onValueChange={(v: any) => { setSelectedStatus(v); setCurrentPage(1); }} items={["All", "Available to Help", "Open to Work", "Open to Collaboration", "Hiring"].map((v) => ({ label: v, value: v }))} placeholder="All Statuses" className="sm:w-44" />
         <Select value={selectedIndustry} onValueChange={(v: any) => { setSelectedIndustry(v); setCurrentPage(1); }} items={["All", "Technology", "Design", "Marketing", "Business", "Finance", "Media & Creative"].map((v) => ({ label: v, value: v }))} placeholder="All Industries" className="sm:w-44" />

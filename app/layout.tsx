@@ -19,7 +19,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="h-full antialiased font-sans light">
-      <body className="min-h-full flex flex-col bg-kumo-tint text-kumo-strong selection:bg-kumo-brand selection:text-static-white">
+      <body className="min-h-full flex flex-col bg-white text-kumo-strong selection:bg-kumo-brand selection:text-static-white">
         <AppProvider>
           {children}
           <ToastContainer />
