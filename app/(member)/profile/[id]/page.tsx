@@ -318,7 +318,7 @@ export default function MemberProfilePage() {
         onClose={() => setShowShareModal(false)}
         title="Share Profile"
         description="Copy link to share this profile"
-        icon="info"
+        centered
         maxWidth="sm"
       >
         <div className="space-y-4">

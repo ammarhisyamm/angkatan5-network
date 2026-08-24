@@ -295,7 +295,7 @@ export default function OpportunityDetailPage() {
         onClose={() => setShowShareModal(false)}
         title="Share Opportunity"
         description="Copy link to share this opportunity"
-        icon="info"
+        centered
         maxWidth="sm"
       >
         <div className="space-y-4">

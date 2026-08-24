@@ -585,17 +585,18 @@ export default function MyProfilePage() {
         title={successModal?.title || "Profile updated"}
         description={successModal?.desc || "Your profile changes have been saved."}
         icon="success"
+        centered
         maxWidth="sm"
       >
-        <div className="flex justify-end">
-          <Button variant="primary" size="md" onClick={() => setSuccessModal(null)} className="px-5">
+        <div className="flex justify-center">
+          <Button variant="primary" size="md" onClick={() => setSuccessModal(null)} className="px-6">
             Done
           </Button>
         </div>
       </Modal>
 
       {/* Share */}
-      <Modal isOpen={showShareModal} onClose={() => setShowShareModal(false)} title="Share profile" description="Copy your profile link" icon="info" maxWidth="sm">
+      <Modal isOpen={showShareModal} onClose={() => setShowShareModal(false)} title="Share profile" description="Copy your profile link" centered maxWidth="sm">
         <div className="space-y-4">
           <div className="flex items-center justify-center py-2">
             <div className="flex size-12 items-center justify-center rounded-2xl bg-zinc-50 ring-1 ring-zinc-200">

@@ -1,6 +1,8 @@
 "use client";
 
 import React, { createContext, useContext, useState, useEffect } from "react";
+import { Modal } from "@/components/ui/Modal";
+import { Button } from "@/components/ui/Button";
 import {
   User,
   Opportunity,
@@ -84,6 +86,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     string[]
   >([]);
   const [toasts, setToasts] = useState<ToastMessage[]>([]);
+  const [notificationModal, setNotificationModal] = useState<{ title: string; description?: string; icon?: "success" | "error" | "warning" | "info" | "question" } | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
   // Initialize from localStorage
@@ -173,12 +176,8 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     description?: string,
     type: "success" | "error" | "info" | "warning" = "success"
   ) => {
-    const id = globalThis.crypto.randomUUID();
-    const newToast: ToastMessage = { id, title, description, type };
-    setToasts((prev) => [...prev, newToast]);
-    setTimeout(() => {
-      removeToast(id);
-    }, 4000);
+    const iconMap = { success: "success", error: "error", warning: "warning", info: "info" } as const;
+    setNotificationModal({ title, description, icon: iconMap[type] || "info" });
   };
 
   const removeToast = (id: string) => {
@@ -601,6 +600,21 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
       }}
     >
       {children}
+      <Modal
+        isOpen={!!notificationModal}
+        onClose={() => setNotificationModal(null)}
+        title={notificationModal?.title}
+        description={notificationModal?.description}
+        icon={notificationModal?.icon || "info"}
+        centered
+        maxWidth="sm"
+      >
+        <div className="flex justify-center">
+          <Button variant="primary" size="md" onClick={() => setNotificationModal(null)} className="px-6">
+            Done
+          </Button>
+        </div>
+      </Modal>
     </AppContext.Provider>
   );
 }
