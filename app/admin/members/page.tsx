@@ -158,7 +158,7 @@ export default function AdminMembersPage() {
         title={actionType === "delete" ? "Delete Member?" : "Suspend Member?"}
         description={actionType === "delete" ? `Are you sure you want to delete ${targetMember?.name}? This action cannot be undone.` : `Toggle suspension for ${targetMember?.name}. Suspended members cannot be discovered.`}
       >
-        <div className="flex items-center justify-end gap-2 pt-4 border-t border-kumo-line">
+        <div className="flex items-center justify-end gap-3">
           <Button variant="outline" size="md" onClick={() => { setTargetMember(null); setActionType(null); }}>Cancel</Button>
           <Button variant={actionType === "delete" ? "danger" : "primary"} size="md" onClick={handleConfirmAction}>Confirm</Button>
         </div>

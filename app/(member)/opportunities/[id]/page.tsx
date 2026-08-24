@@ -283,7 +283,7 @@ export default function OpportunityDetailPage() {
               required
             />
 
-            <div className="flex items-center justify-end gap-2 pt-3 border-t border-kumo-line">
+            <div className="flex items-center justify-end gap-3">
               <Button type="button" variant="outline" size="md" onClick={() => setIsInterestModalOpen(false)}
               >
                 Cancel
@@ -316,7 +316,7 @@ export default function OpportunityDetailPage() {
               {typeof window !== "undefined" ? window.location.href : ""}
             </span>
           </div>
-          <div className="flex items-center justify-end gap-2 pt-3 border-t border-kumo-line">
+          <div className="flex items-center justify-end gap-3">
             <Button variant="outline" size="sm" onClick={() => setShowShareModal(false)}>
               Cancel
             </Button>

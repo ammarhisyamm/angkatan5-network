@@ -140,7 +140,7 @@ export default function AdminOpportunitiesPage() {
       {/* Confirmation Modal */}
       <Modal isOpen={!!targetOpp && !!actionType} onClose={() => { setTargetOpp(null); setActionType(null); }} title={`${actionType === "approve" ? "Approve" : "Archive"} Opportunity?`}
         description={`Are you sure you want to ${actionType} "${targetOpp?.title}"? ${actionType === "approve" ? "It will become visible on the public board." : "This can be reversed from the moderation tabs."}`}>
-        <div className="flex items-center justify-end gap-2 pt-4 border-t border-kumo-line mt-4">
+        <div className="flex items-center justify-end gap-3">
           <Button variant="outline" size="md" onClick={() => { setTargetOpp(null); setActionType(null); }}>Cancel</Button>
           <Button variant={actionType === "archive" ? "danger" : "primary"} size="md" onClick={handleConfirmAction}>
             {actionType === "approve" ? "Approve" : "Archive"}

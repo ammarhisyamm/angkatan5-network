@@ -188,7 +188,7 @@ export default function AdminSkillsPage() {
         <div className="space-y-4 pt-4">
           <Input aria-label="New skill name" value={editingSkill?.name || ""} onChange={(e: any) => setEditingSkill(editingSkill ? { ...editingSkill, name: e.target.value } : null)}
             onKeyDown={(e: any) => { if (e.key === "Enter") handleRenameSkill(); }} />
-          <div className="flex items-center justify-end gap-2 pt-4 border-t border-kumo-line">
+          <div className="flex items-center justify-end gap-3">
             <Button variant="outline" size="md" onClick={() => setEditingSkill(null)}>Cancel</Button>
             <Button variant="primary" size="md" onClick={handleRenameSkill} disabled={!editingSkill?.name.trim()}>Rename</Button>
           </div>
@@ -203,7 +203,7 @@ export default function AdminSkillsPage() {
             <option value="">Select target skill...</option>
             {skills.filter((s) => s.id !== mergeTarget?.id).map((s) => <option key={s.id} value={s.id}>{s.name} ({s.category})</option>)}
           </select>
-          <div className="flex items-center justify-end gap-2 pt-4 border-t border-kumo-line">
+          <div className="flex items-center justify-end gap-3">
             <Button variant="outline" size="md" onClick={() => { setMergeTarget(null); setMergeIntoSkill(""); }}>Cancel</Button>
             <Button variant="primary" size="md" onClick={handleMergeSkills} disabled={!mergeIntoSkill || mergeTarget?.id === mergeIntoSkill}>Merge</Button>
           </div>
@@ -212,7 +212,7 @@ export default function AdminSkillsPage() {
 
       {/* Delete Modal */}
       <Modal isOpen={!!deleteTarget} onClose={() => setDeleteTarget(null)} title="Delete Skill?" description={`Are you sure you want to delete "${deleteTarget?.name}"? This action cannot be undone.`}>
-        <div className="flex items-center justify-end gap-2 pt-4 border-t border-kumo-line">
+        <div className="flex items-center justify-end gap-3">
           <Button variant="outline" size="md" onClick={() => setDeleteTarget(null)}>Cancel</Button>
           <Button variant="danger" size="md" onClick={handleDeleteSkill}>Delete</Button>
         </div>
