@@ -32,14 +32,6 @@ export default function MemberDashboardPage() {
     { href: "/opportunities/create", icon: PlusCircleIcon, title: "Share Opportunity", desc: "Post an opening for the community." },
   ];
 
-  const metrics = [
-    { label: "Total members", value: "182", meta: "+12 this month", metaTone: "text-kumo-success" },
-    { label: "Skills listed", value: "32", meta: "across 7 industries", metaTone: "text-kumo-inactive" },
-    { label: "Open to work", value: "18", meta: "available now", metaTone: "text-kumo-inactive" },
-    { label: "Open to collab", value: "24", meta: "seeking partners", metaTone: "text-kumo-inactive" },
-    { label: "Active opportunities", value: "15", meta: "4 posted this week", metaTone: "text-kumo-success" },
-  ];
-
   return (
     <div className="space-y-8 lg:space-y-10">
       <section className="border-b border-kumo-line pb-6" aria-labelledby="welcome-heading">
@@ -85,22 +77,6 @@ export default function MemberDashboardPage() {
           })}
         </Grid>
       </section>
-
-      <LayerCard className="w-full rounded-lg border-y border-kumo-line bg-transparent p-5 shadow-none sm:p-6">
-        <div className="mb-4 flex items-center justify-between">
-          <h2 id="snapshot-heading" className="text-section-title text-kumo-strong">Community Snapshot</h2>
-          <span className="text-meta text-kumo-inactive">Updated live</span>
-        </div>
-        <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
-          {metrics.map((m) => (
-            <div key={m.label} className="flex flex-col min-w-0">
-              <dt className="text-meta text-kumo-subtle">{m.label}</dt>
-              <dd className="mt-1 text-kpi text-kumo-strong" data-numeric>{m.value}</dd>
-              <span className={`mt-0.5 text-meta ${m.metaTone}`}>{m.meta}</span>
-            </div>
-          ))}
-        </div>
-      </LayerCard>
 
       <section aria-labelledby="featured-heading">
         <div className="mb-4 flex items-end justify-between gap-4">
