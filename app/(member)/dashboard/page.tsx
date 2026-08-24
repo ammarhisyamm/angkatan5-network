@@ -73,7 +73,7 @@ export default function MemberDashboardPage() {
             const Icon = a.icon;
             return (
               <Link key={a.href} href={a.href} className="group">
-                <LayerCard className="h-full w-full rounded-xl border border-kumo-line p-4 transition-[background-color,border-color,transform] hover:-translate-y-px hover:border-kumo-brand hover:bg-kumo-tint sm:p-5">
+                <LayerCard className="h-full w-full rounded-xl border border-kumo-line p-4 transition-[background-color,border-color,transform,box-shadow] hover:-translate-y-px hover:border-kumo-brand/30 hover:bg-primary-alpha-10 hover:shadow-sm sm:p-5">
                   <span className="mb-4 flex size-9 items-center justify-center rounded-lg bg-primary-alpha-10 text-kumo-brand">
                     <Icon className="size-5 sm:size-6" strokeWidth={1.5} />
                   </span>

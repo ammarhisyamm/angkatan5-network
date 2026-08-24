@@ -28,10 +28,10 @@ export function BottomNav() {
   return (
     <nav
       aria-label="Primary mobile"
-      className="fixed inset-x-0 bottom-0 z-40 border-t border-kumo-line bg-kumo-base lg:hidden"
-      style={{ paddingBottom: "env(safe-area-inset-bottom)" }}
+      className="fixed inset-x-4 bottom-4 z-40 mx-auto max-w-sm rounded-2xl border border-white/10 bg-slate-950/85 p-1.5 shadow-[0_16px_32px_rgba(15,23,42,0.2)] backdrop-blur-xl lg:hidden"
+      style={{ marginBottom: "env(safe-area-inset-bottom)" }}
     >
-      <div className="mx-auto flex h-[68px] max-w-md items-stretch px-2">
+      <div className="flex h-[60px] items-stretch gap-1">
         {items.map((item) => {
           const isActive =
             pathname === item.href ||
@@ -46,22 +46,13 @@ export function BottomNav() {
               aria-current={isActive ? "page" : undefined}
               className={cn(
                 // 48px touch target, full-height tap area
-                "relative flex min-h-12 flex-1 flex-col items-center justify-center gap-1 rounded-lg touch-manipulation",
-                "transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-kumo-brand",
-                isActive ? "text-kumo-brand" : "text-kumo-inactive active:text-kumo-subtle",
+                "relative flex min-h-12 flex-1 flex-col items-center justify-center gap-1 rounded-xl touch-manipulation",
+                "transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70",
+                isActive ? "bg-kumo-brand text-static-white shadow-sm" : "text-white/70 hover:bg-white/10 hover:text-white active:bg-white/15",
               )}
             >
-              {/* Active pill behind icon */}
-              <span
-                aria-hidden="true"
-                className={cn(
-                  "flex h-7 w-12 items-center justify-center rounded-full transition-colors duration-200",
-                  isActive && "bg-primary-alpha-10",
-                )}
-              >
-                <Icon className="size-5" strokeWidth={isActive ? 2 : 1.5} />
-              </span>
-              <span className={cn("text-xs font-medium leading-none", isActive && "font-semibold")}>
+              <Icon className="size-5" weight={isActive ? "fill" : "regular"} aria-hidden="true" />
+              <span className={cn("text-[10px] font-medium leading-none", isActive && "font-semibold")}>
                 {item.short}
               </span>
             </Link>

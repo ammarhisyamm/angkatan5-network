@@ -26,7 +26,7 @@ export function OpportunityCard({ opportunity }: { opportunity: Opportunity }) {
   };
 
   return (
-    <LayerCard className="group flex h-full w-full flex-col rounded-lg border border-kumo-line p-0 overflow-hidden shadow-none transition-colors duration-200 hover:border-kumo-strong hover:bg-kumo-tint">
+    <LayerCard className="group flex h-full w-full flex-col overflow-hidden rounded-lg border border-kumo-line p-0 shadow-none transition-[background-color,border-color,box-shadow,transform] duration-200 hover:-translate-y-px hover:border-kumo-brand/30 hover:bg-primary-alpha-10 hover:shadow-sm">
       {/* Content */}
       <div className="flex flex-1 flex-col p-6">
         <div className="mb-3 flex items-start justify-between gap-2">
@@ -46,7 +46,7 @@ export function OpportunityCard({ opportunity }: { opportunity: Opportunity }) {
             className={`flex size-8 shrink-0 items-center justify-center rounded-lg transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-kumo-brand ${
               bookmarked
                 ? "bg-primary-alpha-10 text-kumo-brand"
-                : "text-kumo-inactive hover:bg-kumo-tint hover:text-kumo-subtle"
+                : "text-kumo-inactive hover:bg-primary-alpha-10 hover:text-kumo-brand"
             }`}
           >
             {bookmarked ? <BookmarkSimpleIcon size={16} weight="regular" /> : <BookmarkSimpleIcon size={16} weight="regular" />}

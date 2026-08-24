@@ -65,14 +65,14 @@ export default function AdminOpportunitiesPage() {
       </div>
 
       {/* Tabs */}
-      <div className="border-b border-kumo-line flex items-center gap-1 px-1 pb-0 -mb-px overflow-x-auto">
+      <div className="flex items-center gap-1 overflow-x-auto rounded-xl bg-kumo-tint p-1">
         {TABS.map((tab) => {
           const isActive = activeTab === tab.id;
           const Icon = tab.icon;
           return (
             <button key={tab.id} onClick={() => setActiveTab(tab.id)}
-              className={`group relative flex items-center gap-2 px-3 py-2.5 text-sm font-medium rounded-t-lg transition-colors
-                ${isActive ? "text-kumo-brand bg-primary-alpha-10 border border-kumo-line border-b-transparent" : "text-kumo-subtle hover:text-kumo-strong hover:bg-kumo-tint border border-transparent"}`}>
+              className={`group relative flex min-h-9 items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium transition-colors
+                ${isActive ? "bg-kumo-base text-kumo-strong shadow-sm" : "text-kumo-subtle hover:bg-kumo-base/70 hover:text-kumo-strong"}`}>
               <Icon size={16} weight={isActive ? "fill" : "regular"} className={isActive ? "text-kumo-brand" : "text-kumo-inactive group-hover:text-kumo-subtle"} />
               <span>{tab.label}</span>
               <Badge variant={tab.id === "Pending" ? "warning" : "neutral"}>{counts[tab.id]}</Badge>

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import "@fontsource-variable/manrope";
 import "./globals.css";
 import { AppProvider } from "@/lib/store/AppContext";
 import { ToastContainer } from "@/components/ui/ToastContainer";

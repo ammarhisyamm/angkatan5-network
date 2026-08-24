@@ -18,7 +18,6 @@ import {
   CheckIcon,
   SparkleIcon,
   LockSimpleIcon,
-  EyeIcon,
   PlusIcon,
   TrashSimpleIcon,
   CheckCircleIcon,
@@ -28,7 +27,7 @@ import {
   ArrowRightIcon,
   InfoIcon,
 } from "@phosphor-icons/react";
-import { UserStatus, LookingForOption, CanOfferOption, UserVisibility } from "@/lib/types";
+import { UserStatus, LookingForOption, CanOfferOption } from "@/lib/types";
 
 const ALL_SKILLS = [
   "UI/UX Design",
@@ -83,7 +82,6 @@ export default function MyProfilePage() {
   const [linkedin, setLinkedin] = useState(currentUser?.linkedin || "");
   const [portfolio, setPortfolio] = useState(currentUser?.portfolio || "");
   const [website, setWebsite] = useState(currentUser?.website || "");
-  const [visibility, setVisibility] = useState<UserVisibility>(currentUser?.visibility || "community");
 
   if (!currentUser) return null;
 
@@ -104,7 +102,6 @@ export default function MyProfilePage() {
       linkedin,
       portfolio,
       website,
-      visibility,
     });
     addToast("Saved", `${sectionName} updated successfully`, "success");
     setEditingSection(null);
@@ -152,7 +149,6 @@ export default function MyProfilePage() {
     <div className="mx-auto max-w-[1120px] space-y-6">
       {/* HERO */}
       <div className="overflow-hidden rounded-xl border border-kumo-line bg-white shadow-none">
-        <div className="h-1 w-full bg-kumo-brand" />
         <div className="p-6 sm:p-8">
           <div className="flex flex-col gap-8 lg:flex-row lg:items-start lg:justify-between">
             {/* Left: avatar + identity */}
@@ -183,7 +179,7 @@ export default function MyProfilePage() {
             </div>
 
             {/* Right: completion card */}
-            <div className="w-full border-l-2 border-kumo-brand bg-kumo-tint p-5 lg:w-[320px] lg:shrink-0">
+            <div className="w-full rounded-xl border border-kumo-line bg-kumo-tint p-5 lg:w-[320px] lg:shrink-0">
               <div className="flex items-center justify-between">
                 <p className="text-xs font-semibold tracking-wide text-zinc-500">Profile completion</p>
                 <span className="text-sm font-semibold text-[#111827]">{completion}%</span>
@@ -203,16 +199,6 @@ export default function MyProfilePage() {
                   ))}
                 </ul>
               )}
-              <div className="mt-4 grid grid-cols-1 gap-2 sm:grid-cols-2">
-                <Button variant="primary" size="sm" className="w-full justify-center whitespace-nowrap px-2 text-[13px]" onClick={() => setEditingSection("personal")}>
-                  Complete profile
-                </Button>
-                <Button variant="outline" size="sm" className="w-full justify-center whitespace-nowrap bg-white px-2 text-[13px]" onClick={() => setShowShareModal(true)}>
-                  <ShareNetworkIcon size={14} weight="regular" className="mr-1" />
-                  Share
-                </Button>
-              </div>
-              <p className="mt-2 text-center text-[11px] text-zinc-400">Visible to community • {currentUser.visibility}</p>
             </div>
           </div>
 
@@ -476,7 +462,6 @@ export default function MyProfilePage() {
                     ))}
                   </div>
                 </div>
-                <Select label="Profile Visibility" value={visibility} onValueChange={(v) => setVisibility(v as UserVisibility)} items={[{ label: "Community Only", value: "community" }, { label: "Public", value: "public" }, { label: "Private", value: "private" }]} />
               </div>
             ) : (
               <div className="mt-4 space-y-4">
@@ -563,14 +548,6 @@ export default function MyProfilePage() {
             )}
           </div>
 
-          {/* Visibility hint */}
-          <div className="rounded-2xl border border-zinc-200 bg-zinc-50 p-5">
-            <p className="inline-flex items-center gap-2 text-xs font-semibold text-zinc-600">
-              <EyeIcon size={14} /> Visibility
-            </p>
-            <p className="mt-1 text-sm font-medium capitalize text-[#111827]">{currentUser.visibility}</p>
-            <p className="mt-1 text-xs leading-4 text-zinc-500">Control who can find you in Discover and search.</p>
-          </div>
         </div>
       </div>
 
