@@ -23,10 +23,10 @@ const variantMap: Record<string, "primary" | "secondary" | "ghost" | "outline" |
   link: "ghost",
 };
 
-const sizeMap: Record<string, "xs" | "sm" | "base" | "lg"> = {
-  sm: "sm",
-  md: "base",
-  lg: "lg",
+const sizeMap: Record<string, "xs" | "sm" | "base" | "lg" | "xl"> = {
+  sm: "base",
+  md: "lg",
+  lg: "xl",
   icon: "sm",
 };
 

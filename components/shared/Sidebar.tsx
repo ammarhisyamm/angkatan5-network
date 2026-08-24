@@ -114,11 +114,11 @@ function SidebarInner() {
           )}
         </div>
 
-        {/* Workspace — Stores style selector */}
+        {/* Workspace — Member / Admin switch */}
         {!isCollapsed ? (
           <div className="flex flex-col gap-3">
             <div>
-              <p className="px-1 pb-1.5 text-[12px] font-medium text-zinc-500">Stores</p>
+              <p className="px-1 pb-1.5 text-[12px] font-medium text-zinc-500">Workspace</p>
               <div
                 role="tablist"
                 aria-label="Workspace"
@@ -242,11 +242,12 @@ function SidebarInner() {
       </KumoSidebar.Content>
 
       {/* User card — bottom */}
-      <KumoSidebar.Footer className="bg-white border-t border-zinc-100 p-3">
+      <KumoSidebar.Footer className="bg-white border-t border-zinc-100 p-2">
         <div className="relative">
           <button
+            type="button"
             onClick={() => setShowUserMenu(!showUserMenu)}
-            className={`flex w-full items-center gap-3 rounded-xl p-2 hover:bg-zinc-50 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-kumo-brand ${isCollapsed ? "justify-center" : ""}`}
+            className={`flex w-full items-center gap-3 rounded-xl p-3 hover:bg-zinc-50 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-kumo-brand ${isCollapsed ? "justify-center" : ""}`}
             aria-expanded={showUserMenu}
             aria-haspopup="menu"
           >
