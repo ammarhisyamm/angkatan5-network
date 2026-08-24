@@ -12,13 +12,13 @@ import { StackIcon, PlusIcon, DotsThreeVerticalIcon, PencilSimpleIcon, ArrowsMer
 const FIELD_CATEGORIES: SkillCategory[] = ["Design", "Technology", "Business", "Marketing", "Finance", "Media & Creative", "Other"];
 
 const CATEGORY_COLORS: Record<string, string> = {
-  "Design": "bg-kumo-brand",
-  "Technology": "bg-verified-base",
-  "Business": "bg-feature-base",
-  "Marketing": "bg-purple-600",
-  "Finance": "bg-warning-base",
-  "Media & Creative": "bg-primary-base",
-  "Other": "bg-kumo-subtle",
+  "Design": "text-[#4F46E5]",
+  "Technology": "text-sky-500",
+  "Business": "text-violet-600",
+  "Marketing": "text-purple-600",
+  "Finance": "text-amber-500",
+  "Media & Creative": "text-blue-600",
+  "Other": "text-zinc-500",
 };
 
 const CATEGORY_ICONS: Record<string, any> = {
@@ -153,7 +153,7 @@ export default function AdminSkillsPage() {
             <LayerCard key={category} className="p-0 overflow-hidden">
               <div className="px-4 sm:px-5 py-3.5 border-b border-kumo-line flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                  <div className={`flex size-8 items-center justify-center rounded-lg shrink-0 ${CATEGORY_COLORS[category] || "bg-kumo-inactive"} text-white`}>
+                  <div className={`flex size-8 items-center justify-center rounded-lg shrink-0 bg-white ring-1 ring-zinc-200 shadow-sm ${CATEGORY_COLORS[category] || "text-zinc-500"}`}>
                     {(() => {
                       const Icon = CATEGORY_ICONS[category] || DotsThreeIcon;
                       return <Icon size={16} weight="regular" />;
