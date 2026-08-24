@@ -190,7 +190,6 @@ function SidebarInner() {
                 return (
                   <KumoSidebar.MenuButton
                     key={item.href}
-                    icon={Icon}
                     active={isActive}
                     href={item.href}
                     title={isCollapsed ? `${item.name}${item.count !== null ? ` (${item.count})` : ""}` : undefined}
@@ -198,7 +197,7 @@ function SidebarInner() {
                       isActive ? "bg-white text-[#111827] font-medium" : "text-zinc-500 hover:bg-zinc-50 hover:text-zinc-900 font-normal"
                     } ${isCollapsed ? "!justify-center !px-0" : ""}`}
                   >
-                    <span className={`shrink-0 ${isActive ? "text-[#111827]" : "text-zinc-500 group-hover/item:text-zinc-700"}`}>
+                    <span className={`shrink-0 flex size-5 items-center justify-center ${isActive ? "text-[#111827]" : "text-zinc-500 group-hover/item:text-zinc-700"}`}>
                       <Icon size={18} weight={isActive ? "fill" : "regular"} />
                     </span>
 
@@ -227,64 +226,6 @@ function SidebarInner() {
           </div>
         ))}
 
-        {/* Profil nav group — matches screenshot Profil section */}
-        <div className="mt-6 pt-6 border-t border-zinc-100">
-          {!isCollapsed && <p className="px-3 pb-2 text-[12px] font-medium text-zinc-500">Profil</p>}
-          <KumoSidebar.Menu className="space-y-0.5">
-            {[
-              { name: "Messages", href: "/admin/members", icon: UserIcon, count: 2 },
-              { name: "Notifications", href: "/admin/analytics", icon: BellIcon, count: null },
-              { name: "Settings", href: "/my-profile", icon: GearIcon, count: null },
-            ].map((item: any) => {
-              const Icon = item.icon;
-              const isActive = pathname === item.href;
-              return (
-                <KumoSidebar.MenuButton
-                  key={item.name}
-                  icon={Icon}
-                  active={false}
-                  href={item.href}
-                  title={isCollapsed ? `${item.name}${item.count ? ` (${item.count})` : ""}` : undefined}
-                  className={`group/item relative flex h-9 items-center gap-3 rounded-xl px-3 text-[13.5px] text-zinc-500 hover:bg-zinc-50 hover:text-zinc-900 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-kumo-brand ${isCollapsed ? "!justify-center !px-0" : ""}`}
-                >
-                  <span className="shrink-0 text-zinc-500 group-hover/item:text-zinc-700">
-                    <Icon size={18} weight="regular" />
-                  </span>
-                  {!isCollapsed ? (
-                    <>
-                      <span className="flex-1 truncate text-left text-zinc-600">{item.name}</span>
-                      {item.count !== null && (
-                        <span className="shrink-0 min-w-[22px] h-[22px] px-1 flex items-center justify-center rounded-md border border-zinc-200 bg-white text-[11px] font-medium text-zinc-600">
-                          {item.count}
-                        </span>
-                      )}
-                    </>
-                  ) : (
-                    item.count !== null && (
-                      <span className="absolute -top-0.5 -right-0.5 size-2 rounded-full bg-[#2563EB] ring-2 ring-white" aria-hidden="true" />
-                    )
-                  )}
-                </KumoSidebar.MenuButton>
-              );
-            })}
-            <KumoSidebar.MenuButton
-              icon={SignOutIcon}
-              active={false}
-              href="#"
-              title={isCollapsed ? "Log out" : undefined}
-              onClick={(e: any) => {
-                e.preventDefault();
-                logout();
-              }}
-              className={`group/item relative flex h-9 items-center gap-3 rounded-xl px-3 text-[13.5px] text-zinc-500 hover:bg-zinc-50 hover:text-zinc-900 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-kumo-brand ${isCollapsed ? "!justify-center !px-0" : ""}`}
-            >
-              <span className="shrink-0 text-zinc-500">
-                <SignOutIcon size={18} weight="regular" />
-              </span>
-              {!isCollapsed && <span className="flex-1 truncate text-left text-zinc-600">Log out</span>}
-            </KumoSidebar.MenuButton>
-          </KumoSidebar.Menu>
-        </div>
       </KumoSidebar.Content>
 
       {/* User card — bottom */}
