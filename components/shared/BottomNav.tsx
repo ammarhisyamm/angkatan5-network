@@ -43,6 +43,8 @@ export function BottomNav() {
             <Link
               key={item.href}
               href={item.href}
+              aria-label={item.name}
+              title={item.name}
               aria-current={isActive ? "page" : undefined}
               className={cn(
                 // 48px touch target, full-height tap area
@@ -52,9 +54,6 @@ export function BottomNav() {
               )}
             >
               <Icon className="size-5" weight={isActive ? "fill" : "regular"} aria-hidden="true" />
-              <span className={cn("text-[10px] font-medium leading-none", isActive && "font-semibold")}>
-                {item.short}
-              </span>
             </Link>
           );
         })}

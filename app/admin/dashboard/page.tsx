@@ -82,7 +82,7 @@ export default function AdminDashboardPage() {
       </div>
 
       {/* KPI Cards */}
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
+      <div className="grid grid-cols-1 gap-3 sm:grid-cols-3 lg:grid-cols-6">
         {[
           { label: "Total Members", value: "182", accent: null, supporting: "+18 this month", supportColor: "text-success-base" },
           { label: "Profile Completion", value: "81%", accent: null, supporting: "Average across pool", supportColor: "text-kumo-brand" },
@@ -169,7 +169,7 @@ export default function AdminDashboardPage() {
       {/* Status Breakdown */}
       <LayerCard className="p-6">
         <h3 className="text-card-title text-kumo-strong mb-4">Member Status Breakdown</h3>
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
           {STATUS_DATA.map((st) => (
             <div key={st.name} className="p-3 sm:p-4 rounded-xl bg-kumo-tint border border-kumo-line flex items-center gap-3">
               <div className="size-2.5 rounded-full shrink-0" style={{ backgroundColor: st.color }} />

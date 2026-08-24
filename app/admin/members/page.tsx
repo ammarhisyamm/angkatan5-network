@@ -72,12 +72,12 @@ export default function AdminMembersPage() {
       </div>
 
       {/* Search & Filter */}
-      <LayerCard className="p-4 sm:p-5 flex flex-col sm:flex-row items-center gap-3">
-        <div className="flex-1 w-full">
+      <LayerCard className="flex flex-col items-stretch gap-3 p-4 sm:flex-row sm:items-center sm:justify-center sm:p-5">
+        <div className="w-full sm:min-w-0 sm:flex-1">
           <Input aria-label="Search members" placeholder="Search by name, email, company, role…" value={searchQuery} onChange={(e: any) => { setSearchQuery(e.target.value); setCurrentPage(1); }} />
         </div>
-        <Select value={selectedStatus} onValueChange={(v: any) => { setSelectedStatus(v); setCurrentPage(1); }} items={["All", "Available to Help", "Open to Work", "Open to Collaboration", "Hiring"].map((v) => ({ label: v, value: v }))} placeholder="All Statuses" className="sm:w-44" />
-        <Select value={selectedIndustry} onValueChange={(v: any) => { setSelectedIndustry(v); setCurrentPage(1); }} items={["All", "Technology", "Design", "Marketing", "Business", "Finance", "Media & Creative"].map((v) => ({ label: v, value: v }))} placeholder="All Industries" className="sm:w-44" />
+        <Select value={selectedStatus} onValueChange={(v: any) => { setSelectedStatus(v); setCurrentPage(1); }} items={["All", "Available to Help", "Open to Work", "Open to Collaboration", "Hiring"].map((v) => ({ label: v, value: v }))} placeholder="All Statuses" className="w-full sm:w-44" />
+        <Select value={selectedIndustry} onValueChange={(v: any) => { setSelectedIndustry(v); setCurrentPage(1); }} items={["All", "Technology", "Design", "Marketing", "Business", "Finance", "Media & Creative"].map((v) => ({ label: v, value: v }))} placeholder="All Industries" className="w-full sm:w-44" />
       </LayerCard>
 
       {/* Table */}
@@ -130,7 +130,7 @@ export default function AdminMembersPage() {
                       <Link href={`/profile/${member.id}`}>
                         <Button variant="ghost" size="sm" shape="square" icon={<EyeIcon />} aria-label="View" />
                       </Link>
-                      <Button variant={member.verified ? "secondary" : "outline"} size="sm" onClick={() => verifyMember(member.id)} icon={<ShieldCheckIcon size={14} />}>
+                      <Button variant={member.verified ? "secondary" : "outline"} size="sm" mobileIconOnly title={member.verified ? "Verified" : "Verify member"} aria-label={member.verified ? "Verified" : "Verify member"} onClick={() => verifyMember(member.id)} icon={<ShieldCheckIcon size={14} />}>
                         {member.verified ? "Verified" : "Verify"}
                       </Button>
                       <Button variant="ghost" size="sm" shape="square" icon={<ShieldWarningIcon />} onClick={() => { setTargetMember(member); setActionType("suspend"); }} aria-label={member.suspended ? "Unsuspend" : "Suspend"} />
@@ -159,9 +159,9 @@ export default function AdminMembersPage() {
         title={actionType === "delete" ? "Delete Member?" : "Suspend Member?"}
         description={actionType === "delete" ? `Are you sure you want to delete ${targetMember?.name}? This action cannot be undone.` : `Toggle suspension for ${targetMember?.name}. Suspended members cannot be discovered.`}
       >
-        <div className="flex items-center justify-end gap-3">
-          <Button variant="outline" size="md" onClick={() => { setTargetMember(null); setActionType(null); }}>Cancel</Button>
-          <Button variant={actionType === "delete" ? "danger" : "primary"} size="md" onClick={handleConfirmAction}>Confirm</Button>
+        <div className="flex flex-col-reverse gap-3 sm:flex-row sm:justify-end">
+          <Button variant="outline" size="md" className="w-full sm:w-auto" onClick={() => { setTargetMember(null); setActionType(null); }}>Cancel</Button>
+          <Button variant={actionType === "delete" ? "danger" : "primary"} size="md" className="w-full sm:w-auto" onClick={handleConfirmAction}>Confirm</Button>
         </div>
       </Modal>
     </div>
