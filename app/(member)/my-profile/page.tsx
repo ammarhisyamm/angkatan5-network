@@ -424,6 +424,7 @@ export default function MyProfilePage() {
             </div>
             <form onSubmit={handleAddCustomSkill} className="flex gap-2">
               <Input
+                aria-label="Add custom skill"
                 value={customSkill}
                 onChange={(e) => setCustomSkill(e.target.value)}
                 placeholder="Add custom skill..."

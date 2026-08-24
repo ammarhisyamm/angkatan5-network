@@ -117,7 +117,7 @@ export default function CreateOpportunityPage() {
   };
 
   return (
-    <div className="max-w-3xl mx-auto space-y-8">
+    <div className="space-y-6">
       {/* Back Button */}
       <div className="flex items-center justify-between">
         <Link
@@ -344,6 +344,7 @@ export default function CreateOpportunityPage() {
             <div className="flex gap-2 pt-2">
               <input
                 type="text"
+                aria-label="Add other skill tag"
                 value={customSkill}
                 onChange={(e) => setCustomSkill(e.target.value)}
                 placeholder="Add other skill tag..."

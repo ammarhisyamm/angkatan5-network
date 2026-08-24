@@ -22,19 +22,13 @@ export default function MemberLayout({
       peekable
       className="bg-kumo-tint text-kumo-strong"
     >
-      {/* Let Kumo handle the layout - Sidebar is fixed, main flows naturally */}
-      <Sidebar />
-
-      {/* Main Area */}
-      <div className="flex flex-col min-w-0 flex-1 pb-24 lg:pb-0 lg:ml-0">
-        {/* Mobile Header */}
-        <Header />
-
-        {/* Page Content */}
-        <main className="w-full flex-1 p-4 sm:p-6 lg:p-8">{children}</main>
+      <div className="flex min-h-screen w-full">
+        <Sidebar />
+        <div className="flex flex-col min-w-0 flex-1 pb-24 lg:pb-0">
+          <Header />
+          <main className="w-full flex-1 p-4 sm:p-6 lg:p-8">{children}</main>
+        </div>
       </div>
-
-      {/* Bottom Nav for Mobile */}
       <BottomNav />
     </KumoSidebar.Provider>
   );

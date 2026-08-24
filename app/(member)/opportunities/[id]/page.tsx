@@ -78,7 +78,7 @@ export default function OpportunityDetailPage() {
   }).format(new Date(opportunity.createdAt));
 
   return (
-    <div className="max-w-4xl mx-auto space-y-8">
+    <div className="space-y-6">
       {/* Back Button */}
       <div className="flex items-center justify-between">
         <Link
