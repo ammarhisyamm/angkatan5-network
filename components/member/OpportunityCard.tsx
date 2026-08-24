@@ -27,7 +27,7 @@ export function OpportunityCard({ opportunity }: { opportunity: Opportunity }) {
   return (
     <LayerCard className="group flex h-full w-full flex-col p-0 overflow-hidden transition-colors duration-200 hover:shadow-sm">
       {/* Content */}
-      <div className="flex flex-1 flex-col p-5 sm:p-6">
+      <div className="flex flex-1 flex-col p-6">
         <div className="mb-3 flex items-start justify-between gap-2">
           <div className="flex flex-wrap items-center gap-2">
             <Tag tone={categoryTone[opportunity.category] ?? "neutral"}>{opportunity.category}</Tag>
@@ -35,7 +35,7 @@ export function OpportunityCard({ opportunity }: { opportunity: Opportunity }) {
               <MapPinIcon size={12} weight="regular" className="shrink-0" />
               {opportunity.location}
             </Tag>
-            <span className="text-xs leading-[18px] text-kumo-inactive">{opportunity.type}</span>
+            <span className="text-meta font-medium text-kumo-subtle">{opportunity.type}</span>
           </div>
           <button
             onClick={() => toggleBookmark(opportunity.id)}
@@ -56,7 +56,7 @@ export function OpportunityCard({ opportunity }: { opportunity: Opportunity }) {
           <h3 className="line-clamp-2 text-card-title text-kumo-strong transition-colors group-hover:text-kumo-brand">{opportunity.title}</h3>
         </Link>
 
-        <p className="mt-1.5 line-clamp-2 text-sm leading-5 text-kumo-subtle">{opportunity.description}</p>
+        <p className="mt-1.5 line-clamp-2 text-sm leading-6 text-kumo-subtle">{opportunity.description}</p>
 
         {opportunity.requiredSkills && opportunity.requiredSkills.length > 0 && (
           <div className="mt-4 flex flex-wrap gap-2.5">
@@ -68,12 +68,12 @@ export function OpportunityCard({ opportunity }: { opportunity: Opportunity }) {
       </div>
 
       {/* Footer anchored to bottom */}
-      <div className="mt-auto flex items-center justify-between gap-2 border-t border-kumo-line px-5 py-4 sm:px-6 sm:px-6">
-        <div className="flex min-w-0 items-center gap-2.5">
+      <div className="mt-auto flex items-center justify-between gap-3 border-t border-kumo-line px-6 py-4">
+        <div className="flex min-w-0 items-center gap-3">
           <img src={opportunity.authorAvatar} alt="" width={28} height={28} className="size-7 shrink-0 rounded-full object-cover aspect-square bg-kumo-tint ring-1 ring-kumo-line" />
           <div className="min-w-0">
             <p className="truncate text-sm font-medium leading-5 text-kumo-strong">{opportunity.authorName}</p>
-            <p className="truncate text-xs leading-[18px] text-kumo-inactive">Posted {formattedDate}</p>
+            <p className="truncate text-meta font-medium text-kumo-subtle">Posted {formattedDate}</p>
           </div>
         </div>
         <Link href={`/opportunities/${opportunity.id}`} className="shrink-0">

@@ -14,7 +14,7 @@ export function ProfileCard({ member }: { member: User }) {
     <>
       <LayerCard className="group flex h-full w-full flex-col p-0 overflow-hidden transition-colors duration-200 hover:shadow-sm">
         {/* Content */}
-        <div className="flex flex-1 flex-col p-5 sm:p-6">
+        <div className="flex flex-1 flex-col p-6">
           <div className="flex items-start gap-3">
             <Link href={`/profile/${member.id}`} className="relative shrink-0" aria-label={`View ${member.name}`}>
               <img
@@ -35,15 +35,15 @@ export function ProfileCard({ member }: { member: User }) {
               <Link href={`/profile/${member.id}`} className="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-kumo-brand focus-visible:ring-offset-2 rounded-sm">
                 <h3 className="truncate text-card-title text-kumo-strong group-hover:text-kumo-brand">{member.name}</h3>
               </Link>
-              <p className="truncate text-sm leading-5 text-kumo-subtle">{member.role}</p>
-              <p className="mt-0.5 truncate text-xs leading-[18px] text-kumo-inactive">
+              <p className="truncate text-sm font-medium leading-5 text-kumo-strong">{member.role}</p>
+              <p className="mt-0.5 truncate text-meta font-medium text-kumo-subtle">
                 {member.company} &middot; {member.experience}
               </p>
             </div>
           </div>
 
           {member.bio && (
-            <p className="mt-3 line-clamp-2 text-sm leading-5 text-kumo-subtle">{member.bio}</p>
+            <p className="mt-3 line-clamp-2 text-sm leading-6 text-kumo-subtle">{member.bio}</p>
           )}
 
           <div className="mt-4 flex flex-wrap gap-2.5">
@@ -57,7 +57,7 @@ export function ProfileCard({ member }: { member: User }) {
         </div>
 
         {/* Footer anchored to bottom */}
-        <div className="mt-auto flex items-center justify-between gap-2 border-t border-kumo-line px-5 py-4 sm:px-6 sm:px-6">
+        <div className="mt-auto flex items-center justify-between gap-3 border-t border-kumo-line px-6 py-4">
           <StatusBadge status={member.status} />
           <Link href={`/profile/${member.id}`}>
             <Button variant="secondary" size="sm">
