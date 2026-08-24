@@ -7,6 +7,7 @@ import { usePathname } from "next/navigation";
 import { useApp } from "@/lib/store/AppContext";
 import { Sidebar as KumoSidebar, useSidebar } from "@cloudflare/kumo/components/sidebar";
 import { Button } from "@cloudflare/kumo/components/button";
+import { Modal } from "@/components/ui/Modal";
 import {
   HouseIcon,
   UsersIcon,
@@ -34,6 +35,7 @@ function SidebarInner() {
   const isCollapsed = state === "collapsed";
   const isAdminSection = pathname.startsWith("/admin");
   const [showUserMenu, setShowUserMenu] = useState(false);
+  const [infoModal, setInfoModal] = useState<{ title: string; desc: string } | null>(null);
 
   const toggleSidebar = () => setOpen(!open);
 
@@ -73,7 +75,7 @@ function SidebarInner() {
   return (
     <KumoSidebar className="bg-white border-r border-zinc-200 [--sidebar-width-icon:72px]">
       {/* Header — Logo + Collapse */}
-      <KumoSidebar.Header className="bg-white px-4 pt-4 pb-3 border-b-0 flex flex-col gap-4">
+      <KumoSidebar.Header className="bg-white px-4 pt-4 pb-3 border-b-0 flex flex-col gap-4 !h-auto min-h-[140px]">
         <div className="flex items-center justify-between gap-2">
           <Link
             href="/admin/dashboard"
@@ -314,14 +316,20 @@ function SidebarInner() {
               </button>
               <button
                 role="menuitem"
-                onClick={() => setShowUserMenu(false)}
+                onClick={() => {
+                  setShowUserMenu(false);
+                  setInfoModal({ title: "Preferences", desc: "Preferences coming soon. You'll be able to customize theme, notifications, and privacy here." });
+                }}
                 className="flex w-full items-center gap-2 rounded-lg px-2.5 py-2 text-[13px] text-zinc-600 hover:bg-zinc-50 hover:text-zinc-900 text-left transition-colors"
               >
                 <GearIcon size={14} /> Preferences
               </button>
               <button
                 role="menuitem"
-                onClick={() => setShowUserMenu(false)}
+                onClick={() => {
+                  setShowUserMenu(false);
+                  setInfoModal({ title: "Notifications", desc: "No new notifications. We'll show your activity and updates here." });
+                }}
                 className="flex w-full items-center gap-2 rounded-lg px-2.5 py-2 text-[13px] text-zinc-600 hover:bg-zinc-50 hover:text-zinc-900 text-left transition-colors"
               >
                 <BellIcon size={14} /> Notifications
@@ -353,6 +361,21 @@ function SidebarInner() {
           )}
         </div>
       </KumoSidebar.Footer>
+
+      <Modal
+        isOpen={!!infoModal}
+        onClose={() => setInfoModal(null)}
+        title={infoModal?.title}
+        description={infoModal?.desc}
+        icon="info"
+        maxWidth="sm"
+      >
+        <div className="flex justify-end pt-2">
+          <Button variant="primary" size="sm" onClick={() => setInfoModal(null)}>
+            Close
+          </Button>
+        </div>
+      </Modal>
     </KumoSidebar>
   );
 }

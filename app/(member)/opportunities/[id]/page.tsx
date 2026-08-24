@@ -22,6 +22,7 @@ export default function OpportunityDetailPage() {
   );
   const [isSending, setIsSending] = useState(false);
   const [isSent, setIsSent] = useState(false);
+  const [showShareModal, setShowShareModal] = useState(false);
 
   const opportunity = opportunities.find((o) => o.id === id);
 
@@ -46,13 +47,14 @@ export default function OpportunityDetailPage() {
   const bookmarked = isBookmarked(opportunity.id);
 
   const handleShare = () => {
+    setShowShareModal(true);
+  };
+
+  const handleCopyLink = () => {
     if (typeof window !== "undefined") {
       navigator.clipboard.writeText(window.location.href);
-      addToast(
-        "Link copied to clipboard!",
-        "Share this opportunity with your friends or classmates.",
-        "success"
-      );
+      addToast("Link copied!", "Share this opportunity with others.", "success");
+      setShowShareModal(false);
     }
   };
 
@@ -293,6 +295,36 @@ export default function OpportunityDetailPage() {
             </div>
           </form>
         )}
+      </Modal>
+
+      <Modal
+        isOpen={showShareModal}
+        onClose={() => setShowShareModal(false)}
+        title="Share Opportunity"
+        description="Copy link to share this opportunity"
+        icon="info"
+        maxWidth="sm"
+      >
+        <div className="space-y-4">
+          <div className="flex items-center justify-center py-2">
+            <div className="size-12 rounded-full bg-kumo-tint flex items-center justify-center">
+              <ShareNetworkIcon size={24} weight="regular" className="text-kumo-brand" />
+            </div>
+          </div>
+          <div className="bg-kumo-tint rounded-xl p-3 flex items-center gap-2">
+            <span className="flex-1 truncate text-sm text-kumo-strong">
+              {typeof window !== "undefined" ? window.location.href : ""}
+            </span>
+          </div>
+          <div className="flex items-center justify-end gap-2 pt-3 border-t border-kumo-line">
+            <Button variant="outline" size="sm" onClick={() => setShowShareModal(false)}>
+              Cancel
+            </Button>
+            <Button variant="primary" size="sm" onClick={handleCopyLink}>
+              Copy Link
+            </Button>
+          </div>
+        </div>
       </Modal>
     </div>
   );
