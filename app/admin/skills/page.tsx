@@ -113,7 +113,7 @@ export default function AdminSkillsPage() {
             className="w-full sm:w-56 h-10 rounded-xl border border-kumo-line bg-kumo-base px-3 text-sm text-kumo-strong outline-none focus:ring-2 focus:ring-kumo-brand focus:ring-offset-1 appearance-none cursor-pointer">
             {FIELD_CATEGORIES.map((cat) => <option key={cat} value={cat}>{cat}</option>)}
           </select>
-          <Button variant="primary" size="md" onClick={handleAddSkill} disabled={!newSkillName.trim()} icon={<PlusIcon size={16} weight="bold" />} className="w-full sm:w-auto">Add Skill</Button>
+          <Button variant="primary" size="md" onClick={handleAddSkill} disabled={!newSkillName.trim()} icon={<PlusIcon size={16} weight="bold" />} className="w-full sm:w-auto justify-center">Add Skill</Button>
         </div>
       </LayerCard>
 

@@ -23,7 +23,7 @@ export function ProfileCard({ member }: { member: User }) {
                 width={48}
                 height={48}
                 loading="lazy"
-                className="size-12 rounded-full object-cover bg-kumo-tint ring-1 ring-kumo-line"
+                className="size-12 rounded-full object-cover aspect-square bg-kumo-tint ring-1 ring-kumo-line"
               />
               {member.verified && (
                 <span className="absolute -bottom-0.5 -right-0.5 flex size-4 items-center justify-center rounded-full bg-kumo-brand text-static-white" title="Verified member" aria-hidden="true">

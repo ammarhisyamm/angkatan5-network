@@ -94,7 +94,7 @@ export default function OpportunitiesPage() {
         </div>
 
         <Link href="/opportunities/create" className="shrink-0">
-          <Button variant="primary" size="md" className="w-full sm:w-auto">
+          <Button variant="primary" size="md" className="w-full sm:w-auto justify-center">
             <PlusCircleIcon size={16} weight="regular" />
             Share Opportunity
           </Button>

@@ -153,7 +153,7 @@ export default function OpportunityDetailPage() {
             </div>
           </Link>
 
-          <Button variant="primary" size="lg" onClick={() => setIsInterestModalOpen(true)} className="w-full sm:w-auto">
+          <Button variant="primary" size="lg" onClick={() => setIsInterestModalOpen(true)} className="w-full sm:w-auto justify-center">
             I&apos;m Interested
             <ArrowRightIcon size={16} weight="regular" className="ml-1" />
           </Button>

@@ -221,10 +221,10 @@ export default function CreateOpportunityPage() {
           </div>
 
           <div className="flex flex-col-reverse sm:flex-row items-stretch sm:items-center justify-end gap-3 pt-6 border-t border-kumo-line">
-            <Button variant="outline" size="md" onClick={() => setIsPreview(false)}>
+            <Button variant="outline" size="md" onClick={() => setIsPreview(false)} className="w-full sm:w-auto justify-center">
               Edit Details
             </Button>
-            <Button variant="primary" size="md" onClick={handleSubmit} isLoading={isSubmitting} >
+            <Button variant="primary" size="md" onClick={handleSubmit} isLoading={isSubmitting} className="w-full sm:w-auto justify-center">
               <PaperPlaneTiltIcon size={12} weight="regular" className="mr-1" />
               Publish Opportunity
             </Button>
@@ -365,12 +365,11 @@ export default function CreateOpportunityPage() {
           />
 
           <div className="flex flex-col-reverse sm:flex-row items-stretch sm:items-center justify-between gap-3 pt-6 border-t border-kumo-line">
-            <Button type="button" variant="outline" size="md" onClick={() => setIsPreview(true)}
-            >
+            <Button type="button" variant="outline" size="md" onClick={() => setIsPreview(true)} className="w-full sm:w-auto justify-center">
               <EyeIcon size={16} weight="regular" className="mr-1" />
               Preview First
             </Button>
-            <Button type="submit" variant="primary" size="lg" isLoading={isSubmitting} >
+            <Button type="submit" variant="primary" size="lg" isLoading={isSubmitting} className="w-full sm:w-auto justify-center">
               <PaperPlaneTiltIcon size={16} weight="regular" className="mr-1" />
               Publish Opportunity
             </Button>

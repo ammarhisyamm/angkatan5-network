@@ -60,7 +60,7 @@ export default function AdminOpportunitiesPage() {
           <p className="mt-1 text-body text-kumo-subtle">Review, approve, and manage community opportunity posts.</p>
         </div>
         <Link href="/opportunities/new">
-          <Button variant="primary" size="md" icon={<PlusIcon size={16} weight="bold" />} className="w-full sm:w-auto">New Opportunity</Button>
+          <Button variant="primary" size="md" icon={<PlusIcon size={16} weight="bold" />} className="w-full sm:w-auto justify-center">New Opportunity</Button>
         </Link>
       </div>
 

@@ -59,7 +59,7 @@ export default function MemberDashboardPage() {
               <div className="h-full rounded-full bg-kumo-brand transition-colors duration-500" style={{ width: `${completion}%` }} />
             </div>
             <Link href="/my-profile" className="mt-3 block">
-              <Button variant="secondary" size="sm" className="w-full">
+              <Button variant="secondary" size="sm" className="w-full justify-center">
                 Complete Profile <ArrowRightIcon size={14} weight="regular" />
               </Button>
             </Link>

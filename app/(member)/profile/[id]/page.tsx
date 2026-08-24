@@ -75,7 +75,7 @@ export default function MemberProfilePage() {
               <img
                 src={member.avatar}
                 alt={member.name}
-                className="size-20 shrink-0 rounded-full object-cover bg-kumo-tint ring-1 ring-kumo-line sm:size-24"
+                className="size-20 shrink-0 rounded-full object-cover aspect-square bg-kumo-tint ring-1 ring-kumo-line sm:size-24"
               />
               {member.verified && (
                 <div

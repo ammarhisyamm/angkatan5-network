@@ -42,6 +42,18 @@ function SidebarInner() {
     "/admin/opportunities": opportunities.length,
   };
 
+  const memberCounts: Record<string, number | null> = {
+    "/discover": users.length,
+    "/opportunities": opportunities.filter((o) => o.status === "Published").length,
+  };
+
+  const memberNav = [
+    { name: "Dashboard", href: "/dashboard", icon: HouseIcon, group: "General", count: null },
+    { name: "Discover People", href: "/discover", icon: UsersIcon, group: "General", count: memberCounts["/discover"] },
+    { name: "Opportunities", href: "/opportunities", icon: BriefcaseIcon, group: "General", count: memberCounts["/opportunities"] },
+    { name: "My Profile", href: "/my-profile", icon: UserIcon, group: "General", count: null },
+  ];
+
   const adminNav = [
     { name: "Dashboard", href: "/admin/dashboard", icon: HouseIcon, group: "General", count: null },
     { name: "Members", href: "/admin/members", icon: UsersIcon, group: "General", count: adminCounts["/admin/members"] },
@@ -50,7 +62,8 @@ function SidebarInner() {
     { name: "Analytics", href: "/admin/analytics", icon: ChartBarIcon, group: "Tools", count: null },
   ];
 
-  const grouped = adminNav.reduce((acc: any, item) => {
+  const navItems = isAdminSection ? adminNav : memberNav;
+  const grouped = navItems.reduce((acc: any, item) => {
     (acc[item.group] = acc[item.group] || []).push(item);
     return acc;
   }, {});
@@ -240,9 +253,9 @@ function SidebarInner() {
             <img
               src={currentUser?.avatar || "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&auto=format&fit=crop&q=60"}
               alt=""
-              width={32}
-              height={32}
-              className="size-8 shrink-0 rounded-full object-cover ring-1 ring-zinc-200"
+              width={24}
+              height={24}
+              className="size-6 shrink-0 rounded-full object-cover aspect-square bg-kumo-tint ring-1 ring-zinc-200"
             />
             {!isCollapsed && (
               <>
@@ -277,7 +290,7 @@ function SidebarInner() {
                           }}
                           className="flex w-full items-center gap-2.5 rounded-lg px-2 py-2 text-[13px] text-zinc-600 hover:bg-zinc-50 hover:text-zinc-900 text-left transition-colors"
                         >
-                          <img src={user.avatar} alt="" className="size-7 rounded-full object-cover ring-1 ring-zinc-200" />
+                          <img src={user.avatar} alt="" className="size-6 rounded-full object-cover aspect-square ring-1 ring-zinc-200" />
                           <span className="truncate flex-1 font-medium">{user.name}</span>
                           <ArrowsLeftRightIcon size={12} className="text-zinc-400 shrink-0" />
                         </button>
