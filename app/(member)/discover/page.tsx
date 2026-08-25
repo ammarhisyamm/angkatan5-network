@@ -21,11 +21,30 @@ const QUICK_CHIPS = [
   "Finance",
 ];
 
+function Highlight({ text, query }: { text: string; query: string }) {
+  if (!query.trim()) return <>{text}</>;
+  const q = query.toLowerCase();
+  const idx = text.toLowerCase().indexOf(q);
+  if (idx === -1) return <>{text}</>;
+  return (
+    <>
+      {text.slice(0, idx)}
+      <mark className="rounded-sm bg-primary-alpha-10 px-0.5 font-medium text-primary-base">{text.slice(idx, idx + q.length)}</mark>
+      {text.slice(idx + q.length)}
+    </>
+  );
+}
+
 export default function DiscoverPeoplePage() {
   const { users } = useApp();
 
   // Search and filter state
+  const [searchInput, setSearchInput] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
+  const [recentSearches, setRecentSearches] = useState<string[]>(() => {
+    if (typeof window === "undefined") return [];
+    try { return JSON.parse(localStorage.getItem("a5_recent_searches") || "[]"); } catch { return []; }
+  });
   const [selectedChip, setSelectedChip] = useState("All");
   const [selectedIndustry, setSelectedIndustry] = useState("All");
   const [selectedSkill, setSelectedSkill] = useState("All");
@@ -33,6 +52,23 @@ export default function DiscoverPeoplePage() {
   const [selectedLocation, setSelectedLocation] = useState("All");
   const [selectedStatus, setSelectedStatus] = useState<string>("All");
   const [isFilterDrawerOpen, setIsFilterDrawerOpen] = useState(false);
+
+  // Debounce search input (300ms)
+  React.useEffect(() => {
+    const t = setTimeout(() => setSearchQuery(searchInput), 300);
+    return () => clearTimeout(t);
+  }, [searchInput]);
+
+  // Track recent searches
+  React.useEffect(() => {
+    if (searchQuery.trim() && filteredUsers.length > 0) {
+      setRecentSearches((prev) => {
+        const next = [searchQuery, ...prev.filter((s) => s !== searchQuery)].slice(0, 5);
+        try { localStorage.setItem("a5_recent_searches", JSON.stringify(next)); } catch {}
+        return next;
+      });
+    }
+  }, [searchQuery]);
 
   // Extract unique filter options from data
   const industries = useMemo(() => {
@@ -140,6 +176,7 @@ export default function DiscoverPeoplePage() {
     selectedStatus !== "All";
 
   const clearAllFilters = () => {
+    setSearchInput("");
     setSearchQuery("");
     setSelectedChip("All");
     setSelectedIndustry("All");
@@ -166,7 +203,18 @@ export default function DiscoverPeoplePage() {
       </div>
 
       {/* Prominent search bar — Kumo Input */}
-      <Input name="people-search" type="search" aria-label="Search people" placeholder="Search people, skills, roles, or companies…" value={searchQuery} onChange={(e: any) => setSearchQuery(e.target.value)} />
+      <Input name="people-search" type="search" aria-label="Search people" placeholder="Search people, skills, roles, or companies…" value={searchInput} onChange={(e: any) => setSearchInput(e.target.value)} />
+      {recentSearches.length > 0 && !searchQuery && (
+        <div className="flex flex-wrap items-center gap-2 text-xs">
+          <span className="text-text-soft-400">Recent:</span>
+          {recentSearches.map((s) => (
+            <button key={s} onClick={() => { setSearchInput(s); setSearchQuery(s); }} className="rounded-full border border-stroke-soft-200 bg-bg-white-0 px-2.5 py-1 text-xs text-text-sub-600 hover:bg-bg-weak-50">
+              {s}
+            </button>
+          ))}
+          <button onClick={() => { setRecentSearches([]); try { localStorage.removeItem("a5_recent_searches"); } catch {} }} className="text-xs text-text-soft-400 hover:text-text-sub-600">Clear</button>
+        </div>
+      )}
 
       {/* Quick Filter Chips */}
       <div className="flex items-center gap-3 overflow-x-auto pb-1 scrollbar-none">
@@ -275,7 +323,7 @@ export default function DiscoverPeoplePage() {
           <Grid variant="3up" gap="base">
             {filteredUsers.map((member) => (
               <div key={member.id} className="[content-visibility:auto] [contain-intrinsic-size:0_340px]">
-                <ProfileCard member={member} />
+                <ProfileCard member={member} highlight={searchQuery} />
               </div>
             ))}
           </Grid>

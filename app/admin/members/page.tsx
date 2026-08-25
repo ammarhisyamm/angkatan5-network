@@ -33,6 +33,7 @@ export default function AdminMembersPage() {
   const pageSize = 8;
   const [targetMember, setTargetMember] = useState<User | null>(null);
   const [actionType, setActionType] = useState<"delete" | "suspend" | null>(null);
+  const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
 
   const filteredMembers = useMemo(() => {
     return users.filter((u) => {
@@ -48,6 +49,32 @@ export default function AdminMembersPage() {
 
   const totalPages = Math.ceil(filteredMembers.length / pageSize) || 1;
   const paginatedMembers = filteredMembers.slice((currentPage - 1) * pageSize, currentPage * pageSize);
+
+  const isAllPageSelected = paginatedMembers.length > 0 && paginatedMembers.every((m) => selectedIds.has(m.id));
+  const toggleSelectAllPage = () => {
+    setSelectedIds((prev) => {
+      const next = new Set(prev);
+      if (isAllPageSelected) paginatedMembers.forEach((m) => next.delete(m.id));
+      else paginatedMembers.forEach((m) => next.add(m.id));
+      return next;
+    });
+  };
+  const toggleSelectOne = (id: string) => {
+    setSelectedIds((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
+      return next;
+    });
+  };
+  const handleBulkVerify = () => {
+    selectedIds.forEach((id) => verifyMember(id));
+    setSelectedIds(new Set());
+  };
+  const handleBulkSuspend = () => {
+    selectedIds.forEach((id) => suspendMember(id));
+    setSelectedIds(new Set());
+  };
 
   const handleConfirmAction = () => {
     if (!targetMember) return;
@@ -80,12 +107,26 @@ export default function AdminMembersPage() {
         <Select value={selectedIndustry} onValueChange={(v: any) => { setSelectedIndustry(v); setCurrentPage(1); }} items={["All", "Technology", "Design", "Marketing", "Business", "Finance", "Media & Creative"].map((v) => ({ label: v, value: v }))} placeholder="All Industries" className="w-full sm:w-44" />
       </LayerCard>
 
+      {selectedIds.size > 0 && (
+        <div className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-primary-base/20 bg-primary-alpha-10 px-4 py-3">
+          <span className="text-sm font-medium text-text-strong-950">{selectedIds.size} selected</span>
+          <div className="flex items-center gap-2">
+            <Button variant="secondary" size="sm" onClick={handleBulkVerify} icon={<ShieldCheckIcon size={14} />}>Verify</Button>
+            <Button variant="outline" size="sm" onClick={handleBulkSuspend} icon={<ShieldWarningIcon size={14} />}>Suspend</Button>
+            <Button variant="ghost" size="sm" onClick={() => setSelectedIds(new Set())}>Clear</Button>
+          </div>
+        </div>
+      )}
+
       {/* Table */}
       <LayerCard className="p-0 overflow-hidden">
         <div className="overflow-x-auto">
           <Table>
             <Table.Header>
               <Table.Row>
+                <Table.Head className="w-8">
+                  <input type="checkbox" checked={isAllPageSelected} onChange={toggleSelectAllPage} aria-label="Select all on page" className="size-4 rounded border-stroke-soft-200 text-primary-base focus:ring-primary-base" />
+                </Table.Head>
                 <Table.Head>Member</Table.Head>
                 <Table.Head>Role & Company</Table.Head>
                 <Table.Head className="hidden md:table-cell">Top Skills</Table.Head>
@@ -98,6 +139,9 @@ export default function AdminMembersPage() {
             <Table.Body>
               {paginatedMembers.map((member) => (
                 <Table.Row key={member.id} className={member.suspended ? "opacity-50" : ""}>
+                  <Table.Cell>
+                    <input type="checkbox" checked={selectedIds.has(member.id)} onChange={() => toggleSelectOne(member.id)} aria-label={`Select ${member.name}`} className="size-4 rounded border-stroke-soft-200 text-primary-base focus:ring-primary-base" />
+                  </Table.Cell>
                   <Table.Cell>
                     <div className="flex items-center gap-3">
                       <Avatar name={member.name} className="size-7 text-[10px]" />
