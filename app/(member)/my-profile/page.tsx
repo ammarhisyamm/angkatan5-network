@@ -141,10 +141,10 @@ export default function MyProfilePage() {
 
   const completion = currentUser.profileCompletion || 42;
   const missingSteps = [
-    !currentUser.bio && "Add a bio",
-    currentUser.skills.length < 3 && "Add at least 3 skills",
-    !currentUser.linkedin && !currentUser.portfolio && "Add a social link",
-  ].filter(Boolean) as string[];
+    !currentUser.bio && { label: "Add a bio", action: () => { document.getElementById("profile-about")?.scrollIntoView({ behavior: "smooth", block: "center" }); setEditingSection("personal"); } },
+    currentUser.skills.length < 3 && { label: "Add at least 3 skills", action: () => { document.getElementById("profile-skills")?.scrollIntoView({ behavior: "smooth", block: "center" }); setEditingSection("skills"); } },
+    !currentUser.linkedin && !currentUser.portfolio && !currentUser.website && { label: "Add a social link", action: () => { document.getElementById("profile-social")?.scrollIntoView({ behavior: "smooth", block: "center" }); setEditingSection("links"); } },
+  ].filter(Boolean) as { label: string; action: () => void }[];
 
   return (
     <div className="mx-auto max-w-[1120px] space-y-6">
@@ -191,11 +191,14 @@ export default function MyProfilePage() {
               {missingSteps.length > 0 && (
                 <ul className="mt-3 space-y-1.5">
                   {missingSteps.slice(0, 3).map((s) => (
-                    <li key={s} className="flex items-center gap-2 text-xs text-zinc-600">
-                      <span className="flex size-4 items-center justify-center rounded-full border border-zinc-200 bg-white">
-                        <span className="size-1.5 rounded-full bg-zinc-300" />
-                      </span>
-                      {s}
+                    <li key={s.label}>
+                      <button onClick={s.action} className="flex w-full items-center gap-2 rounded-lg px-2 py-1.5 text-left text-xs text-zinc-600 hover:bg-white hover:text-[#111827] transition-colors">
+                        <span className="flex size-4 shrink-0 items-center justify-center rounded-full border border-zinc-200 bg-white">
+                          <span className="size-1.5 rounded-full bg-zinc-300" />
+                        </span>
+                        {s.label}
+                        <ArrowRightIcon size={12} weight="regular" className="ml-auto text-zinc-400" />
+                      </button>
                     </li>
                   ))}
                 </ul>
@@ -219,7 +222,7 @@ export default function MyProfilePage() {
       </div>
 
       {/* ABOUT */}
-      <div className="rounded-xl border border-stroke-soft-200 bg-white p-6 shadow-none sm:p-7">
+      <div id="profile-about" className="rounded-xl border border-stroke-soft-200 bg-white p-6 shadow-none sm:p-7">
         <div className="flex items-center justify-between">
           <h2 className="text-[19px] font-bold leading-7 tracking-tight text-[#111827]">About</h2>
           {editingSection === "personal" ? (
@@ -328,7 +331,7 @@ export default function MyProfilePage() {
           </div>
 
           {/* Skills */}
-          <div className="rounded-xl border border-stroke-soft-200 bg-white p-6 shadow-none sm:p-7">
+          <div id="profile-skills" className="rounded-xl border border-stroke-soft-200 bg-white p-6 shadow-none sm:p-7">
             <div className="flex items-center justify-between">
               <h2 className="inline-flex items-center gap-2 text-[19px] font-bold leading-7 text-[#111827]">
                 <StackIcon size={16} weight="regular" className="text-zinc-400" />
@@ -487,7 +490,7 @@ export default function MyProfilePage() {
           </div>
 
           {/* Social */}
-          <div className="rounded-xl border border-stroke-soft-200 bg-white p-6 shadow-none">
+          <div id="profile-social" className="rounded-xl border border-stroke-soft-200 bg-white p-6 shadow-none">
             <div className="flex items-center justify-between">
               <h3 className="inline-flex items-center gap-2 text-[19px] font-bold leading-7 text-[#111827]">
                 <GlobeIcon size={16} weight="regular" className="text-zinc-400" />

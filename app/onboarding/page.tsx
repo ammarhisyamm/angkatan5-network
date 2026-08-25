@@ -108,6 +108,8 @@ export default function OnboardingPage() {
     }
   };
 
+  const [showCelebration, setShowCelebration] = useState(false);
+
   const handleComplete = () => {
     completeOnboarding({
       name,
@@ -128,7 +130,8 @@ export default function OnboardingPage() {
         ? "Hiring"
         : "Available to Help",
     });
-    router.push("/dashboard");
+    setShowCelebration(true);
+    setTimeout(() => router.push("/dashboard"), 2200);
   };
 
   const stepsList = [
@@ -470,6 +473,44 @@ export default function OnboardingPage() {
           </div>
         </div>
       </div>
+
+      {showCelebration && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm p-4">
+          <div className="relative w-full max-w-sm overflow-hidden rounded-2xl bg-bg-white-0 p-8 text-center shadow-xl">
+            <div className="pointer-events-none absolute inset-0 overflow-hidden">
+              {[...Array(20)].map((_, i) => (
+                <span
+                  key={i}
+                  className="absolute animate-[fall_1.2s_ease-in_forwards] text-lg"
+                  style={{
+                    left: `${Math.random() * 100}%`,
+                    top: `-10%`,
+                    animationDelay: `${Math.random() * 0.6}s`,
+                    transform: `rotate(${Math.random() * 360}deg)`,
+                  }}
+                >
+                  {["🎉", "✨", "🎊", "💫"][i % 4]}
+                </span>
+              ))}
+            </div>
+            <div className="relative">
+              <div className="mx-auto flex size-14 items-center justify-center rounded-full bg-success-lighter text-success-base">
+                <Check size={28} weight="bold" />
+              </div>
+              <h3 className="mt-4 text-lg font-semibold text-text-strong-950">Profile complete!</h3>
+              <p className="mt-1 text-sm text-text-sub-600">Welcome to the community 🎉</p>
+              <div className="mt-5 flex items-center justify-center gap-2">
+                <div className="h-2 w-32 overflow-hidden rounded-full bg-bg-weak-50 ring-1 ring-stroke-soft-200">
+                  <div className="h-full w-[85%] rounded-full bg-text-strong-950" style={{ animation: "grow 0.8s ease-out forwards" }} />
+                </div>
+                <span className="text-sm font-semibold text-text-strong-950">85% → 100%</span>
+              </div>
+              <p className="mt-2 text-xs text-text-soft-400">Redirecting to dashboard…</p>
+            </div>
+          </div>
+          <style>{`@keyframes fall { to { transform: translateY(110vh) rotate(360deg); opacity: 0; } } @keyframes grow { from { width: 85%; } to { width: 100%; } }`}</style>
+        </div>
+      )}
     </div>
   );
 }
