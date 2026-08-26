@@ -5,18 +5,9 @@ import Link from "next/link";
 import { useApp } from "@/lib/store/AppContext";
 import { Button } from "@/components/ui/Button";
 import { LayerCard } from "@/components/ui/Surface";
-import {
-  ResponsiveContainer,
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  Tooltip,
-  CartesianGrid,
-  BarChart,
-  Bar,
-  Cell,
-} from "recharts";
+import dynamic from "next/dynamic";
+const MemberGrowthChart = dynamic(() => import("@/components/charts/MemberGrowthChart"), { ssr: false, loading: () => <div className="h-56 animate-pulse rounded-lg bg-bg-weak-50" /> });
+const TopSkillsChart = dynamic(() => import("@/components/charts/TopSkillsChart"), { ssr: false, loading: () => <div className="h-56 animate-pulse rounded-lg bg-bg-weak-50" /> });
 import {
   ShieldCheckIcon,
   UsersIcon,
@@ -27,24 +18,6 @@ import {
   UserIcon,
   WarningCircleIcon,
 } from "@phosphor-icons/react";
-
-const GROWTH_DATA = [
-  { month: "Sep 25", members: 45 },
-  { month: "Oct 25", members: 68 },
-  { month: "Nov 25", members: 92 },
-  { month: "Dec 25", members: 115 },
-  { month: "Jan 26", members: 140 },
-  { month: "Feb 26", members: 165 },
-  { month: "Mar 26", members: 182 },
-];
-
-const TOP_SKILLS_DATA = [
-  { name: "UI/UX Design", count: 32, fill: "#4169D8" },
-  { name: "BizDev", count: 27, fill: "#5A7FE8" },
-  { name: "Marketing", count: 21, fill: "#7B9BF0" },
-  { name: "Software Eng", count: 19, fill: "#9DB5F5" },
-  { name: "Finance", count: 16, fill: "#BFCFFA" },
-];
 
 const STATUS_DATA = [
   { name: "Available to Help", value: 122, color: "#2FA36B" },
@@ -126,15 +99,7 @@ export default function AdminDashboardPage() {
             <span className="text-xs font-semibold text-primary-base bg-primary-alpha-10 px-2 py-1 rounded-lg">+304%</span>
           </div>
           <div className="h-56 w-full">
-            <ResponsiveContainer width="100%" height="100%">
-              <LineChart data={GROWTH_DATA} margin={{ top: 5, right: 10, left: -20, bottom: 0 }}>
-                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#E5E7EB" />
-                <XAxis dataKey="month" tick={{ fontSize: 11, fill: "#98A2B3" }} tickLine={false} axisLine={false} />
-                <YAxis tick={{ fontSize: 11, fill: "#98A2B3" }} tickLine={false} axisLine={false} />
-                <Tooltip contentStyle={{ backgroundColor: "#1F2937", border: "none", borderRadius: "8px", color: "#fff", fontSize: "12px" }} />
-                <Line type="monotone" dataKey="members" stroke="#4169D8" strokeWidth={2.5} dot={{ r: 3, fill: "#4169D8", strokeWidth: 2, stroke: "#fff" }} activeDot={{ r: 5 }} />
-              </LineChart>
-            </ResponsiveContainer>
+            <MemberGrowthChart />
           </div>
         </LayerCard>
 
@@ -149,19 +114,7 @@ export default function AdminDashboardPage() {
             </Link>
           </div>
           <div className="h-56 w-full">
-            <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={TOP_SKILLS_DATA} margin={{ top: 5, right: 10, left: -20, bottom: 0 }}>
-                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#E5E7EB" />
-                <XAxis dataKey="name" tick={{ fontSize: 11, fill: "#98A2B3" }} tickLine={false} axisLine={false} />
-                <YAxis tick={{ fontSize: 11, fill: "#98A2B3" }} tickLine={false} axisLine={false} />
-                <Tooltip contentStyle={{ backgroundColor: "#1F2937", border: "none", borderRadius: "8px", color: "#fff", fontSize: "12px" }} />
-                <Bar dataKey="count" radius={[4, 4, 0, 0]}>
-                  {TOP_SKILLS_DATA.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={entry.fill} />
-                  ))}
-                </Bar>
-            </BarChart>
-          </ResponsiveContainer>
+            <TopSkillsChart />
           </div>
         </LayerCard>
       </div>

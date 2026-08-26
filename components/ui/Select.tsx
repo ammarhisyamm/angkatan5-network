@@ -7,10 +7,12 @@ import { cn } from "@/lib/utils/cn";
 export interface SelectItem { label: string; value: string; }
 export function Select({ label, value, onValueChange, items, placeholder, className }: { label?: string; value?: string; onValueChange?: (value: string) => void; items: SelectItem[]; placeholder?: string; className?: string }) {
   const [open, setOpen] = useState(false);
+  const [activeIndex, setActiveIndex] = useState(-1);
   const rootRef = useRef<HTMLDivElement>(null);
   const triggerId = useId();
   const listId = `${triggerId}-options`;
   const selected = items.find((item) => item.value === value);
+  const allOptions = placeholder ? [{ label: placeholder, value: "" }, ...items] : items;
 
   useEffect(() => {
     if (!open) return;
@@ -34,10 +36,21 @@ export function Select({ label, value, onValueChange, items, placeholder, classN
       aria-haspopup="listbox"
       aria-expanded={open}
       aria-controls={open ? listId : undefined}
+      aria-activedescendant={open && activeIndex >= 0 ? `${listId}-option-${activeIndex}` : undefined}
       onClick={() => setOpen((current) => !current)}
       onKeyDown={(event) => {
-        if (event.key === "Escape") setOpen(false);
-        if (event.key === "ArrowDown" && !open) { event.preventDefault(); setOpen(true); }
+        if (event.key === "Escape") { setOpen(false); setActiveIndex(-1); }
+        else if (event.key === "ArrowDown") {
+          event.preventDefault();
+          if (!open) { setOpen(true); setActiveIndex(0); }
+          else setActiveIndex((i) => Math.min(i + 1, allOptions.length - 1));
+        } else if (event.key === "ArrowUp") {
+          event.preventDefault();
+          if (open) setActiveIndex((i) => Math.max(i - 1, 0));
+        } else if (event.key === "Enter" && open && activeIndex >= 0) {
+          event.preventDefault();
+          choose(allOptions[activeIndex].value);
+        }
       }}
       className="flex h-11 w-full min-w-0 items-center justify-between gap-3 rounded-lg bg-bg-white-0 px-3.5 text-left text-base text-text-strong-950 ring-1 ring-stroke-soft-200 shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition-colors hover:bg-bg-weak-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-base/40"
     >
@@ -45,10 +58,12 @@ export function Select({ label, value, onValueChange, items, placeholder, classN
       {open ? <CaretUpIcon size={18} className="shrink-0 text-text-sub-600" aria-hidden="true" /> : <CaretDownIcon size={18} className="shrink-0 text-text-sub-600" aria-hidden="true" />}
     </button>
     {open && <div id={listId} role="listbox" aria-label={label ?? "Options"} className="absolute inset-x-0 top-full z-50 mt-2 max-h-64 overflow-auto rounded-xl bg-bg-white-0 p-1.5 shadow-[0_16px_32px_rgba(16,24,40,0.14)] ring-1 ring-stroke-soft-200">
-      {placeholder && <button type="button" role="option" aria-selected={!selected} onClick={() => choose("")} className={cn("flex min-h-11 w-full items-center justify-between rounded-lg px-3.5 text-left text-base text-text-strong-950 transition-colors hover:bg-bg-weak-50", !selected && "bg-bg-weak-50")}>{placeholder}{!selected && <CheckIcon size={18} className="text-text-sub-600" aria-hidden="true" />}</button>}
-      {items.map((item) => {
+      {placeholder && <button id={`${listId}-option-0`} type="button" role="option" aria-selected={!selected} onClick={() => choose("")} className={cn("flex min-h-11 w-full items-center justify-between rounded-lg px-3.5 text-left text-base text-text-strong-950 transition-colors hover:bg-bg-weak-50", !selected && "bg-bg-weak-50", activeIndex === 0 && "bg-bg-weak-50 ring-1 ring-primary-base/20")}>{placeholder}{!selected && <CheckIcon size={18} className="text-text-sub-600" aria-hidden="true" />}</button>}
+      {items.map((item, idx) => {
+        const optionIndex = placeholder ? idx + 1 : idx;
         const isSelected = item.value === value;
-        return <button key={item.value} type="button" role="option" aria-selected={isSelected} onClick={() => choose(item.value)} className={cn("flex min-h-11 w-full items-center justify-between rounded-lg px-3.5 text-left text-base text-text-strong-950 transition-colors hover:bg-bg-weak-50", isSelected && "bg-bg-weak-50")}>{item.label}{isSelected && <CheckIcon size={18} className="text-text-sub-600" aria-hidden="true" />}</button>;
+        const isActive = activeIndex === optionIndex;
+        return <button key={item.value} id={`${listId}-option-${optionIndex}`} type="button" role="option" aria-selected={isSelected} onClick={() => choose(item.value)} className={cn("flex min-h-11 w-full items-center justify-between rounded-lg px-3.5 text-left text-base text-text-strong-950 transition-colors hover:bg-bg-weak-50", isSelected && "bg-bg-weak-50", isActive && "bg-bg-weak-50 ring-1 ring-primary-base/20")}>{item.label}{isSelected && <CheckIcon size={18} className="text-text-sub-600" aria-hidden="true" />}</button>;
       })}
     </div>}
   </div>;

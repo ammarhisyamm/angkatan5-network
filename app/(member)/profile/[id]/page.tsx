@@ -75,7 +75,7 @@ export default function MemberProfilePage() {
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
           <div className="flex items-start sm:items-center gap-5">
             <div className="relative">
-              <Avatar name={member.name} className="size-20 text-xl sm:size-24" />
+              <Avatar name={member.name} src={member.avatar} className="size-20 text-xl sm:size-24" />
               {member.verified && (
                 <div
                   className="absolute -bottom-0.5 -right-0.5 flex size-5 items-center justify-center rounded-full bg-primary-base text-static-white ring-2 ring-bg-white-0"

@@ -32,7 +32,7 @@ export function Header() {
           {currentUser && (
             <>
               <Link href="/my-profile" aria-label="My profile" className="rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-base">
-                <Avatar name={currentUser.name} className="size-8 text-xs" />
+                <Avatar name={currentUser.name} src={currentUser.avatar} className="size-8 text-xs" />
               </Link>
               <button
                 onClick={logout}

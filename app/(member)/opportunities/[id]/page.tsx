@@ -137,7 +137,7 @@ export default function OpportunityDetailPage() {
             href={`/profile/${opportunity.authorId}`}
             className="flex items-center gap-3 group"
           >
-            <Avatar name={opportunity.authorName} className="size-12 text-sm" />
+            <Avatar name={opportunity.authorName} src={opportunity.authorAvatar} className="size-12 text-sm" />
             <div>
               <p className="text-sm font-semibold text-text-strong-950 group-hover:text-primary-base transition-colors">
                 {opportunity.authorName}

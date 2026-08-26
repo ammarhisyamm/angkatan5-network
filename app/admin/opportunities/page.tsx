@@ -30,6 +30,7 @@ export default function AdminOpportunitiesPage() {
   const [activeTab, setActiveTab] = useState<OpportunityStatus>("Pending");
   const [targetOpp, setTargetOpp] = useState<Opportunity | null>(null);
   const [actionType, setActionType] = useState<"approve" | "archive" | null>(null);
+  const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
 
   const counts = useMemo(() => ({
     Pending: opportunities.filter(o => o.status === "Pending").length,
@@ -45,6 +46,29 @@ export default function AdminOpportunitiesPage() {
     updateOpportunityStatus(targetOpp.id, nextStatus);
     setTargetOpp(null);
     setActionType(null);
+  };
+
+  const isAllSelected = filtered.length > 0 && filtered.every((o) => selectedIds.has(o.id));
+  const toggleSelectAll = () => {
+    setSelectedIds((prev) => {
+      const next = new Set(prev);
+      if (isAllSelected) filtered.forEach((o) => next.delete(o.id));
+      else filtered.forEach((o) => next.add(o.id));
+      return next;
+    });
+  };
+  const toggleOne = (id: string) => {
+    setSelectedIds((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
+      return next;
+    });
+  };
+  const handleBulk = (action: "approve" | "archive") => {
+    const status: OpportunityStatus = action === "approve" ? "Approved" : "Archived";
+    selectedIds.forEach((id) => updateOpportunityStatus(id, status));
+    setSelectedIds(new Set());
   };
 
   return (
@@ -81,6 +105,17 @@ export default function AdminOpportunitiesPage() {
         })}
       </div>
 
+      {selectedIds.size > 0 && (
+        <div className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-primary-base/20 bg-primary-alpha-10 px-4 py-3">
+          <span className="text-sm font-medium text-text-strong-950">{selectedIds.size} selected</span>
+          <div className="flex items-center gap-2">
+            {activeTab === "Pending" && <Button variant="primary" size="sm" onClick={() => handleBulk("approve")} icon={<CheckCircleIcon size={14} />}>Approve</Button>}
+            <Button variant={activeTab === "Pending" ? "danger" : "secondary"} size="sm" onClick={() => handleBulk("archive")} icon={<ArchiveIcon size={14} />}>{activeTab === "Pending" ? "Reject" : "Archive"}</Button>
+            <Button variant="ghost" size="sm" onClick={() => setSelectedIds(new Set())}>Clear</Button>
+          </div>
+        </div>
+      )}
+
       {/* Table */}
       <LayerCard className="p-0 overflow-hidden">
         {filtered.length === 0 ? (
@@ -90,6 +125,7 @@ export default function AdminOpportunitiesPage() {
             <Table>
               <Table.Header>
                 <Table.Row>
+                  <Table.Head className="w-8"><input type="checkbox" checked={isAllSelected} onChange={toggleSelectAll} aria-label="Select all" className="size-4 rounded border-stroke-soft-200 text-primary-base focus:ring-primary-base" /></Table.Head>
                   <Table.Head>Opportunity</Table.Head>
                   <Table.Head className="hidden md:table-cell">Author</Table.Head>
                   <Table.Head>Category</Table.Head>
@@ -101,6 +137,7 @@ export default function AdminOpportunitiesPage() {
               <Table.Body>
                 {filtered.map((opp) => (
                   <Table.Row key={opp.id}>
+                    <Table.Cell><input type="checkbox" checked={selectedIds.has(opp.id)} onChange={() => toggleOne(opp.id)} aria-label={`Select ${opp.title}`} className="size-4 rounded border-stroke-soft-200 text-primary-base focus:ring-primary-base" /></Table.Cell>
                     <Table.Cell>
                       <div className="max-w-[300px]">
                         <span className="text-sm font-semibold text-text-strong-950 block truncate">{opp.title}</span>

@@ -2,37 +2,12 @@
 
 import React from "react";
 import { useApp } from "@/lib/store/AppContext";
-import {
-  ResponsiveContainer,
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  Tooltip,
-  CartesianGrid,
-  PieChart,
-  Pie,
-  Cell,
-  LineChart,
-  Line,
-} from "recharts";
+import dynamic from "next/dynamic";
+const IndustryChart = dynamic(() => import("@/components/charts/IndustryChart"), { ssr: false, loading: () => <div className="h-64 animate-pulse rounded-lg bg-bg-weak-50" /> });
+const ExperienceChart = dynamic(() => import("@/components/charts/ExperienceChart"), { ssr: false, loading: () => <div className="h-64 animate-pulse rounded-lg bg-bg-weak-50" /> });
 import { ChartBarIcon, TrendUpIcon, UsersIcon, MedalIcon, BriefcaseIcon } from "@phosphor-icons/react";
 
-const INDUSTRY_DATA = [
-  { name: "Technology", count: 48, fill: "#2563eb" },
-  { name: "Design", count: 36, fill: "#3b82f6" },
-  { name: "Business", count: 32, fill: "#60a5fa" },
-  { name: "Marketing", count: 28, fill: "#93c5fd" },
-  { name: "Finance", count: 22, fill: "#38bdf8" },
-  { name: "Creative & Media", count: 16, fill: "#a855f7" },
-];
 
-const EXPERIENCE_DATA = [
-  { level: "1-2 Years", count: 34, fill: "#93c5fd" },
-  { level: "3-4 Years", count: 78, fill: "#3b82f6" },
-  { level: "5-6 Years", count: 52, fill: "#1d4ed8" },
-  { level: "7+ Years", count: 18, fill: "#1e3a8a" },
-];
 
 export default function AdminAnalyticsPage() {
   const { users, opportunities, skills } = useApp();
@@ -90,27 +65,7 @@ export default function AdminAnalyticsPage() {
           <p className="text-xs text-text-sub-600 mb-6">Number of members active by sector</p>
 
           <div className="h-64 w-full">
-            <ResponsiveContainer width="100%" height="100%">
-              <BarChart
-                data={INDUSTRY_DATA}
-                layout="vertical"
-                margin={{ top: 5, right: 30, left: 40, bottom: 5 }}
-              >
-                <CartesianGrid strokeDasharray="3 3" horizontal={false} stroke="#e2e8f0" />
-                <XAxis type="number" tick={{ fontSize: 11, fill: "#64748b" }} />
-                <YAxis dataKey="name" type="category" tick={{ fontSize: 11, fill: "#64748b" }} />
-                <Tooltip
-                  contentStyle={{
-                    backgroundColor: "#0f172a",
-                    border: "none",
-                    borderRadius: "12px",
-                    color: "#fff",
-                    fontSize: "12px",
-                  }}
-                />
-                <Bar dataKey="count" fill="#2563eb" radius={[0, 6, 6, 0]} />
-              </BarChart>
-            </ResponsiveContainer>
+            <IndustryChart />
           </div>
         </div>
 
@@ -122,27 +77,7 @@ export default function AdminAnalyticsPage() {
           <p className="text-xs text-text-sub-600 mb-6">Distribution across years of career experience</p>
 
           <div className="h-64 w-full">
-            <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={EXPERIENCE_DATA} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
-                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" />
-                <XAxis dataKey="level" tick={{ fontSize: 11, fill: "#64748b" }} />
-                <YAxis tick={{ fontSize: 11, fill: "#64748b" }} />
-                <Tooltip
-                  contentStyle={{
-                    backgroundColor: "#0f172a",
-                    border: "none",
-                    borderRadius: "12px",
-                    color: "#fff",
-                    fontSize: "12px",
-                  }}
-                />
-                <Bar dataKey="count" radius={[6, 6, 0, 0]}>
-                  {EXPERIENCE_DATA.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={entry.fill} />
-                  ))}
-                </Bar>
-              </BarChart>
-            </ResponsiveContainer>
+            <ExperienceChart />
           </div>
         </div>
       </div>

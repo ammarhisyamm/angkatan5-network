@@ -69,6 +69,7 @@ export default function MyProfilePage() {
   const [successModal, setSuccessModal] = useState<{ title: string; desc: string } | null>(null);
 
   const [name, setName] = useState(currentUser?.name || "");
+  const [avatar, setAvatar] = useState(currentUser?.avatar || "");
   const [location, setLocation] = useState(currentUser?.location || "");
   const [batch, setBatch] = useState(currentUser?.batch || "");
   const [role, setRole] = useState(currentUser?.role || "");
@@ -155,7 +156,7 @@ export default function MyProfilePage() {
             {/* Left: avatar + identity */}
             <div className="flex gap-5 sm:gap-6">
               <div className="relative shrink-0">
-                <Avatar name={currentUser.name} className="size-20 rounded-2xl text-xl sm:size-24" />
+                <Avatar name={currentUser.name} src={currentUser.avatar} className="size-20 rounded-2xl text-xl sm:size-24" />
               </div>
 
               <div className="min-w-0 flex-1 pt-1">
@@ -246,6 +247,14 @@ export default function MyProfilePage() {
         {editingSection === "personal" ? (
           <div className="mt-4 space-y-4">
             <Input label="Full Name" value={name} onChange={(e) => setName(e.target.value)} />
+            <div className="space-y-2">
+              <Input label="Profile Photo URL" value={avatar} onChange={(e) => setAvatar(e.target.value)} />
+              <label className="flex items-center gap-2 text-xs font-medium text-primary-base hover:underline cursor-pointer">
+                <input type="file" accept="image/*" className="hidden" onChange={(e) => { const file = e.target.files?.[0]; if (!file) return; const r = new FileReader(); r.onload = () => setAvatar(r.result as string); r.readAsDataURL(file); }} />
+                <span className="inline-flex items-center gap-1 rounded-full bg-primary-alpha-10 px-2.5 py-1 text-xs font-medium text-primary-base ring-1 ring-primary-base/20">Upload image</span>
+                <span className="text-text-soft-400">or paste URL</span>
+              </label>
+            </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <Input label="Location" value={location} onChange={(e) => setLocation(e.target.value)} />
               <Input label="Batch" value={batch} onChange={(e) => setBatch(e.target.value)} />
