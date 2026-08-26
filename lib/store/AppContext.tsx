@@ -45,6 +45,11 @@ interface AppContextType {
   updateOpportunityStatus: (id: string, status: OpportunityStatus) => void;
   deleteOpportunity: (id: string) => void;
   sendConnection: (receiverId: string, message: string) => void;
+  getConnectionStatus: (receiverId: string) => string | null;
+  cancelConnection: (receiverId: string) => void;
+  notifications: { id: string; title: string; desc: string; read: boolean; time: string }[];
+  markNotificationRead: (id: string) => void;
+  markAllNotificationsRead: () => void;
   toggleBookmark: (opportunityId: string) => void;
   isBookmarked: (opportunityId: string) => boolean;
   addSkill: (name: string, category: SkillCategory) => void;
@@ -82,11 +87,19 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     useState<Opportunity[]>(initialOpportunities);
   const [skills, setSkills] = useState<Skill[]>(initialSkills);
   const [connections, setConnections] = useState<Connection[]>([]);
+  const [notifications, setNotifications] = useState<{ id: string; title: string; desc: string; read: boolean; time: string }[]>([
+    { id: "1", title: "New member joined", desc: "Rizky from Finance joined the network", read: false, time: "2m ago" },
+    { id: "2", title: "Opportunity approved", desc: "Your Cybersecurity post is now live", read: false, time: "1h ago" },
+    { id: "3", title: "Profile viewed", desc: "Nabila viewed your profile", read: true, time: "3h ago" },
+    { id: "4", title: "Connection accepted", desc: "Ahmad accepted your request", read: true, time: "1d ago" },
+  ]);
   const [bookmarkedOpportunityIds, setBookmarkedOpportunityIds] = useState<
     string[]
   >([]);
   const [toasts, setToasts] = useState<ToastMessage[]>([]);
   const [notificationModal, setNotificationModal] = useState<{ title: string; description?: string; icon?: "success" | "error" | "warning" | "info" | "question" } | null>(null);
+  const markNotificationRead = (id: string) => setNotifications((prev) => prev.map((n) => n.id === id ? { ...n, read: true } : n));
+  const markAllNotificationsRead = () => setNotifications((prev) => prev.map((n) => ({ ...n, read: true })));
   const [isLoading, setIsLoading] = useState(true);
 
   // Initialize from localStorage
@@ -424,6 +437,19 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     );
   };
 
+  const getConnectionStatus = (receiverId: string) => {
+    const conn = connections.find(
+      (c) => (c.receiverId === receiverId && c.senderId === currentUser?.id) || (c.senderId === receiverId && c.receiverId === currentUser?.id)
+    );
+    return conn?.status || null;
+  };
+
+  const cancelConnection = (receiverId: string) => {
+    const next = connections.filter((c) => !(c.receiverId === receiverId && c.senderId === currentUser?.id && c.status === "pending"));
+    saveConnections(next);
+    addToast("Request cancelled", "Connection request withdrawn.", "info");
+  };
+
   const toggleBookmark = (opportunityId: string) => {
     let updated: string[];
     if (bookmarkedOpportunityIds.includes(opportunityId)) {
@@ -584,8 +610,13 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
         updateOpportunityStatus,
         deleteOpportunity,
         sendConnection,
+        getConnectionStatus,
+        cancelConnection,
         toggleBookmark,
         isBookmarked,
+        notifications,
+        markNotificationRead,
+        markAllNotificationsRead,
         addSkill,
         renameSkill,
         mergeSkills,

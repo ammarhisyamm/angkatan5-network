@@ -8,7 +8,8 @@ import { Tag } from "@/components/ui/Tag";
 import { Button } from "@/components/ui/Button";
 import { LayerCard } from "@/components/ui/Surface";
 import { Avatar } from "@/components/ui/Avatar";
-import { SealCheckIcon, ArrowRightIcon } from "@phosphor-icons/react";
+import { useApp } from "@/lib/store/AppContext";
+import { SealCheckIcon, ArrowRightIcon, PaperPlaneTiltIcon, CheckCircleIcon, XCircleIcon } from "@phosphor-icons/react";
 
 function HighlightText({ text, query }: { text: string; query?: string }) {
   if (!query?.trim()) return <>{text}</>;
@@ -25,6 +26,9 @@ function HighlightText({ text, query }: { text: string; query?: string }) {
 }
 
 export function ProfileCard({ member, highlight }: { member: User; highlight?: string }) {
+  const { currentUser, getConnectionStatus, cancelConnection } = useApp() as any;
+  const isSelf = currentUser?.id === member.id;
+  const connStatus = !isSelf ? getConnectionStatus(member.id) : null;
   return (
     <>
       <LayerCard className="group flex h-full w-full flex-col overflow-hidden rounded-lg border border-stroke-soft-200 p-0 shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition-[background-color,border-color,box-shadow,transform] duration-200 hover:-translate-y-px hover:border-primary-base/30 hover:shadow-[0_4px_12px_rgba(0,0,0,0.06)]">
@@ -65,13 +69,24 @@ export function ProfileCard({ member, highlight }: { member: User; highlight?: s
         </div>
 
         {/* Footer anchored to bottom */}
-        <div className="mt-auto flex items-center justify-between gap-3 border-t border-stroke-soft-200 px-6 py-4">
+        <div className="mt-auto flex items-center justify-between gap-2 border-t border-stroke-soft-200 px-6 py-4">
           <StatusBadge status={member.status} />
-          <Link href={`/profile/${member.id}`}>
-            <Button variant="secondary" size="sm">
-              View Profile <ArrowRightIcon size={14} weight="regular" />
-            </Button>
-          </Link>
+          <div className="flex items-center gap-2">
+            {!isSelf && connStatus === "pending" && (
+              <Button variant="outline" size="sm" onClick={() => cancelConnection(member.id)} icon={<XCircleIcon size={14} />}>Cancel</Button>
+            )}
+            {!isSelf && connStatus === null && (
+              <Link href={`/profile/${member.id}`}>
+                <Button variant="primary" size="sm" icon={<PaperPlaneTiltIcon size={14} />}>Connect</Button>
+              </Link>
+            )}
+            {!isSelf && connStatus === "pending" && (
+              <span className="inline-flex items-center gap-1 rounded-full bg-warning-lighter px-2.5 py-1 text-xs font-medium text-warning-dark ring-1 ring-warning-base/20"><span className="size-1.5 rounded-full bg-warning-base animate-pulse" /> Pending</span>
+            )}
+            <Link href={`/profile/${member.id}`}>
+              <Button variant="secondary" size="sm" icon={<ArrowRightIcon size={14} />}>View</Button>
+            </Link>
+          </div>
         </div>
       </LayerCard>
     </>

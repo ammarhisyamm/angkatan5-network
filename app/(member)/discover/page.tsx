@@ -46,10 +46,10 @@ export default function DiscoverPeoplePage() {
     try { return JSON.parse(localStorage.getItem("a5_recent_searches") || "[]"); } catch { return []; }
   });
   const [selectedChip, setSelectedChip] = useState("All");
-  const [selectedIndustry, setSelectedIndustry] = useState("All");
-  const [selectedSkill, setSelectedSkill] = useState("All");
+  const [selectedIndustry, setSelectedIndustry] = useState<string[]>([]);
+  const [selectedSkill, setSelectedSkill] = useState<string[]>([]);
   const [selectedExperience, setSelectedExperience] = useState("All");
-  const [selectedLocation, setSelectedLocation] = useState("All");
+  const [selectedLocation, setSelectedLocation] = useState<string[]>([]);
   const [selectedStatus, setSelectedStatus] = useState<string>("All");
   const [isFilterDrawerOpen, setIsFilterDrawerOpen] = useState(false);
 
@@ -125,14 +125,14 @@ export default function DiscoverPeoplePage() {
         if (user.industry !== selectedChip) return false;
       }
 
-      // Industry dropdown
-      if (selectedIndustry !== "All") {
-        if (user.industry !== selectedIndustry) return false;
+      // Industry multi
+      if (selectedIndustry.length > 0) {
+        if (!selectedIndustry.includes(user.industry)) return false;
       }
 
-      // Skill dropdown
-      if (selectedSkill !== "All") {
-        if (!user.skills?.includes(selectedSkill)) return false;
+      // Skill multi
+      if (selectedSkill.length > 0) {
+        if (!user.skills?.some((s) => selectedSkill.includes(s))) return false;
       }
 
       // Experience filter
@@ -141,11 +141,9 @@ export default function DiscoverPeoplePage() {
         if (user.experienceYears < expMin) return false;
       }
 
-      // Location filter
-      if (selectedLocation !== "All") {
-        if (!user.location.toLowerCase().includes(selectedLocation.toLowerCase())) {
-          return false;
-        }
+      // Location multi
+      if (selectedLocation.length > 0) {
+        if (!selectedLocation.some((loc) => user.location.toLowerCase().includes(loc.toLowerCase()))) return false;
       }
 
       // Status filter
@@ -169,20 +167,20 @@ export default function DiscoverPeoplePage() {
   const hasActiveFilters =
     searchQuery !== "" ||
     selectedChip !== "All" ||
-    selectedIndustry !== "All" ||
-    selectedSkill !== "All" ||
+    selectedIndustry.length > 0 ||
+    selectedSkill.length > 0 ||
     selectedExperience !== "All" ||
-    selectedLocation !== "All" ||
+    selectedLocation.length > 0 ||
     selectedStatus !== "All";
 
   const clearAllFilters = () => {
     setSearchInput("");
     setSearchQuery("");
     setSelectedChip("All");
-    setSelectedIndustry("All");
-    setSelectedSkill("All");
+    setSelectedIndustry([]);
+    setSelectedSkill([]);
     setSelectedExperience("All");
-    setSelectedLocation("All");
+    setSelectedLocation([]);
     setSelectedStatus("All");
   };
 
@@ -244,55 +242,87 @@ export default function DiscoverPeoplePage() {
       <LayerCard
         className={`p-4 transition-colors ${isFilterDrawerOpen ? "block" : "hidden lg:block"}`}
       >
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
-          {/* Skill Filter — Kumo Select */}
-          <Select
-            label="Skill"
-            value={selectedSkill}
-            onValueChange={(v: any) => setSelectedSkill(v)}
-            items={allSkills.map((sk) => ({ label: sk === "All" ? "All Skills" : sk, value: sk }))}
-            className="w-full"
-          />
+        <div className="space-y-4">
+          {/* Industry multi chips */}
+          <div>
+            <p className="mb-2 text-xs font-semibold text-text-strong-950">Industry</p>
+            <div className="flex flex-wrap gap-2">
+              {industries.slice(1).map((ind) => {
+                const count = users.filter((u) => u.industry === ind && (selectedChip === "All" || u.industry === selectedChip) && (searchQuery ? [u.name, u.role, u.company, ...(u.skills||[])].join(" ").toLowerCase().includes(searchQuery.toLowerCase()) : true)).length;
+                const active = selectedIndustry.includes(ind);
+                return (
+                  <button
+                    key={ind}
+                    onClick={() => setSelectedIndustry((prev) => active ? prev.filter((v) => v !== ind) : [...prev, ind])}
+                    className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-medium ring-1 transition-colors ${active ? "bg-text-strong-950 text-white ring-text-strong-950" : "bg-bg-white-0 text-text-sub-600 ring-stroke-soft-200 hover:bg-bg-weak-50"}`}
+                  >
+                    {ind} <span className={`rounded-full px-1 text-[10px] ${active ? "bg-white/20 text-white" : "bg-bg-weak-50 text-text-soft-400"}`}>{count}</span>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
 
-          {/* Industry Filter — Kumo Select */}
-          <Select
-            label="Industry"
-            value={selectedIndustry}
-            onValueChange={(v: any) => setSelectedIndustry(v)}
-            items={industries.map((ind) => ({ label: ind === "All" ? "All Industries" : ind, value: ind }))}
-            className="w-full"
-          />
+          {/* Skill multi chips */}
+          <div>
+            <p className="mb-2 text-xs font-semibold text-text-strong-950">Skills</p>
+            <div className="flex flex-wrap gap-2 max-h-24 overflow-y-auto">
+              {allSkills.slice(1, 20).map((sk) => {
+                const count = users.filter((u) => u.skills?.includes(sk)).length;
+                const active = selectedSkill.includes(sk);
+                return (
+                  <button
+                    key={sk}
+                    onClick={() => setSelectedSkill((prev) => active ? prev.filter((v) => v !== sk) : [...prev, sk])}
+                    className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-medium ring-1 transition-colors ${active ? "bg-text-strong-950 text-white ring-text-strong-950" : "bg-bg-white-0 text-text-sub-600 ring-stroke-soft-200 hover:bg-bg-weak-50"}`}
+                  >
+                    {sk} <span className={`rounded-full px-1 text-[10px] ${active ? "bg-white/20 text-white" : "bg-bg-weak-50 text-text-soft-400"}`}>{count}</span>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
 
-          {/* Experience Filter — Kumo Select */}
-          <Select
-            label="Experience"
-            value={selectedExperience}
-            onValueChange={(v: any) => setSelectedExperience(v)}
-            items={[{ label: "All Experience", value: "All" }, { label: "1+ years", value: "1" }, { label: "3+ years", value: "3" }, { label: "5+ years", value: "5" }]}
-            className="w-full"
-          />
+          {/* Location multi chips */}
+          <div>
+            <p className="mb-2 text-xs font-semibold text-text-strong-950">Location</p>
+            <div className="flex flex-wrap gap-2">
+              {locations.slice(1).map((loc) => {
+                const count = users.filter((u) => u.location.includes(loc)).length;
+                const active = selectedLocation.includes(loc);
+                return (
+                  <button
+                    key={loc}
+                    onClick={() => setSelectedLocation((prev) => active ? prev.filter((v) => v !== loc) : [...prev, loc])}
+                    className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-medium ring-1 transition-colors ${active ? "bg-text-strong-950 text-white ring-text-strong-950" : "bg-bg-white-0 text-text-sub-600 ring-stroke-soft-200 hover:bg-bg-weak-50"}`}
+                  >
+                    {loc} <span className={`rounded-full px-1 text-[10px] ${active ? "bg-white/20 text-white" : "bg-bg-weak-50 text-text-soft-400"}`}>{count}</span>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
 
-          {/* Location Filter — Kumo Select */}
-          <Select
-            label="Location"
-            value={selectedLocation}
-            onValueChange={(v: any) => setSelectedLocation(v)}
-            items={locations.map((loc) => ({ label: loc === "All" ? "All Locations" : loc, value: loc }))}
-            className="w-full"
-          />
-
-          {/* Status Filter — Kumo Select */}
-          <Select
-            label="Availability"
-            value={selectedStatus}
-            onValueChange={(v: any) => setSelectedStatus(v)}
-            items={["All", "Available to Help", "Open to Work", "Open to Collaboration", "Hiring"].map((s) => ({ label: s === "All" ? "All Statuses" : s, value: s }))}
-            className="w-full"
-          />
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <Select
+              label="Experience"
+              value={selectedExperience}
+              onValueChange={(v: any) => setSelectedExperience(v)}
+              items={[{ label: "All Experience", value: "All" }, { label: "1+ years", value: "1" }, { label: "3+ years", value: "3" }, { label: "5+ years", value: "5" }]}
+              className="w-full"
+            />
+            <Select
+              label="Availability"
+              value={selectedStatus}
+              onValueChange={(v: any) => setSelectedStatus(v)}
+              items={["All", "Available to Help", "Open to Work", "Open to Collaboration", "Hiring"].map((s) => ({ label: s === "All" ? "All Statuses" : s, value: s }))}
+              className="w-full"
+            />
+          </div>
         </div>
 
         {hasActiveFilters && (
-          <div className="flex items-center justify-between pt-3 mt-3 border-t border-stroke-soft-200 text-xs">
+          <div className="sticky bottom-0 -mx-4 -mb-4 flex items-center justify-between border-t border-stroke-soft-200 bg-bg-white-0 px-4 py-3 text-xs">
             <span className="text-text-sub-600">
               Showing{" "}
               <strong className="text-text-strong-950">
