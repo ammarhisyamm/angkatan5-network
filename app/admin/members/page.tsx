@@ -162,7 +162,7 @@ export default function AdminMembersPage() {
                   </Table.Cell>
                   <Table.Cell>
                     <div className="flex items-center gap-3">
-                      <Avatar name={member.name} src={member.avatar} className="size-7 text-[10px]" />
+                      <Avatar name={member.name} className="size-7 text-[10px]" />
                       <div className="min-w-0">
                         <div className="flex items-center gap-1.5">
                           <span className="text-sm font-semibold text-text-strong-950 truncate">{member.name}</span>

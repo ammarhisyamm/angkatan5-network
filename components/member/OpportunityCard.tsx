@@ -79,7 +79,7 @@ export function OpportunityCard({ opportunity }: { opportunity: Opportunity }) {
       {/* Footer anchored to bottom */}
       <div className="mt-auto flex items-center justify-between gap-3 border-t border-stroke-soft-200 px-6 py-4">
         <div className="flex min-w-0 items-center gap-3">
-          <Avatar name={opportunity.authorName} src={opportunity.authorAvatar} className="size-7 text-[10px]" />
+          <Avatar name={opportunity.authorName} className="size-7 text-[10px]" />
           <div className="min-w-0">
             <p className="truncate text-sm font-medium leading-5 text-text-strong-950">{opportunity.authorName}</p>
             <p className="truncate text-meta font-medium text-text-sub-600">Posted {formattedDate}</p>

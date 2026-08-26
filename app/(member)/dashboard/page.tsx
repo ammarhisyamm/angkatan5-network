@@ -37,7 +37,7 @@ export default function MemberDashboardPage() {
       <section className="border-b border-stroke-soft-200 pb-6" aria-labelledby="welcome-heading">
         <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex min-w-0 items-center gap-3">
-            <Avatar name={currentUser?.name || "Member"} src={currentUser?.avatar} className="size-10 text-sm" />
+            <Avatar name={currentUser?.name || "Member"} className="size-10 text-sm" />
             <div className="min-w-0">
               <h1 id="welcome-heading" className="text-page-title text-text-strong-950">{getGreeting()}, {firstName}</h1>
               <p className="mt-0.5 text-body text-text-sub-600">Discover people and opportunities within your community.</p>

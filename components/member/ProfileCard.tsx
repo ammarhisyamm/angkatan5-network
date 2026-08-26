@@ -38,7 +38,7 @@ export function ProfileCard({ member, highlight }: { member: User; highlight?: s
         <div className="flex flex-1 flex-col p-6">
           <div className="flex items-start gap-3">
             <Link href={`/profile/${member.id}`} className="relative shrink-0" aria-label={`View ${member.name}`}>
-              <Avatar name={member.name} src={member.avatar} className="size-12 text-sm" />
+              <Avatar name={member.name} className="size-12 text-sm" />
               {member.verified && (
                 <span className="absolute -bottom-0.5 -right-0.5 flex size-4 items-center justify-center rounded-full bg-primary-base text-static-white" title="Verified member" aria-hidden="true">
                   <SealCheckIcon size={12} weight="bold" />

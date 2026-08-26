@@ -8,7 +8,7 @@ import { StatusBadge, Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
 import { Modal } from "@/components/ui/Modal";
 import { Avatar } from "@/components/ui/Avatar";
-import { MapPinIcon, SealCheckIcon, BriefcaseIcon, CalendarIcon, ShareNetworkIcon, UserPlusIcon, GlobeIcon, ArrowSquareOutIcon, CheckCircleIcon, ArrowLeftIcon, SparkleIcon, QuestionIcon, MagnifyingGlassIcon } from "@phosphor-icons/react";
+import { MapPinIcon, SealCheckIcon, BriefcaseIcon, CalendarIcon, ShareNetworkIcon, UserPlusIcon, GlobeIcon, ArrowSquareOutIcon, CheckCircleIcon, ArrowLeftIcon, SparkleIcon, QuestionIcon, MagnifyingGlassIcon, CheckIcon } from "@phosphor-icons/react";
 
 export default function MemberProfilePage() {
   const params = useParams();
@@ -74,15 +74,14 @@ export default function MemberProfilePage() {
       <div className="bg-bg-white-0 border border-stroke-soft-200 rounded-xl p-6 sm:p-8">
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
           <div className="flex items-start sm:items-center gap-5">
-            <div className="relative">
-              <Avatar name={member.name} src={member.avatar} className="size-20 text-xl sm:size-24" />
+            <div className="relative shrink-0">
+              <div className="flex size-20 sm:size-24 items-center justify-center rounded-2xl bg-bg-weak-50 text-xl font-semibold text-text-strong-950 ring-4 ring-bg-white-0 shadow-sm sm:text-2xl">
+                {member.name.split(" ").slice(0, 2).map((p) => p[0]).join("").toUpperCase()}
+              </div>
               {member.verified && (
-                <div
-                  className="absolute -bottom-0.5 -right-0.5 flex size-5 items-center justify-center rounded-full bg-primary-base text-static-white ring-2 ring-bg-white-0"
-                  title="Verified member"
-                >
-                  <SealCheckIcon size={14} weight="bold" />
-                </div>
+                <span className="absolute -bottom-1 -right-1 flex size-6 items-center justify-center rounded-full bg-success-base text-white ring-2 ring-white">
+                  <CheckIcon size={12} weight="bold" />
+                </span>
               )}
             </div>
 

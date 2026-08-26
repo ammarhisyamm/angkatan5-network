@@ -76,7 +76,7 @@ export function ConnectModal({
       ) : (
         <form id="connect-form" onSubmit={handleSend} className="space-y-4">
           <div className="flex items-center gap-3 rounded-xl border border-stroke-soft-200 bg-bg-weak-50 p-3">
-            <Avatar name={receiver?.name || "Member"} src={receiver?.avatar} className="size-10 text-xs" />
+            <Avatar name={receiver?.name || "Member"} className="size-10 text-xs" />
             <div className="min-w-0 flex-1">
               <p className="truncate text-sm font-semibold leading-5 text-text-strong-950">{receiver?.name}</p>
               <p className="truncate text-xs leading-[18px] text-text-sub-600">
