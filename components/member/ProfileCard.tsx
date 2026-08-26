@@ -8,6 +8,7 @@ import { Tag } from "@/components/ui/Tag";
 import { Button } from "@/components/ui/Button";
 import { LayerCard } from "@/components/ui/Surface";
 import { Avatar } from "@/components/ui/Avatar";
+import { ConnectModal } from "@/components/member/ConnectModal";
 import { useApp } from "@/lib/store/AppContext";
 import { SealCheckIcon, ArrowRightIcon, PaperPlaneTiltIcon, CheckCircleIcon, XCircleIcon } from "@phosphor-icons/react";
 
@@ -27,6 +28,7 @@ function HighlightText({ text, query }: { text: string; query?: string }) {
 
 export function ProfileCard({ member, highlight }: { member: User; highlight?: string }) {
   const { currentUser, getConnectionStatus, cancelConnection } = useApp() as any;
+  const [showConnectModal, setShowConnectModal] = React.useState(false);
   const isSelf = currentUser?.id === member.id;
   const connStatus = !isSelf ? getConnectionStatus(member.id) : null;
   return (
@@ -76,9 +78,7 @@ export function ProfileCard({ member, highlight }: { member: User; highlight?: s
               <Button variant="outline" size="sm" onClick={() => cancelConnection(member.id)} icon={<XCircleIcon size={14} />}>Cancel</Button>
             )}
             {!isSelf && connStatus === null && (
-              <Link href={`/profile/${member.id}`}>
-                <Button variant="primary" size="sm" icon={<PaperPlaneTiltIcon size={14} />}>Connect</Button>
-              </Link>
+              <Button variant="primary" size="sm" icon={<PaperPlaneTiltIcon size={14} />} onClick={() => setShowConnectModal(true)}>Connect</Button>
             )}
             {!isSelf && connStatus === "pending" && (
               <span className="inline-flex items-center gap-1 rounded-full bg-warning-lighter px-2.5 py-1 text-xs font-medium text-warning-dark ring-1 ring-warning-base/20"><span className="size-1.5 rounded-full bg-warning-base animate-pulse" /> Pending</span>
@@ -89,6 +89,7 @@ export function ProfileCard({ member, highlight }: { member: User; highlight?: s
           </div>
         </div>
       </LayerCard>
+      <ConnectModal isOpen={showConnectModal} onClose={() => setShowConnectModal(false)} receiver={member} />
     </>
   );
 }
