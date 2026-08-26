@@ -79,8 +79,8 @@ function SidebarInner() {
                       <BellIcon size={16} />
                       {unreadCount > 0 && <span className="absolute -right-1 -top-1 flex size-4 items-center justify-center rounded-full bg-error-base text-[10px] font-bold text-white ring-2 ring-bg-white-0">{unreadCount}</span>}
                     </button>
-                    {showNotifications && (
-                      <div className="absolute right-0 top-full z-50 mt-2 w-72 rounded-xl border border-stroke-soft-200 bg-bg-white-0 shadow-lg">
+                {showNotifications && (
+                  <div className="fixed left-4 top-16 z-50 w-[calc(100vw-2rem)] max-w-[320px] rounded-xl border border-stroke-soft-200 bg-bg-white-0 shadow-xl sm:absolute sm:left-auto sm:right-0 sm:top-full sm:mt-2 sm:w-72 sm:max-w-none lg:fixed lg:left-[248px] lg:right-auto lg:top-16 lg:w-80">
                         <div className="flex items-center justify-between p-3">
                           <p className="text-sm font-semibold text-text-strong-950">Notifications</p>
                           <button onClick={markAllNotificationsRead} className="text-xs font-medium text-primary-base hover:underline">Mark all read</button>
