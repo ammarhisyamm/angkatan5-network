@@ -157,10 +157,9 @@ export default function MyProfilePage() {
             {/* Left: avatar + identity */}
             <div className="flex gap-5 sm:gap-6">
               <div className="relative shrink-0 -mt-12 sm:-mt-16">
-                <Avatar name={currentUser.name} className="size-20 rounded-2xl text-xl sm:size-24 border-4 border-white shadow-sm" />
-                <span className="absolute -bottom-1 -right-1 flex size-6 items-center justify-center rounded-full bg-success-base text-white ring-2 ring-white">
-                  <CheckIcon size={12} weight="bold" />
-                </span>
+                <div className="flex size-20 sm:size-24 items-center justify-center rounded-2xl bg-zinc-100 text-xl font-semibold text-zinc-900 ring-4 ring-white shadow-sm sm:text-2xl">
+                  {currentUser.name.split(" ").slice(0, 2).map((p) => p[0]).join("").toUpperCase()}
+                </div>
               </div>
 
               <div className="min-w-0 flex-1 pt-1">
@@ -180,7 +179,12 @@ export default function MyProfilePage() {
                   </span>
                   <span className="hidden sm:inline-flex size-1 rounded-full bg-zinc-300" />
                 </div>
-                <p className="mt-1 hidden sm:block text-xs text-zinc-400">{currentUser.email}</p>
+                <p className="mt-1 hidden sm:inline-flex items-center gap-1.5 text-xs text-zinc-500">
+                  <span className="flex size-4 items-center justify-center rounded-full bg-success-base text-white">
+                    <CheckIcon size={10} weight="bold" />
+                  </span>
+                  {currentUser.email}
+                </p>
               </div>
             </div>
 

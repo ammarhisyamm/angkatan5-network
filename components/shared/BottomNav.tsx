@@ -28,10 +28,10 @@ export function BottomNav() {
   return (
     <nav
       aria-label="Primary mobile"
-      className="fixed inset-x-4 bottom-4 z-40 mx-auto max-w-sm rounded-2xl border border-white/10 bg-slate-950/85 p-1.5 shadow-[0_16px_32px_rgba(15,23,42,0.2)] backdrop-blur-xl lg:hidden"
+      className="fixed inset-x-6 bottom-4 z-40 mx-auto max-w-[320px] rounded-2xl border border-white/10 bg-slate-950 p-3 shadow-[0_16px_32px_rgba(15,23,42,0.2)] backdrop-blur-xl lg:hidden"
       style={{ marginBottom: "env(safe-area-inset-bottom)" }}
     >
-      <div className="flex h-[60px] items-stretch gap-1">
+      <div className="flex h-12 items-stretch gap-1">
         {items.map((item) => {
           const isActive =
             pathname === item.href ||
