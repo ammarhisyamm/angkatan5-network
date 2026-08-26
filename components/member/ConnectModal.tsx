@@ -45,7 +45,7 @@ export function ConnectModal({
       isOpen={isOpen}
       onClose={onClose}
       title={`Connect with ${receiver?.name}`}
-      description="PaperPlaneTiltIcon a short note to introduce yourself."
+      description="Send a short note to introduce yourself."
       maxWidth="md"
       footer={
         isSent ? undefined : (
@@ -55,7 +55,7 @@ export function ConnectModal({
             </Button>
             <Button type="submit" form="connect-form" variant="primary" size="sm" isLoading={isSending}>
               <PaperPlaneTiltIcon size={14} weight="regular" />
-              PaperPlaneTiltIcon Request
+              Send Request
             </Button>
           </>
         )
