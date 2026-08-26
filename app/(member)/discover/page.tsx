@@ -51,6 +51,7 @@ export default function DiscoverPeoplePage() {
   const [selectedExperience, setSelectedExperience] = useState("All");
   const [selectedLocation, setSelectedLocation] = useState<string[]>([]);
   const [selectedStatus, setSelectedStatus] = useState<string>("All");
+  const [sortBy, setSortBy] = useState<"relevance" | "newest" | "connected">("relevance");
   const [isFilterDrawerOpen, setIsFilterDrawerOpen] = useState(false);
 
   // Debounce search input (300ms)
@@ -163,6 +164,13 @@ export default function DiscoverPeoplePage() {
     selectedLocation,
     selectedStatus,
   ]);
+
+  const sortedUsers = useMemo(() => {
+    const arr = [...filteredUsers];
+    if (sortBy === "newest") arr.sort((a, b) => new Date(b.joinedAt || 0).getTime() - new Date(a.joinedAt || 0).getTime());
+    if (sortBy === "connected") arr.sort((a, b) => (b.skills?.length || 0) - (a.skills?.length || 0));
+    return arr;
+  }, [filteredUsers, sortBy]);
 
   const hasActiveFilters =
     searchQuery !== "" ||
@@ -343,15 +351,20 @@ export default function DiscoverPeoplePage() {
 
       {/* Results Section */}
       <div>
-        <div className="flex items-center justify-between mb-4">
+        <div className="flex items-center justify-between mb-4 gap-3">
           <span className="text-xs leading-4 font-medium text-text-sub-600">
-            {filteredUsers.length} {filteredUsers.length === 1 ? "Person" : "People"} Found
+            {sortedUsers.length} {sortedUsers.length === 1 ? "Person" : "People"} Found
           </span>
+          <select value={sortBy} onChange={(e) => setSortBy(e.target.value as any)} className="h-8 rounded-lg border border-stroke-soft-200 bg-bg-white-0 px-2 text-xs font-medium text-text-strong-950">
+            <option value="relevance">Relevance</option>
+            <option value="newest">Newest</option>
+            <option value="connected">Most connected</option>
+          </select>
         </div>
 
-        {filteredUsers.length > 0 ? (
+        {sortedUsers.length > 0 ? (
           <Grid variant="3up" gap="base">
-            {filteredUsers.map((member) => (
+            {sortedUsers.map((member) => (
               <div key={member.id} className="[content-visibility:auto] [contain-intrinsic-size:0_340px]">
                 <ProfileCard member={member} highlight={searchQuery} />
               </div>

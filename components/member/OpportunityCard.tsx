@@ -25,6 +25,11 @@ export function OpportunityCard({ opportunity }: { opportunity: Opportunity }) {
     Business: "neutral",
   };
 
+  const isRemote = opportunity.location.toLowerCase().includes("remote");
+  const daysLeft = Math.ceil((new Date(opportunity.deadline).getTime() - Date.now()) / (1000 * 60 * 60 * 24));
+  const isExpiringSoon = daysLeft <= 7 && daysLeft >= 0;
+  const isExpired = daysLeft < 0;
+
   return (
     <LayerCard className="group flex h-full w-full flex-col overflow-hidden rounded-lg border border-stroke-soft-200 p-0 shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition-[background-color,border-color,box-shadow,transform] duration-200 hover:-translate-y-px hover:border-primary-base/30 hover:shadow-[0_4px_12px_rgba(0,0,0,0.06)]">
       {/* Content */}
@@ -37,6 +42,9 @@ export function OpportunityCard({ opportunity }: { opportunity: Opportunity }) {
               {opportunity.location}
             </Tag>
             <span className="text-meta font-medium text-text-sub-600">{opportunity.type}</span>
+            {isRemote && <span className="inline-flex items-center rounded-full bg-success-lighter px-2 py-0.5 text-xs font-medium text-success-dark ring-1 ring-success-base/20">Remote</span>}
+            {isExpiringSoon && <span className="inline-flex items-center rounded-full bg-warning-lighter px-2 py-0.5 text-xs font-medium text-warning-dark ring-1 ring-warning-base/20">{daysLeft}d left</span>}
+            {isExpired && <span className="inline-flex items-center rounded-full bg-error-lighter px-2 py-0.5 text-xs font-medium text-error-dark ring-1 ring-error-base/20">Expired</span>}
           </div>
           <button
             onClick={() => toggleBookmark(opportunity.id)}

@@ -151,12 +151,16 @@ export default function MyProfilePage() {
     <div className="mx-auto max-w-[1120px] space-y-6">
       {/* HERO */}
       <div className="overflow-hidden rounded-xl border border-stroke-soft-200 bg-white shadow-none">
+        <div className="h-24 w-full bg-gradient-to-r from-violet-500 via-primary-base to-blue-500 sm:h-32" />
         <div className="p-6 sm:p-8">
           <div className="flex flex-col gap-8 lg:flex-row lg:items-start lg:justify-between">
             {/* Left: avatar + identity */}
             <div className="flex gap-5 sm:gap-6">
-              <div className="relative shrink-0">
-                <Avatar name={currentUser.name} src={currentUser.avatar} className="size-20 rounded-2xl text-xl sm:size-24" />
+              <div className="relative shrink-0 -mt-12 sm:-mt-16">
+                <Avatar name={currentUser.name} className="size-20 rounded-2xl text-xl sm:size-24 border-4 border-white shadow-sm" />
+                <span className="absolute -bottom-1 -right-1 flex size-6 items-center justify-center rounded-full bg-success-base text-white ring-2 ring-white">
+                  <CheckIcon size={12} weight="bold" />
+                </span>
               </div>
 
               <div className="min-w-0 flex-1 pt-1">

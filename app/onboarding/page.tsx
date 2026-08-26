@@ -448,15 +448,18 @@ export default function OnboardingPage() {
 
           {/* Stepper navigation footer */}
           <div className="flex items-center justify-between pt-8 mt-6 border-t border-stroke-soft-200">
-            {step > 1 ? (
-              <Button type="button" variant="outline" onClick={() => setStep(step - 1)}
-              >
-                <CaretLeftIcon size={16} weight="regular" />
-                Back
-              </Button>
-            ) : (
-              <div />
-            )}
+            <div className="flex items-center gap-2">
+              {step > 1 ? (
+                <Button type="button" variant="outline" onClick={() => setStep(step - 1)}
+                >
+                  <CaretLeftIcon size={16} weight="regular" />
+                  Back
+                </Button>
+              ) : (
+                <Button type="button" variant="ghost" onClick={() => router.push("/dashboard")}>Skip for now</Button>
+              )}
+              <Button type="button" variant="ghost" size="sm" onClick={() => { localStorage.setItem("a5_onboarding_draft", JSON.stringify({ name, location, batch, role, company, industry, experience, bio, skills: selectedSkills, lookingFor, canOffer })); setShowCelebration(false); alert("Draft saved"); }}>Save draft</Button>
+            </div>
 
             {step < 5 ? (
               <Button type="button" variant="primary" onClick={() => setStep(step + 1)}

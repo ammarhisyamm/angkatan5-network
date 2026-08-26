@@ -96,6 +96,24 @@ export default function AdminMembersPage() {
           <h1 className="text-page-title text-text-strong-950">Member Management</h1>
           <p className="mt-1 text-body text-text-sub-600">Verify credentials, oversee profiles, and manage directory permissions.</p>
         </div>
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={() => {
+            const headers = ["Name", "Email", "Role", "Company", "Industry", "Status", "Verified"];
+            const rows = filteredMembers.map((u) => [u.name, u.email, u.role, u.company, u.industry, u.status, String(u.verified)]);
+            const csv = [headers, ...rows].map((r) => r.map((v) => `"${String(v).replace(/"/g, '""')}"`).join(",")).join("\n");
+            const blob = new Blob([csv], { type: "text/csv" });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = "members.csv";
+            a.click();
+            URL.revokeObjectURL(url);
+          }}
+        >
+          Export CSV
+        </Button>
       </div>
 
       {/* Search & Filter */}
