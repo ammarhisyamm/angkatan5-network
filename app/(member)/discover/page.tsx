@@ -252,47 +252,57 @@ export default function DiscoverPeoplePage() {
         <div className="max-h-[60vh] overflow-y-auto pr-1">
           <LayerCard className="p-0 border-0 shadow-none">
         <div className="space-y-4">
-          {/* Industry multi chips */}
+          {/* Industry — form-like select */}
           <div>
             <p className="mb-2 text-xs font-semibold text-text-strong-950">Industry</p>
             <div className="flex flex-wrap gap-2">
               {industries.slice(1).map((ind) => {
-                const count = users.filter((u) => u.industry === ind && (selectedChip === "All" || u.industry === selectedChip) && (searchQuery ? [u.name, u.role, u.company, ...(u.skills||[])].join(" ").toLowerCase().includes(searchQuery.toLowerCase()) : true)).length;
+                const count = users.filter((u) => u.industry === ind).length;
                 const active = selectedIndustry.includes(ind);
                 return (
                   <button
                     key={ind}
                     onClick={() => setSelectedIndustry((prev) => active ? prev.filter((v) => v !== ind) : [...prev, ind])}
-                    className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-medium ring-1 transition-colors ${active ? "bg-text-strong-950 text-white ring-text-strong-950" : "bg-bg-white-0 text-text-sub-600 ring-stroke-soft-200 hover:bg-bg-weak-50"}`}
+                    className={`inline-flex min-h-8 items-center gap-1.5 rounded-full px-3 py-2 text-sm font-medium ring-1 transition-colors ${active ? "bg-text-strong-950 text-white ring-text-strong-950" : "bg-bg-white-0 text-text-sub-600 ring-stroke-soft-200 hover:bg-bg-weak-50"}`}
                   >
-                    {ind} <span className={`rounded-full px-1 text-[10px] ${active ? "bg-white/20 text-white" : "bg-bg-weak-50 text-text-soft-400"}`}>{count}</span>
+                    {ind} <span className={`rounded-full px-1.5 py-0.5 text-xs ${active ? "bg-white/20 text-white" : "bg-bg-weak-50 text-text-soft-400"}`}>{count}</span>
                   </button>
                 );
               })}
             </div>
           </div>
 
-          {/* Skill multi chips */}
+          {/* Skill — searchable input like form */}
           <div>
             <p className="mb-2 text-xs font-semibold text-text-strong-950">Skills</p>
-            <div className="flex flex-wrap gap-2 max-h-24 overflow-y-auto">
-              {allSkills.slice(1, 20).map((sk) => {
+            <Input placeholder="Type to filter skills..." onChange={(e) => {
+              const q = e.target.value.toLowerCase();
+              // filter client-side by hiding non-matching chips via CSS
+              document.querySelectorAll("[data-skill-chip]").forEach((el) => {
+                const name = (el as HTMLElement).dataset.skillChip?.toLowerCase() || "";
+                (el as HTMLElement).style.display = !q || name.includes(q) ? "" : "none";
+              });
+            }} className="mb-3" />
+            <div className="flex flex-wrap gap-2">
+              {allSkills.slice(1).map((sk) => {
                 const count = users.filter((u) => u.skills?.includes(sk)).length;
                 const active = selectedSkill.includes(sk);
                 return (
                   <button
                     key={sk}
+                    data-skill-chip={sk}
                     onClick={() => setSelectedSkill((prev) => active ? prev.filter((v) => v !== sk) : [...prev, sk])}
-                    className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-medium ring-1 transition-colors ${active ? "bg-text-strong-950 text-white ring-text-strong-950" : "bg-bg-white-0 text-text-sub-600 ring-stroke-soft-200 hover:bg-bg-weak-50"}`}
+                    className={`inline-flex min-h-8 items-center gap-1.5 rounded-full px-3 py-2 text-sm font-medium ring-1 transition-colors ${active ? "bg-text-strong-950 text-white ring-text-strong-950" : "bg-bg-white-0 text-text-sub-600 ring-stroke-soft-200 hover:bg-bg-weak-50"}`}
                   >
-                    {sk} <span className={`rounded-full px-1 text-[10px] ${active ? "bg-white/20 text-white" : "bg-bg-weak-50 text-text-soft-400"}`}>{count}</span>
+                    {sk} <span className={`rounded-full px-1.5 py-0.5 text-xs ${active ? "bg-white/20 text-white" : "bg-bg-weak-50 text-text-soft-400"}`}>{count}</span>
                   </button>
                 );
               })}
             </div>
+            <p className="mt-2 text-xs text-text-soft-400">{selectedSkill.length} selected • tap to toggle</p>
           </div>
 
-          {/* Location multi chips */}
+          {/* Location — form-like */}
           <div>
             <p className="mb-2 text-xs font-semibold text-text-strong-950">Location</p>
             <div className="flex flex-wrap gap-2">
@@ -303,9 +313,9 @@ export default function DiscoverPeoplePage() {
                   <button
                     key={loc}
                     onClick={() => setSelectedLocation((prev) => active ? prev.filter((v) => v !== loc) : [...prev, loc])}
-                    className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-medium ring-1 transition-colors ${active ? "bg-text-strong-950 text-white ring-text-strong-950" : "bg-bg-white-0 text-text-sub-600 ring-stroke-soft-200 hover:bg-bg-weak-50"}`}
+                    className={`inline-flex min-h-8 items-center gap-1.5 rounded-full px-3 py-2 text-sm font-medium ring-1 transition-colors ${active ? "bg-text-strong-950 text-white ring-text-strong-950" : "bg-bg-white-0 text-text-sub-600 ring-stroke-soft-200 hover:bg-bg-weak-50"}`}
                   >
-                    {loc} <span className={`rounded-full px-1 text-[10px] ${active ? "bg-white/20 text-white" : "bg-bg-weak-50 text-text-soft-400"}`}>{count}</span>
+                    {loc} <span className={`rounded-full px-1.5 py-0.5 text-xs ${active ? "bg-white/20 text-white" : "bg-bg-weak-50 text-text-soft-400"}`}>{count}</span>
                   </button>
                 );
               })}
