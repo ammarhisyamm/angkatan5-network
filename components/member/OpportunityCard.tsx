@@ -37,14 +37,10 @@ export function OpportunityCard({ opportunity }: { opportunity: Opportunity }) {
         <div className="mb-3 flex items-start justify-between gap-2">
           <div className="flex flex-wrap items-center gap-2">
             <Tag tone={categoryTone[opportunity.category] ?? "neutral"}>{opportunity.category}</Tag>
-            <Tag tone="neutral">
+            <span className="inline-flex items-center gap-1 text-xs text-text-sub-600">
               <MapPinIcon size={12} weight="regular" className="shrink-0" />
               {opportunity.location}
-            </Tag>
-            <span className="text-meta font-medium text-text-sub-600">{opportunity.type}</span>
-            {isRemote && <span className="inline-flex items-center rounded-full bg-success-lighter px-2 py-0.5 text-xs font-medium text-success-dark ring-1 ring-success-base/20">Remote</span>}
-            {isExpiringSoon && <span className="inline-flex items-center rounded-full bg-warning-lighter px-2 py-0.5 text-xs font-medium text-warning-dark ring-1 ring-warning-base/20">{daysLeft}d left</span>}
-            {isExpired && <span className="inline-flex items-center rounded-full bg-error-lighter px-2 py-0.5 text-xs font-medium text-error-dark ring-1 ring-error-base/20">Expired</span>}
+            </span>
           </div>
           <button
             onClick={() => toggleBookmark(opportunity.id)}
@@ -68,10 +64,11 @@ export function OpportunityCard({ opportunity }: { opportunity: Opportunity }) {
         <p className="mt-1.5 line-clamp-2 text-sm leading-6 text-text-sub-600">{opportunity.description}</p>
 
         {opportunity.requiredSkills && opportunity.requiredSkills.length > 0 && (
-          <div className="mt-4 flex flex-wrap gap-2.5">
-            {opportunity.requiredSkills.slice(0, 3).map((sk) => (
-              <Tag key={sk}>{sk}</Tag>
+          <div className="mt-3 flex flex-wrap gap-1.5">
+            {opportunity.requiredSkills.slice(0, 2).map((sk) => (
+              <Tag key={sk} className="text-xs">{sk}</Tag>
             ))}
+            {opportunity.requiredSkills.length > 2 && <span className="text-xs text-text-soft-400">+{opportunity.requiredSkills.length - 2}</span>}
           </div>
         )}
       </div>
