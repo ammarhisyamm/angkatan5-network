@@ -151,7 +151,7 @@ export default function MyProfilePage() {
     <div className="mx-auto max-w-[1120px] space-y-6">
       {/* HERO */}
       <div className="overflow-hidden rounded-xl border border-stroke-soft-200 bg-white shadow-none">
-        <div className="h-24 w-full bg-gradient-to-r from-violet-500 via-primary-base to-blue-500 sm:h-32" />
+        <div className="h-24 w-full bg-bg-weak-50 sm:h-32" />
         <div className="p-6 sm:p-8">
           <div className="flex flex-col gap-8 lg:flex-row lg:items-start lg:justify-between">
             {/* Left: avatar + identity */}
@@ -165,6 +165,7 @@ export default function MyProfilePage() {
               <div className="min-w-0 flex-1 pt-1">
                 <div className="flex flex-wrap items-center gap-2">
                   <h1 className="text-[30px] font-bold leading-9 tracking-tight text-[#111827]">{currentUser.name?.split(" ")[0] || "Ammar"}</h1>
+                  <StatusBadge status={currentUser.status} />
                 </div>
                 <p className="mt-1.5 text-base font-medium leading-6 text-zinc-700">{headline}</p>
                 <div className="mt-2 flex flex-wrap items-center gap-3 text-sm font-normal leading-5 text-zinc-600">
