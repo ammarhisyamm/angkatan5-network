@@ -11,8 +11,9 @@ import { ShieldCheckIcon, UserCheckIcon, ArrowRightIcon } from "@phosphor-icons/
 export default function LoginPage() {
   const router = useRouter();
   const { login, addToast } = useApp();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("hisyam");
+  const [password, setPassword] = useState("123456");
+  const [loginRole, setLoginRole] = useState<"member" | "admin">("member");
   const [rememberMe, setRememberMe] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
@@ -20,24 +21,26 @@ export default function LoginPage() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const user = email.trim().toLowerCase();
-    const pass = password.trim().toLowerCase();
+    const pass = password.trim();
     if (!user || !pass) {
       setError("Please enter username and password");
       return;
     }
-    // hisyam + admin/member
-    const isHisyamAdmin = (user === "hisyam" && pass === "admin") || (user === "hisyam admin" && pass === "admin");
-    const isHisyamMember = (user === "hisyam" && pass === "member") || (user === "hisyam member" && pass === "member");
+    if (pass !== "123456") {
+      setError("Password salah — default 123456");
+      return;
+    }
     setIsLoading(true);
     setError("");
     setTimeout(() => {
-      if (isHisyamAdmin) {
+      // Switch determines role when password is 123456
+      if (loginRole === "admin") {
         login("admin@example.com");
         setIsLoading(false);
         router.push("/admin/dashboard");
         return;
       }
-      if (isHisyamMember) {
+      if (loginRole === "member") {
         login("member@example.com");
         setIsLoading(false);
         router.push("/dashboard");
@@ -48,7 +51,7 @@ export default function LoginPage() {
       if (success) {
         if (email.toLowerCase().includes("admin")) router.push("/admin/dashboard");
         else router.push("/dashboard");
-      } else setError("Account not found. Try hisyam / admin or hisyam / member.");
+      } else setError("Account not found.");
     }, 400);
   };
 
@@ -71,7 +74,18 @@ export default function LoginPage() {
             {error && <div className="rounded-xl border border-error-light bg-error-lighter p-3 text-xs leading-4 font-medium text-error-dark">{error}</div>}
 
             <Input label="Username" placeholder="hisyam" value={email} onChange={(e) => setEmail(e.target.value)} required />
-            <Input label="Password" type="password" placeholder="admin / member" value={password} onChange={(e) => setPassword(e.target.value)} required />
+            <div className="space-y-1.5">
+              <label className="text-sm font-medium text-text-strong-950">Login as</label>
+              <div className="flex items-center gap-1 rounded-lg bg-bg-weak-50 p-1 ring-1 ring-stroke-soft-200">
+                <button type="button" onClick={() => setLoginRole("member")} className={`flex h-8 flex-1 items-center justify-center gap-1.5 rounded-md px-2 text-sm font-medium transition-colors ${loginRole === "member" ? "bg-bg-white-0 text-text-strong-950 ring-1 ring-stroke-soft-200 shadow-sm" : "text-text-sub-600 hover:text-text-strong-950"}`}>
+                  <UserCheckIcon size={14} weight="regular" /> As a Member
+                </button>
+                <button type="button" onClick={() => setLoginRole("admin")} className={`flex h-8 flex-1 items-center justify-center gap-1.5 rounded-md px-2 text-sm font-medium transition-colors ${loginRole === "admin" ? "bg-bg-white-0 text-text-strong-950 ring-1 ring-stroke-soft-200 shadow-sm" : "text-text-sub-600 hover:text-text-strong-950"}`}>
+                  <ShieldCheckIcon size={14} weight="regular" /> As an Admin
+                </button>
+              </div>
+            </div>
+            <Input label="Password" type="password" placeholder="123456" value={password} onChange={(e) => setPassword(e.target.value)} required />
 
             <div className="flex items-center justify-between text-xs leading-4">
               <label className="flex cursor-pointer items-center gap-2 text-text-sub-600">
@@ -96,32 +110,32 @@ export default function LoginPage() {
           </form>
 
           <div className="border-t border-stroke-soft-200 pt-5">
-            <div className="mb-3 text-sm font-medium leading-5 text-text-sub-600">Login as Hisyam — based on role</div>
+            <div className="mb-3 text-sm font-medium leading-5 text-text-sub-600">Quick demo — password default <span className="font-mono font-semibold text-text-strong-950">123456</span></div>
             <div className="grid grid-cols-2 gap-2">
               <button
                 type="button"
-                onClick={() => { setEmail("hisyam"); setPassword("member"); setTimeout(() => { login("member@example.com"); router.push("/dashboard"); }, 100); }}
+                onClick={() => { setEmail("hisyam"); setPassword("123456"); setLoginRole("member"); setTimeout(() => { login("member@example.com"); router.push("/dashboard"); }, 100); }}
                 className="flex flex-col gap-1 rounded-xl border border-primary-base/20 bg-primary-alpha-10 p-3 text-left transition hover:bg-primary-alpha-10/80"
               >
                 <span className="flex items-center gap-1 text-xs leading-4 font-medium text-primary-base">
                   <UserCheckIcon size={12} weight="regular" /> Member <ArrowRightIcon size={12} weight="regular" className="ml-auto" />
                 </span>
-                <span className="font-mono text-xs leading-4 text-text-strong-950">hisyam / member</span>
-                <span className="text-xs leading-4 text-text-soft-400">→ Member dashboard</span>
+                <span className="font-mono text-xs leading-4 text-text-strong-950">hisyam / 123456</span>
+                <span className="text-xs leading-4 text-text-soft-400">→ As a Member</span>
               </button>
               <button
                 type="button"
-                onClick={() => { setEmail("hisyam"); setPassword("admin"); setTimeout(() => { login("admin@example.com"); router.push("/admin/dashboard"); }, 100); }}
+                onClick={() => { setEmail("hisyam"); setPassword("123456"); setLoginRole("admin"); setTimeout(() => { login("admin@example.com"); router.push("/admin/dashboard"); }, 100); }}
                 className="flex flex-col gap-1 rounded-xl border border-stroke-soft-200 bg-bg-weak-50 p-3 text-left transition hover:bg-bg-white-0 hover:shadow-xs"
               >
                 <span className="flex items-center gap-1 text-xs leading-4 font-medium text-text-strong-950">
                   <ShieldCheckIcon size={12} weight="regular" /> Admin <ArrowRightIcon size={12} weight="regular" className="ml-auto text-text-soft-400" />
                 </span>
-                <span className="font-mono text-xs leading-4 text-text-strong-950">hisyam / admin</span>
-                <span className="text-xs leading-4 text-text-soft-400">→ Admin dashboard</span>
+                <span className="font-mono text-xs leading-4 text-text-strong-950">hisyam / 123456</span>
+                <span className="text-xs leading-4 text-text-soft-400">→ As an Admin</span>
               </button>
             </div>
-            <p className="mt-2 text-center text-xs text-text-soft-400">or type username “hisyam” + password “member” / “admin” above</p>
+            <p className="mt-2 text-center text-xs text-text-soft-400">pilih switch di atas, lalu password <span className="font-mono font-medium">123456</span></p>
           </div>
 
           <p className="text-center text-xs leading-4 text-text-soft-400">
