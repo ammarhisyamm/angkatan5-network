@@ -258,8 +258,22 @@ export default function MyProfilePage() {
             <div className="space-y-2">
               <Input label="Profile Photo URL" value={avatar} onChange={(e) => setAvatar(e.target.value)} />
               <label className="flex items-center gap-2 text-xs font-medium text-primary-base hover:underline cursor-pointer">
-                <input type="file" accept="image/*" className="hidden" onChange={(e) => { const file = e.target.files?.[0]; if (!file) return; const r = new FileReader(); r.onload = () => setAvatar(r.result as string); r.readAsDataURL(file); }} />
-                <span className="inline-flex items-center gap-1 rounded-full bg-primary-alpha-10 px-2.5 py-1 text-xs font-medium text-primary-base ring-1 ring-primary-base/20">Upload image</span>
+                <input type="file" accept="image/jpeg,image/png,image/webp" className="hidden" onChange={(e) => {
+                  const file = e.target.files?.[0];
+                  if (!file) return;
+                  if (!["image/jpeg","image/png","image/webp"].includes(file.type)) {
+                    addToast("Invalid file", "Only JPG, PNG, WebP allowed", "error");
+                    return;
+                  }
+                  if (file.size > 2 * 1024 * 1024) {
+                    addToast("File too large", "Max 2MB", "error");
+                    return;
+                  }
+                  const r = new FileReader();
+                  r.onload = () => setAvatar(r.result as string);
+                  r.readAsDataURL(file);
+                }} />
+                <span className="inline-flex items-center gap-1 rounded-full bg-primary-alpha-10 px-2.5 py-1 text-xs font-medium text-primary-base ring-1 ring-primary-base/20">Upload image (max 2MB)</span>
                 <span className="text-text-soft-400">or paste URL</span>
               </label>
             </div>

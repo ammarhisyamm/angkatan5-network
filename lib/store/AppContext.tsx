@@ -203,6 +203,10 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     );
     if (found) {
       setCurrentUser(found);
+      if (typeof document !== "undefined") {
+        document.cookie = `a5_user=${encodeURIComponent(found.id)}; path=/; max-age=86400; SameSite=Lax`;
+        document.cookie = `a5_role=${found.roleType || (found.email.includes("admin") ? "admin" : "member")}; path=/; max-age=86400; SameSite=Lax`;
+      }
       localStorage.setItem(
         STORAGE_KEYS.CURRENT_USER,
         JSON.stringify(found)
@@ -227,6 +231,10 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
         STORAGE_KEYS.CURRENT_USER,
         JSON.stringify(found)
       );
+      if (typeof document !== "undefined") {
+        document.cookie = `a5_user=${encodeURIComponent(found.id)}; path=/; max-age=86400; SameSite=Lax`;
+        document.cookie = `a5_role=${role}; path=/; max-age=86400; SameSite=Lax`;
+      }
       addToast(
         `Switched to ${role === "admin" ? "Admin" : "Member"} demo account`,
         `Logged in as ${found.name}`,
@@ -243,6 +251,10 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
         STORAGE_KEYS.CURRENT_USER,
         JSON.stringify(found)
       );
+      if (typeof document !== "undefined") {
+        document.cookie = `a5_user=${encodeURIComponent(found.id)}; path=/; max-age=86400; SameSite=Lax`;
+        document.cookie = `a5_role=${found.roleType || (found.email.includes("admin") ? "admin" : "member")}; path=/; max-age=86400; SameSite=Lax`;
+      }
       addToast(
         "Switched account",
         `Logged in as ${found.name}`,
@@ -254,6 +266,10 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   const logout = () => {
     setCurrentUser(null);
     localStorage.removeItem(STORAGE_KEYS.CURRENT_USER);
+    if (typeof document !== "undefined") {
+      document.cookie = "a5_user=; path=/; max-age=0; SameSite=Lax";
+      document.cookie = "a5_role=; path=/; max-age=0; SameSite=Lax";
+    }
     addToast("Logged out", "You have been logged out successfully.", "info");
   };
 
