@@ -9,7 +9,8 @@ import { EmptyState } from "@/components/ui/EmptyState";
 import { Grid, LayerCard } from "@/components/ui/Surface";
 import { Input } from "@/components/ui/Input";
 import { Select } from "@/components/ui/Select";
-import { MagnifyingGlassIcon, FunnelIcon, XIcon, SlidersHorizontalIcon, UsersIcon, SparkleIcon, ArrowCounterClockwiseIcon } from "@phosphor-icons/react";
+import { Modal } from "@/components/ui/Modal";
+import { MagnifyingGlassIcon, FunnelIcon, XIcon, SlidersHorizontalIcon, UsersIcon, SparkleIcon, ArrowCounterClockwiseIcon, CheckIcon } from "@phosphor-icons/react";
 import { UserStatus } from "@/lib/types";
 
 const QUICK_CHIPS = [
@@ -222,9 +223,9 @@ export default function DiscoverPeoplePage() {
         </div>
       )}
 
-      {/* Quick Filter Chips */}
-      <div className="flex items-center gap-3 overflow-x-auto pb-1 scrollbar-none">
-        <div className="flex min-w-0 flex-1 items-center gap-2">
+      {/* Quick Filter Chips + Filter Icon */}
+      <div className="flex items-center gap-3">
+        <div className="flex min-w-0 flex-1 items-center gap-2 overflow-x-auto pb-1 scrollbar-none">
           {QUICK_CHIPS.map((chip) => (
             <Button
               key={chip}
@@ -237,19 +238,19 @@ export default function DiscoverPeoplePage() {
           ))}
         </div>
 
-        {/* Mobile filter trigger */}
-        <Button variant="outline" size="sm" onClick={() => setIsFilterDrawerOpen(!isFilterDrawerOpen)}
-          className="lg:hidden shrink-0 text-xs gap-2"
+        <Button variant="outline" size="sm" onClick={() => setIsFilterDrawerOpen(true)}
+          className="shrink-0 text-xs gap-2"
+          aria-label="Open filters"
         >
-          <SlidersHorizontalIcon size={12} weight="regular" />
-          Filters {hasActiveFilters && "•"}
+          <SlidersHorizontalIcon size={14} weight="regular" />
+          Filter {hasActiveFilters && `(${[selectedIndustry, selectedSkill, selectedLocation].flat().length + (selectedChip !== "All" ? 1 : 0) + (selectedExperience !== "All" ? 1 : 0) + (selectedStatus !== "All" ? 1 : 0)})`}
         </Button>
       </div>
 
-      {/* Detailed Filter Bar (Desktop inline / Mobile expandable) */}
-      <LayerCard
-        className={`p-4 transition-colors ${isFilterDrawerOpen ? "block" : "hidden lg:block"}`}
-      >
+      {/* Filter Modal Popup */}
+      <Modal isOpen={isFilterDrawerOpen} onClose={() => setIsFilterDrawerOpen(false)} title="Filters" description={`${filteredUsers.length} members found`} icon="info" maxWidth="lg">
+        <div className="max-h-[60vh] overflow-y-auto pr-1">
+          <LayerCard className="p-0 border-0 shadow-none">
         <div className="space-y-4">
           {/* Industry multi chips */}
           <div>
@@ -347,7 +348,9 @@ export default function DiscoverPeoplePage() {
             </button>
           </div>
         )}
-      </LayerCard>
+          </LayerCard>
+        </div>
+      </Modal>
 
       {/* Results Section */}
       <div>
