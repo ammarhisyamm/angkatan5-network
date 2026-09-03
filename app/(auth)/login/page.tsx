@@ -109,34 +109,7 @@ export default function LoginPage() {
             </Button>
           </form>
 
-          <div className="border-t border-stroke-soft-200 pt-5">
-            <div className="mb-3 text-sm font-medium leading-5 text-text-sub-600">Quick demo — password default <span className="font-mono font-semibold text-text-strong-950">123456</span></div>
-            <div className="grid grid-cols-2 gap-2">
-              <button
-                type="button"
-                onClick={() => { setEmail("hisyam"); setPassword("123456"); setLoginRole("member"); setTimeout(() => { login("member@example.com"); router.push("/dashboard"); }, 100); }}
-                className="flex flex-col gap-1 rounded-xl border border-primary-base/20 bg-primary-alpha-10 p-3 text-left transition hover:bg-primary-alpha-10/80"
-              >
-                <span className="flex items-center gap-1 text-xs leading-4 font-medium text-primary-base">
-                  <UserCheckIcon size={12} weight="regular" /> Member <ArrowRightIcon size={12} weight="regular" className="ml-auto" />
-                </span>
-                <span className="font-mono text-xs leading-4 text-text-strong-950">hisyam / 123456</span>
-                <span className="text-xs leading-4 text-text-soft-400">→ As a Member</span>
-              </button>
-              <button
-                type="button"
-                onClick={() => { setEmail("hisyam"); setPassword("123456"); setLoginRole("admin"); setTimeout(() => { login("admin@example.com"); router.push("/admin/dashboard"); }, 100); }}
-                className="flex flex-col gap-1 rounded-xl border border-stroke-soft-200 bg-bg-weak-50 p-3 text-left transition hover:bg-bg-white-0 hover:shadow-xs"
-              >
-                <span className="flex items-center gap-1 text-xs leading-4 font-medium text-text-strong-950">
-                  <ShieldCheckIcon size={12} weight="regular" /> Admin <ArrowRightIcon size={12} weight="regular" className="ml-auto text-text-soft-400" />
-                </span>
-                <span className="font-mono text-xs leading-4 text-text-strong-950">hisyam / 123456</span>
-                <span className="text-xs leading-4 text-text-soft-400">→ As an Admin</span>
-              </button>
-            </div>
-            <p className="mt-2 text-center text-xs text-text-soft-400">pilih switch di atas, lalu password <span className="font-mono font-medium">123456</span></p>
-          </div>
+
 
           <p className="text-center text-xs leading-4 text-text-soft-400">
             Don&apos;t have an account?{" "}
