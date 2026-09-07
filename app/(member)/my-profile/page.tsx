@@ -218,10 +218,10 @@ export default function MyProfilePage() {
 
           {/* Actions bar */}
           <div className="mt-6 flex flex-row items-stretch gap-3 border-t border-zinc-100 pt-6 sm:items-center">
-            <Button variant="primary" size="md" mobileIconOnly title="Edit profile" aria-label="Edit profile" className="min-w-0 flex-1 justify-center px-3 sm:flex-none sm:px-5" onClick={() => setEditingSection("personal")} icon={<PencilSimpleIcon size={16} weight="regular" />}>
+            <Button variant="primary" size="md" title="Edit profile" aria-label="Edit profile" className="min-w-0 flex-1 justify-center px-3 sm:flex-none sm:px-5" onClick={() => setEditingSection("personal")} icon={<PencilSimpleIcon size={16} weight="regular" />}>
               Edit profile
             </Button>
-            <Button variant="outline" size="md" mobileIconOnly title="Share profile" aria-label="Share profile" className="min-w-0 flex-1 justify-center bg-white px-3 sm:flex-none sm:px-5" onClick={() => setShowShareModal(true)} icon={<ShareNetworkIcon size={16} weight="regular" />}>
+            <Button variant="outline" size="md" title="Share profile" aria-label="Share profile" className="min-w-0 flex-1 justify-center bg-white px-3 sm:flex-none sm:px-5" onClick={() => setShowShareModal(true)} icon={<ShareNetworkIcon size={16} weight="regular" />}>
               Share profile
             </Button>
             <span className="ml-auto hidden items-center gap-2 text-xs text-zinc-400 sm:inline-flex">
@@ -592,10 +592,10 @@ export default function MyProfilePage() {
           <p className="max-w-prose text-[13px] leading-5 text-red-600">Export or delete your profile data.</p>
         </div>
         <div className="grid w-full grid-cols-2 gap-2 sm:flex sm:w-auto sm:items-center">
-          <Button variant="outline" size="sm" mobileIconOnly title="Export data" aria-label="Export data" className="w-full bg-white sm:w-auto" onClick={() => addToast("Coming soon", "Data export not yet implemented", "info")} icon={<DownloadSimpleIcon size={16} weight="regular" />}>
+          <Button variant="outline" size="sm" title="Export data" aria-label="Export data" className="w-full bg-white sm:w-auto" onClick={() => addToast("Coming soon", "Data export not yet implemented", "info")} icon={<DownloadSimpleIcon size={16} weight="regular" />}>
             Export Data
           </Button>
-          <Button variant="danger" size="sm" mobileIconOnly title="Delete profile" aria-label="Delete profile" className="w-full sm:w-auto" onClick={() => addToast("Coming soon", "Account deletion not yet implemented", "info")} icon={<TrashSimpleIcon size={16} weight="regular" />}>
+          <Button variant="danger" size="sm" title="Delete profile" aria-label="Delete profile" className="w-full sm:w-auto" onClick={() => addToast("Coming soon", "Account deletion not yet implemented", "info")} icon={<TrashSimpleIcon size={16} weight="regular" />}>
             Delete
           </Button>
         </div>

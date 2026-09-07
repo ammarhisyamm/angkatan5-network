@@ -192,7 +192,7 @@ export default function AdminMembersPage() {
                       <Link href={`/profile/${member.id}`}>
                         <Button variant="ghost" size="sm" shape="square" icon={<EyeIcon />} aria-label="View" />
                       </Link>
-                      <Button variant={member.verified ? "secondary" : "outline"} size="sm" mobileIconOnly title={member.verified ? "Verified" : "Verify member"} aria-label={member.verified ? "Verified" : "Verify member"} onClick={() => verifyMember(member.id)} icon={<ShieldCheckIcon size={14} />}>
+                      <Button variant={member.verified ? "secondary" : "outline"} size="sm" title={member.verified ? "Verified" : "Verify member"} aria-label={member.verified ? "Verified" : "Verify member"} onClick={() => verifyMember(member.id)} icon={<ShieldCheckIcon size={14} />}>
                         {member.verified ? "Verified" : "Verify"}
                       </Button>
                       <Button variant="ghost" size="sm" shape="square" icon={<ShieldWarningIcon />} onClick={() => { setTargetMember(member); setActionType("suspend"); }} aria-label={member.suspended ? "Unsuspend" : "Suspend"} />
