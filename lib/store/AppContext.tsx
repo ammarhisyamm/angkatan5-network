@@ -72,12 +72,12 @@ interface AppContextType {
 const AppContext = createContext<AppContextType | undefined>(undefined);
 
 const STORAGE_KEYS = {
-  CURRENT_USER: "a5_current_user",
-  USERS: "a5_users_v2",
-  OPPORTUNITIES: "a5_opportunities_v2",
-  SKILLS: "a5_skills_v2",
-  CONNECTIONS: "a5_connections_v2",
-  BOOKMARKS: "a5_bookmarks_v2",
+  CURRENT_USER: "a5_current_user_v3",
+  USERS: "a5_users_v3",
+  OPPORTUNITIES: "a5_opportunities_v3",
+  SKILLS: "a5_skills_v3",
+  CONNECTIONS: "a5_connections_v3",
+  BOOKMARKS: "a5_bookmarks_v3",
 };
 
 export function AppProvider({ children }: { children: React.ReactNode }) {
@@ -87,12 +87,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     useState<Opportunity[]>(initialOpportunities);
   const [skills, setSkills] = useState<Skill[]>(initialSkills);
   const [connections, setConnections] = useState<Connection[]>([]);
-  const [notifications, setNotifications] = useState<{ id: string; title: string; desc: string; read: boolean; time: string }[]>([
-    { id: "1", title: "New member joined", desc: "Rizky from Finance joined the network", read: false, time: "2m ago" },
-    { id: "2", title: "Opportunity approved", desc: "Your Cybersecurity post is now live", read: false, time: "1h ago" },
-    { id: "3", title: "Profile viewed", desc: "Nabila viewed your profile", read: true, time: "3h ago" },
-    { id: "4", title: "Connection accepted", desc: "Ahmad accepted your request", read: true, time: "1d ago" },
-  ]);
+  const [notifications, setNotifications] = useState<{ id: string; title: string; desc: string; read: boolean; time: string }[]>([]);
   const [bookmarkedOpportunityIds, setBookmarkedOpportunityIds] = useState<
     string[]
   >([]);
@@ -138,18 +133,14 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
         const found = parsedUsers.find(
           (u: User) => u.id === JSON.parse(storedCurrentUser).id
         );
-        setCurrentUser(found || parsedUsers[0]);
+        // No auto-login fallback: unknown/stale session starts logged out
+        setCurrentUser(found || null);
       } else {
-        // Default to member Ammar Hisyam
-        setCurrentUser(parsedUsers[0]);
-        localStorage.setItem(
-          STORAGE_KEYS.CURRENT_USER,
-          JSON.stringify(parsedUsers[0])
-        );
+        setCurrentUser(null);
       }
     } catch (e) {
       console.error("Failed to load local storage", e);
-      setCurrentUser(initialMembers[0]);
+      setCurrentUser(null);
     } finally {
       setIsLoading(false);
     }
@@ -222,6 +213,15 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   };
 
   const switchDemoRole = (role: "member" | "admin") => {
+    // Only admins may switch into the admin role
+    if (role === "admin" && currentUser?.roleType !== "admin") {
+      addToast(
+        "Admin only",
+        "Only admins can switch to the admin workspace.",
+        "error"
+      );
+      return;
+    }
     const targetEmail =
       role === "admin" ? "admin@example.com" : "member@example.com";
     const found = users.find((u) => u.email === targetEmail);
@@ -245,6 +245,15 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
 
   const switchUser = (userId: string) => {
     const found = users.find((u) => u.id === userId);
+    // Members may not switch into an admin account
+    if (found && found.roleType === "admin" && currentUser?.roleType !== "admin") {
+      addToast(
+        "Admin only",
+        "Only admins can switch to an admin account.",
+        "error"
+      );
+      return;
+    }
     if (found) {
       setCurrentUser(found);
       localStorage.setItem(

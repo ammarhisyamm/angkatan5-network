@@ -10,7 +10,12 @@ import { ChartBarIcon, TrendUpIcon, UsersIcon, MedalIcon, BriefcaseIcon } from "
 
 
 export default function AdminAnalyticsPage() {
-  const { users, opportunities, skills } = useApp();
+  const { users, opportunities, connections } = useApp();
+  const verifiedCount = users.filter((u) => u.verified).length;
+  const hiringCount = opportunities.filter((o) => o.category === "Hiring").length;
+  const avgCompletion = users.length
+    ? Math.round(users.reduce((sum, u) => sum + (u.profileCompletion || 0), 0) / users.length)
+    : 0;
 
   return (
     <div className="space-y-8">
@@ -32,26 +37,26 @@ export default function AdminAnalyticsPage() {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <div className="p-4 sm:p-5 rounded-lg bg-bg-white-0 border border-stroke-soft-200">
           <span className="text-xs font-semibold text-text-sub-600 block">Total Active Alumni</span>
-          <span className="text-3xl font-bold text-text-strong-950 mt-1 block">182</span>
-          <span className="text-xs leading-4 text-success-base font-medium">94% response rate</span>
+          <span className="text-3xl font-bold text-text-strong-950 mt-1 block">{users.length}</span>
+          <span className="text-xs leading-4 text-success-base font-medium">{verifiedCount} verified</span>
         </div>
 
         <div className="p-4 sm:p-5 rounded-lg bg-bg-white-0 border border-stroke-soft-200">
           <span className="text-xs font-semibold text-text-sub-600 block">Connections Initiated</span>
-          <span className="text-3xl font-bold text-primary-base mt-1 block">348</span>
+          <span className="text-3xl font-bold text-primary-base mt-1 block">{connections.length}</span>
           <span className="text-xs leading-4 text-text-soft-400">across cohort members</span>
         </div>
 
         <div className="p-4 sm:p-5 rounded-lg bg-bg-white-0 border border-stroke-soft-200">
           <span className="text-xs font-semibold text-text-sub-600 block">Hiring Placements</span>
-          <span className="text-3xl font-bold text-success-base mt-1 block">28</span>
-          <span className="text-xs leading-4 text-success-base font-medium">facilitated in 2026</span>
+          <span className="text-3xl font-bold text-success-base mt-1 block">{hiringCount}</span>
+          <span className="text-xs leading-4 text-success-base font-medium">posted by community</span>
         </div>
 
         <div className="p-4 sm:p-5 rounded-lg bg-bg-white-0 border border-stroke-soft-200">
-          <span className="text-xs font-semibold text-text-sub-600 block">Avg Profile Freshness</span>
-          <span className="text-3xl font-bold text-feature-base mt-1 block">12 days</span>
-          <span className="text-xs leading-4 text-text-soft-400">regular updates</span>
+          <span className="text-xs font-semibold text-text-sub-600 block">Avg Profile Completion</span>
+          <span className="text-3xl font-bold text-feature-base mt-1 block">{avgCompletion}%</span>
+          <span className="text-xs leading-4 text-text-soft-400">across all members</span>
         </div>
       </div>
 

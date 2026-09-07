@@ -58,7 +58,11 @@ function SidebarInner() {
   ];
   const navItems = isAdminSection ? adminNav : memberNav;
   const grouped = navItems.reduce((acc: any, item: any) => { (acc[item.group] = acc[item.group] || []).push(item); return acc; }, {} as any);
-  const otherUsers = users.filter((u: any) => u.id !== currentUser?.id).slice(0, 3);
+  // Role gate: only admins may see or switch into admin accounts
+  const isAdminUser = currentUser?.roleType === "admin";
+  const otherUsers = users
+    .filter((u: any) => u.id !== currentUser?.id && (isAdminUser || u.roleType !== "admin"))
+    .slice(0, 3);
 
   return (
     <>
@@ -110,7 +114,9 @@ function SidebarInner() {
               <>
                 <div className="flex items-center gap-1 rounded-lg bg-bg-weak-50 p-1 ring-1 ring-stroke-soft-200">
                   <Link href="/dashboard" aria-current={!isAdminSection ? "page" : undefined} className={`flex h-8 flex-1 items-center gap-2 rounded-md px-2 text-sm font-medium ${!isAdminSection ? "bg-bg-white-0 text-text-strong-950 ring-1 ring-stroke-soft-200" : "text-text-sub-600 hover:text-text-strong-950"}`}><span className="grid size-6 place-items-center rounded bg-primary-alpha-10 text-xs font-semibold text-primary-base">M</span>Member</Link>
-                  <Link href="/admin/dashboard" aria-current={isAdminSection ? "page" : undefined} className={`flex h-8 flex-1 items-center gap-2 rounded-md px-2 text-sm font-medium ${isAdminSection ? "bg-bg-white-0 text-text-strong-950 ring-1 ring-stroke-soft-200" : "text-text-sub-600 hover:text-text-strong-950"}`}><span className="grid size-6 place-items-center rounded bg-text-strong-950 text-white"><ShieldCheckIcon size={12} weight="fill" /></span>Admin</Link>
+                  {isAdminUser && (
+                    <Link href="/admin/dashboard" aria-current={isAdminSection ? "page" : undefined} className={`flex h-8 flex-1 items-center gap-2 rounded-md px-2 text-sm font-medium ${isAdminSection ? "bg-bg-white-0 text-text-strong-950 ring-1 ring-stroke-soft-200" : "text-text-sub-600 hover:text-text-strong-950"}`}><span className="grid size-6 place-items-center rounded bg-text-strong-950 text-white"><ShieldCheckIcon size={12} weight="fill" /></span>Admin</Link>
+                  )}
                 </div>
                 <div className="relative">
                   <MagnifyingGlassIcon size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-text-soft-400" aria-hidden="true" />

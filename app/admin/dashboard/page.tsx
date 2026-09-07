@@ -19,16 +19,26 @@ import {
   WarningCircleIcon,
 } from "@phosphor-icons/react";
 
-const STATUS_DATA = [
-  { name: "Available to Help", value: 122, color: "#2FA36B" },
-  { name: "Open to Collaborate", value: 24, color: "#4169D8" },
-  { name: "Open to Work", value: 18, color: "#E99A24" },
-  { name: "Hiring", value: 18, color: "#8B5CF6" },
+const STATUS_META = [
+  { status: "Available to Help", name: "Available to Help", color: "#2FA36B" },
+  { status: "Open to Collaboration", name: "Open to Collaborate", color: "#4169D8" },
+  { status: "Open to Work", name: "Open to Work", color: "#E99A24" },
+  { status: "Hiring", name: "Hiring", color: "#8B5CF6" },
 ];
 
 export default function AdminDashboardPage() {
-  const { users, opportunities } = useApp();
+  const { users, opportunities, skills } = useApp();
   const pendingOpportunities = opportunities.filter((o) => o.status === "Pending");
+  const activeOpportunities = opportunities.filter((o) => o.status === "Published" || o.status === "Approved");
+  const verifiedCount = users.filter((u) => u.verified).length;
+  const avgCompletion = users.length
+    ? Math.round(users.reduce((sum, u) => sum + (u.profileCompletion || 0), 0) / users.length)
+    : 0;
+  const fieldCount = new Set(skills.map((s) => s.category)).size;
+  const statusData = STATUS_META.map((s) => ({
+    ...s,
+    value: users.filter((u) => u.status === s.status).length,
+  }));
 
   return (
     <div className="space-y-6">
@@ -57,12 +67,12 @@ export default function AdminDashboardPage() {
       {/* KPI Cards */}
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-3 lg:grid-cols-6">
         {[
-          { label: "Total Members", value: "182", accent: null, supporting: "+18 this month", supportColor: "text-success-base" },
-          { label: "Profile Completion", value: "81%", accent: null, supporting: "Average across pool", supportColor: "text-primary-base" },
-          { label: "Open to Work", value: "18", accent: "text-warning-base", supporting: "Available now", supportColor: "text-text-soft-400" },
-          { label: "Collaboration", value: "24", accent: "text-verified-base", supporting: "Ready to partner", supportColor: "text-text-soft-400" },
-          { label: "Active Opps", value: "15", accent: "text-primary-base", supporting: `${pendingOpportunities.length} pending`, supportColor: "text-text-soft-400" },
-          { label: "Skills Indexed", value: "32", accent: "text-feature-base", supporting: "Across 7 fields", supportColor: "text-text-soft-400" },
+          { label: "Total Members", value: String(users.length), accent: null, supporting: `${verifiedCount} verified`, supportColor: "text-success-base" },
+          { label: "Profile Completion", value: `${avgCompletion}%`, accent: null, supporting: "Average across pool", supportColor: "text-primary-base" },
+          { label: "Open to Work", value: String(users.filter((u) => u.status === "Open to Work").length), accent: "text-warning-base", supporting: "Available now", supportColor: "text-text-soft-400" },
+          { label: "Collaboration", value: String(users.filter((u) => u.status === "Open to Collaboration").length), accent: "text-verified-base", supporting: "Ready to partner", supportColor: "text-text-soft-400" },
+          { label: "Active Opps", value: String(activeOpportunities.length), accent: "text-primary-base", supporting: `${pendingOpportunities.length} pending`, supportColor: "text-text-soft-400" },
+          { label: "Skills Indexed", value: String(skills.length), accent: "text-feature-base", supporting: `Across ${fieldCount} fields`, supportColor: "text-text-soft-400" },
         ].map((kpi) => (
           <LayerCard key={kpi.label} className="p-4">
             <span className={`text-meta font-semibold block ${kpi.accent || "text-text-sub-600"}`}>{kpi.label}</span>
@@ -96,7 +106,7 @@ export default function AdminDashboardPage() {
               <h3 className="text-card-title text-text-strong-950">Member Growth</h3>
               <p className="text-xs text-text-sub-600 mt-0.5">Cohort expansion over 7 months</p>
             </div>
-            <span className="text-xs font-semibold text-primary-base bg-primary-alpha-10 px-2 py-1 rounded-lg">+304%</span>
+            <span className="text-xs font-semibold text-primary-base bg-primary-alpha-10 px-2 py-1 rounded-lg">Live data</span>
           </div>
           <div className="h-56 w-full">
             <MemberGrowthChart />
@@ -123,7 +133,7 @@ export default function AdminDashboardPage() {
       <LayerCard className="p-6">
         <h3 className="text-card-title text-text-strong-950 mb-4">Member Status Breakdown</h3>
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
-          {STATUS_DATA.map((st) => (
+          {statusData.map((st) => (
             <div key={st.name} className="p-3 sm:p-4 rounded-xl bg-bg-weak-50 border border-stroke-soft-200 flex items-center gap-3">
               <div className="size-2.5 rounded-full shrink-0" style={{ backgroundColor: st.color }} />
               <div>
