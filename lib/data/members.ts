@@ -1,8 +1,9 @@
 import { User } from "../types";
 
 // Bootstrap auth accounts only — NOT dummy data.
-// - member@example.com (roleType: member) → login "hisyam / member / 123456"
-// - admin@example.com (roleType: admin) → login "hisyam / admin / 123456"
+// - member@example.com (roleType: member) → login "hisyam / 123456" as Member
+// - dudin@example.com (roleType: member) → login "dudin / 123456" as Member
+// - admin@example.com (roleType: admin) → login "hisyam / 123456" as Admin
 // All other members are real, created via Register / Onboarding.
 
 export const initialMembers: User[] = [
@@ -48,6 +49,29 @@ export const initialMembers: User[] = [
         description: "Designed core flight booking and multi-currency payment interfaces.",
       },
     ],
+  },
+  {
+    id: "usr-2",
+    name: "Dudin",
+    email: "dudin@example.com",
+    avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=400&auto=format&fit=crop&q=80",
+    batch: "Angkatan 5 (2018)",
+    location: "Jakarta, Indonesia",
+    role: "Community Member",
+    company: "Independent",
+    industry: "Technology",
+    experience: "1+ years",
+    experienceYears: 1,
+    bio: "",
+    skills: [],
+    status: "Available to Help",
+    lookingFor: ["Networking"],
+    canOffer: ["Collaboration"],
+    profileCompletion: 40,
+    visibility: "community",
+    roleType: "member",
+    verified: false,
+    joinedAt: new Date().toISOString().split("T")[0],
   },
   {
     id: "usr-admin",
