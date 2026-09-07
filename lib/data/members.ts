@@ -1,15 +1,18 @@
 import { User } from "../types";
 
 // Bootstrap auth accounts only — NOT dummy data.
-// - member@example.com (roleType: member) → login "hisyam / 123456" as Member
-// - dudin@example.com (roleType: member) → login "dudin / 123456" as Member
-// - admin@example.com (roleType: admin) → login "hisyam / 123456" as Admin
-// All other members are real, created via Register / Onboarding.
+// Roles: superadmin (hisyam, dudin) > admin (fakhryalfitra) > member.
+// - hisyam / 123456 as Member → Ammar Hisyam · as Admin → shared Superadmin
+// - dudin / 123456 as Member → Dudin · as Admin → shared Superadmin
+// - farrasabyan / 123456 as Member → Farras Abyan
+// - fakhryalfitra / 123456 as Admin → Fakhry Alfitra
+// More accounts are created via Admin Management (admins) or Register.
 
 export const initialMembers: User[] = [
   {
     id: "usr-1",
     name: "Ammar Hisyam",
+    username: "hisyam",
     email: "member@example.com",
     avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&auto=format&fit=crop&q=80",
     batch: "Angkatan 5 (2018)",
@@ -53,6 +56,7 @@ export const initialMembers: User[] = [
   {
     id: "usr-2",
     name: "Dudin",
+    username: "dudin",
     email: "dudin@example.com",
     avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=400&auto=format&fit=crop&q=80",
     batch: "Angkatan 5 (2018)",
@@ -74,8 +78,57 @@ export const initialMembers: User[] = [
     joinedAt: new Date().toISOString().split("T")[0],
   },
   {
+    id: "usr-3",
+    name: "Farras Abyan",
+    username: "farrasabyan",
+    email: "farrasabyan@example.com",
+    avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&auto=format&fit=crop&q=80",
+    batch: "Angkatan 5 (2018)",
+    location: "Jakarta, Indonesia",
+    role: "Community Member",
+    company: "Independent",
+    industry: "Technology",
+    experience: "1+ years",
+    experienceYears: 1,
+    bio: "",
+    skills: [],
+    status: "Available to Help",
+    lookingFor: ["Networking"],
+    canOffer: ["Collaboration"],
+    profileCompletion: 40,
+    visibility: "community",
+    roleType: "member",
+    verified: false,
+    joinedAt: new Date().toISOString().split("T")[0],
+  },
+  {
+    id: "usr-4",
+    name: "Fakhry Alfitra",
+    username: "fakhryalfitra",
+    email: "fakhry@example.com",
+    avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&auto=format&fit=crop&q=80",
+    batch: "Angkatan 5 (2018)",
+    location: "Jakarta, Indonesia",
+    role: "Community Administrator",
+    company: "Angkatan 5 Secretariat",
+    industry: "Management",
+    experience: "5+ years",
+    experienceYears: 5,
+    bio: "Administrator of Angkatan 5 Talent Network.",
+    skills: ["Operations Management", "Business Development"],
+    status: "Available to Help",
+    lookingFor: ["Networking", "Mentorship"],
+    canOffer: ["Mentoring", "Consultation", "Collaboration"],
+    profileCompletion: 80,
+    visibility: "community",
+    roleType: "admin",
+    verified: true,
+    joinedAt: new Date().toISOString().split("T")[0],
+  },
+  {
     id: "usr-admin",
     name: "Admin Angkatan 5",
+    username: "admin",
     email: "admin@example.com",
     avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&auto=format&fit=crop&q=80",
     batch: "Angkatan 5 (2018)",
@@ -92,7 +145,7 @@ export const initialMembers: User[] = [
     canOffer: ["Mentoring", "Consultation", "Collaboration"],
     profileCompletion: 100,
     visibility: "community",
-    roleType: "admin",
+    roleType: "superadmin",
     verified: true,
     joinedAt: "2022-12-01",
     linkedin: "https://linkedin.com/company/ihbs-angkatan5",

@@ -22,10 +22,23 @@ import {
   ShieldCheckIcon,
   CaretLeftIcon,
   CaretRightIcon,
+  PlusIcon,
+  ArrowUpIcon,
+  ArrowDownIcon,
 } from "@phosphor-icons/react";
 
+const ROLE_LABEL: Record<string, string> = {
+  superadmin: "Superadmin",
+  admin: "Admin",
+  member: "Member",
+};
+
 export default function AdminMembersPage() {
-  const { users, verifyMember, suspendMember, deleteMember } = useApp();
+  const { users, currentUser, verifyMember, suspendMember, deleteMember, adminCreateUser, setUserRole } = useApp();
+  const isSuperadmin = currentUser?.roleType === "superadmin";
+  const [showAddModal, setShowAddModal] = useState<null | "member" | "admin">(null);
+  const [newName, setNewName] = useState("");
+  const [newUsername, setNewUsername] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedStatus, setSelectedStatus] = useState("All");
   const [selectedIndustry, setSelectedIndustry] = useState("All");
@@ -96,24 +109,34 @@ export default function AdminMembersPage() {
           <h1 className="text-page-title text-text-strong-950">Member Management</h1>
           <p className="mt-1 text-body text-text-sub-600">Verify credentials, oversee profiles, and manage directory permissions.</p>
         </div>
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={() => {
-            const headers = ["Name", "Email", "Role", "Company", "Industry", "Status", "Verified"];
-            const rows = filteredMembers.map((u) => [u.name, u.email, u.role, u.company, u.industry, u.status, String(u.verified)]);
-            const csv = [headers, ...rows].map((r) => r.map((v) => `"${String(v).replace(/"/g, '""')}"`).join(",")).join("\n");
-            const blob = new Blob([csv], { type: "text/csv" });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement("a");
-            a.href = url;
-            a.download = "members.csv";
-            a.click();
-            URL.revokeObjectURL(url);
-          }}
-        >
-          Export CSV
-        </Button>
+        <div className="flex flex-wrap items-center gap-2">
+          {isSuperadmin && (
+            <Button variant="primary" size="sm" icon={<PlusIcon size={14} />} onClick={() => { setShowAddModal("admin"); setNewName(""); setNewUsername(""); }}>
+              Add Admin
+            </Button>
+          )}
+          <Button variant={isSuperadmin ? "secondary" : "primary"} size="sm" icon={<PlusIcon size={14} />} onClick={() => { setShowAddModal("member"); setNewName(""); setNewUsername(""); }}>
+            Add Member
+          </Button>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => {
+              const headers = ["Name", "Email", "Role", "Company", "Industry", "Status", "Verified"];
+              const rows = filteredMembers.map((u) => [u.name, u.email, u.role, u.company, u.industry, u.status, String(u.verified)]);
+              const csv = [headers, ...rows].map((r) => r.map((v) => `"${String(v).replace(/"/g, '""')}"`).join(",")).join("\n");
+              const blob = new Blob([csv], { type: "text/csv" });
+              const url = URL.createObjectURL(blob);
+              const a = document.createElement("a");
+              a.href = url;
+              a.download = "members.csv";
+              a.click();
+              URL.revokeObjectURL(url);
+            }}
+          >
+            Export CSV
+          </Button>
+        </div>
       </div>
 
       {/* Search & Filter */}
@@ -148,6 +171,7 @@ export default function AdminMembersPage() {
                 <Table.Head>Member</Table.Head>
                 <Table.Head>Role & Company</Table.Head>
                 <Table.Head className="hidden md:table-cell">Top Skills</Table.Head>
+                <Table.Head>Access</Table.Head>
                 <Table.Head>Status</Table.Head>
                 <Table.Head className="hidden sm:table-cell text-center">Completion</Table.Head>
                 <Table.Head className="hidden lg:table-cell">Joined</Table.Head>
@@ -182,21 +206,43 @@ export default function AdminMembersPage() {
                       {member.skills && member.skills.length > 2 && <span className="text-xs text-text-soft-400">+{member.skills.length - 2}</span>}
                     </div>
                   </Table.Cell>
+                  <Table.Cell>
+                    <span className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold ${member.roleType === "superadmin" ? "bg-primary-base text-static-white" : member.roleType === "admin" ? "bg-warning-lighter text-warning-dark ring-1 ring-warning-base/30" : "bg-bg-weak-50 text-text-sub-600 ring-1 ring-stroke-soft-200"}`}>
+                      {ROLE_LABEL[member.roleType] ?? "Member"}
+                    </span>
+                  </Table.Cell>
                   <Table.Cell><StatusBadge status={member.status} /></Table.Cell>
                   <Table.Cell className="hidden sm:table-cell text-center">
                     <span className="text-sm font-semibold text-text-strong-950">{member.profileCompletion}%</span>
                   </Table.Cell>
                   <Table.Cell className="hidden lg:table-cell text-xs text-text-soft-400">{member.joinedAt}</Table.Cell>
                   <Table.Cell className="text-right">
-                    <div className="flex items-center justify-end gap-1">
+                    <div className="flex items-center justify-end gap-1.5">
                       <Link href={`/profile/${member.id}`}>
-                        <Button variant="ghost" size="sm" shape="square" icon={<EyeIcon />} aria-label="View" />
+                        <Button variant="ghost" size="sm" icon={<EyeIcon size={14} />} aria-label="View profile">
+                          View
+                        </Button>
                       </Link>
                       <Button variant={member.verified ? "secondary" : "outline"} size="sm" title={member.verified ? "Verified" : "Verify member"} aria-label={member.verified ? "Verified" : "Verify member"} onClick={() => verifyMember(member.id)} icon={<ShieldCheckIcon size={14} />}>
                         {member.verified ? "Verified" : "Verify"}
                       </Button>
-                      <Button variant="ghost" size="sm" shape="square" icon={<ShieldWarningIcon />} onClick={() => { setTargetMember(member); setActionType("suspend"); }} aria-label={member.suspended ? "Unsuspend" : "Suspend"} />
-                      <Button variant="ghost" size="sm" shape="square" icon={<TrashIcon />} onClick={() => { setTargetMember(member); setActionType("delete"); }} aria-label="Delete" className="text-error-base hover:bg-error-lighter" />
+                      {isSuperadmin && member.id !== currentUser?.id && member.roleType !== "superadmin" && (
+                        member.roleType === "admin" ? (
+                          <Button variant="outline" size="sm" title="Demote to member" aria-label={`Demote ${member.name} to member`} onClick={() => setUserRole(member.id, "member")} icon={<ArrowDownIcon size={14} />}>
+                            Demote
+                          </Button>
+                        ) : (
+                          <Button variant="outline" size="sm" title="Promote to admin" aria-label={`Promote ${member.name} to admin`} onClick={() => setUserRole(member.id, "admin")} icon={<ArrowUpIcon size={14} />}>
+                            Promote
+                          </Button>
+                        )
+                      )}
+                      <Button variant="ghost" size="sm" icon={<ShieldWarningIcon size={14} />} onClick={() => { setTargetMember(member); setActionType("suspend"); }} aria-label={member.suspended ? "Unsuspend" : "Suspend"}>
+                        {member.suspended ? "Unsuspend" : "Suspend"}
+                      </Button>
+                      <Button variant="ghost" size="sm" icon={<TrashIcon size={14} />} onClick={() => { setTargetMember(member); setActionType("delete"); }} aria-label="Delete member" className="text-error-base hover:bg-error-lighter">
+                        Delete
+                      </Button>
                     </div>
                   </Table.Cell>
                 </Table.Row>
@@ -208,9 +254,13 @@ export default function AdminMembersPage() {
         <div className="px-4 sm:px-5 py-3 border-t border-stroke-soft-200 flex items-center justify-between text-xs text-text-sub-600">
           <span>Showing <strong>{(currentPage - 1) * pageSize + 1}–{Math.min(currentPage * pageSize, filteredMembers.length)}</strong> of <strong>{filteredMembers.length}</strong></span>
           <div className="flex items-center gap-2">
-            <Button variant="outline" size="sm" shape="square" icon={<CaretLeftIcon />} disabled={currentPage === 1} onClick={() => setCurrentPage(currentPage - 1)} aria-label="Previous" />
+            <Button variant="outline" size="sm" icon={<CaretLeftIcon size={14} />} disabled={currentPage === 1} onClick={() => setCurrentPage(currentPage - 1)} aria-label="Previous page">
+              Prev
+            </Button>
             <span className="font-medium text-text-strong-950">{currentPage}/{totalPages}</span>
-            <Button variant="outline" size="sm" shape="square" icon={<CaretRightIcon />} disabled={currentPage === totalPages} onClick={() => setCurrentPage(currentPage + 1)} aria-label="Next" />
+            <Button variant="outline" size="sm" icon={<CaretRightIcon size={14} />} disabled={currentPage === totalPages} onClick={() => setCurrentPage(currentPage + 1)} aria-label="Next page">
+              Next
+            </Button>
           </div>
         </div>
       </LayerCard>
@@ -224,6 +274,33 @@ export default function AdminMembersPage() {
         <div className="flex flex-col-reverse gap-3 sm:flex-row sm:justify-end">
           <Button variant="outline" size="md" className="w-full sm:w-auto" onClick={() => { setTargetMember(null); setActionType(null); }}>Cancel</Button>
           <Button variant={actionType === "delete" ? "danger" : "primary"} size="md" className="w-full sm:w-auto" onClick={handleConfirmAction}>Confirm</Button>
+        </div>
+      </Modal>
+
+      <Modal
+        isOpen={showAddModal !== null}
+        onClose={() => setShowAddModal(null)}
+        title={showAddModal === "admin" ? "Add Admin" : "Add Member"}
+        description={showAddModal === "admin" ? "New admin can manage members and moderate content." : "New member joins with default password “123456”."}
+      >
+        <div className="flex flex-col gap-4">
+          <Input label="Full Name" placeholder="Masukkan nama lengkap" value={newName} onChange={(e: any) => setNewName(e.target.value)} />
+          <Input label="Username" placeholder="Masukkan username" value={newUsername} onChange={(e: any) => setNewUsername(e.target.value)} helperText={`Login: ${newUsername.trim().toLowerCase().replace(/[^a-z0-9]/g, "") || "username"} / 123456`} />
+          <div className="flex flex-col-reverse gap-3 sm:flex-row sm:justify-end">
+            <Button variant="outline" size="md" className="w-full sm:w-auto" onClick={() => setShowAddModal(null)}>Cancel</Button>
+            <Button
+              variant="primary"
+              size="md"
+              className="w-full sm:w-auto"
+              onClick={() => {
+                if (!showAddModal) return;
+                const created = adminCreateUser({ name: newName, username: newUsername, role: showAddModal });
+                if (created) setShowAddModal(null);
+              }}
+            >
+              {showAddModal === "admin" ? "Add Admin" : "Add Member"}
+            </Button>
+          </div>
         </div>
       </Modal>
     </div>

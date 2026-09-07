@@ -61,7 +61,7 @@ function SidebarInner() {
   const navItems = isAdminSection ? adminNav : memberNav;
   const grouped = navItems.reduce((acc: any, item: any) => { (acc[item.group] = acc[item.group] || []).push(item); return acc; }, {} as any);
   // Role gate: only admins may see or switch into admin accounts
-  const isAdminUser = currentUser?.roleType === "admin";
+  const isAdminUser = currentUser?.roleType === "admin" || currentUser?.roleType === "superadmin";
 
   const handleLogout = () => {
     logout();

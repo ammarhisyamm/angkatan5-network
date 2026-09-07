@@ -28,9 +28,16 @@ export interface ExperienceItem {
   description: string;
 }
 
+export type UserRole = "member" | "admin" | "superadmin";
+
+export function isAdminRole(role?: string | null): boolean {
+  return role === "admin" || role === "superadmin";
+}
+
 export interface User {
   id: string;
   name: string;
+  username?: string;
   email: string;
   avatar: string;
   batch: string;
@@ -47,7 +54,7 @@ export interface User {
   canOffer: CanOfferOption[];
   profileCompletion: number;
   visibility: UserVisibility;
-  roleType: "member" | "admin";
+  roleType: UserRole;
   verified?: boolean;
   suspended?: boolean;
   joinedAt: string;

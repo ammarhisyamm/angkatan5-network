@@ -5,6 +5,8 @@ import { Modal } from "@/components/ui/Modal";
 import { Button } from "@/components/ui/Button";
 import {
   User,
+  UserRole,
+  isAdminRole,
   Opportunity,
   Skill,
   CommunityEvent,
@@ -71,6 +73,8 @@ interface AppContextType {
   removeToast: (id: string) => void;
   switchDemoRole: (role: "member" | "admin") => void;
   switchUser: (userId: string) => void;
+  adminCreateUser: (input: { name: string; username: string; role: "member" | "admin" }) => User | null;
+  setUserRole: (id: string, role: "member" | "admin") => void;
 }
 
 const AppContext = createContext<AppContextType | undefined>(undefined);
@@ -221,7 +225,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
 
   const switchDemoRole = (role: "member" | "admin") => {
     // Only admins may switch into the admin role
-    if (role === "admin" && currentUser?.roleType !== "admin") {
+    if (role === "admin" && !isAdminRole(currentUser?.roleType)) {
       addToast(
         "Admin only",
         "Only admins can switch to the admin workspace.",
@@ -253,7 +257,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   const switchUser = (userId: string) => {
     const found = users.find((u) => u.id === userId);
     // Members may not switch into an admin account
-    if (found && found.roleType === "admin" && currentUser?.roleType !== "admin") {
+    if (found && isAdminRole(found.roleType) && !isAdminRole(currentUser?.roleType)) {
       addToast(
         "Admin only",
         "Only admins can switch to an admin account.",
@@ -279,6 +283,69 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
+  const adminCreateUser = (input: { name: string; username: string; role: "member" | "admin" }): User | null => {
+    const requesterRole = currentUser?.roleType;
+    if (!isAdminRole(requesterRole)) {
+      addToast("Tidak diizinkan", "Hanya admin yang bisa menambah user.", "error");
+      return null;
+    }
+    if (input.role === "admin" && requesterRole !== "superadmin") {
+      addToast("Khusus superadmin", "Hanya superadmin yang bisa menambah admin.", "error");
+      return null;
+    }
+    const username = input.username.trim().toLowerCase().replace(/[^a-z0-9]/g, "");
+    if (username.length < 3) {
+      addToast("Username tidak valid", "Minimal 3 karakter huruf/angka.", "error");
+      return null;
+    }
+    if (!input.name.trim()) {
+      addToast("Nama belum diisi", "Masukkan nama lengkap user.", "error");
+      return null;
+    }
+    if (users.some((u) => u.username?.toLowerCase() === username || u.email.toLowerCase() === `${username}@example.com`)) {
+      addToast("Username dipakai", `Username “${username}” sudah terdaftar.`, "error");
+      return null;
+    }
+    const newUser: User = {
+      id: `usr-${Date.now()}`,
+      name: input.name.trim(),
+      username,
+      email: `${username}@example.com`,
+      avatar: "",
+      batch: "Angkatan 5 (2018)",
+      location: "Jakarta, Indonesia",
+      role: input.role === "admin" ? "Community Administrator" : "Community Member",
+      company: input.role === "admin" ? "Angkatan 5 Secretariat" : "Independent",
+      industry: "Technology",
+      experience: "1+ years",
+      experienceYears: 1,
+      bio: "",
+      skills: [],
+      status: "Available to Help",
+      lookingFor: ["Networking"],
+      canOffer: ["Collaboration"],
+      profileCompletion: 40,
+      visibility: "community",
+      roleType: input.role,
+      verified: input.role === "admin",
+      joinedAt: new Date().toISOString().split("T")[0],
+    };
+    saveUsers([newUser, ...users]);
+    addToast("User ditambahkan", `${newUser.name} (${username} / 123456).`, "success");
+    return newUser;
+  };
+
+  const setUserRole = (id: string, role: "member" | "admin") => {
+    if (currentUser?.roleType !== "superadmin") {
+      addToast("Khusus superadmin", "Hanya superadmin yang bisa ubah role.", "error");
+      return;
+    }
+    const target = users.find((u) => u.id === id);
+    if (!target || target.id === currentUser?.id || target.roleType === "superadmin") return;
+    saveUsers(users.map((u) => (u.id === id ? { ...u, roleType: role as UserRole } : u)));
+    addToast("Role diubah", `${target.name} sekarang ${role}.`, "success");
+  };
+
   const logout = () => {
     setCurrentUser(null);
     localStorage.removeItem(STORAGE_KEYS.CURRENT_USER);
@@ -290,9 +357,14 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   };
 
   const register = (name: string, email: string, batch: string): User => {
+    const baseUsername = email.split("@")[0].toLowerCase().replace(/[^a-z0-9]/g, "") || `user${Date.now()}`;
+    const usernameTaken = (u: string) => users.some((x) => x.username?.toLowerCase() === u || x.email.toLowerCase() === `${u}@example.com`);
+    let username = baseUsername;
+    if (usernameTaken(username)) username = `${baseUsername}${Date.now().toString().slice(-4)}`;
     const newUser: User = {
       id: `usr-${Date.now()}`,
       name,
+      username,
       email,
       avatar:
         "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&auto=format&fit=crop&q=80",
@@ -697,6 +769,8 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
         removeToast,
         switchDemoRole,
         switchUser,
+        adminCreateUser,
+        setUserRole,
       }}
     >
       {children}

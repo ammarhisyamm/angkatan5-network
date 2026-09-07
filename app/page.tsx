@@ -11,7 +11,7 @@ export default function HomePage() {
   useEffect(() => {
     if (isLoading) return;
     if (currentUser) {
-      if (currentUser.roleType === "admin") {
+      if (currentUser.roleType === "admin" || currentUser.roleType === "superadmin") {
         router.replace("/admin/dashboard");
       } else {
         router.replace("/dashboard");

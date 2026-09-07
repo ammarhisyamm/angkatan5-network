@@ -7,10 +7,17 @@ import { useApp } from "@/lib/store/AppContext";
 import { Input } from "@/components/ui/Input";
 import { Button } from "@/components/ui/Button";
 import { ShieldCheckIcon, UserCheckIcon } from "@phosphor-icons/react";
+import { isAdminRole } from "@/lib/types";
 
-const KNOWN_USERS: Record<string, { email: string; roleType: "member" | "admin" }> = {
-  hisyam: { email: "member@example.com", roleType: "member" },
-  dudin: { email: "dudin@example.com", roleType: "member" },
+// Static shortcuts (work even before store hydrates).
+// Additional accounts (created via Admin Management) resolve dynamically by username.
+const KNOWN_USERS: Record<string, { memberEmail?: string; adminEmail?: string }> = {
+  hisyam: { memberEmail: "member@example.com", adminEmail: "admin@example.com" },
+  dudin: { memberEmail: "dudin@example.com", adminEmail: "admin@example.com" },
+  farrasabyan: { memberEmail: "farrasabyan@example.com" },
+  farras: { memberEmail: "farrasabyan@example.com" },
+  fakhryalfitra: { adminEmail: "fakhry@example.com" },
+  fakhry: { adminEmail: "fakhry@example.com" },
 };
 
 const getQueryParam = (key: string): string | null => {
@@ -20,7 +27,7 @@ const getQueryParam = (key: string): string | null => {
 
 export default function LoginPage() {
   const router = useRouter();
-  const { login, addToast, currentUser, isLoading: authLoading } = useApp();
+  const { login, addToast, currentUser, isLoading: authLoading, users } = useApp();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loginRole, setLoginRole] = useState<"member" | "admin">("member");
@@ -38,7 +45,7 @@ export default function LoginPage() {
   React.useEffect(() => {
     if (!authLoading && currentUser) {
       const next = getQueryParam("next");
-      if (currentUser.roleType === "admin") {
+      if (isAdminRole(currentUser.roleType)) {
         router.replace(next && next.startsWith("/admin") ? next : "/admin/dashboard");
       } else {
         router.replace(next && next.startsWith("/") && !next.startsWith("/admin") ? next : "/dashboard");
@@ -58,7 +65,7 @@ export default function LoginPage() {
     }
     if (!user) {
       setFieldError("username");
-      setError("Username belum diisi — coba “hisyam” atau “dudin”.");
+      setError("Username belum diisi — coba “hisyam”, “dudin”, “farrasabyan”, atau “fakhryalfitra”.");
       return;
     }
     if (!pass) {
@@ -72,18 +79,24 @@ export default function LoginPage() {
       return;
     }
     const known = KNOWN_USERS[user];
-    // Allow full email login as fallback (e.g. admin@example.com)
-    const isEmailLogin = user.includes("@");
-    if (!known && !isEmailLogin) {
+    // Dynamic fallback: accounts created via Admin Management resolve by username
+    const dynamicUser = !known
+      ? users.find(
+          (u: any) =>
+            u.username?.toLowerCase() === user ||
+            u.email.toLowerCase() === user
+        )
+      : null;
+    if (!known && !dynamicUser) {
       setFieldError("username");
-      setError(`Username “${email.trim()}” tidak ditemukan — coba “hisyam” atau “dudin”.`);
+      setError(`Username “${email.trim()}” tidak ditemukan — coba “hisyam”, “dudin”, “farrasabyan”, atau “fakhryalfitra”.`);
       return;
     }
     setIsLoading(true);
     setError("");
     setTimeout(() => {
       // Switch determines role when password is 123456.
-      // Both hisyam and dudin can log in as Member or as Admin.
+      // hisyam & dudin can log in as Member or as Admin (superadmin).
       const goNext = (fallback: string, adminFallback: boolean) => {
         const next = getQueryParam("next");
         if (adminFallback) {
@@ -93,13 +106,20 @@ export default function LoginPage() {
         }
       };
       if (loginRole === "admin") {
-        const ok = login("admin@example.com", rememberMe);
+        const adminEmail = known?.adminEmail || (dynamicUser && isAdminRole(dynamicUser.roleType) ? dynamicUser.email : null);
+        if (!adminEmail) {
+          setIsLoading(false);
+          setFieldError(null);
+          setError(`Akun “${email.trim()}” terdaftar sebagai member, bukan admin.`);
+          return;
+        }
+        const ok = login(adminEmail, rememberMe);
         setIsLoading(false);
         if (ok) goNext("/admin/dashboard", true);
         else setError("Akun admin tidak ditemukan.");
         return;
       }
-      const targetEmail = known ? known.email : email;
+      const targetEmail = known?.memberEmail || dynamicUser?.email || email;
       const success = login(targetEmail, rememberMe);
       setIsLoading(false);
       if (success) {
@@ -107,7 +127,7 @@ export default function LoginPage() {
           localStorage.setItem("a5_member_email", targetEmail.toLowerCase());
         } catch {}
         goNext("/dashboard", false);
-      } else setError("Akun tidak ditemukan — coba “hisyam” atau “dudin”.");
+      } else setError("Akun tidak ditemukan — coba “hisyam”, “dudin”, atau “farrasabyan”.");
     }, 400);
   };
 

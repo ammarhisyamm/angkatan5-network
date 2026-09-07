@@ -9,7 +9,7 @@ export function middleware(request: NextRequest) {
     const role = request.cookies.get("a5_role")?.value;
     const user = request.cookies.get("a5_user")?.value;
 
-    if (!user || role !== "admin") {
+    if (!user || (role !== "admin" && role !== "superadmin")) {
       const loginUrl = new URL("/login", request.url);
       loginUrl.searchParams.set("next", pathname);
       loginUrl.searchParams.set("error", "admin_only");

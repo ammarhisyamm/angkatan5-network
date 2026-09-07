@@ -22,7 +22,7 @@ export function Header() {
         </Link>
 
         <div className="flex items-center gap-2">
-          {currentUser?.roleType === "admin" && (
+          {(currentUser?.roleType === "admin" || currentUser?.roleType === "superadmin") && (
             <Link
               href={isAdmin ? "/dashboard" : "/admin/dashboard"}
               className="flex h-8 items-center gap-1.5 rounded-lg bg-bg-weak-50 px-2.5 text-xs font-medium text-text-sub-600 transition-colors hover:text-text-strong-950 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-base"
