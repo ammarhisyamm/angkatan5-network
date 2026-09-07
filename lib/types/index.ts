@@ -113,15 +113,31 @@ export interface Opportunity {
   createdAt: string;
 }
 
-export interface Connection {
+export type EventCategory =
+  | "Sport"
+  | "Webinar"
+  | "Meetup"
+  | "Workshop"
+  | "Social";
+
+export type EventStatus = "Upcoming" | "Ongoing" | "Past" | "Cancelled";
+
+export interface CommunityEvent {
   id: string;
-  senderId: string;
-  senderName: string;
-  senderAvatar: string;
-  senderRole: string;
-  receiverId: string;
-  message: string;
-  status: "pending" | "accepted" | "declined";
+  title: string;
+  category: EventCategory;
+  description: string;
+  location: string;
+  isOnline: boolean;
+  meetingLink?: string;
+  date: string;
+  endDate?: string;
+  organizerId: string;
+  organizerName: string;
+  organizerAvatar?: string;
+  capacity: number;
+  attendeeIds: string[];
+  status: EventStatus;
   createdAt: string;
 }
 

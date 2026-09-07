@@ -21,12 +21,13 @@ import {
   UserIcon,
   ArrowsLeftRightIcon,
   ShieldCheckIcon,
+  CalendarBlankIcon,
 } from "@phosphor-icons/react";
 
 function SidebarInner() {
   const pathname = usePathname();
   const router = useRouter();
-  const { currentUser, logout, users, opportunities, switchUser, notifications = [], markNotificationRead, markAllNotificationsRead } = useApp() as any;
+  const { currentUser, logout, users, opportunities, events = [], switchUser, notifications = [], markNotificationRead, markAllNotificationsRead } = useApp() as any;
   const { open, setOpen } = useSidebarState();
   const isCollapsed = !open;
   const [showUserMenu, setShowUserMenu] = useState(false);
@@ -47,6 +48,7 @@ function SidebarInner() {
     { name: "Dashboard", href: "/dashboard", icon: HouseIcon, group: "General", count: null },
     { name: "Discover People", href: "/discover", icon: UsersIcon, group: "General", count: memberCounts["/discover"] },
     { name: "Opportunities", href: "/opportunities", icon: BriefcaseIcon, group: "General", count: memberCounts["/opportunities"] },
+    { name: "Events", href: "/events", icon: CalendarBlankIcon, group: "General", count: events.filter((e: any) => e.status === "Upcoming").length || null },
     { name: "My Profile", href: "/my-profile", icon: UserIcon, group: "General", count: null },
   ];
   const adminNav = [

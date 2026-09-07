@@ -18,7 +18,7 @@ export function middleware(request: NextRequest) {
   }
 
   // Guard /dashboard, /discover, etc. — require any login
-  const protectedPrefixes = ["/dashboard", "/discover", "/opportunities", "/profile", "/my-profile"];
+  const protectedPrefixes = ["/dashboard", "/discover", "/opportunities", "/events", "/profile", "/my-profile"];
   if (protectedPrefixes.some((p) => pathname.startsWith(p))) {
     const user = request.cookies.get("a5_user")?.value;
     if (!user) {
@@ -32,5 +32,5 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/admin/:path*", "/dashboard/:path*", "/discover/:path*", "/opportunities/:path*", "/profile/:path*", "/my-profile/:path*"],
+  matcher: ["/admin/:path*", "/dashboard/:path*", "/discover/:path*", "/opportunities/:path*", "/events/:path*", "/profile/:path*", "/my-profile/:path*"],
 };

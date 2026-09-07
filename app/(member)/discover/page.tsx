@@ -371,7 +371,7 @@ export default function DiscoverPeoplePage() {
           <select value={sortBy} onChange={(e) => setSortBy(e.target.value as any)} className="h-8 rounded-lg border border-stroke-soft-200 bg-bg-white-0 px-2 text-xs font-medium text-text-strong-950">
             <option value="relevance">Relevance</option>
             <option value="newest">Newest</option>
-            <option value="connected">Most connected</option>
+            <option value="connected">Most skilled</option>
           </select>
         </div>
 

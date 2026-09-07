@@ -5,13 +5,14 @@ import Link from "next/link";
 import { useApp } from "@/lib/store/AppContext";
 import { ProfileCard } from "@/components/member/ProfileCard";
 import { OpportunityCard } from "@/components/member/OpportunityCard";
+import { EventCard } from "@/components/member/EventCard";
 import { Button } from "@/components/ui/Button";
 import { LayerCard, Grid } from "@/components/ui/Surface";
 import { Avatar } from "@/components/ui/Avatar";
-import { BriefcaseIcon, PlusCircleIcon, ArrowRightIcon, UsersIcon, HandshakeIcon } from "@phosphor-icons/react";
+import { BriefcaseIcon, PlusCircleIcon, ArrowRightIcon, UsersIcon, HandshakeIcon, CalendarBlankIcon } from "@phosphor-icons/react";
 
 export default function MemberDashboardPage() {
-  const { currentUser, users, opportunities } = useApp();
+  const { currentUser, users, opportunities, events } = useApp();
 
   const getGreeting = () => {
     const hour = new Date().getHours();
@@ -24,6 +25,10 @@ export default function MemberDashboardPage() {
   const completion = currentUser?.profileCompletion || 82;
   const featuredPeople = users.filter((u) => u.id !== currentUser?.id && u.roleType === "member").slice(0, 4);
   const latestOpportunities = opportunities.filter((o) => o.status === "Published").slice(0, 3);
+  const upcomingEvents = events
+    .filter((e) => e.status === "Upcoming" && new Date(e.date).getTime() >= Date.now())
+    .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
+    .slice(0, 3);
 
   const quickActions = [
     { href: "/discover", icon: UsersIcon, title: "Find Someone", desc: "Find people by skills, role, or experience." },
@@ -93,6 +98,30 @@ export default function MemberDashboardPage() {
             <ProfileCard key={person.id} member={person} />
           ))}
         </Grid>
+      </section>
+
+      <section aria-labelledby="upcoming-events-heading">
+        <div className="mb-4 flex items-end justify-between gap-4">
+          <div>
+            <h2 id="upcoming-events-heading" className="text-section-title text-text-strong-950">Upcoming Events</h2>
+            <p className="mt-0.5 text-body text-text-sub-600">Sports, webinars, and hangouts — reserve your spot.</p>
+          </div>
+          <Link href="/events" className="shrink-0">
+            <Button variant="secondary" size="sm">View All <ArrowRightIcon size={14} weight="regular" /></Button>
+          </Link>
+        </div>
+        {upcomingEvents.length > 0 ? (
+          <Grid variant="3up" gap="base">
+            {upcomingEvents.map((ev) => (
+              <EventCard key={ev.id} event={ev} />
+            ))}
+          </Grid>
+        ) : (
+          <LayerCard className="flex items-center gap-3 p-5">
+            <CalendarBlankIcon size={20} weight="regular" className="shrink-0 text-text-soft-400" />
+            <p className="text-sm text-text-sub-600">No upcoming events yet — <Link href="/events/create" className="font-medium text-primary-base hover:underline">create one</Link>.</p>
+          </LayerCard>
+        )}
       </section>
 
       <section aria-labelledby="latest-opps-heading">

@@ -7,7 +7,7 @@ import {
   User,
   Opportunity,
   Skill,
-  Connection,
+  CommunityEvent,
   ToastMessage,
   OpportunityStatus,
   SkillCategory,
@@ -15,13 +15,14 @@ import {
 import { initialMembers } from "../data/members";
 import { initialOpportunities } from "../data/opportunities";
 import { initialSkills } from "../data/skills";
+import { initialEvents } from "../data/events";
 
 interface AppContextType {
   currentUser: User | null;
   users: User[];
   opportunities: Opportunity[];
   skills: Skill[];
-  connections: Connection[];
+  events: CommunityEvent[];
   bookmarkedOpportunityIds: string[];
   toasts: ToastMessage[];
   isLoading: boolean;
@@ -44,9 +45,12 @@ interface AppContextType {
   ) => Opportunity;
   updateOpportunityStatus: (id: string, status: OpportunityStatus) => void;
   deleteOpportunity: (id: string) => void;
-  sendConnection: (receiverId: string, message: string) => void;
-  getConnectionStatus: (receiverId: string) => string | null;
-  cancelConnection: (receiverId: string) => void;
+  createEvent: (
+    data: Omit<CommunityEvent, "id" | "createdAt" | "organizerId" | "organizerName" | "organizerAvatar" | "attendeeIds" | "status">
+  ) => CommunityEvent;
+  joinEvent: (id: string) => void;
+  leaveEvent: (id: string) => void;
+  cancelEvent: (id: string) => void;
   notifications: { id: string; title: string; desc: string; read: boolean; time: string }[];
   markNotificationRead: (id: string) => void;
   markAllNotificationsRead: () => void;
@@ -76,7 +80,7 @@ const STORAGE_KEYS = {
   USERS: "a5_users_v3",
   OPPORTUNITIES: "a5_opportunities_v3",
   SKILLS: "a5_skills_v3",
-  CONNECTIONS: "a5_connections_v3",
+  EVENTS: "a5_events_v3",
   BOOKMARKS: "a5_bookmarks_v3",
 };
 
@@ -86,7 +90,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   const [opportunities, setOpportunities] =
     useState<Opportunity[]>(initialOpportunities);
   const [skills, setSkills] = useState<Skill[]>(initialSkills);
-  const [connections, setConnections] = useState<Connection[]>([]);
+  const [events, setEvents] = useState<CommunityEvent[]>(initialEvents);
   const [notifications, setNotifications] = useState<{ id: string; title: string; desc: string; read: boolean; time: string }[]>([]);
   const [bookmarkedOpportunityIds, setBookmarkedOpportunityIds] = useState<
     string[]
@@ -103,7 +107,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
       const storedUsers = localStorage.getItem(STORAGE_KEYS.USERS);
       const storedOpps = localStorage.getItem(STORAGE_KEYS.OPPORTUNITIES);
       const storedSkills = localStorage.getItem(STORAGE_KEYS.SKILLS);
-      const storedConns = localStorage.getItem(STORAGE_KEYS.CONNECTIONS);
+      const storedEvents = localStorage.getItem(STORAGE_KEYS.EVENTS);
       const storedBookmarks = localStorage.getItem(STORAGE_KEYS.BOOKMARKS);
       const storedCurrentUser = localStorage.getItem(
         STORAGE_KEYS.CURRENT_USER
@@ -116,7 +120,9 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
       const parsedSkills = storedSkills
         ? JSON.parse(storedSkills)
         : initialSkills;
-      const parsedConns = storedConns ? JSON.parse(storedConns) : [];
+      const parsedEvents = storedEvents
+        ? JSON.parse(storedEvents)
+        : initialEvents;
       const parsedBookmarks = storedBookmarks
         ? JSON.parse(storedBookmarks)
         : [];
@@ -126,7 +132,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
       setUsers(parsedUsers);
       setOpportunities(parsedOpps);
       setSkills(parsedSkills);
-      setConnections(parsedConns);
+      setEvents(parsedEvents);
       setBookmarkedOpportunityIds(parsedBookmarks);
 
       if (storedCurrentUser) {
@@ -162,9 +168,9 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     localStorage.setItem(STORAGE_KEYS.SKILLS, JSON.stringify(newSkills));
   };
 
-  const saveConnections = (newConns: Connection[]) => {
-    setConnections(newConns);
-    localStorage.setItem(STORAGE_KEYS.CONNECTIONS, JSON.stringify(newConns));
+  const saveEvents = (newEvents: CommunityEvent[]) => {
+    setEvents(newEvents);
+    localStorage.setItem(STORAGE_KEYS.EVENTS, JSON.stringify(newEvents));
   };
 
   const saveBookmarks = (newBookmarks: string[]) => {
@@ -438,41 +444,73 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     );
   };
 
-  const sendConnection = (receiverId: string, message: string) => {
-    const sender = currentUser || users[0];
-    const receiver = users.find((u) => u.id === receiverId);
-    const newConn: Connection = {
-      id: `conn-${Date.now()}`,
-      senderId: sender.id,
-      senderName: sender.name,
-      senderAvatar: sender.avatar,
-      senderRole: sender.role,
-      receiverId,
-      message,
-      status: "pending",
+  const createEvent = (
+    data: Omit<
+      CommunityEvent,
+      | "id"
+      | "createdAt"
+      | "organizerId"
+      | "organizerName"
+      | "organizerAvatar"
+      | "attendeeIds"
+      | "status"
+    >
+  ): CommunityEvent => {
+    const organizer = currentUser || users[0];
+    const newEvent: CommunityEvent = {
+      ...data,
+      id: `evt-${Date.now()}`,
+      organizerId: organizer.id,
+      organizerName: organizer.name,
+      organizerAvatar: organizer.avatar,
+      attendeeIds: [organizer.id],
+      status: "Upcoming",
       createdAt: new Date().toISOString(),
     };
 
-    const newConns = [newConn, ...connections];
-    saveConnections(newConns);
+    const newEvents = [newEvent, ...events];
+    saveEvents(newEvents);
     addToast(
-      "Connection request sent!",
-      `Your note was sent to ${receiver ? receiver.name : "member"}.`,
+      "Event published!",
+      "Your event is now live on the community board.",
+      "success"
+    );
+    return newEvent;
+  };
+
+  const joinEvent = (id: string) => {
+    if (!currentUser) return;
+    const updated = events.map((e) => {
+      if (e.id !== id) return e;
+      if (e.attendeeIds.includes(currentUser.id)) return e;
+      if (e.capacity > 0 && e.attendeeIds.length >= e.capacity) return e;
+      return { ...e, attendeeIds: [...e.attendeeIds, currentUser.id] };
+    });
+    saveEvents(updated);
+    addToast(
+      "You're in!",
+      "Your spot has been reserved. See you there.",
       "success"
     );
   };
 
-  const getConnectionStatus = (receiverId: string) => {
-    const conn = connections.find(
-      (c) => (c.receiverId === receiverId && c.senderId === currentUser?.id) || (c.senderId === receiverId && c.receiverId === currentUser?.id)
+  const leaveEvent = (id: string) => {
+    if (!currentUser) return;
+    const updated = events.map((e) =>
+      e.id === id
+        ? { ...e, attendeeIds: e.attendeeIds.filter((a) => a !== currentUser.id) }
+        : e
     );
-    return conn?.status || null;
+    saveEvents(updated);
+    addToast("Spot released", "You've left this event.", "info");
   };
 
-  const cancelConnection = (receiverId: string) => {
-    const next = connections.filter((c) => !(c.receiverId === receiverId && c.senderId === currentUser?.id && c.status === "pending"));
-    saveConnections(next);
-    addToast("Request cancelled", "Connection request withdrawn.", "info");
+  const cancelEvent = (id: string) => {
+    const updated = events.map((e) =>
+      e.id === id ? { ...e, status: "Cancelled" as const } : e
+    );
+    saveEvents(updated);
+    addToast("Event cancelled", "Attendees will see the updated status.", "info");
   };
 
   const toggleBookmark = (opportunityId: string) => {
@@ -622,7 +660,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
         users,
         opportunities,
         skills,
-        connections,
+        events,
         bookmarkedOpportunityIds,
         toasts,
         isLoading,
@@ -634,9 +672,10 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
         createOpportunity,
         updateOpportunityStatus,
         deleteOpportunity,
-        sendConnection,
-        getConnectionStatus,
-        cancelConnection,
+        createEvent,
+        joinEvent,
+        leaveEvent,
+        cancelEvent,
         toggleBookmark,
         isBookmarked,
         notifications,

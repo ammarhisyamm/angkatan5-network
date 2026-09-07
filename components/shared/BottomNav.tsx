@@ -3,13 +3,14 @@
 import React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { HouseIcon, UsersIcon, BriefcaseIcon, UserIcon, ShieldCheckIcon } from "@phosphor-icons/react";
+import { HouseIcon, UsersIcon, BriefcaseIcon, UserIcon, ShieldCheckIcon, CalendarBlankIcon } from "@phosphor-icons/react";
 import { cn } from "@/lib/utils/cn";
 
 const MEMBER_NAV = [
   { name: "Dashboard", short: "Home", href: "/dashboard", icon: HouseIcon },
   { name: "Discover People", short: "People", href: "/discover", icon: UsersIcon },
   { name: "Opportunities", short: "Jobs", href: "/opportunities", icon: BriefcaseIcon },
+  { name: "Events", short: "Events", href: "/events", icon: CalendarBlankIcon },
   { name: "My Profile", short: "Profile", href: "/my-profile", icon: UserIcon },
 ];
 

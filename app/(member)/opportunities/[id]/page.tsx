@@ -14,7 +14,7 @@ import { ArrowLeftIcon, CalendarIcon, MapPinIcon, ClockIcon, ShareNetworkIcon, B
 export default function OpportunityDetailPage() {
   const params = useParams();
   const id = params.id as string;
-  const { opportunities, isBookmarked, toggleBookmark, addToast, sendConnection, currentUser } =
+  const { opportunities, isBookmarked, toggleBookmark, currentUser } =
     useApp();
 
   const [isInterestModalOpen, setIsInterestModalOpen] = useState(false);
@@ -63,7 +63,6 @@ export default function OpportunityDetailPage() {
     setIsSending(true);
 
     setTimeout(() => {
-      sendConnection(opportunity.authorId, interestNote);
       setIsSending(false);
       setIsSent(true);
       setTimeout(() => {

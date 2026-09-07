@@ -10,7 +10,7 @@ import { ChartBarIcon, TrendUpIcon, UsersIcon, MedalIcon, BriefcaseIcon } from "
 
 
 export default function AdminAnalyticsPage() {
-  const { users, opportunities, connections } = useApp();
+  const { users, opportunities, events } = useApp();
   const verifiedCount = users.filter((u) => u.verified).length;
   const hiringCount = opportunities.filter((o) => o.category === "Hiring").length;
   const avgCompletion = users.length
@@ -42,8 +42,8 @@ export default function AdminAnalyticsPage() {
         </div>
 
         <div className="p-4 sm:p-5 rounded-lg bg-bg-white-0 border border-stroke-soft-200">
-          <span className="text-xs font-semibold text-text-sub-600 block">Connections Initiated</span>
-          <span className="text-3xl font-bold text-primary-base mt-1 block">{connections.length}</span>
+          <span className="text-xs font-semibold text-text-sub-600 block">Event RSVPs</span>
+          <span className="text-3xl font-bold text-primary-base mt-1 block">{events.reduce((sum, e) => sum + e.attendeeIds.length, 0)}</span>
           <span className="text-xs leading-4 text-text-soft-400">across cohort members</span>
         </div>
 
