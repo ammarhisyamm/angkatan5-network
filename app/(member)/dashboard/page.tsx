@@ -70,7 +70,7 @@ export default function MemberDashboardPage() {
             const Icon = a.icon;
             return (
               <Link key={a.href} href={a.href} className="group">
-                <LayerCard className="h-full w-full rounded-xl border border-stroke-soft-200 p-4 shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition-[border-color,transform,box-shadow] hover:-translate-y-px hover:border-primary-base/30 hover:shadow-[0_4px_12px_rgba(0,0,0,0.06)] sm:p-5">
+                <LayerCard className="h-full w-full rounded-xl border border-stroke-soft-200 p-4 shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition-[border-color,box-shadow] hover:border-primary-base/40 hover:shadow-[0_8px_20px_rgba(0,0,0,0.08)] sm:p-5">
                   <span className="mb-4 flex size-9 items-center justify-center rounded-lg bg-white ring-1 ring-stroke-soft-200 shadow-sm text-text-strong-950">
                     <Icon className="size-5 sm:size-6" strokeWidth={1.5} />
                   </span>

@@ -57,15 +57,11 @@ export default function LoginPage() {
       setError(`Username “${email.trim()}” tidak ditemukan — coba “hisyam” atau “dudin”.`);
       return;
     }
-    if (loginRole === "admin" && known && known.roleType !== "admin" && user !== "hisyam") {
-      setFieldError(null);
-      setError(`Akun “${email.trim()}” terdaftar sebagai member, bukan admin.`);
-      return;
-    }
     setIsLoading(true);
     setError("");
     setTimeout(() => {
-      // Switch determines role when password is 123456
+      // Switch determines role when password is 123456.
+      // Both hisyam and dudin can log in as Member or as Admin.
       if (loginRole === "admin") {
         const ok = login("admin@example.com");
         setIsLoading(false);

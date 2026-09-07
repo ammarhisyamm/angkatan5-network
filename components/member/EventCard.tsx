@@ -24,7 +24,7 @@ export function EventCard({ event }: { event: CommunityEvent }) {
   const isFull = spotsLeft !== null && spotsLeft <= 0;
 
   return (
-    <LayerCard className="group flex h-full w-full flex-col overflow-hidden rounded-lg border border-stroke-soft-200 p-0 shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition-[background-color,border-color,box-shadow,transform] duration-200 hover:-translate-y-px hover:border-primary-base/30 hover:shadow-[0_4px_12px_rgba(0,0,0,0.06)]">
+    <LayerCard className="group flex h-full w-full flex-col overflow-hidden rounded-lg border border-stroke-soft-200 p-0 shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition-[border-color,box-shadow] duration-200 hover:border-primary-base/40 hover:shadow-[0_8px_20px_rgba(0,0,0,0.08)] focus-within:border-primary-base/40">
       <div className="flex flex-1 flex-col p-6">
         <div className="flex items-start gap-4">
           <div className="flex size-14 shrink-0 flex-col items-center justify-center rounded-xl bg-bg-weak-50 ring-1 ring-stroke-soft-200">
