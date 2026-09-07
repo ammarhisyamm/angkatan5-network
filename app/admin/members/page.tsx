@@ -207,7 +207,7 @@ export default function AdminMembersPage() {
                     </div>
                   </Table.Cell>
                   <Table.Cell>
-                    <span className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold ${member.roleType === "superadmin" ? "bg-primary-base text-static-white" : member.roleType === "admin" ? "bg-warning-lighter text-warning-dark ring-1 ring-warning-base/30" : "bg-bg-weak-50 text-text-sub-600 ring-1 ring-stroke-soft-200"}`}>
+                    <span className={`inline-flex items-center whitespace-nowrap rounded-full px-2.5 py-0.5 text-xs font-semibold ${member.roleType === "superadmin" ? "bg-primary-base text-static-white" : member.roleType === "admin" ? "bg-warning-lighter text-warning-dark ring-1 ring-warning-base/30" : "bg-bg-weak-50 text-text-sub-600 ring-1 ring-stroke-soft-200"}`}>
                       {ROLE_LABEL[member.roleType] ?? "Member"}
                     </span>
                   </Table.Cell>
@@ -217,32 +217,20 @@ export default function AdminMembersPage() {
                   </Table.Cell>
                   <Table.Cell className="hidden lg:table-cell text-xs text-text-soft-400">{member.joinedAt}</Table.Cell>
                   <Table.Cell className="text-right">
-                    <div className="flex items-center justify-end gap-1.5">
+                    <div className="flex items-center justify-end gap-1">
                       <Link href={`/profile/${member.id}`}>
-                        <Button variant="ghost" size="sm" icon={<EyeIcon size={14} />} aria-label="View profile">
-                          View
-                        </Button>
+                        <Button variant="ghost" size="sm" shape="square" icon={<EyeIcon size={14} />} title="View profile" aria-label="View profile" />
                       </Link>
-                      <Button variant={member.verified ? "secondary" : "outline"} size="sm" title={member.verified ? "Verified" : "Verify member"} aria-label={member.verified ? "Verified" : "Verify member"} onClick={() => verifyMember(member.id)} icon={<ShieldCheckIcon size={14} />}>
-                        {member.verified ? "Verified" : "Verify"}
-                      </Button>
+                      <Button variant="ghost" size="sm" shape="square" icon={<ShieldCheckIcon size={14} weight={member.verified ? "fill" : "regular"} />} title={member.verified ? "Verified" : "Verify member"} aria-label={member.verified ? "Verified" : "Verify member"} onClick={() => verifyMember(member.id)} className={member.verified ? "text-primary-base" : ""} />
                       {isSuperadmin && member.id !== currentUser?.id && member.roleType !== "superadmin" && (
                         member.roleType === "admin" ? (
-                          <Button variant="outline" size="sm" title="Demote to member" aria-label={`Demote ${member.name} to member`} onClick={() => setUserRole(member.id, "member")} icon={<ArrowDownIcon size={14} />}>
-                            Demote
-                          </Button>
+                          <Button variant="ghost" size="sm" shape="square" icon={<ArrowDownIcon size={14} />} title="Demote to member" aria-label={`Demote ${member.name} to member`} onClick={() => setUserRole(member.id, "member")} />
                         ) : (
-                          <Button variant="outline" size="sm" title="Promote to admin" aria-label={`Promote ${member.name} to admin`} onClick={() => setUserRole(member.id, "admin")} icon={<ArrowUpIcon size={14} />}>
-                            Promote
-                          </Button>
+                          <Button variant="ghost" size="sm" shape="square" icon={<ArrowUpIcon size={14} />} title="Promote to admin" aria-label={`Promote ${member.name} to admin`} onClick={() => setUserRole(member.id, "admin")} />
                         )
                       )}
-                      <Button variant="ghost" size="sm" icon={<ShieldWarningIcon size={14} />} onClick={() => { setTargetMember(member); setActionType("suspend"); }} aria-label={member.suspended ? "Unsuspend" : "Suspend"}>
-                        {member.suspended ? "Unsuspend" : "Suspend"}
-                      </Button>
-                      <Button variant="ghost" size="sm" icon={<TrashIcon size={14} />} onClick={() => { setTargetMember(member); setActionType("delete"); }} aria-label="Delete member" className="text-error-base hover:bg-error-lighter">
-                        Delete
-                      </Button>
+                      <Button variant="ghost" size="sm" shape="square" icon={<ShieldWarningIcon size={14} />} onClick={() => { setTargetMember(member); setActionType("suspend"); }} title={member.suspended ? "Unsuspend" : "Suspend"} aria-label={member.suspended ? "Unsuspend" : "Suspend"} />
+                      <Button variant="ghost" size="sm" shape="square" icon={<TrashIcon size={14} />} onClick={() => { setTargetMember(member); setActionType("delete"); }} title="Delete member" aria-label="Delete member" className="text-error-base hover:bg-error-lighter" />
                     </div>
                   </Table.Cell>
                 </Table.Row>

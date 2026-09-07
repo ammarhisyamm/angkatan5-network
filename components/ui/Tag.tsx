@@ -14,7 +14,7 @@ const tones: Record<TagTone, string> = {
 
 export interface TagProps extends React.HTMLAttributes<HTMLSpanElement> { tone?: TagTone; }
 export function Tag({ className, tone = "neutral", children, ...props }: TagProps) {
-  return <span className={cn("inline-flex min-h-6 items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-medium leading-none ring-1", tones[tone], className)} {...props}>{children}</span>;
+  return <span className={cn("inline-flex min-h-6 items-center gap-1.5 whitespace-nowrap rounded-full px-2.5 py-1 text-xs font-medium leading-none ring-1", tones[tone], className)} {...props}>{children}</span>;
 }
 
 export type StatusTone = "success" | "warning" | "information" | "primary" | "neutral";
