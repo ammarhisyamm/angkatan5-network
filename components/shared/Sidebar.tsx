@@ -27,7 +27,7 @@ import {
 function SidebarInner() {
   const pathname = usePathname();
   const router = useRouter();
-  const { currentUser, logout, users, opportunities, events = [], switchUser, notifications = [], markNotificationRead, markAllNotificationsRead } = useApp() as any;
+  const { currentUser, logout, login, users, opportunities, events = [], notifications = [], markNotificationRead, markAllNotificationsRead } = useApp() as any;
   const { open, setOpen } = useSidebarState();
   const isCollapsed = !open;
   const [showUserMenu, setShowUserMenu] = useState(false);
@@ -62,9 +62,26 @@ function SidebarInner() {
   const grouped = navItems.reduce((acc: any, item: any) => { (acc[item.group] = acc[item.group] || []).push(item); return acc; }, {} as any);
   // Role gate: only admins may see or switch into admin accounts
   const isAdminUser = currentUser?.roleType === "admin";
-  const otherUsers = users
-    .filter((u: any) => u.id !== currentUser?.id && (isAdminUser || u.roleType !== "admin"))
-    .slice(0, 3);
+
+  const handleLogout = () => {
+    logout();
+    setShowUserMenu(false);
+    router.push("/login");
+  };
+
+  // Workspace tab switches BOTH account and route so data stays in sync.
+  // Admin → Member returns to the member account used at login (fallback: default member).
+  const handleMemberTab = (e: React.MouseEvent) => {
+    if (currentUser?.roleType === "admin") {
+      e.preventDefault();
+      let memberEmail = "member@example.com";
+      try {
+        memberEmail = localStorage.getItem("a5_member_email") || memberEmail;
+      } catch {}
+      login(memberEmail);
+      router.push("/dashboard");
+    }
+  };
 
   return (
     <>
@@ -115,7 +132,7 @@ function SidebarInner() {
             {!isCollapsed && (
               <>
                 <div className="flex items-center gap-1 rounded-lg bg-bg-weak-50 p-1 ring-1 ring-stroke-soft-200">
-                  <Link href="/dashboard" aria-current={!isAdminSection ? "page" : undefined} className={`flex h-8 flex-1 items-center gap-2 rounded-md px-2 text-sm font-medium ${!isAdminSection ? "bg-bg-white-0 text-text-strong-950 ring-1 ring-stroke-soft-200" : "text-text-sub-600 hover:text-text-strong-950"}`}><span className="grid size-6 place-items-center rounded bg-primary-alpha-10 text-xs font-semibold text-primary-base">M</span>Member</Link>
+                  <Link href="/dashboard" onClick={handleMemberTab} aria-current={!isAdminSection ? "page" : undefined} className={`flex h-8 flex-1 items-center gap-2 rounded-md px-2 text-sm font-medium ${!isAdminSection ? "bg-bg-white-0 text-text-strong-950 ring-1 ring-stroke-soft-200" : "text-text-sub-600 hover:text-text-strong-950"}`}><span className="grid size-6 place-items-center rounded bg-primary-alpha-10 text-xs font-semibold text-primary-base">M</span>Member</Link>
                   {isAdminUser && (
                     <Link href="/admin/dashboard" aria-current={isAdminSection ? "page" : undefined} className={`flex h-8 flex-1 items-center gap-2 rounded-md px-2 text-sm font-medium ${isAdminSection ? "bg-bg-white-0 text-text-strong-950 ring-1 ring-stroke-soft-200" : "text-text-sub-600 hover:text-text-strong-950"}`}><span className="grid size-6 place-items-center rounded bg-text-strong-950 text-white"><ShieldCheckIcon size={12} weight="fill" /></span>Admin</Link>
                   )}
@@ -137,7 +154,7 @@ function SidebarInner() {
                     const isActive = pathname === item.href || (item.href !== "/admin/dashboard" && pathname.startsWith(item.href));
                     const Icon = item.icon;
                     return (
-                      <Link key={item.href} href={item.href} title={isCollapsed ? item.name : undefined} className={`group flex h-9 items-center gap-3 rounded-lg px-3 text-sm transition-colors ${isActive ? "bg-bg-weak-50 font-semibold text-text-strong-950" : "font-medium text-text-sub-600 hover:bg-bg-weak-50 hover:text-text-strong-950"} ${isCollapsed ? "justify-center px-0" : ""}`}>
+                      <Link key={item.href} href={item.href} title={isCollapsed ? item.name : undefined} className={`group relative flex h-9 items-center gap-3 rounded-lg px-3 text-sm transition-colors ${isActive ? "bg-bg-weak-50 font-semibold text-text-strong-950" : "font-medium text-text-sub-600 hover:bg-bg-weak-50 hover:text-text-strong-950"} ${isCollapsed ? "justify-center px-0" : ""}`}>
                         <Icon size={18} weight={isActive ? "fill" : "regular"} className={isActive ? "text-text-strong-950" : "text-text-soft-400 group-hover:text-text-sub-600"} />
                         {!isCollapsed && <><span className="flex-1 truncate text-left">{item.name}</span>{item.count !== null && <span className={`shrink-0 rounded-md border px-1.5 py-0.5 text-xs font-medium ${isActive ? "border-stroke-soft-200 bg-bg-white-0 text-text-strong-950" : "border-stroke-soft-200 bg-bg-white-0 text-text-sub-600"}`}>{item.count}</span>}</>}
                         {isCollapsed && item.count !== null && <span className="absolute right-2 top-1 size-2 rounded-full bg-primary-base" />}
@@ -156,8 +173,8 @@ function SidebarInner() {
                 {!isCollapsed && (
                   <>
                     <div className="min-w-0 flex-1 text-left">
-                      <p className="truncate text-sm font-semibold leading-4 text-text-strong-950">{currentUser?.name || "Admin Angkatan 5"}</p>
-                      <p className="truncate text-xs leading-3 text-text-soft-400">{currentUser?.email || "admin@angkatan5.id"}</p>
+                      <p className="truncate text-sm font-semibold leading-4 text-text-strong-950">{currentUser?.name || "Guest"}</p>
+                      <p className="truncate text-xs leading-3 text-text-soft-400">{currentUser?.email || ""}</p>
                     </div>
                     <button onClick={() => setShowUserMenu((v) => !v)} aria-label="User menu" className="flex size-7 items-center justify-center rounded-lg text-text-soft-400 hover:bg-bg-weak-50 hover:text-text-strong-950">
                       <GearIcon size={14} />
@@ -168,20 +185,20 @@ function SidebarInner() {
               {showUserMenu && !isCollapsed && (
                 <div className="absolute bottom-full left-0 right-0 mb-2 rounded-xl border border-stroke-soft-200 bg-bg-white-0 p-1.5 shadow-lg">
                   <div className="px-3 py-2.5">
-                    <p className="truncate text-sm font-semibold text-text-strong-950">{currentUser?.name || "Admin Angkatan 5"}</p>
-                    <p className="truncate text-xs text-text-soft-400">{currentUser?.email || "admin@angkatan5.id"}</p>
+                    <p className="truncate text-sm font-semibold text-text-strong-950">{currentUser?.name || "Guest"}</p>
+                    <p className="truncate text-xs text-text-soft-400">{currentUser?.email || ""}</p>
                   </div>
                   <div className="my-1 border-t border-stroke-soft-200" />
                   <button onClick={() => { router.push("/my-profile"); setShowUserMenu(false); }} className="flex w-full items-center gap-2 rounded-lg px-2.5 py-2 text-sm text-text-sub-600 hover:bg-bg-weak-50 hover:text-text-strong-950"><UserIcon size={14} /> Profile</button>
                   <button onClick={() => setShowInfoModal({title: "Preferences", desc: "Coming soon"})} className="flex w-full items-center gap-2 rounded-lg px-2.5 py-2 text-sm text-text-sub-600 hover:bg-bg-weak-50"><GearIcon size={14} /> Preferences</button>
                   <button onClick={() => setShowInfoModal({title: "Notifications", desc: "No new notifications"})} className="flex w-full items-center gap-2 rounded-lg px-2.5 py-2 text-sm text-text-sub-600 hover:bg-bg-weak-50"><BellIcon size={14} /> Notifications</button>
                   <div className="my-1 border-t border-stroke-soft-200" />
-                  <button onClick={logout} className="flex w-full items-center gap-2 rounded-lg px-2.5 py-2 text-sm text-text-sub-600 hover:bg-bg-weak-50"><SignOutIcon size={14} /> Sign Out</button>
+                  <button onClick={handleLogout} className="flex w-full items-center gap-2 rounded-lg px-2.5 py-2 text-sm text-text-sub-600 hover:bg-bg-weak-50"><SignOutIcon size={14} /> Sign Out</button>
                 </div>
               )}
               {isCollapsed && (
                 <div className="mt-2 flex justify-center">
-                  <Button variant="ghost" size="icon" onClick={logout} aria-label="Sign out"><SignOutIcon size={16} /></Button>
+                  <Button variant="ghost" size="icon" onClick={handleLogout} aria-label="Sign out"><SignOutIcon size={16} /></Button>
                 </div>
               )}
             </div>

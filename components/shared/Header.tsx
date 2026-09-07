@@ -2,13 +2,14 @@
 
 import React from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useApp } from "@/lib/store/AppContext";
 import { ShieldCheckIcon, SignOutIcon } from "@phosphor-icons/react";
 import { Avatar } from "@/components/ui/Avatar";
 
 export function Header() {
   const pathname = usePathname();
+  const router = useRouter();
   const { currentUser, logout } = useApp();
   const isAdmin = pathname.startsWith("/admin");
 
@@ -37,7 +38,7 @@ export function Header() {
                 <Avatar name={currentUser.name} className="size-8 text-xs" />
               </Link>
               <button
-                onClick={logout}
+                onClick={() => { logout(); router.push("/login"); }}
                 aria-label="Sign out"
                 title="Sign out"
                 className="flex size-8 items-center justify-center rounded-lg text-text-soft-400 transition-colors hover:bg-error-lighter hover:text-error-base focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-base"

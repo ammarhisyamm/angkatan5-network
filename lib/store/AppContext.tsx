@@ -26,7 +26,7 @@ interface AppContextType {
   bookmarkedOpportunityIds: string[];
   toasts: ToastMessage[];
   isLoading: boolean;
-  login: (email: string) => boolean;
+  login: (email: string, remember?: boolean) => boolean;
   logout: () => void;
   register: (name: string, email: string, batch: string) => User;
   updateProfile: (userId: string, data: Partial<User>) => void;
@@ -194,15 +194,16 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     setToasts((prev) => prev.filter((t) => t.id !== id));
   };
 
-  const login = (email: string): boolean => {
+  const login = (email: string, remember: boolean = true): boolean => {
     const found = users.find(
       (u) => u.email.toLowerCase() === email.toLowerCase()
     );
     if (found) {
       setCurrentUser(found);
       if (typeof document !== "undefined") {
-        document.cookie = `a5_user=${encodeURIComponent(found.id)}; path=/; max-age=86400; SameSite=Lax`;
-        document.cookie = `a5_role=${found.roleType || (found.email.includes("admin") ? "admin" : "member")}; path=/; max-age=86400; SameSite=Lax`;
+        const expiry = remember ? "; max-age=86400" : "";
+        document.cookie = `a5_user=${encodeURIComponent(found.id)}; path=/${expiry}; SameSite=Lax`;
+        document.cookie = `a5_role=${found.roleType || (found.email.includes("admin") ? "admin" : "member")}; path=/${expiry}; SameSite=Lax`;
       }
       localStorage.setItem(
         STORAGE_KEYS.CURRENT_USER,
@@ -321,6 +322,10 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
       STORAGE_KEYS.CURRENT_USER,
       JSON.stringify(newUser)
     );
+    if (typeof document !== "undefined") {
+      document.cookie = `a5_user=${encodeURIComponent(newUser.id)}; path=/; max-age=86400; SameSite=Lax`;
+      document.cookie = `a5_role=member; path=/; max-age=86400; SameSite=Lax`;
+    }
     addToast(
       "Account created!",
       "Please complete your onboarding profile setup.",

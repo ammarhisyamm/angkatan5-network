@@ -13,9 +13,14 @@ const KNOWN_USERS: Record<string, { email: string; roleType: "member" | "admin" 
   dudin: { email: "dudin@example.com", roleType: "member" },
 };
 
+const getQueryParam = (key: string): string | null => {
+  if (typeof window === "undefined") return null;
+  return new URLSearchParams(window.location.search).get(key);
+};
+
 export default function LoginPage() {
   const router = useRouter();
-  const { login, addToast } = useApp();
+  const { login, addToast, currentUser, isLoading: authLoading } = useApp();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loginRole, setLoginRole] = useState<"member" | "admin">("member");
@@ -23,6 +28,23 @@ export default function LoginPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
   const [fieldError, setFieldError] = useState<"username" | "password" | null>(null);
+
+  // Already logged in → go to workspace. Show middleware reason if any.
+  React.useEffect(() => {
+    if (getQueryParam("error") === "admin_only") {
+      setError("Halaman admin khusus admin — login sebagai admin dulu.");
+    }
+  }, []);
+  React.useEffect(() => {
+    if (!authLoading && currentUser) {
+      const next = getQueryParam("next");
+      if (currentUser.roleType === "admin") {
+        router.replace(next && next.startsWith("/admin") ? next : "/admin/dashboard");
+      } else {
+        router.replace(next && next.startsWith("/") && !next.startsWith("/admin") ? next : "/dashboard");
+      }
+    }
+  }, [authLoading, currentUser, router]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -62,18 +84,29 @@ export default function LoginPage() {
     setTimeout(() => {
       // Switch determines role when password is 123456.
       // Both hisyam and dudin can log in as Member or as Admin.
+      const goNext = (fallback: string, adminFallback: boolean) => {
+        const next = getQueryParam("next");
+        if (adminFallback) {
+          router.push(next && next.startsWith("/admin") ? next : fallback);
+        } else {
+          router.push(next && next.startsWith("/") && !next.startsWith("/admin") && !next.startsWith("/login") ? next : fallback);
+        }
+      };
       if (loginRole === "admin") {
-        const ok = login("admin@example.com");
+        const ok = login("admin@example.com", rememberMe);
         setIsLoading(false);
-        if (ok) router.push("/admin/dashboard");
+        if (ok) goNext("/admin/dashboard", true);
         else setError("Akun admin tidak ditemukan.");
         return;
       }
       const targetEmail = known ? known.email : email;
-      const success = login(targetEmail);
+      const success = login(targetEmail, rememberMe);
       setIsLoading(false);
       if (success) {
-        router.push("/dashboard");
+        try {
+          localStorage.setItem("a5_member_email", targetEmail.toLowerCase());
+        } catch {}
+        goNext("/dashboard", false);
       } else setError("Akun tidak ditemukan — coba “hisyam” atau “dudin”.");
     }, 400);
   };

@@ -6,9 +6,10 @@ import { useApp } from "@/lib/store/AppContext";
 
 export default function HomePage() {
   const router = useRouter();
-  const { currentUser } = useApp();
+  const { currentUser, isLoading } = useApp();
 
   useEffect(() => {
+    if (isLoading) return;
     if (currentUser) {
       if (currentUser.roleType === "admin") {
         router.replace("/admin/dashboard");
@@ -18,7 +19,7 @@ export default function HomePage() {
     } else {
       router.replace("/login");
     }
-  }, [currentUser, router]);
+  }, [currentUser, isLoading, router]);
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-bg-weak-50">
