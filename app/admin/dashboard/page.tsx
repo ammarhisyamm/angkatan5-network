@@ -21,7 +21,7 @@ import {
 
 const STATUS_META = [
   { status: "Available to Help", name: "Available to Help", color: "#2FA36B" },
-  { status: "Open to Collaboration", name: "Open to Collaborate", color: "#4169D8" },
+  { status: "Open to Collaboration", name: "Open to Collaborate", color: "#111827" },
   { status: "Open to Work", name: "Open to Work", color: "#E99A24" },
   { status: "Hiring", name: "Hiring", color: "#8B5CF6" },
 ];
