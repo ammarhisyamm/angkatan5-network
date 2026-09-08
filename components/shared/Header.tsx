@@ -23,13 +23,23 @@ export function Header() {
 
         <div className="flex items-center gap-2">
           {(currentUser?.roleType === "admin" || currentUser?.roleType === "superadmin") && (
-            <Link
-              href={isAdmin ? "/dashboard" : "/admin/dashboard"}
-              className="flex h-8 items-center gap-1.5 rounded-lg bg-bg-weak-50 px-2.5 text-xs font-medium text-text-sub-600 transition-colors hover:text-text-strong-950 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-base"
-            >
-              <ShieldCheckIcon size={14} weight="regular" />
-              {isAdmin ? "Member" : "Admin"}
-            </Link>
+            <div className="flex items-center gap-1 rounded-lg bg-bg-weak-50 p-1 ring-1 ring-stroke-soft-200" aria-label="Switch workspace">
+              <Link
+                href="/dashboard"
+                aria-current={!isAdmin ? "page" : undefined}
+                className={`flex h-8 items-center justify-center rounded-md px-2 text-xs font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-base ${!isAdmin ? "bg-bg-white-0 text-text-strong-950 ring-1 ring-stroke-soft-200" : "text-text-sub-600 hover:text-text-strong-950"}`}
+              >
+                Member
+              </Link>
+              <Link
+                href="/admin/dashboard"
+                aria-current={isAdmin ? "page" : undefined}
+                className={`flex h-8 items-center justify-center gap-1.5 rounded-md px-2 text-xs font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-base ${isAdmin ? "bg-bg-white-0 text-text-strong-950 ring-1 ring-stroke-soft-200" : "text-text-sub-600 hover:text-text-strong-950"}`}
+              >
+                <ShieldCheckIcon size={14} weight="regular" aria-hidden="true" />
+                Admin
+              </Link>
+            </div>
           )}
 
           {currentUser && (

@@ -150,39 +150,39 @@ export default function MyProfilePage() {
   return (
     <div className="mx-auto max-w-[1120px] space-y-6">
       {/* HERO */}
-      <div className="overflow-hidden rounded-xl border border-stroke-soft-200 bg-white shadow-none">
+      <div className="overflow-hidden rounded-xl border border-stroke-soft-200 bg-bg-white-0 shadow-none">
         <div className="h-24 w-full bg-bg-weak-50 sm:h-32" />
         <div className="p-6 sm:p-8">
           <div className="flex flex-col gap-8 lg:flex-row lg:items-start lg:justify-between">
             {/* Left: avatar + identity */}
             <div className="flex gap-5 sm:gap-6">
               <div className="relative shrink-0 -mt-12 sm:-mt-16">
-                <div className="flex size-20 sm:size-24 items-center justify-center rounded-2xl bg-zinc-100 text-xl font-semibold text-zinc-900 ring-4 ring-white shadow-sm sm:text-2xl">
+                <div className="flex size-20 sm:size-24 items-center justify-center rounded-2xl bg-bg-weak-50 text-xl font-semibold text-text-strong-950 ring-4 ring-bg-white-0 shadow-sm sm:text-2xl">
                   {currentUser.name.split(" ").slice(0, 2).map((p) => p[0]).join("").toUpperCase()}
                 </div>
               </div>
 
               <div className="min-w-0 flex-1 pt-1">
                 <div className="flex flex-wrap items-center gap-2">
-                  <h1 className="text-[30px] font-bold leading-9 tracking-tight text-[#111827]">{currentUser.name?.split(" ")[0] || "Ammar"}</h1>
+                  <h1 className="text-page-title text-text-strong-950">{currentUser.name?.split(" ")[0] || "Ammar"}</h1>
                   <StatusBadge status={currentUser.status} />
                 </div>
-                <p className="mt-1.5 text-base font-medium leading-6 text-zinc-700">{headline}</p>
-                <div className="mt-2 flex flex-wrap items-center gap-3 text-sm font-normal leading-5 text-zinc-600">
+                <p className="mt-1.5 text-base font-medium leading-6 text-text-strong-950">{headline}</p>
+                <div className="mt-2 flex flex-wrap items-center gap-3 text-sm font-normal leading-5 text-text-sub-600">
                   <span className="inline-flex items-center gap-1.5">
-                    <MapPinIcon size={14} weight="regular" className="text-zinc-400" />
+                    <MapPinIcon size={14} weight="regular" className="text-text-soft-400" aria-hidden="true" />
                     {currentUser.location || "Jakarta, Indonesia"}
                   </span>
-                  <span className="size-1 rounded-full bg-zinc-300" />
+                  <span className="size-1 rounded-full bg-stroke-soft-200" aria-hidden="true" />
                   <span className="inline-flex items-center gap-1.5">
-                    <StackIcon size={14} weight="regular" className="text-zinc-400" />
+                    <StackIcon size={14} weight="regular" className="text-text-soft-400" aria-hidden="true" />
                     {currentUser.batch || "Batch 1"}
                   </span>
-                  <span className="hidden sm:inline-flex size-1 rounded-full bg-zinc-300" />
+                  <span className="hidden sm:inline-flex size-1 rounded-full bg-stroke-soft-200" aria-hidden="true" />
                 </div>
-                <p className="mt-1 hidden sm:inline-flex items-center gap-1.5 text-xs text-zinc-500">
-                  <span className="flex size-4 items-center justify-center rounded-full bg-success-base text-white">
-                    <CheckIcon size={10} weight="bold" />
+                <p className="mt-1 hidden sm:inline-flex items-center gap-1.5 text-xs text-text-sub-600">
+                  <span className="flex size-4 items-center justify-center rounded-full bg-success-base text-static-white">
+                    <CheckIcon size={10} weight="bold" aria-hidden="true" />
                   </span>
                   {currentUser.email}
                 </p>
@@ -192,22 +192,22 @@ export default function MyProfilePage() {
             {/* Right: completion card */}
             <div className="w-full rounded-xl border border-stroke-soft-200 bg-bg-weak-50 p-5 lg:w-[320px] lg:shrink-0">
               <div className="flex items-center justify-between">
-                <p className="text-xs font-semibold tracking-wide text-zinc-500">Profile completion</p>
-                <span className="text-sm font-semibold text-[#111827]">{completion}%</span>
+                <p className="text-xs font-semibold tracking-wide text-text-sub-600">Profile completion</p>
+                <span className="text-sm font-semibold text-text-strong-950">{completion}%</span>
               </div>
-              <div className="mt-3 h-2 w-full overflow-hidden rounded-full bg-white ring-1 ring-zinc-200">
-                <div className="h-full rounded-full bg-[#2563EB] transition-[width] duration-500" style={{ width: `${completion}%` }} />
+              <div className="mt-3 h-2 w-full overflow-hidden rounded-full bg-bg-white-0 ring-1 ring-stroke-soft-200">
+                <div className="h-full rounded-full bg-primary-base transition-[width] duration-500" style={{ width: `${completion}%` }} />
               </div>
               {missingSteps.length > 0 && (
                 <ul className="mt-3 space-y-1.5">
                   {missingSteps.slice(0, 3).map((s) => (
                     <li key={s.label}>
-                      <button onClick={s.action} className="flex w-full items-center gap-2 rounded-lg px-2 py-1.5 text-left text-xs text-zinc-600 hover:bg-white hover:text-[#111827] transition-colors">
-                        <span className="flex size-4 shrink-0 items-center justify-center rounded-full border border-zinc-200 bg-white">
-                          <span className="size-1.5 rounded-full bg-zinc-300" />
+                      <button onClick={s.action} className="flex w-full items-center gap-2 rounded-lg px-2 py-1.5 text-left text-xs text-text-sub-600 hover:bg-bg-white-0 hover:text-text-strong-950 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-base">
+                        <span className="flex size-4 shrink-0 items-center justify-center rounded-full border border-stroke-soft-200 bg-bg-white-0">
+                          <span className="size-1.5 rounded-full bg-stroke-soft-200" />
                         </span>
                         {s.label}
-                        <ArrowRightIcon size={12} weight="regular" className="ml-auto text-zinc-400" />
+                        <ArrowRightIcon size={12} weight="regular" className="ml-auto text-text-soft-400" aria-hidden="true" />
                       </button>
                     </li>
                   ))}
@@ -217,24 +217,24 @@ export default function MyProfilePage() {
           </div>
 
           {/* Actions bar */}
-          <div className="mt-6 flex flex-row items-stretch gap-3 border-t border-zinc-100 pt-6 sm:items-center">
+          <div className="mt-6 flex flex-row items-stretch gap-3 border-t border-stroke-soft-200 pt-6 sm:items-center">
             <Button variant="primary" size="md" title="Edit profile" aria-label="Edit profile" className="min-w-0 flex-1 justify-center px-3 sm:flex-none sm:px-5" onClick={() => setEditingSection("personal")} icon={<PencilSimpleIcon size={16} weight="regular" />}>
               Edit profile
             </Button>
-            <Button variant="outline" size="md" title="Share profile" aria-label="Share profile" className="min-w-0 flex-1 justify-center bg-white px-3 sm:flex-none sm:px-5" onClick={() => setShowShareModal(true)} icon={<ShareNetworkIcon size={16} weight="regular" />}>
+            <Button variant="outline" size="md" title="Share profile" aria-label="Share profile" className="min-w-0 flex-1 justify-center bg-bg-white-0 px-3 sm:flex-none sm:px-5" onClick={() => setShowShareModal(true)} icon={<ShareNetworkIcon size={16} weight="regular" />}>
               Share profile
             </Button>
-            <span className="ml-auto hidden items-center gap-2 text-xs text-zinc-400 sm:inline-flex">
-              <EnvelopeSimpleIcon size={14} /> {currentUser.email}
+            <span className="ml-auto hidden items-center gap-2 text-xs text-text-soft-400 sm:inline-flex">
+              <EnvelopeSimpleIcon size={14} aria-hidden="true" /> {currentUser.email}
             </span>
           </div>
         </div>
       </div>
 
       {/* ABOUT */}
-      <div id="profile-about" className="rounded-xl border border-stroke-soft-200 bg-white p-6 shadow-none sm:p-7">
+      <div id="profile-about" className="rounded-xl border border-stroke-soft-200 bg-bg-white-0 p-6 shadow-none sm:p-7">
         <div className="flex items-center justify-between">
-          <h2 className="text-[19px] font-bold leading-7 tracking-tight text-[#111827]">About</h2>
+          <h2 className="text-section-title text-text-strong-950">About</h2>
           {editingSection === "personal" ? (
             <div className="flex items-center gap-2">
               <Button variant="ghost" size="sm" onClick={() => setEditingSection(null)}>
@@ -246,7 +246,7 @@ export default function MyProfilePage() {
               </Button>
             </div>
           ) : (
-            <Button variant="outline" size="sm" className="bg-white" onClick={() => setEditingSection("personal")}>
+            <Button variant="outline" size="sm" className="bg-bg-white-0" onClick={() => setEditingSection("personal")}>
               <PencilSimpleIcon size={12} weight="regular" className="mr-1" />
               Edit
             </Button>
@@ -286,21 +286,21 @@ export default function MyProfilePage() {
           </div>
         ) : (
           <div className="mt-3">
-            <p className={`text-[14px] leading-6 text-zinc-600 ${!showFullBio && isLongBio ? "line-clamp-3" : ""}`}>{displayBio}</p>
+            <p className={`text-body text-text-sub-600 ${!showFullBio && isLongBio ? "line-clamp-3" : ""}`}>{displayBio}</p>
             {isLongBio && (
-              <button onClick={() => setShowFullBio(!showFullBio)} className="mt-2 text-sm font-medium text-[#2563EB] hover:underline">
+              <button onClick={() => setShowFullBio(!showFullBio)} className="mt-2 text-sm font-medium text-primary-base hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-base">
                 {showFullBio ? "Show less" : "Read more"}
               </button>
             )}
             <div className="mt-4 flex flex-wrap gap-2">
-              <span className="inline-flex items-center gap-1.5 rounded-full bg-zinc-50 px-3 py-1.5 text-[13px] font-medium leading-5 text-zinc-700 ring-1 ring-zinc-200">
-                <BriefcaseIcon size={12} weight="regular" /> {currentUser.experience || "3+ years"}
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-bg-weak-50 px-3 py-1.5 text-[13px] font-medium leading-5 text-text-strong-950 ring-1 ring-stroke-soft-200">
+                <BriefcaseIcon size={12} weight="regular" aria-hidden="true" /> {currentUser.experience || "3+ years"}
               </span>
-              <span className="inline-flex items-center gap-1.5 rounded-full bg-zinc-50 px-3 py-1.5 text-[13px] font-medium leading-5 text-zinc-700 ring-1 ring-zinc-200">
-                <GlobeIcon size={12} weight="regular" /> {currentUser.industry || "Technology"}
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-bg-weak-50 px-3 py-1.5 text-[13px] font-medium leading-5 text-text-strong-950 ring-1 ring-stroke-soft-200">
+                <GlobeIcon size={12} weight="regular" aria-hidden="true" /> {currentUser.industry || "Technology"}
               </span>
-              <span className="inline-flex items-center gap-1.5 rounded-full bg-zinc-50 px-3 py-1.5 text-[13px] font-medium leading-5 text-zinc-700 ring-1 ring-zinc-200">
-                <CalendarIcon size={12} weight="regular" /> Joined {currentUser.batch || "Batch 1"}
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-bg-weak-50 px-3 py-1.5 text-[13px] font-medium leading-5 text-text-strong-950 ring-1 ring-stroke-soft-200">
+                <CalendarIcon size={12} weight="regular" aria-hidden="true" /> Joined {currentUser.batch || "Batch 1"}
               </span>
             </div>
           </div>
@@ -312,10 +312,10 @@ export default function MyProfilePage() {
         {/* Left 8 */}
         <div className="space-y-6 lg:col-span-8">
           {/* Professional */}
-          <div className="rounded-xl border border-stroke-soft-200 bg-white p-6 shadow-none sm:p-7">
+          <div className="rounded-xl border border-stroke-soft-200 bg-bg-white-0 p-6 shadow-none sm:p-7">
             <div className="flex items-center justify-between">
-              <h2 className="inline-flex items-center gap-2 text-[19px] font-bold leading-7 text-[#111827]">
-                <BriefcaseIcon size={16} weight="regular" className="text-zinc-400" />
+              <h2 className="inline-flex items-center gap-2 text-section-title text-text-strong-950">
+                <BriefcaseIcon size={16} weight="regular" className="text-text-soft-400" aria-hidden="true" />
                 Professional
               </h2>
               {editingSection === "professional" ? (
@@ -329,7 +329,7 @@ export default function MyProfilePage() {
                   </Button>
                 </div>
               ) : (
-                <Button variant="outline" size="sm" className="bg-white" onClick={() => setEditingSection("professional")}>
+                <Button variant="outline" size="sm" className="bg-bg-white-0" onClick={() => setEditingSection("professional")}>
                   <PencilSimpleIcon size={12} weight="regular" className="mr-1" />
                   Edit
                 </Button>
@@ -348,27 +348,27 @@ export default function MyProfilePage() {
               </div>
             ) : (
               <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
-                <div className="rounded-xl bg-zinc-50 p-4 ring-1 ring-zinc-200">
-                  <p className="text-xs font-medium text-zinc-500">Role</p>
-                  <p className="mt-1 text-sm font-semibold text-[#111827]">{currentUser.role || "—"}</p>
-                  <p className="text-xs text-zinc-500">{currentUser.company || "—"}</p>
+                <div className="rounded-xl bg-bg-weak-50 p-4 ring-1 ring-stroke-soft-200">
+                  <p className="text-xs font-medium text-text-sub-600">Role</p>
+                  <p className="mt-1 text-sm font-semibold text-text-strong-950">{currentUser.role || "—"}</p>
+                  <p className="text-xs text-text-sub-600">{currentUser.company || "—"}</p>
                 </div>
-                <div className="rounded-xl bg-zinc-50 p-4 ring-1 ring-zinc-200">
-                  <p className="text-xs font-medium text-zinc-500">Focus</p>
-                  <p className="mt-1 text-sm font-semibold text-[#111827]">{currentUser.industry}</p>
-                  <p className="text-xs text-zinc-500">{currentUser.experience}</p>
+                <div className="rounded-xl bg-bg-weak-50 p-4 ring-1 ring-stroke-soft-200">
+                  <p className="text-xs font-medium text-text-sub-600">Focus</p>
+                  <p className="mt-1 text-sm font-semibold text-text-strong-950">{currentUser.industry}</p>
+                  <p className="text-xs text-text-sub-600">{currentUser.experience}</p>
                 </div>
               </div>
             )}
           </div>
 
           {/* Skills */}
-          <div id="profile-skills" className="rounded-xl border border-stroke-soft-200 bg-white p-6 shadow-none sm:p-7">
+          <div id="profile-skills" className="rounded-xl border border-stroke-soft-200 bg-bg-white-0 p-6 shadow-none sm:p-7">
             <div className="flex items-center justify-between">
-              <h2 className="inline-flex items-center gap-2 text-[19px] font-bold leading-7 text-[#111827]">
-                <StackIcon size={16} weight="regular" className="text-zinc-400" />
+              <h2 className="inline-flex items-center gap-2 text-section-title text-text-strong-950">
+                <StackIcon size={16} weight="regular" className="text-text-soft-400" aria-hidden="true" />
                 Skills
-                <span className="ml-1 rounded-md bg-zinc-100 px-1.5 py-0.5 text-xs font-medium text-zinc-600">{skills.length}</span>
+                <span className="ml-1 rounded-md bg-bg-weak-50 px-1.5 py-0.5 text-xs font-medium text-text-sub-600 ring-1 ring-stroke-soft-200">{skills.length}</span>
               </h2>
               {editingSection === "skills" ? (
                 <div className="flex items-center gap-2">
@@ -381,7 +381,7 @@ export default function MyProfilePage() {
                   </Button>
                 </div>
               ) : (
-                <Button variant="outline" size="sm" className="bg-white" onClick={() => setEditingSection("skills")}>
+                <Button variant="outline" size="sm" className="bg-bg-white-0" onClick={() => setEditingSection("skills")}>
                   <PencilSimpleIcon size={12} weight="regular" className="mr-1" />
                   Edit
                 </Button>
@@ -399,7 +399,7 @@ export default function MyProfilePage() {
                         type="button"
                         onClick={() => handleToggleSkill(sk)}
                         className={`inline-flex items-center justify-center gap-1.5 rounded-full px-3.5 py-2 text-xs font-medium ring-1 transition-colors ${
-                          isSelected ? "bg-[#111827] text-white ring-[#111827]" : "bg-white text-zinc-600 ring-zinc-200 hover:bg-zinc-50"
+                          isSelected ? "bg-primary-base text-static-white ring-primary-base" : "bg-bg-white-0 text-text-sub-600 ring-stroke-soft-200 hover:bg-bg-weak-50"
                         }`}
                       >
                         {isSelected ? <CheckIcon size={12} weight="bold" /> : <PlusIcon size={10} weight="regular" />}
@@ -419,12 +419,12 @@ export default function MyProfilePage() {
               <div className="mt-4 flex flex-wrap gap-2">
                 {skills.length ? (
                   skills.map((sk) => (
-                    <span key={sk} className="inline-flex items-center rounded-full bg-white px-3 py-1.5 text-[13px] font-medium leading-5 text-zinc-700 ring-1 ring-zinc-200">
+                    <span key={sk} className="inline-flex items-center rounded-full bg-bg-white-0 px-3 py-1.5 text-[13px] font-medium leading-5 text-text-strong-950 ring-1 ring-stroke-soft-200">
                       {sk}
                     </span>
                   ))
                 ) : (
-                  <p className="text-sm text-zinc-500">Add skills to help others find you. Try “Design Systems”, “React”, “Finance”.</p>
+                  <p className="text-sm text-text-sub-600">Add skills to help others find you. Try “Design Systems”, “React”, “Finance”.</p>
                 )}
               </div>
             )}
@@ -434,10 +434,10 @@ export default function MyProfilePage() {
         {/* Right 4 */}
         <div className="space-y-6 lg:col-span-4">
           {/* Availability */}
-          <div className="rounded-xl border border-stroke-soft-200 bg-white p-6 shadow-none">
+          <div className="rounded-xl border border-stroke-soft-200 bg-bg-white-0 p-6 shadow-none">
             <div className="flex items-center justify-between">
-              <h3 className="inline-flex items-center gap-2 text-[19px] font-bold leading-7 text-[#111827]">
-                <ShieldIcon size={16} weight="regular" className="text-zinc-400" />
+              <h3 className="inline-flex items-center gap-2 text-card-title text-text-strong-950">
+                <ShieldIcon size={16} weight="regular" className="text-text-soft-400" aria-hidden="true" />
                 Availability
               </h3>
               {editingSection === "availability" ? (
@@ -450,7 +450,7 @@ export default function MyProfilePage() {
                   </Button>
                 </div>
               ) : (
-                <Button variant="outline" size="sm" className="bg-white" onClick={() => setEditingSection("availability")}>
+                <Button variant="outline" size="sm" className="bg-bg-white-0" onClick={() => setEditingSection("availability")}>
                   <PencilSimpleIcon size={12} weight="regular" className="mr-1" />
                   Edit
                 </Button>
@@ -461,7 +461,7 @@ export default function MyProfilePage() {
               <div className="mt-4 space-y-4">
                 <Select label="Current Status" value={status} onValueChange={(v) => setStatus(v as UserStatus)} items={["Available to Help", "Open to Work", "Open to Collaboration", "Hiring"].map((v) => ({ label: v, value: v }))} />
                 <div>
-                  <label className="mb-2 block text-xs font-semibold text-zinc-500">Looking For</label>
+                  <label className="mb-2 block text-xs font-semibold text-text-sub-600">Looking For</label>
                   <div className="flex flex-wrap gap-2">
                     {LOOKING_FOR_OPTIONS.map((item) => (
                       <button
@@ -469,7 +469,7 @@ export default function MyProfilePage() {
                         type="button"
                         onClick={() => handleToggleLooking(item)}
                         className={`inline-flex items-center justify-center gap-1.5 rounded-full px-3 py-2 text-xs font-medium ring-1 transition-colors ${
-                          lookingFor.includes(item) ? "bg-[#111827] text-white ring-[#111827]" : "bg-white text-zinc-600 ring-zinc-200"
+                          lookingFor.includes(item) ? "bg-primary-base text-static-white ring-primary-base" : "bg-bg-white-0 text-text-sub-600 ring-stroke-soft-200"
                         }`}
                       >
                         {lookingFor.includes(item) && <CheckIcon size={12} weight="bold" />}
@@ -479,7 +479,7 @@ export default function MyProfilePage() {
                   </div>
                 </div>
                 <div>
-                  <label className="mb-2 block text-xs font-semibold text-zinc-500">Can Offer</label>
+                  <label className="mb-2 block text-xs font-semibold text-text-sub-600">Can Offer</label>
                   <div className="flex flex-wrap gap-2">
                     {CAN_OFFER_OPTIONS.map((item) => (
                       <button
@@ -487,7 +487,7 @@ export default function MyProfilePage() {
                         type="button"
                         onClick={() => handleToggleOffer(item)}
                         className={`inline-flex items-center justify-center gap-1.5 rounded-full px-3 py-2 text-xs font-medium ring-1 transition-colors ${
-                          canOffer.includes(item) ? "bg-[#111827] text-white ring-[#111827]" : "bg-white text-zinc-600 ring-zinc-200"
+                          canOffer.includes(item) ? "bg-primary-base text-static-white ring-primary-base" : "bg-bg-white-0 text-text-sub-600 ring-stroke-soft-200"
                         }`}
                       >
                         {canOffer.includes(item) && <CheckIcon size={12} weight="bold" />}
@@ -500,21 +500,21 @@ export default function MyProfilePage() {
             ) : (
               <div className="mt-4 space-y-4">
                 <div>
-                  <p className="text-xs font-medium text-zinc-500">Status</p>
+                  <p className="text-xs font-medium text-text-sub-600">Status</p>
                   <div className="mt-1.5">
                     <StatusBadge status={currentUser.status} />
                   </div>
                 </div>
                 <div>
-                  <p className="text-xs font-medium text-zinc-500">Looking for</p>
+                  <p className="text-xs font-medium text-text-sub-600">Looking for</p>
                   <div className="mt-1.5 flex flex-wrap gap-1.5">
-                    {currentUser.lookingFor?.length ? currentUser.lookingFor.map((l) => <Badge key={l} variant="secondary" className="bg-zinc-50">{l}</Badge>) : <span className="text-xs text-zinc-400">—</span>}
+                    {currentUser.lookingFor?.length ? currentUser.lookingFor.map((l) => <Badge key={l} variant="secondary" className="bg-bg-weak-50">{l}</Badge>) : <span className="text-xs text-text-soft-400">—</span>}
                   </div>
                 </div>
                 <div>
-                  <p className="text-xs font-medium text-zinc-500">Can offer</p>
+                  <p className="text-xs font-medium text-text-sub-600">Can offer</p>
                   <div className="mt-1.5 flex flex-wrap gap-1.5">
-                    {currentUser.canOffer?.length ? currentUser.canOffer.map((c) => <Badge key={c} variant="secondary" className="bg-zinc-50">{c}</Badge>) : <span className="text-xs text-zinc-400">—</span>}
+                    {currentUser.canOffer?.length ? currentUser.canOffer.map((c) => <Badge key={c} variant="secondary" className="bg-bg-weak-50">{c}</Badge>) : <span className="text-xs text-text-soft-400">—</span>}
                   </div>
                 </div>
               </div>
@@ -522,10 +522,10 @@ export default function MyProfilePage() {
           </div>
 
           {/* Social */}
-          <div id="profile-social" className="rounded-xl border border-stroke-soft-200 bg-white p-6 shadow-none">
+          <div id="profile-social" className="rounded-xl border border-stroke-soft-200 bg-bg-white-0 p-6 shadow-none">
             <div className="flex items-center justify-between">
-              <h3 className="inline-flex items-center gap-2 text-[19px] font-bold leading-7 text-[#111827]">
-                <GlobeIcon size={16} weight="regular" className="text-zinc-400" />
+              <h3 className="inline-flex items-center gap-2 text-card-title text-text-strong-950">
+                <GlobeIcon size={16} weight="regular" className="text-text-soft-400" aria-hidden="true" />
                 Social
               </h3>
               {editingSection === "links" ? (
@@ -538,7 +538,7 @@ export default function MyProfilePage() {
                   </Button>
                 </div>
               ) : (
-                <Button variant="outline" size="sm" className="bg-white" onClick={() => setEditingSection("links")}>
+                <Button variant="outline" size="sm" className="bg-bg-white-0" onClick={() => setEditingSection("links")}>
                   <PencilSimpleIcon size={12} weight="regular" className="mr-1" />
                   Edit
                 </Button>
@@ -554,30 +554,30 @@ export default function MyProfilePage() {
             ) : (
               <div className="mt-4 space-y-2">
                 {currentUser.linkedin && (
-                  <a href={currentUser.linkedin} target="_blank" rel="noopener noreferrer" className="flex items-center justify-between rounded-xl bg-zinc-50 p-3 ring-1 ring-zinc-200 hover:bg-white transition-colors">
-                    <span className="inline-flex items-center gap-2 text-sm font-medium text-zinc-700">
-                      <GlobeIcon size={14} /> LinkedIn
+                  <a href={currentUser.linkedin} target="_blank" rel="noopener noreferrer" className="flex items-center justify-between rounded-xl bg-bg-weak-50 p-3 ring-1 ring-stroke-soft-200 hover:bg-bg-white-0 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-base">
+                    <span className="inline-flex items-center gap-2 text-sm font-medium text-text-strong-950">
+                      <GlobeIcon size={14} aria-hidden="true" /> LinkedIn
                     </span>
-                    <ArrowRightIcon size={14} className="text-zinc-400" />
+                    <ArrowRightIcon size={14} className="text-text-soft-400" aria-hidden="true" />
                   </a>
                 )}
                 {currentUser.portfolio && (
-                  <a href={currentUser.portfolio} target="_blank" rel="noopener noreferrer" className="flex items-center justify-between rounded-xl bg-zinc-50 p-3 ring-1 ring-zinc-200 hover:bg-white transition-colors">
-                    <span className="inline-flex items-center gap-2 text-sm font-medium text-zinc-700">
-                      <GlobeIcon size={14} /> Portfolio
+                  <a href={currentUser.portfolio} target="_blank" rel="noopener noreferrer" className="flex items-center justify-between rounded-xl bg-bg-weak-50 p-3 ring-1 ring-stroke-soft-200 hover:bg-bg-white-0 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-base">
+                    <span className="inline-flex items-center gap-2 text-sm font-medium text-text-strong-950">
+                      <GlobeIcon size={14} aria-hidden="true" /> Portfolio
                     </span>
-                    <ArrowRightIcon size={14} className="text-zinc-400" />
+                    <ArrowRightIcon size={14} className="text-text-soft-400" aria-hidden="true" />
                   </a>
                 )}
                 {currentUser.website && (
-                  <a href={currentUser.website} target="_blank" rel="noopener noreferrer" className="flex items-center justify-between rounded-xl bg-zinc-50 p-3 ring-1 ring-zinc-200 hover:bg-white transition-colors">
-                    <span className="inline-flex items-center gap-2 text-sm font-medium text-zinc-700">
-                      <GlobeIcon size={14} /> Website
+                  <a href={currentUser.website} target="_blank" rel="noopener noreferrer" className="flex items-center justify-between rounded-xl bg-bg-weak-50 p-3 ring-1 ring-stroke-soft-200 hover:bg-bg-white-0 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-base">
+                    <span className="inline-flex items-center gap-2 text-sm font-medium text-text-strong-950">
+                      <GlobeIcon size={14} aria-hidden="true" /> Website
                     </span>
-                    <ArrowRightIcon size={14} className="text-zinc-400" />
+                    <ArrowRightIcon size={14} className="text-text-soft-400" aria-hidden="true" />
                   </a>
                 )}
-                {!currentUser.linkedin && !currentUser.portfolio && !currentUser.website && <p className="text-sm text-zinc-500">No links yet. Add LinkedIn or portfolio to get discovered.</p>}
+                {!currentUser.linkedin && !currentUser.portfolio && !currentUser.website && <p className="text-sm text-text-sub-600">No links yet. Add LinkedIn or portfolio to get discovered.</p>}
               </div>
             )}
           </div>
@@ -588,11 +588,11 @@ export default function MyProfilePage() {
       {/* Danger zone — subtle */}
       <div className="flex flex-col gap-4 rounded-2xl border border-red-200 bg-red-50 px-4 py-5 sm:flex-row sm:items-center sm:justify-between sm:px-6 sm:py-4">
         <div className="min-w-0">
-          <p className="text-[19px] font-bold leading-7 text-red-700">Danger zone</p>
-          <p className="max-w-prose text-[13px] leading-5 text-red-600">Export or delete your profile data.</p>
+          <p className="text-card-title font-bold text-error-dark">Danger zone</p>
+          <p className="max-w-prose text-[13px] leading-5 text-error-base">Export or delete your profile data.</p>
         </div>
         <div className="grid w-full grid-cols-2 gap-2 sm:flex sm:w-auto sm:items-center">
-          <Button variant="outline" size="sm" title="Export data" aria-label="Export data" className="w-full bg-white sm:w-auto" onClick={() => addToast("Coming soon", "Data export not yet implemented", "info")} icon={<DownloadSimpleIcon size={16} weight="regular" />}>
+          <Button variant="outline" size="sm" title="Export data" aria-label="Export data" className="w-full bg-bg-white-0 sm:w-auto" onClick={() => addToast("Coming soon", "Data export not yet implemented", "info")} icon={<DownloadSimpleIcon size={16} weight="regular" />}>
             Export Data
           </Button>
           <Button variant="danger" size="sm" title="Delete profile" aria-label="Delete profile" className="w-full sm:w-auto" onClick={() => addToast("Coming soon", "Account deletion not yet implemented", "info")} icon={<TrashSimpleIcon size={16} weight="regular" />}>
@@ -634,12 +634,12 @@ export default function MyProfilePage() {
       <Modal isOpen={showShareModal} onClose={() => setShowShareModal(false)} title="Share profile" description="Copy your profile link" centered maxWidth="sm">
         <div className="space-y-4">
           <div className="flex items-center justify-center py-2">
-            <div className="flex size-12 items-center justify-center rounded-2xl bg-zinc-50 ring-1 ring-zinc-200">
-              <ShareNetworkIcon size={20} weight="regular" className="text-zinc-700" />
+            <div className="flex size-12 items-center justify-center rounded-2xl bg-bg-weak-50 ring-1 ring-stroke-soft-200">
+              <ShareNetworkIcon size={20} weight="regular" className="text-text-strong-950" aria-hidden="true" />
             </div>
           </div>
-          <div className="flex items-center gap-2 rounded-xl bg-zinc-50 p-3 ring-1 ring-zinc-200">
-            <span className="min-w-0 flex-1 truncate text-sm text-zinc-700">{typeof window !== "undefined" ? window.location.href : ""}</span>
+          <div className="flex items-center gap-2 rounded-xl bg-bg-weak-50 p-3 ring-1 ring-stroke-soft-200">
+            <span className="min-w-0 flex-1 truncate text-sm text-text-strong-950">{typeof window !== "undefined" ? window.location.href : ""}</span>
           </div>
           <div className="flex justify-end gap-3">
             <Button variant="outline" size="md" onClick={() => setShowShareModal(false)} className="px-5">
@@ -651,35 +651,6 @@ export default function MyProfilePage() {
           </div>
         </div>
       </Modal>
-    </div>
-  );
-}
-
-function Select({
-  label,
-  value,
-  onValueChange,
-  items,
-}: {
-  label: string;
-  value: string;
-  onValueChange: (v: string) => void;
-  items: { label: string; value: string }[];
-}) {
-  return (
-    <div className="space-y-1.5">
-      <label className="text-xs font-semibold text-zinc-500">{label}</label>
-      <select
-        value={value}
-        onChange={(e) => onValueChange(e.target.value)}
-        className="w-full h-10 rounded-xl border border-zinc-200 bg-white px-3 text-sm text-[#111827] outline-none focus:border-[#2563EB] focus:ring-2 focus:ring-[#2563EB]/15"
-      >
-        {items.map((item) => (
-          <option key={item.value} value={item.value}>
-            {item.label}
-          </option>
-        ))}
-      </select>
     </div>
   );
 }
