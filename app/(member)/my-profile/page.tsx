@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/Button";
 import { Avatar } from "@/components/ui/Avatar";
 import { Badge, StatusBadge } from "@/components/ui/Badge";
 import { Modal, ConfirmModal } from "@/components/ui/Modal";
+import { Select } from "@/components/ui/Select";
 import {
   UserIcon,
   BriefcaseIcon,
