@@ -169,7 +169,7 @@ export default function AdminMembersPage() {
                   <input type="checkbox" checked={isAllPageSelected} onChange={toggleSelectAllPage} aria-label="Select all on page" className="size-4 rounded border-stroke-soft-200 text-primary-base focus:ring-primary-base" />
                 </Table.Head>
                 <Table.Head>Member</Table.Head>
-                <Table.Head>Role & Company</Table.Head>
+                <Table.Head className="hidden sm:table-cell">Role & Company</Table.Head>
                 <Table.Head className="hidden md:table-cell">Top Skills</Table.Head>
                 <Table.Head>Access</Table.Head>
                 <Table.Head>Status</Table.Head>
@@ -196,7 +196,7 @@ export default function AdminMembersPage() {
                       </div>
                     </div>
                   </Table.Cell>
-                  <Table.Cell>
+                  <Table.Cell className="hidden sm:table-cell">
                     <span className="text-sm font-medium text-text-strong-950 block">{member.role}</span>
                     <span className="text-xs text-text-sub-600 block">{member.company}</span>
                   </Table.Cell>

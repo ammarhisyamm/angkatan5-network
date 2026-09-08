@@ -88,8 +88,8 @@ function SidebarInner() {
       <aside className={`hidden shrink-0 flex-col border-r border-stroke-soft-200 bg-bg-white-0 lg:flex ${isCollapsed ? "w-[72px]" : "w-60"}`}>
         <div className="flex h-full w-full flex-col">
           <div className={`flex flex-col gap-4 border-b border-stroke-soft-200 px-4 py-4 ${isCollapsed ? "items-center px-2" : ""}`}>
-            <div className="flex items-center justify-between gap-2">
-              <Link href={isAdminSection ? "/admin/dashboard" : "/dashboard"} aria-label="A5 Network" className="flex min-w-0 items-center gap-3 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-base">
+            <div className={`flex items-center gap-2 ${isCollapsed ? "w-full flex-col justify-center" : "justify-between"}`}>
+              <Link href={isAdminSection ? "/admin/dashboard" : "/dashboard"} aria-label="A5 Network" className={`flex min-w-0 items-center gap-3 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-base ${isCollapsed ? "flex-none justify-center" : "flex-1"}`}>
                 <span className="grid size-8 shrink-0 grid-cols-2 place-content-center gap-1 rounded-lg bg-primary-base p-2">
                   {[1,2,3,4].map((dot) => <span key={dot} className="size-1.5 rounded-full bg-white" />)}
                 </span>
