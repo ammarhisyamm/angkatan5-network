@@ -105,14 +105,14 @@ export default function AdminSkillsPage() {
     <div className="space-y-6">
       <PageHeader title="Skill management" description="Organize and standardize the skills available to the Angkatan 5 talent pool." />
 
-      {/* Add New Skill */}
+      {/* Add skill */}
       <LayerCard className="p-4 sm:p-5">
-        <h3 className="text-card-title text-text-strong-950 mb-3">Add New Skill</h3>
-        <div className="flex flex-col sm:flex-row items-start gap-3">
-          <Input aria-label="New skill name" placeholder="Enter skill name…" value={newSkillName} onChange={(e) => setNewSkillName(e.target.value)}
-            onKeyDown={(e) => { if (e.key === "Enter") handleAddSkill(); }} className="flex-1" />
-          <Select label="Skill category" value={newSkillCategory} onValueChange={(value) => setNewSkillCategory(value as SkillCategory)} items={FIELD_CATEGORIES.map((cat) => ({ value: cat, label: cat }))} className="w-full sm:w-56" />
-          <Button variant="primary" size="md" onClick={handleAddSkill} disabled={!newSkillName.trim()} icon={<PlusIcon size={16} weight="bold" />} className="w-full sm:w-auto justify-center">Add Skill</Button>
+        <h3 className="mb-3 text-card-title text-text-strong-950">Add a skill</h3>
+        <div className="grid items-end gap-3 sm:grid-cols-[minmax(0,1fr)_224px_auto]">
+          <Input label="Skill name" aria-label="New skill name" placeholder="Enter skill name…" value={newSkillName} onChange={(e) => setNewSkillName(e.target.value)}
+            onKeyDown={(e) => { if (e.key === "Enter") handleAddSkill(); }} />
+          <Select label="Skill category" value={newSkillCategory} onValueChange={(value) => setNewSkillCategory(value as SkillCategory)} items={FIELD_CATEGORIES.map((cat) => ({ value: cat, label: cat }))} className="w-full" />
+          <Button variant="primary" size="md" onClick={handleAddSkill} disabled={!newSkillName.trim()} icon={<PlusIcon size={16} weight="bold" />} className="w-full justify-center sm:w-auto">Add skill</Button>
         </div>
       </LayerCard>
 
