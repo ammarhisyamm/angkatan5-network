@@ -5,7 +5,7 @@ import { AppProvider } from "@/lib/store/AppContext";
 import { ToastContainer } from "@/components/ui/ToastContainer";
 
 export const metadata: Metadata = {
-  title: "Angkatan 5 Network — Private Community Talent Network",
+  title: "Angkatan 5 Network - Private Community Talent Network",
   description:
     "Discover skills, professional backgrounds, career opportunities, and collaboration partners across Angkatan 5 SMP & IHBS.",
   icons: {

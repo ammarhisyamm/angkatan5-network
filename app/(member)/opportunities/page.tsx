@@ -79,11 +79,9 @@ export default function OpportunitiesPage() {
   return (
     <div className="space-y-6 sm:space-y-8 lg:space-y-10">
       <PageHeader
-        eyebrow="Community Board"
-        icon={BriefcaseIcon}
         title="Opportunities"
         description="Discover jobs, collaborations, freelance projects, and other opportunities shared by the community."
-        actions={<Link href="/opportunities/create" className="w-full sm:w-auto"><Button variant="primary" size="md" className="w-full justify-center"><PlusCircleIcon size={16} weight="regular" />Share Opportunity</Button></Link>}
+        actions={<Link href="/opportunities/create" className="w-full sm:w-auto"><Button variant="primary" size="sm" className="w-full justify-center"><PlusCircleIcon size={15} weight="regular" />Share Opportunity</Button></Link>}
       />
 
       {/* MagnifyingGlassIcon and Saved Toggle Bar — shared AlignUI input */}

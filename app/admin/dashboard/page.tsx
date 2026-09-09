@@ -11,7 +11,6 @@ import dynamic from "next/dynamic";
 const MemberGrowthChart = dynamic(() => import("@/components/charts/MemberGrowthChart"), { ssr: false, loading: () => <div className="h-56 animate-pulse rounded-lg bg-bg-weak-50" /> });
 const TopSkillsChart = dynamic(() => import("@/components/charts/TopSkillsChart"), { ssr: false, loading: () => <div className="h-56 animate-pulse rounded-lg bg-bg-weak-50" /> });
 import {
-  ShieldCheckIcon,
   UsersIcon,
   BriefcaseIcon,
   WarningCircleIcon,
@@ -41,8 +40,6 @@ export default function AdminDashboardPage() {
   return (
     <div className="space-y-6">
       <PageHeader
-        eyebrow="Community Overview"
-        icon={ShieldCheckIcon}
         title="Dashboard"
         description="Manage members, review opportunities, and track skill growth."
         actions={<><Link href="/admin/members"><Button variant="secondary" size="sm" icon={<UsersIcon size={14} />}>Members</Button></Link><Link href="/admin/opportunities"><Button variant="primary" size="sm" icon={<BriefcaseIcon size={14} />}>Moderate</Button></Link></>}

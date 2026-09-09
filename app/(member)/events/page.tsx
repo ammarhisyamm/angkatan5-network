@@ -57,11 +57,9 @@ export default function EventsPage() {
   return (
     <div className="space-y-6 sm:space-y-8 lg:space-y-10">
       <PageHeader
-        eyebrow="Community Events"
-        icon={CalendarBlankIcon}
         title="Events"
         description="Join sports, webinars, meetups, and hangouts with the community."
-        actions={<Link href="/events/create" className="w-full sm:w-auto"><Button variant="primary" size="md" className="w-full justify-center"><PlusCircleIcon size={16} weight="regular" />Create Event</Button></Link>}
+        actions={<Link href="/events/create" className="w-full sm:w-auto"><Button variant="primary" size="sm" className="w-full justify-center"><PlusCircleIcon size={15} weight="regular" />Create Event</Button></Link>}
       />
 
       <div className="flex flex-col sm:flex-row gap-3">
@@ -102,7 +100,7 @@ export default function EventsPage() {
           <EmptyState
             icon={CalendarBlankIcon}
             title={timeFilter === "Upcoming" ? "No upcoming events" : "No past events"}
-            description="Be the first to gather the community — sports, webinars, or just coffee."
+            description="Be the first to gather the community for sports, webinars, or coffee."
             action={
               <Link href="/events/create">
                 <Button variant="primary" size="sm">

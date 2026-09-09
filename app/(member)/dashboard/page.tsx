@@ -104,7 +104,7 @@ export default function MemberDashboardPage() {
         <div className="mb-4 flex items-end justify-between gap-4">
           <div>
             <h2 id="upcoming-events-heading" className="text-section-title text-text-strong-950">Upcoming Events</h2>
-            <p className="mt-0.5 text-body text-text-sub-600">Sports, webinars, and hangouts — reserve your spot.</p>
+            <p className="mt-0.5 text-body text-text-sub-600">Sports, webinars, and hangouts. Reserve your spot.</p>
           </div>
           <Link href="/events" className="shrink-0">
             <Button variant="secondary" size="sm">View All <ArrowRightIcon size={14} weight="regular" /></Button>
@@ -119,7 +119,7 @@ export default function MemberDashboardPage() {
         ) : (
           <LayerCard className="flex items-center gap-3 p-5">
             <CalendarBlankIcon size={20} weight="regular" className="shrink-0 text-text-soft-400" />
-            <p className="text-sm text-text-sub-600">No upcoming events yet — <Link href="/events/create" className="font-medium text-primary-base hover:underline">create one</Link>.</p>
+            <p className="text-sm text-text-sub-600">No upcoming events yet. <Link href="/events/create" className="font-medium text-primary-base hover:underline">Create one</Link>.</p>
           </LayerCard>
         )}
       </section>

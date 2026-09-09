@@ -9,7 +9,7 @@ import { Select } from "@/components/ui/Select";
 import { LayerCard } from "@/components/ui/Surface";
 import { Modal } from "@/components/ui/Modal";
 import { PageHeader } from "@/components/ui/PageHeader";
-import { StackIcon, PlusIcon, DotsThreeVerticalIcon, PencilSimpleIcon, ArrowsMergeIcon, TrashIcon, MagnifyingGlassIcon, CodeIcon, PaletteIcon, BriefcaseIcon, MegaphoneIcon, BankIcon, FilmSlateIcon, DotsThreeIcon } from "@phosphor-icons/react";
+import { PlusIcon, DotsThreeVerticalIcon, PencilSimpleIcon, ArrowsMergeIcon, TrashIcon, MagnifyingGlassIcon, CodeIcon, PaletteIcon, BriefcaseIcon, MegaphoneIcon, BankIcon, FilmSlateIcon, DotsThreeIcon } from "@phosphor-icons/react";
 
 const FIELD_CATEGORIES: SkillCategory[] = ["Design", "Technology", "Business", "Marketing", "Finance", "Media & Creative", "Other"];
 
@@ -103,7 +103,7 @@ export default function AdminSkillsPage() {
 
   return (
     <div className="space-y-6">
-      <PageHeader eyebrow="Skill Taxonomy" icon={StackIcon} title="Skill Management" description="Organize and standardize the skills available to the Angkatan 5 talent pool." />
+      <PageHeader title="Skill management" description="Organize and standardize the skills available to the Angkatan 5 talent pool." />
 
       {/* Add New Skill */}
       <LayerCard className="p-4 sm:p-5">

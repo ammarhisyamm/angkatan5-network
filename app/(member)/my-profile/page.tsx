@@ -351,8 +351,8 @@ export default function MyProfilePage() {
               <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
                 <div className="rounded-10 bg-bg-weak-50 p-4 ring-1 ring-stroke-soft-200">
                   <p className="text-xs font-medium text-text-sub-600">Role</p>
-                  <p className="mt-1 text-sm font-semibold text-text-strong-950">{currentUser.role || "—"}</p>
-                  <p className="text-xs text-text-sub-600">{currentUser.company || "—"}</p>
+                  <p className="mt-1 text-sm font-semibold text-text-strong-950">{currentUser.role || "Not provided"}</p>
+                  <p className="text-xs text-text-sub-600">{currentUser.company || "Not provided"}</p>
                 </div>
                 <div className="rounded-10 bg-bg-weak-50 p-4 ring-1 ring-stroke-soft-200">
                   <p className="text-xs font-medium text-text-sub-600">Focus</p>
@@ -509,13 +509,13 @@ export default function MyProfilePage() {
                 <div>
                   <p className="text-xs font-medium text-text-sub-600">Looking for</p>
                   <div className="mt-1.5 flex flex-wrap gap-1.5">
-                    {currentUser.lookingFor?.length ? currentUser.lookingFor.map((l) => <Badge key={l} variant="secondary" className="bg-bg-weak-50">{l}</Badge>) : <span className="text-xs text-text-soft-400">—</span>}
+                    {currentUser.lookingFor?.length ? currentUser.lookingFor.map((l) => <Badge key={l} variant="secondary" className="bg-bg-weak-50">{l}</Badge>) : <span className="text-xs text-text-soft-400">None added</span>}
                   </div>
                 </div>
                 <div>
                   <p className="text-xs font-medium text-text-sub-600">Can offer</p>
                   <div className="mt-1.5 flex flex-wrap gap-1.5">
-                    {currentUser.canOffer?.length ? currentUser.canOffer.map((c) => <Badge key={c} variant="secondary" className="bg-bg-weak-50">{c}</Badge>) : <span className="text-xs text-text-soft-400">—</span>}
+                    {currentUser.canOffer?.length ? currentUser.canOffer.map((c) => <Badge key={c} variant="secondary" className="bg-bg-weak-50">{c}</Badge>) : <span className="text-xs text-text-soft-400">None added</span>}
                   </div>
                 </div>
               </div>

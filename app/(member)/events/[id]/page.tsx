@@ -150,7 +150,7 @@ export default function EventDetailPage() {
               isJoined ? (
                 <Button variant="outline" size="md" onClick={() => leaveEvent(event.id)} className="w-full sm:w-auto justify-center">
                   <CheckCircleIcon size={16} weight="fill" className="mr-1 text-success-base" />
-                  Joined — Leave
+                  Joined. Leave
                 </Button>
               ) : (
                 <Button
@@ -203,7 +203,7 @@ export default function EventDetailPage() {
               )}
             </div>
           ) : (
-            <p className="mt-3 text-sm text-text-sub-600">No RSVPs yet — be the first to join.</p>
+            <p className="mt-3 text-sm text-text-sub-600">No RSVPs yet. Be the first to join.</p>
           )}
         </div>
       </div>

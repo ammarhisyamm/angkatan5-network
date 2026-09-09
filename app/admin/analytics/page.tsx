@@ -6,7 +6,6 @@ import { LayerCard } from "@/components/ui/Surface";
 import dynamic from "next/dynamic";
 const IndustryChart = dynamic(() => import("@/components/charts/IndustryChart"), { ssr: false, loading: () => <div className="h-64 animate-pulse rounded-lg bg-bg-weak-50" /> });
 const ExperienceChart = dynamic(() => import("@/components/charts/ExperienceChart"), { ssr: false, loading: () => <div className="h-64 animate-pulse rounded-lg bg-bg-weak-50" /> });
-import { ChartBarIcon } from "@phosphor-icons/react";
 import { PageHeader, SectionHeading } from "@/components/ui/PageHeader";
 import { StatCard } from "@/components/ui/StatCard";
 
@@ -22,7 +21,7 @@ export default function AdminAnalyticsPage() {
 
   return (
     <div className="space-y-8">
-      <PageHeader eyebrow="Talent Analytics" icon={ChartBarIcon} title="Community Analytics & Insights" description="In-depth reports on industry distribution, seniority levels, and talent engagement." />
+      <PageHeader title="Community analytics" description="Industry distribution, experience levels, and member engagement." />
 
       {/* Top Level Numbers */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">

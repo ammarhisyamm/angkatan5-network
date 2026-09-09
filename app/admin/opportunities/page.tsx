@@ -11,7 +11,7 @@ import { Table } from "@/components/ui/Table";
 import { LayerCard } from "@/components/ui/Surface";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { SegmentedControl } from "@/components/ui/SegmentedControl";
-import { CheckCircleIcon, ClockCounterClockwiseIcon, UsersIcon, ArrowRightIcon, ArchiveIcon, PlusIcon } from "@phosphor-icons/react";
+import { CheckCircleIcon, ClockCounterClockwiseIcon, ArrowRightIcon, ArchiveIcon, PlusIcon } from "@phosphor-icons/react";
 
 const TABS = [
   { id: "Pending" as const, label: "Pending Review", icon: ClockCounterClockwiseIcon, count: (o: Opportunity[]) => o.filter(i => i.status === "Pending").length },
@@ -75,7 +75,7 @@ export default function AdminOpportunitiesPage() {
 
   return (
     <div className="space-y-6">
-      <PageHeader eyebrow="Moderation Console" icon={UsersIcon} title="Opportunities" description="Review, approve, and manage community opportunity posts." actions={<Link href="/opportunities/new"><Button variant="primary" size="md" icon={<PlusIcon size={16} weight="bold" />} className="w-full sm:w-auto justify-center">New Opportunity</Button></Link>} />
+      <PageHeader title="Opportunities" description="Review, approve, and manage community opportunity posts." actions={<Link href="/opportunities/create"><Button variant="primary" size="sm" icon={<PlusIcon size={15} weight="bold" />} className="w-full justify-center sm:w-auto">New Opportunity</Button></Link>} />
 
       {/* Tabs */}
       <SegmentedControl value={activeTab} onValueChange={setActiveTab} ariaLabel="Opportunity status" items={TABS.map((tab) => ({ value: tab.id, label: `${tab.label} (${counts[tab.id]})`, icon: tab.icon }))} />

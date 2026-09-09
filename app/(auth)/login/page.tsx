@@ -40,7 +40,7 @@ export default function LoginPage() {
   // Already logged in → go to workspace. Show middleware reason if any.
   React.useEffect(() => {
     if (getQueryParam("error") === "admin_only") {
-      setError("Halaman admin khusus admin — login sebagai admin dulu.");
+      setError("Halaman admin khusus admin. Login sebagai admin terlebih dahulu.");
     }
   }, []);
   React.useEffect(() => {
@@ -66,17 +66,17 @@ export default function LoginPage() {
     }
     if (!user) {
       setFieldError("username");
-      setError("Username belum diisi — coba “hisyam”, “dudin”, “farrasabyan”, atau “fakhryalfitra”.");
+      setError("Username belum diisi. Coba “hisyam”, “dudin”, “farrasabyan”, atau “fakhryalfitra”.");
       return;
     }
     if (!pass) {
       setFieldError("password");
-      setError("Password belum diisi — default “123456”.");
+      setError("Password belum diisi. Gunakan password demo “123456”.");
       return;
     }
     if (pass !== "123456") {
       setFieldError("password");
-      setError("Password salah — default “123456”.");
+      setError("Password salah. Gunakan password demo “123456”.");
       return;
     }
     const known = KNOWN_USERS[user];
@@ -90,7 +90,7 @@ export default function LoginPage() {
       : null;
     if (!known && !dynamicUser) {
       setFieldError("username");
-      setError(`Username “${email.trim()}” tidak ditemukan — coba “hisyam”, “dudin”, “farrasabyan”, atau “fakhryalfitra”.`);
+      setError(`Username “${email.trim()}” tidak ditemukan. Coba “hisyam”, “dudin”, “farrasabyan”, atau “fakhryalfitra”.`);
       return;
     }
     setIsLoading(true);
@@ -128,29 +128,30 @@ export default function LoginPage() {
           localStorage.setItem("a5_member_email", targetEmail.toLowerCase());
         } catch {}
         goNext("/dashboard", false);
-      } else setError("Akun tidak ditemukan — coba “hisyam”, “dudin”, atau “farrasabyan”.");
+      } else setError("Akun tidak ditemukan. Coba “hisyam”, “dudin”, atau “farrasabyan”.");
     }, 400);
   };
 
   return (
-    <div className="min-h-screen bg-bg-weak-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
-      <div className="sm:mx-auto sm:w-full sm:max-w-md text-center px-4">
-        <div className="mb-4 inline-flex size-14 items-center justify-center rounded-10 bg-primary-base text-title-h5 font-semibold text-static-white shadow-regular-xs">A5</div>
-        <h1 className="text-page-title text-text-strong-950">Angkatan 5 Network</h1>
-        <p className="mt-1 text-sm leading-5 text-text-sub-600">Private talent directory for members of Angkatan 5 SMP & IHBS</p>
+    <div className="flex min-h-[100dvh] flex-col justify-center bg-bg-weak-50 px-4 py-10 sm:px-6">
+      <div className="mx-auto w-full max-w-sm text-center">
+        <div className="mb-3 inline-flex size-12 items-center justify-center rounded-10 bg-primary-base text-label-lg font-semibold text-static-white shadow-regular-xs">A5</div>
+        <h1 className="text-title-h6 text-text-strong-950">Angkatan 5 Network</h1>
+        <p className="mx-auto mt-1 max-w-[36ch] text-paragraph-xs text-text-sub-600">Private talent directory for Angkatan 5 SMP and IHBS members.</p>
       </div>
 
-      <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md px-4">
-        <div className="flex flex-col gap-6 rounded-10 border border-stroke-soft-200 bg-bg-white-0 px-6 py-8 shadow-regular-xs sm:px-10">
+      <div className="mx-auto mt-6 w-full max-w-sm">
+        <div className="flex flex-col gap-5 rounded-10 border border-stroke-soft-200 bg-bg-white-0 p-6 shadow-regular-xs">
           <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-            {error && <div role="alert" className="rounded-10 border border-error-light bg-error-lighter p-3 text-paragraph-xs font-medium text-error-dark">{error}</div>}
+            {error && !fieldError && <div role="alert" className="rounded-10 border border-error-light bg-error-lighter p-3 text-paragraph-xs font-medium text-error-dark">{error}</div>}
 
-            <Input label="Username" placeholder="Masukkan username" value={email} onChange={(e) => { setEmail(e.target.value); if (fieldError === "username") { setFieldError(null); setError(""); } }} required className={fieldError === "username" ? "ring-error-base focus:ring-error-base/40" : undefined} />
-            <div className="space-y-1.5">
-              <span className="text-label-sm text-text-strong-950">Login as</span>
-              <SegmentedControl value={loginRole} onValueChange={setLoginRole} ariaLabel="Login role" items={[{ value: "member", label: "As a Member", icon: UserCheckIcon }, { value: "admin", label: "As an Admin", icon: ShieldCheckIcon }]} className="w-full" />
+            <div>
+              <span className="mb-1.5 block text-label-sm text-text-strong-950">Workspace</span>
+              <SegmentedControl value={loginRole} onValueChange={setLoginRole} ariaLabel="Login workspace" items={[{ value: "member", label: "Member", icon: UserCheckIcon }, { value: "admin", label: "Admin", icon: ShieldCheckIcon }]} variant="solid" size="sm" className="w-full [&>button]:flex-1" />
+              <p className="mt-1.5 text-paragraph-xs text-text-sub-600">{loginRole === "member" ? "Browse members, events, and opportunities." : "Manage members, content, and community data."}</p>
             </div>
-            <Input label="Password" type="password" placeholder="Masukkan password" value={password} onChange={(e) => { setPassword(e.target.value); if (fieldError === "password") { setFieldError(null); setError(""); } }} required className={fieldError === "password" ? "ring-error-base focus:ring-error-base/40" : undefined} />
+            <Input label="Username" placeholder="Masukkan username" value={email} onChange={(e) => { setEmail(e.target.value); if (fieldError === "username") { setFieldError(null); setError(""); } }} required error={fieldError === "username" ? error : undefined} />
+            <Input label="Password" type="password" placeholder="Masukkan password" value={password} onChange={(e) => { setPassword(e.target.value); if (fieldError === "password") { setFieldError(null); setError(""); } }} required error={fieldError === "password" ? error : undefined} />
 
             <div className="flex items-center justify-between text-xs leading-4">
               <label className="flex cursor-pointer items-center gap-2 text-text-sub-600">
@@ -169,7 +170,7 @@ export default function LoginPage() {
               </a>
             </div>
 
-            <Button type="submit" size="lg" isLoading={isLoading} className="mt-2 w-full">
+            <Button type="submit" size="md" isLoading={isLoading} className="mt-1 w-full">
               Sign In
             </Button>
           </form>

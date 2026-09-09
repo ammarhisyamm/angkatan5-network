@@ -18,7 +18,7 @@ export default function MemberLayout({
         <Sidebar />
         <div className="flex flex-col min-w-0 flex-1 pb-28 lg:pb-0">
           <Header />
-          <main id="main-content" className="mx-auto w-full max-w-[1440px] flex-1 p-4 sm:p-6 lg:p-8">{children}</main>
+          <main id="main-content" className="mx-auto w-full max-w-[1280px] flex-1 p-4 sm:p-6 lg:p-8">{children}</main>
         </div>
       </div>
       <BottomNav />

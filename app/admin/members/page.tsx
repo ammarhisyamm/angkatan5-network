@@ -15,7 +15,6 @@ import { Select } from "@/components/ui/Select";
 import { Avatar } from "@/components/ui/Avatar";
 import { PageHeader } from "@/components/ui/PageHeader";
 import {
-  UsersIcon,
   CheckCircleIcon,
   ShieldWarningIcon,
   TrashIcon,
@@ -101,8 +100,6 @@ export default function AdminMembersPage() {
   return (
     <div className="space-y-6">
       <PageHeader
-        eyebrow="Member Directory"
-        icon={UsersIcon}
         title="Member Management"
         description="Verify credentials, oversee profiles, and manage directory permissions."
         actions={<>
@@ -224,7 +221,7 @@ export default function AdminMembersPage() {
         </div>
 
         <div className="px-4 sm:px-5 py-3 border-t border-stroke-soft-200 flex items-center justify-between text-xs text-text-sub-600">
-          <span>Showing <strong>{(currentPage - 1) * pageSize + 1}–{Math.min(currentPage * pageSize, filteredMembers.length)}</strong> of <strong>{filteredMembers.length}</strong></span>
+          <span>Showing <strong>{(currentPage - 1) * pageSize + 1}-{Math.min(currentPage * pageSize, filteredMembers.length)}</strong> of <strong>{filteredMembers.length}</strong></span>
           <div className="flex items-center gap-2">
             <Button variant="outline" size="sm" icon={<CaretLeftIcon size={14} />} disabled={currentPage === 1} onClick={() => setCurrentPage(currentPage - 1)} aria-label="Previous page">
               Prev

@@ -46,34 +46,31 @@ const CAN_OFFER_OPTIONS: CanOfferOption[] = [
 
 export default function OnboardingPage() {
   const router = useRouter();
-  const { currentUser, completeOnboarding } = useApp();
+  const { currentUser, completeOnboarding, addToast } = useApp();
   const [step, setStep] = useState(1);
 
   // Form State
-  const [name, setName] = useState(currentUser?.name || "Ammar Hisyam");
-  const [location, setLocation] = useState(currentUser?.location || "Jakarta, Indonesia");
-  const [batch, setBatch] = useState(currentUser?.batch || "Angkatan 5 (2018)");
+  const [name, setName] = useState(currentUser?.name || "");
+  const [location, setLocation] = useState(currentUser?.location || "");
+  const [batch, setBatch] = useState(currentUser?.batch || "");
 
-  const [role, setRole] = useState(currentUser?.role || "Product Designer");
-  const [company, setCompany] = useState(currentUser?.company || "Gojek");
-  const [industry, setIndustry] = useState(currentUser?.industry || "Design");
-  const [experience, setExperience] = useState(currentUser?.experience || "3+ years");
-  const [bio, setBio] = useState(
-    currentUser?.bio ||
-      "Passionate about building intuitive digital products and helping community members level up."
-  );
+  const [role, setRole] = useState(currentUser?.role || "");
+  const [company, setCompany] = useState(currentUser?.company || "");
+  const [industry, setIndustry] = useState(currentUser?.industry || "");
+  const [experience, setExperience] = useState(currentUser?.experience || "");
+  const [bio, setBio] = useState(currentUser?.bio || "");
 
   const [selectedSkills, setSelectedSkills] = useState<string[]>(
-    currentUser?.skills || ["UI/UX Design", "Product Design"]
+    currentUser?.skills || []
   );
   const [customSkillInput, setCustomSkillInput] = useState("");
 
   const [lookingFor, setLookingFor] = useState<LookingForOption[]>(
-    currentUser?.lookingFor || ["Collaboration", "Mentorship"]
+    currentUser?.lookingFor || []
   );
 
   const [canOffer, setCanOffer] = useState<CanOfferOption[]>(
-    currentUser?.canOffer || ["Consultation", "Mentoring"]
+    currentUser?.canOffer || []
   );
 
   const handleToggleSkill = (skill: string) => {
@@ -119,7 +116,7 @@ export default function OnboardingPage() {
       company,
       industry,
       experience,
-      experienceYears: parseInt(experience) || 3,
+      experienceYears: parseInt(experience) || 0,
       bio,
       skills: selectedSkills,
       lookingFor,
@@ -142,66 +139,54 @@ export default function OnboardingPage() {
     { num: 5, title: "Can Offer", icon: GiftIcon },
   ];
 
+  const canContinue =
+    step === 1
+      ? Boolean(name.trim() && location.trim() && batch.trim())
+      : step === 2
+        ? Boolean(role.trim() && industry && experience)
+        : step === 3
+          ? selectedSkills.length > 0
+          : true;
+
   return (
-    <div className="min-h-screen bg-bg-weak-50 py-10 px-4 sm:px-6 lg:px-8 flex flex-col items-center">
-      <div className="max-w-2xl w-full">
+    <div className="flex min-h-[100dvh] flex-col items-center bg-bg-weak-50 px-4 py-8 sm:px-6">
+      <div className="w-full max-w-3xl">
         {/* Header */}
-        <div className="text-center mb-8">
-          <p className="mb-2 text-sm font-medium leading-5 text-text-sub-600">Profile setup</p>
-          <h1 className="text-page-title text-text-strong-950">
-            Welcome to Angkatan 5 Talent Network
+        <div className="mb-6 text-center">
+          <h1 className="text-title-h6 text-text-strong-950">
+            Set up your profile
           </h1>
-          <p className="mt-1 text-sm leading-5 text-text-sub-600">
-            Complete your profile so your peers can discover your skills and opportunities.
+          <p className="mx-auto mt-1 max-w-[52ch] text-paragraph-sm text-text-sub-600">
+            Add the information members need to discover and connect with you.
           </p>
         </div>
 
         {/* Stepper indicator */}
-        <div className="mb-6 rounded-10 border border-stroke-soft-200 bg-bg-white-0 p-4 shadow-regular-xs">
-          <div className="flex items-center justify-between relative">
-            <div className="absolute top-1/2 left-0 right-0 h-0 bg-bg-weak-50 -translate-y-1/2 z-0" />
+        <nav aria-label="Profile setup progress" className="mb-4 rounded-10 border border-stroke-soft-200 bg-bg-white-0 p-1.5 shadow-regular-xs">
+          <div className="grid grid-cols-5 gap-1">
             {stepsList.map((s) => {
               const isCompleted = step > s.num;
               const isCurrent = step === s.num;
               const Icon = s.icon;
 
               return (
-                <div key={s.num} className="relative z-10 flex flex-col items-center gap-2">
-                  <button
-                    onClick={() => s.num < step && setStep(s.num)}
-                    className={`w-9 h-9 rounded-full flex items-center justify-center text-xs font-semibold transition-colors ${
-                      isCompleted
-                        ? "bg-success-base text-static-white"
-                        : isCurrent
-                        ? "bg-primary-base text-static-white ring-4 ring-primary-alpha-10"
-                        : "bg-bg-weak-50 text-text-soft-400"
-                    }`}
-                  >
-                    {isCompleted ? <Check size={16} weight="regular" /> : <Icon className="size-4" />}
-                  </button>
-                  <span
-                    className={`hidden text-xs font-medium leading-[18px] sm:block ${
-                      isCurrent
-                        ? "font-semibold text-primary-base"
-                        : "text-text-soft-400"
-                    }`}
-                  >
-                    {s.title}
-                  </span>
-                </div>
+                <button key={s.num} type="button" disabled={s.num > step} aria-current={isCurrent ? "step" : undefined} onClick={() => s.num <= step && setStep(s.num)} className={`flex h-9 min-w-0 items-center justify-center gap-1.5 rounded-lg px-2 text-label-xs transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-base/40 disabled:cursor-default ${isCurrent ? "bg-primary-base text-static-white" : isCompleted ? "bg-success-lighter text-success-dark" : "text-text-soft-400"}`}>
+                  {isCompleted ? <Check size={14} weight="bold" aria-hidden="true" /> : <Icon className="size-4 shrink-0" aria-hidden="true" />}
+                  <span className="hidden truncate sm:block">{s.title}</span>
+                </button>
               );
             })}
           </div>
-        </div>
+        </nav>
 
         {/* Step Card Content */}
-        <div className="rounded-10 border border-stroke-soft-200 bg-bg-white-0 p-6 shadow-regular-xs sm:p-8">
+        <div className="rounded-10 border border-stroke-soft-200 bg-bg-white-0 p-5 shadow-regular-xs sm:p-6">
           {/* STEP 1: ABOUT YOU */}
           {step === 1 && (
-            <div className="space-y-8">
+            <div className="space-y-5">
               <div>
-                <h2 className="text-section-title text-text-strong-950">
-                  Step 1 — About You
+                <h2 className="text-label-lg text-text-strong-950">
+                  About you
                 </h2>
                 <p className="mt-0.5 text-sm leading-5 text-text-sub-600">Let&apos;s start with your identity.</p>
               </div>
@@ -222,7 +207,7 @@ export default function OnboardingPage() {
                 required
               />
 
-              <Input label="School Batch" value={batch} onChange={(e) => setBatch(e.target.value)} />
+              <Input label="School batch" value={batch} onChange={(e) => setBatch(e.target.value)} placeholder="Angkatan 5 (2018)" required />
             </div>
           )}
 
@@ -230,8 +215,8 @@ export default function OnboardingPage() {
           {step === 2 && (
             <div className="space-y-5">
               <div>
-                <h2 className="text-section-title text-text-strong-950">
-                  Step 2 — Professional Background
+                <h2 className="text-label-lg text-text-strong-950">
+                  Professional background
                 </h2>
                 <p className="mt-0.5 text-sm leading-5 text-text-sub-600">
                   Share what you do and your experience level.
@@ -258,6 +243,7 @@ export default function OnboardingPage() {
                   label="Primary Industry"
                   value={industry}
                   onValueChange={setIndustry}
+                  placeholder="Select industry"
                   items={[
                     "Technology",
                     "Design",
@@ -274,6 +260,7 @@ export default function OnboardingPage() {
                 label="Years of Experience"
                 value={experience}
                 onValueChange={setExperience}
+                placeholder="Select experience"
                 items={["1+ years", "2+ years", "3+ years", "4+ years", "5+ years", "7+ years"].map((item) => ({ value: item, label: item }))}
               />
 
@@ -291,8 +278,8 @@ export default function OnboardingPage() {
           {step === 3 && (
             <div className="space-y-5">
               <div>
-                <h2 className="text-section-title text-text-strong-950">
-                  Step 3 — Your Skills
+                <h2 className="text-label-lg text-text-strong-950">
+                  Your skills
                 </h2>
                 <p className="mt-0.5 text-sm leading-5 text-text-sub-600">
                   Select your top skills or add custom ones.
@@ -307,13 +294,14 @@ export default function OnboardingPage() {
                       key={sk}
                       type="button"
                       onClick={() => handleToggleSkill(sk)}
-                      className={`inline-flex min-h-9 items-center rounded-full px-3 py-1.5 text-sm font-medium ring-1 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-base ${
+                      aria-pressed={isSelected}
+                      className={`inline-flex h-8 items-center gap-1.5 rounded-full px-3 text-label-sm shadow-custom-input transition-[background-color,color,box-shadow,transform] active:translate-y-px focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-base/40 ${
                         isSelected
-                          ? "bg-primary-base text-static-white border-primary-base"
-                          : "bg-bg-white-0 text-text-sub-600 ring-stroke-soft-200 hover:bg-bg-weak-50"
+                          ? "bg-primary-base text-static-white"
+                          : "bg-bg-white-0 text-text-sub-600 hover:bg-bg-weak-25"
                       }`}
                     >
-                      {isSelected ? "✓ " : "+ "}
+                      {isSelected && <Check size={14} weight="bold" aria-hidden="true" />}
                       {sk}
                     </button>
                   );
@@ -345,8 +333,8 @@ export default function OnboardingPage() {
           {step === 4 && (
             <div className="space-y-5">
               <div>
-                <h2 className="text-section-title text-text-strong-950">
-                  Step 4 — What are you looking for?
+                <h2 className="text-label-lg text-text-strong-950">
+                  What are you looking for?
                 </h2>
                 <p className="mt-0.5 text-sm leading-5 text-text-sub-600">
                   Select all opportunities that interest you right now.
@@ -362,17 +350,17 @@ export default function OnboardingPage() {
                       type="button"
                       aria-pressed={isChecked}
                       onClick={() => handleToggleLookingFor(item)}
-                      className={`flex items-center justify-between rounded-10 p-4 text-left ring-1 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-base ${
+                      className={`flex min-h-12 items-center justify-between rounded-10 px-3 py-2.5 text-left shadow-custom-input transition-[background-color,color,box-shadow,transform] active:translate-y-px focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-base/40 ${
                         isChecked
-                          ? "bg-primary-alpha-10 text-primary-base ring-primary-base"
-                          : "bg-bg-white-0 text-text-sub-600 ring-stroke-soft-200 hover:bg-bg-weak-50"
+                          ? "bg-primary-base text-static-white"
+                          : "bg-bg-white-0 text-text-sub-600 hover:bg-bg-weak-25"
                       }`}
                     >
                       <span className="text-sm font-semibold">{item}</span>
                       <span
                         aria-hidden="true"
                         className={`flex size-5 items-center justify-center rounded-full text-xs ${
-                          isChecked ? "bg-primary-base text-static-white" : "border border-stroke-soft-200"
+                          isChecked ? "bg-static-white text-primary-base" : "border border-stroke-soft-200"
                         }`}
                       >
                         {isChecked && <Check size={12} weight="regular" />}
@@ -388,8 +376,8 @@ export default function OnboardingPage() {
           {step === 5 && (
             <div className="space-y-5">
               <div>
-                <h2 className="text-section-title text-text-strong-950">
-                  Step 5 — What can you offer?
+                <h2 className="text-label-lg text-text-strong-950">
+                  What can you offer?
                 </h2>
                 <p className="mt-0.5 text-sm leading-5 text-text-sub-600">
                   How can you help other members of Angkatan 5?
@@ -405,17 +393,17 @@ export default function OnboardingPage() {
                       type="button"
                       aria-pressed={isChecked}
                       onClick={() => handleToggleCanOffer(item)}
-                      className={`flex items-center justify-between rounded-10 p-4 text-left ring-1 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-base ${
+                      className={`flex min-h-12 items-center justify-between rounded-10 px-3 py-2.5 text-left shadow-custom-input transition-[background-color,color,box-shadow,transform] active:translate-y-px focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-base/40 ${
                         isChecked
-                          ? "bg-success-lighter/50 text-success-dark ring-success-base"
-                          : "bg-bg-white-0 text-text-sub-600 ring-stroke-soft-200 hover:bg-bg-weak-50"
+                          ? "bg-primary-base text-static-white"
+                          : "bg-bg-white-0 text-text-sub-600 hover:bg-bg-weak-25"
                       }`}
                     >
                       <span className="text-sm font-semibold">{item}</span>
                       <span
                         aria-hidden="true"
                         className={`flex size-5 items-center justify-center rounded-full text-xs ${
-                          isChecked ? "bg-success-base text-static-white" : "border border-stroke-soft-200"
+                          isChecked ? "bg-static-white text-primary-base" : "border border-stroke-soft-200"
                         }`}
                       >
                         {isChecked && <Check size={12} weight="regular" />}
@@ -428,29 +416,29 @@ export default function OnboardingPage() {
           )}
 
           {/* Stepper navigation footer */}
-          <div className="flex items-center justify-between pt-8 mt-6 border-t border-stroke-soft-200">
-            <div className="flex items-center gap-2">
+          <div className="mt-6 flex flex-col-reverse gap-3 border-t border-stroke-soft-200 pt-5 sm:flex-row sm:items-center sm:justify-between">
+            <div className="flex items-center gap-1">
               {step > 1 ? (
-                <Button type="button" variant="outline" onClick={() => setStep(step - 1)}
+                <Button type="button" variant="outline" size="sm" onClick={() => setStep(step - 1)}
                 >
                   <CaretLeftIcon size={16} weight="regular" />
                   Back
                 </Button>
               ) : (
-                <Button type="button" variant="ghost" onClick={() => router.push("/dashboard")}>Skip for now</Button>
+                <Button type="button" variant="ghost" size="sm" onClick={() => router.push("/dashboard")}>Skip for now</Button>
               )}
-              <Button type="button" variant="ghost" size="sm" onClick={() => { localStorage.setItem("a5_onboarding_draft", JSON.stringify({ name, location, batch, role, company, industry, experience, bio, skills: selectedSkills, lookingFor, canOffer })); setShowCelebration(false); alert("Draft saved"); }}>Save draft</Button>
+              <Button type="button" variant="ghost" size="sm" onClick={() => { localStorage.setItem("a5_onboarding_draft", JSON.stringify({ name, location, batch, role, company, industry, experience, bio, skills: selectedSkills, lookingFor, canOffer })); setShowCelebration(false); addToast("Draft saved", "You can continue setting up your profile later.", "success"); }}>Save draft</Button>
             </div>
 
             {step < 5 ? (
-              <Button type="button" variant="primary" onClick={() => setStep(step + 1)}
+              <Button type="button" variant="primary" size="sm" disabled={!canContinue} onClick={() => setStep(step + 1)}
               >
-                Next Step
+                Next
                 <CaretRightIcon size={16} weight="regular" />
               </Button>
             ) : (
-              <Button type="button" variant="primary" size="lg" onClick={handleComplete} className="bg-success-base hover:bg-success-dark" >
-                Complete Profile
+              <Button type="button" variant="primary" size="sm" onClick={handleComplete} >
+                Complete profile
                 <Check size={16} weight="regular" className="ml-1" />
               </Button>
             )}
@@ -460,39 +448,17 @@ export default function OnboardingPage() {
 
       {showCelebration && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-bg-strong-950/40 backdrop-blur-sm p-4">
-          <div className="relative w-full max-w-sm overflow-hidden rounded-20 bg-bg-white-0 p-8 text-center shadow-custom-md">
-            <div className="pointer-events-none absolute inset-0 overflow-hidden">
-              {[...Array(20)].map((_, i) => (
-                <span
-                  key={i}
-                  className="absolute animate-[fall_1.2s_ease-in_forwards] text-lg"
-                  style={{
-                    left: `${Math.random() * 100}%`,
-                    top: `-10%`,
-                    animationDelay: `${Math.random() * 0.6}s`,
-                    transform: `rotate(${Math.random() * 360}deg)`,
-                  }}
-                >
-                  {["🎉", "✨", "🎊", "💫"][i % 4]}
-                </span>
-              ))}
-            </div>
-            <div className="relative">
+          <div role="status" aria-live="polite" className="w-full max-w-sm rounded-16 border border-stroke-soft-200 bg-bg-white-0 p-6 text-center shadow-custom-md">
               <div className="mx-auto flex size-14 items-center justify-center rounded-full bg-success-lighter text-success-base">
                 <Check size={28} weight="bold" />
               </div>
               <h3 className="mt-4 text-lg font-semibold text-text-strong-950">Profile complete!</h3>
-              <p className="mt-1 text-sm text-text-sub-600">Welcome to the community 🎉</p>
-              <div className="mt-5 flex items-center justify-center gap-2">
-                <div className="h-2 w-32 overflow-hidden rounded-full bg-bg-weak-50 ring-1 ring-stroke-soft-200">
-                  <div className="h-full w-[85%] rounded-full bg-text-strong-950" style={{ animation: "grow 0.8s ease-out forwards" }} />
-                </div>
-                <span className="text-sm font-semibold text-text-strong-950">85% → 100%</span>
+              <p className="mt-1 text-sm leading-5 text-text-sub-600">Your profile is ready. Taking you to the dashboard.</p>
+              <div className="mx-auto mt-5 h-1 w-24 overflow-hidden rounded-full bg-bg-weak-50">
+                <div className="h-full w-full origin-left animate-[progress_2.2s_linear_forwards] rounded-full bg-primary-base" />
               </div>
-              <p className="mt-2 text-xs text-text-soft-400">Redirecting to dashboard…</p>
-            </div>
           </div>
-          <style>{`@keyframes fall { to { transform: translateY(110vh) rotate(360deg); opacity: 0; } } @keyframes grow { from { width: 85%; } to { width: 100%; } }`}</style>
+          <style>{`@keyframes progress { from { transform: scaleX(0); } to { transform: scaleX(1); } }`}</style>
         </div>
       )}
     </div>

@@ -10,7 +10,15 @@ import { DatePicker } from "@/components/ui/DatePicker";
 import { Button } from "@/components/ui/Button";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { Badge } from "@/components/ui/Badge";
-import { ArrowLeftIcon, EyeIcon, PaperPlaneTiltIcon, PlusIcon, SparkleIcon, MapPinIcon } from "@phosphor-icons/react";
+import { FormActions, FormSection } from "@/components/ui/FormSection";
+import {
+  ArrowLeftIcon,
+  CheckIcon,
+  EyeIcon,
+  MapPinIcon,
+  PaperPlaneTiltIcon,
+  PlusIcon,
+} from "@phosphor-icons/react";
 import { OpportunityCategory, OpportunityType } from "@/lib/types";
 
 const CATEGORIES: OpportunityCategory[] = [
@@ -47,70 +55,65 @@ const POPULAR_SKILLS = [
 
 export default function CreateOpportunityPage() {
   const router = useRouter();
-  const { createOpportunity, currentUser } = useApp();
+  const { createOpportunity } = useApp();
 
   const [title, setTitle] = useState("");
-  const [category, setCategory] = useState<OpportunityCategory>("Collaboration");
-  const [type, setType] = useState<OpportunityType>("Collaboration");
-  const [location, setLocation] = useState("Jakarta / Remote");
+  const [category, setCategory] = useState<OpportunityCategory | "">("");
+  const [type, setType] = useState<OpportunityType | "">("");
+  const [location, setLocation] = useState("");
   const [description, setDescription] = useState("");
   const [requirementsText, setRequirementsText] = useState("");
   const [selectedSkills, setSelectedSkills] = useState<string[]>([]);
   const [customSkill, setCustomSkill] = useState("");
-  const [deadline, setDeadline] = useState("2026-10-31");
-  const [contactPreference, setContactPreference] = useState(
-    "Direct message via A5 Network"
-  );
+  const [deadline, setDeadline] = useState("");
+  const [contactPreference, setContactPreference] = useState("Direct message via A5 Network");
   const [isPreview, setIsPreview] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState("");
 
-  const handleToggleSkill = (sk: string) => {
-    if (selectedSkills.includes(sk)) {
-      setSelectedSkills(selectedSkills.filter((s) => s !== sk));
-    } else {
-      setSelectedSkills([...selectedSkills, sk]);
-    }
+  const handleToggleSkill = (skill: string) => {
+    setSelectedSkills((current) =>
+      current.includes(skill)
+        ? current.filter((item) => item !== skill)
+        : [...current, skill],
+    );
   };
 
-  const handleAddCustomSkill = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (customSkill.trim() && !selectedSkills.includes(customSkill.trim())) {
-      setSelectedSkills([...selectedSkills, customSkill.trim()]);
+  const handleAddCustomSkill = () => {
+    const nextSkill = customSkill.trim();
+    if (nextSkill && !selectedSkills.includes(nextSkill)) {
+      setSelectedSkills((current) => [...current, nextSkill]);
       setCustomSkill("");
     }
   };
 
-  const handleRemoveSkill = (sk: string) => {
-    setSelectedSkills(selectedSkills.filter((s) => s !== sk));
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!title.trim() || !description.trim()) {
-      setError("Please fill in the title and description.");
+  const publishOpportunity = () => {
+    if (!title.trim() || !description.trim() || !category || !type || !location.trim()) {
+      setError("Add a title, category, engagement type, location, and description.");
       return;
     }
+
+    const selectedCategory = category;
+    const selectedType = type;
+    const requirements = requirementsText
+      .split("\n")
+      .map((item) => item.trim())
+      .filter(Boolean);
 
     setIsSubmitting(true);
     setError("");
 
-    const requirements = requirementsText
-      .split("\n")
-      .map((r) => r.trim())
-      .filter(Boolean);
-
     setTimeout(() => {
       const created = createOpportunity({
-        title,
-        category,
-        type,
-        location,
-        description,
+        title: title.trim(),
+        category: selectedCategory,
+        type: selectedType,
+        location: location.trim(),
+        description: description.trim(),
         requirements,
         requiredSkills: selectedSkills,
         deadline,
-        contactPreference,
+        contactPreference: contactPreference.trim(),
         status: "Published",
       });
 
@@ -119,211 +122,117 @@ export default function CreateOpportunityPage() {
     }, 400);
   };
 
+  const handleSubmit = (event: React.FormEvent) => {
+    event.preventDefault();
+    publishOpportunity();
+  };
+
   return (
-    <div className="space-y-6">
-      {/* Back Button */}
+    <div className="mx-auto max-w-5xl space-y-5">
       <div className="flex flex-wrap items-center justify-between gap-3">
-        <Link
-          href="/opportunities"
-          className="inline-flex items-center gap-1 text-xs font-semibold text-text-sub-600 hover:text-text-strong-950 transition-colors"
-        >
-          <ArrowLeftIcon size={16} weight="regular" />
+        <Link href="/opportunities" className="inline-flex items-center gap-1.5 rounded-md text-label-xs text-text-sub-600 transition-colors hover:text-text-strong-950 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-base/40">
+          <ArrowLeftIcon size={16} weight="regular" aria-hidden="true" />
           Back to Opportunities
         </Link>
-
-        <button
-          type="button"
-          onClick={() => setIsPreview(!isPreview)}
-          className="text-xs font-semibold text-primary-base hover:underline flex items-center gap-2"
-        >
-          <EyeIcon size={16} weight="regular" />
-          {isPreview ? "Back to Edit Form" : "Preview Opportunity"}
-        </button>
+        <Button type="button" variant="ghost" size="sm" icon={<EyeIcon size={16} />} onClick={() => setIsPreview((current) => !current)}>
+          {isPreview ? "Edit details" : "Preview"}
+        </Button>
       </div>
 
-      <PageHeader eyebrow="New Community Post" icon={SparkleIcon} title="Share an Opportunity" description="Post jobs, freelance projects, collaborations, or mentorship openings for your fellow alumni." />
+      <PageHeader title="Share an opportunity" description="Add the information members need to understand the role and take action." />
 
-      {error && (
-        <div role="alert" className="rounded-10 border border-error-light bg-error-lighter p-4 text-paragraph-xs font-medium text-error-base">
-          {error}
-        </div>
-      )}
+      {error && <div role="alert" className="rounded-10 border border-error-light bg-error-lighter p-3 text-paragraph-xs font-medium text-error-dark">{error}</div>}
 
       {isPreview ? (
-        /* LIVE PREVIEW CARD */
-        <div className="space-y-8 rounded-20 border border-stroke-soft-200 bg-bg-white-0 p-6 shadow-regular-xs sm:p-8">
-          <div className="flex items-center justify-between pb-3 border-b border-stroke-soft-200">
-            <span className="text-sm font-medium text-primary-base">
-              Live Preview
-            </span>
-            <Badge variant="success">
-              Ready to Publish
-            </Badge>
-          </div>
-
-          <div className="space-y-4">
-            <div className="flex items-center gap-2 flex-wrap">
-              <Badge variant="primary">
-                {category}
-              </Badge>
-              <Badge variant="neutral">
-                <MapPinIcon size={12} weight="regular" className="text-text-soft-400" aria-hidden="true" />
-                {location || "Remote"}
-              </Badge>
-              <span className="text-xs text-text-soft-400">{type}</span>
+        <div className="grid items-start gap-4 lg:grid-cols-[minmax(0,1fr)_280px]">
+          <article className="overflow-hidden rounded-10 border border-stroke-soft-200 bg-bg-white-0 shadow-regular-xs">
+            <div className="border-b border-stroke-soft-200 px-5 py-5 sm:px-6">
+              <div className="mb-3 flex flex-wrap items-center gap-2">
+                <Badge variant="primary">{category || "Category"}</Badge>
+                <Badge variant="neutral"><MapPinIcon size={12} aria-hidden="true" />{location || "Location"}</Badge>
+                <Badge variant="outline">{type || "Engagement type"}</Badge>
+              </div>
+              <h2 className="text-title-h6 text-text-strong-950">{title || "Untitled opportunity"}</h2>
             </div>
+            <div className="space-y-5 px-5 py-5 sm:px-6">
+              <section>
+                <h3 className="text-label-sm text-text-strong-950">Description</h3>
+                <p className="mt-2 whitespace-pre-line text-paragraph-sm leading-6 text-text-sub-600">{description || "No description has been added."}</p>
+              </section>
+              <section className="border-t border-stroke-soft-200 pt-5">
+                <h3 className="text-label-sm text-text-strong-950">Requirements</h3>
+                {requirementsText.trim() ? (
+                  <ul className="mt-2 space-y-2 text-paragraph-sm text-text-sub-600">
+                    {requirementsText.split("\n").filter(Boolean).map((requirement) => <li key={requirement}>{requirement}</li>)}
+                  </ul>
+                ) : (
+                  <p className="mt-2 text-paragraph-sm text-text-soft-400">No requirements listed.</p>
+                )}
+              </section>
+            </div>
+          </article>
 
-            <h2 className="text-base font-semibold leading-6 text-text-strong-950">
-              {title || "Untitled Opportunity"}
-            </h2>
-
-            <p className="text-sm text-text-sub-600 leading-relaxed whitespace-pre-line">
-              {description || "No description provided yet."}
-            </p>
-
-            {requirementsText && (
-              <div>
-                <h4 className="text-xs font-bold text-text-strong-950 mb-2">
-                  Requirements:
-                </h4>
-                <ul className="space-y-1 text-xs text-text-sub-600">
-                  {requirementsText.split("\n").filter(Boolean).map((req, i) => (
-                    <li key={i} className="flex items-start gap-2">
-                      <span className="w-1 h-1 rounded-full bg-primary-base mt-1 shrink-0" />
-                      <span>{req}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
-
-            {selectedSkills.length > 0 && (
-              <div className="flex flex-wrap gap-1 pt-2">
-                {selectedSkills.map((sk) => (
-                  <span
-                    key={sk}
-                    className="rounded-full bg-bg-weak-50 px-2 py-1 text-label-xs font-medium text-text-sub-600"
-                  >
-                    {sk}
-                  </span>
-                ))}
-              </div>
-            )}
-          </div>
-
-          <div className="flex flex-col-reverse sm:flex-row items-stretch sm:items-center justify-end gap-3 pt-6 border-t border-stroke-soft-200">
-            <Button variant="outline" size="md" onClick={() => setIsPreview(false)} className="w-full sm:w-auto justify-center">
-              Edit Details
+          <aside className="rounded-10 border border-stroke-soft-200 bg-bg-white-0 p-5 shadow-regular-xs">
+            <div className="flex items-center justify-between gap-3">
+              <h3 className="text-label-sm text-text-strong-950">Preview status</h3>
+              <Badge variant={title && description && category && type && location ? "success" : "neutral"}>{title && description && category && type && location ? "Ready" : "Incomplete"}</Badge>
+            </div>
+            <dl className="mt-4 space-y-3 text-paragraph-xs">
+              <div><dt className="text-text-soft-400">Deadline</dt><dd className="mt-0.5 font-medium text-text-strong-950">{deadline || "Open until filled"}</dd></div>
+              <div><dt className="text-text-soft-400">Skills</dt><dd className="mt-0.5 font-medium text-text-strong-950">{selectedSkills.length ? `${selectedSkills.length} selected` : "None selected"}</dd></div>
+              <div><dt className="text-text-soft-400">How to apply</dt><dd className="mt-0.5 font-medium text-text-strong-950">{contactPreference || "Not specified"}</dd></div>
+            </dl>
+            <Button variant="primary" size="sm" onClick={publishOpportunity} isLoading={isSubmitting} className="mt-5 w-full">
+              <PaperPlaneTiltIcon size={15} aria-hidden="true" />Publish Opportunity
             </Button>
-            <Button variant="primary" size="md" onClick={handleSubmit} isLoading={isSubmitting} className="w-full sm:w-auto justify-center">
-              <PaperPlaneTiltIcon size={12} weight="regular" className="mr-1" />
-              Publish Opportunity
-            </Button>
-          </div>
+          </aside>
         </div>
       ) : (
-        /* EDIT FORM */
-        <form
-          onSubmit={handleSubmit}
-          className="rounded-20 border border-stroke-soft-200 bg-bg-white-0 p-5 shadow-regular-xs sm:p-8"
-        >
-          <div className="space-y-6">
-          <Input
-            label="Opportunity Title"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            placeholder="e.g. Senior Next.js Developer for Fintech Project"
-            required
-          />
+        <form onSubmit={handleSubmit} className="overflow-visible rounded-10 border border-stroke-soft-200 bg-bg-white-0 shadow-regular-xs">
+          <FormSection title="Basic information" description="Keep the title specific and easy to scan.">
+            <Input label="Opportunity title" value={title} onChange={(event) => setTitle(event.target.value)} placeholder="Senior Next.js developer for fintech project" required />
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+              <Select label="Category" value={category} onValueChange={(value) => setCategory(value as OpportunityCategory)} items={CATEGORIES.map((item) => ({ label: item, value: item }))} placeholder="Select category" required />
+              <Select label="Engagement type" value={type} onValueChange={(value) => setType(value as OpportunityType)} items={TYPES.map((item) => ({ label: item, value: item }))} placeholder="Select engagement" required />
+            </div>
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+              <Input label="Location" value={location} onChange={(event) => setLocation(event.target.value)} placeholder="Jakarta, hybrid, or remote" required />
+              <DatePicker label="Application deadline" name="deadline" value={deadline} onChange={setDeadline} min={new Date().toISOString().slice(0, 10)} helperText="Optional" />
+            </div>
+          </FormSection>
 
-          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
-            <Select label="Category" value={category} onValueChange={(value) => setCategory(value as OpportunityCategory)} items={CATEGORIES.map((cat) => ({ label: cat, value: cat }))} />
-            <Select label="Engagement Type" value={type} onValueChange={(value) => setType(value as OpportunityType)} items={TYPES.map((item) => ({ label: item, value: item }))} />
-          </div>
+          <FormSection title="Role details" description="Explain the scope before listing requirements.">
+            <Textarea label="Description and scope" rows={5} value={description} onChange={(event) => setDescription(event.target.value)} placeholder="Describe the project, responsibilities, timeline, and compensation." required />
+            <Textarea label="Requirements" rows={4} value={requirementsText} onChange={(event) => setRequirementsText(event.target.value)} placeholder="Add one requirement per line" helperText="Optional. Use one requirement per line." />
+          </FormSection>
 
-          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
-            <Input
-              label="Location"
-              value={location}
-              onChange={(e) => setLocation(e.target.value)}
-              placeholder="e.g. Jakarta (Hybrid) or Remote"
-              required
-            />
-
-            <DatePicker label="Application Deadline" name="deadline" value={deadline} onChange={setDeadline} min={new Date().toISOString().slice(0, 10)} />
-          </div>
-
-          <Textarea
-            label="Description & Project Overview"
-            rows={4}
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            placeholder="Explain what the project is about, expectations, and compensation if applicable…"
-            required
-          />
-
-          <Textarea
-            label="Requirements (one per line)"
-            rows={3}
-            value={requirementsText}
-            onChange={(e) => setRequirementsText(e.target.value)}
-            placeholder="3+ years experience with Next.js&#10;Portfolio of published apps&#10;Available 10 hours per week"
-          />
-
-          {/* Skill Tagging */}
-          <div className="space-y-2">
-            <label className="text-sm font-medium text-text-strong-950">
-              Required Skills
-            </label>
+          <FormSection title="Required skills" description="Select only the skills essential to this opportunity.">
             <div className="flex flex-wrap gap-2">
-              {POPULAR_SKILLS.map((sk) => {
-                const isSelected = selectedSkills.includes(sk);
+              {POPULAR_SKILLS.map((skill) => {
+                const selected = selectedSkills.includes(skill);
                 return (
-                  <button
-                    key={sk}
-                    type="button"
-                    onClick={() => handleToggleSkill(sk)}
-                    className={`inline-flex min-h-9 items-center rounded-full px-3 py-1.5 text-sm font-medium ring-1 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-base ${
-                      isSelected
-                        ? "bg-primary-base text-static-white border-primary-base"
-                        : "bg-bg-weak-50 text-text-sub-600 ring-stroke-soft-200"
-                    }`}
-                  >
-                    {isSelected ? "✓ " : "+ "}
-                    {sk}
+                  <button key={skill} type="button" aria-pressed={selected} onClick={() => handleToggleSkill(skill)} className={`inline-flex h-8 items-center gap-1.5 rounded-full px-3 text-label-sm shadow-custom-input transition-[background-color,color,box-shadow,transform] active:translate-y-px focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-base/40 ${selected ? "bg-primary-base text-static-white" : "bg-bg-white-0 text-text-sub-600 hover:bg-bg-weak-25"}`}>
+                    {selected && <CheckIcon size={14} weight="bold" aria-hidden="true" />}
+                    {skill}
                   </button>
                 );
               })}
             </div>
-
-            {/* Custom skill add */}
-            <div className="flex gap-2 pt-2">
-              <Input aria-label="Add other skill tag" value={customSkill} onChange={(e) => setCustomSkill(e.target.value)} placeholder="Add another skill…" className="flex-1" />
-              <Button type="button" variant="secondary" size="md" onClick={handleAddCustomSkill}>
-                <PlusIcon size={12} weight="regular" />
-                Add
-              </Button>
+            <div className="flex flex-col gap-2 sm:flex-row">
+              <Input aria-label="Add another skill" value={customSkill} onChange={(event) => setCustomSkill(event.target.value)} placeholder="Add another skill" className="flex-1" />
+              <Button type="button" variant="secondary" size="md" icon={<PlusIcon size={15} />} onClick={handleAddCustomSkill}>Add skill</Button>
             </div>
-          </div>
+            <p className="text-paragraph-xs text-text-sub-600">{selectedSkills.length ? `${selectedSkills.length} skill${selectedSkills.length === 1 ? "" : "s"} selected` : "No skills selected yet."}</p>
+          </FormSection>
 
-          <Input
-            label="Contact Preference / Application Instruction"
-            value={contactPreference}
-            onChange={(e) => setContactPreference(e.target.value)}
-            placeholder="e.g. Direct message via A5 Network or email to careers@example.com"
-          />
+          <FormSection title="Application" description="Tell members how they should contact you.">
+            <Input label="How to apply" value={contactPreference} onChange={(event) => setContactPreference(event.target.value)} placeholder="Direct message, email, or application link" helperText="Include the preferred channel or a complete URL." />
+          </FormSection>
 
-          <div className="flex flex-col-reverse sm:flex-row items-stretch sm:items-center justify-between gap-3 pt-6 border-t border-stroke-soft-200">
-            <Button type="button" variant="outline" size="md" onClick={() => setIsPreview(true)} className="w-full sm:w-auto justify-center">
-              <EyeIcon size={16} weight="regular" className="mr-1" />
-              Preview First
-            </Button>
-            <Button type="submit" variant="primary" size="lg" isLoading={isSubmitting} className="w-full sm:w-auto justify-center">
-              <PaperPlaneTiltIcon size={16} weight="regular" className="mr-1" />
-              Publish Opportunity
-            </Button>
-          </div>
-          </div>
+          <FormActions className="justify-between">
+            <Button type="button" variant="outline" size="sm" onClick={() => setIsPreview(true)} icon={<EyeIcon size={15} />}>Preview</Button>
+            <Button type="submit" variant="primary" size="sm" isLoading={isSubmitting} icon={<PaperPlaneTiltIcon size={15} />}>Publish Opportunity</Button>
+          </FormActions>
         </form>
       )}
     </div>

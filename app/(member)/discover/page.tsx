@@ -197,8 +197,6 @@ export default function DiscoverPeoplePage() {
   return (
     <div className="space-y-6 sm:space-y-8 lg:space-y-10">
       <PageHeader
-        eyebrow="Talent Directory"
-        icon={UsersIcon}
         title="Discover People"
         description="Find someone based on what they do, what they know, or what they can help with."
       />
