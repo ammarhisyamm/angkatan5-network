@@ -152,46 +152,33 @@ export default function MyProfilePage() {
     <div className="mx-auto max-w-[1120px] space-y-6">
       {/* HERO */}
       <div className="overflow-hidden rounded-10 border border-stroke-soft-200 bg-bg-white-0 shadow-regular-xs">
-        <div className="h-24 w-full bg-bg-weak-50 sm:h-32" />
-        <div className="p-6 sm:p-8">
-          <div className="flex flex-col gap-8 lg:flex-row lg:items-start lg:justify-between">
-            {/* Left: avatar + identity */}
-            <div className="flex gap-5 sm:gap-6">
-              <div className="relative shrink-0 -mt-12 sm:-mt-16">
-                <div className="flex size-20 items-center justify-center rounded-20 bg-bg-weak-50 text-xl font-semibold text-text-strong-950 ring-4 ring-bg-white-0 shadow-regular-xs sm:size-24 sm:text-2xl">
-                  {currentUser.name.split(" ").slice(0, 2).map((p) => p[0]).join("").toUpperCase()}
-                </div>
-              </div>
+        <div className="h-20 w-full bg-bg-weak-50 sm:h-28" />
+        <div className="px-4 pb-5 sm:px-6 sm:pb-6">
+          <div className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_320px] lg:items-end lg:gap-8">
+            {/* Avatar + identity: stacked on mobile, horizontal from desktop */}
+            <div className="flex min-w-0 flex-col gap-4 sm:flex-row sm:items-end sm:gap-5">
+              <Avatar name={currentUser.name} src={avatar || currentUser.avatar || undefined} className="-mt-10 size-20 rounded-20 text-xl ring-4 ring-bg-white-0 shadow-regular-xs sm:-mt-12 sm:size-24 sm:text-2xl" />
 
-              <div className="min-w-0 flex-1 pt-1">
+              <div className="min-w-0 flex-1 pb-0.5">
                 <div className="flex flex-wrap items-center gap-2">
-                  <h1 className="text-page-title text-text-strong-950">{currentUser.name?.split(" ")[0] || "Ammar"}</h1>
+                  <h1 className="text-title-h4 text-text-strong-950 sm:text-title-h3">{currentUser.name || "Your name"}</h1>
                   <StatusBadge status={currentUser.status} />
                 </div>
-                <p className="mt-1.5 text-base font-medium leading-6 text-text-strong-950">{headline}</p>
-                <div className="mt-2 flex flex-wrap items-center gap-3 text-sm font-normal leading-5 text-text-sub-600">
-                  <span className="inline-flex items-center gap-1.5">
-                    <MapPinIcon size={14} weight="regular" className="text-text-soft-400" aria-hidden="true" />
-                    {currentUser.location || "Jakarta, Indonesia"}
-                  </span>
-                  <span className="size-1 rounded-full bg-stroke-soft-200" aria-hidden="true" />
-                  <span className="inline-flex items-center gap-1.5">
-                    <StackIcon size={14} weight="regular" className="text-text-soft-400" aria-hidden="true" />
-                    {currentUser.batch || "Batch 1"}
-                  </span>
-                  <span className="hidden sm:inline-flex size-1 rounded-full bg-stroke-soft-200" aria-hidden="true" />
+                <p className="mt-1 text-base font-medium leading-6 text-text-strong-950">{headline}</p>
+                <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1.5 text-sm leading-5 text-text-sub-600">
+                  {currentUser.location && <span className="inline-flex items-center gap-1.5"><MapPinIcon size={14} weight="regular" className="text-text-soft-400" aria-hidden="true" />{currentUser.location}</span>}
+                  {currentUser.location && currentUser.batch && <span className="size-1 rounded-full bg-stroke-soft-200" aria-hidden="true" />}
+                  {currentUser.batch && <span className="inline-flex items-center gap-1.5"><StackIcon size={14} weight="regular" className="text-text-soft-400" aria-hidden="true" />{currentUser.batch}</span>}
                 </div>
-                <p className="mt-1 hidden sm:inline-flex items-center gap-1.5 text-xs text-text-sub-600">
-                  <span className="flex size-4 items-center justify-center rounded-full bg-success-base text-static-white">
-                    <CheckIcon size={10} weight="bold" aria-hidden="true" />
-                  </span>
-                  {currentUser.email}
+                <p className="mt-1 inline-flex max-w-full items-center gap-1.5 truncate text-xs text-text-sub-600">
+                  <span className="flex size-4 shrink-0 items-center justify-center rounded-full bg-success-base text-static-white"><CheckIcon size={10} weight="bold" aria-hidden="true" /></span>
+                  <span className="truncate">{currentUser.email}</span>
                 </p>
               </div>
             </div>
 
-            {/* Right: completion card */}
-            <div className="w-full rounded-10 border border-stroke-soft-200 bg-bg-weak-50 p-5 lg:w-[320px] lg:shrink-0">
+            {/* Completion stays beside identity on desktop and below it on mobile */}
+            <div className="w-full rounded-10 border border-stroke-soft-200 bg-bg-weak-50 p-4 sm:p-5">
               <div className="flex items-center justify-between">
                 <p className="text-xs font-semibold tracking-wide text-text-sub-600">Profile completion</p>
                 <span className="text-sm font-semibold text-text-strong-950">{completion}%</span>
@@ -218,14 +205,14 @@ export default function MyProfilePage() {
           </div>
 
           {/* Actions bar */}
-          <div className="mt-6 flex flex-row items-stretch gap-3 border-t border-stroke-soft-200 pt-6 sm:items-center">
-            <Button variant="primary" size="md" title="Edit profile" aria-label="Edit profile" className="min-w-0 flex-1 justify-center px-3 sm:flex-none sm:px-5" onClick={() => setEditingSection("personal")} icon={<PencilSimpleIcon size={16} weight="regular" />}>
+          <div className="mt-5 flex flex-col gap-2.5 border-t border-stroke-soft-200 pt-5 sm:flex-row sm:items-center">
+            <Button variant="primary" size="md" title="Edit profile" aria-label="Edit profile" className="w-full justify-center sm:w-auto sm:px-5" onClick={() => setEditingSection("personal")} icon={<PencilSimpleIcon size={16} weight="regular" />}>
               Edit profile
             </Button>
-            <Button variant="outline" size="md" title="Share profile" aria-label="Share profile" className="min-w-0 flex-1 justify-center bg-bg-white-0 px-3 sm:flex-none sm:px-5" onClick={() => setShowShareModal(true)} icon={<ShareNetworkIcon size={16} weight="regular" />}>
+            <Button variant="outline" size="md" title="Share profile" aria-label="Share profile" className="w-full justify-center bg-bg-white-0 sm:w-auto sm:px-5" onClick={() => setShowShareModal(true)} icon={<ShareNetworkIcon size={16} weight="regular" />}>
               Share profile
             </Button>
-            <span className="ml-auto hidden items-center gap-2 text-xs text-text-soft-400 sm:inline-flex">
+            <span className="hidden items-center gap-2 text-xs text-text-soft-400 sm:ml-auto sm:inline-flex">
               <EnvelopeSimpleIcon size={14} aria-hidden="true" /> {currentUser.email}
             </span>
           </div>
