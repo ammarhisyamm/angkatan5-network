@@ -37,6 +37,7 @@ export interface DatePickerProps {
 export function DatePicker({ label, name, value, onChange, placeholder = "Select a date", min, required, className }: DatePickerProps) {
   const rootRef = useRef<HTMLDivElement>(null);
   const triggerId = React.useId();
+  const dialogId = `${triggerId}-calendar`;
   const [open, setOpen] = useState(false);
   const selectedDate = parseDate(value);
   const minimumDate = parseDate(min);
@@ -91,6 +92,7 @@ export function DatePicker({ label, name, value, onChange, placeholder = "Select
         type="button"
         aria-haspopup="dialog"
         aria-expanded={open}
+        aria-controls={open ? dialogId : undefined}
         onClick={() => setOpen((current) => !current)}
         onKeyDown={(event) => { if (event.key === "Escape") setOpen(false); }}
         className="flex h-10 w-full min-w-0 items-center justify-between gap-2 rounded-10 bg-bg-white-0 px-3 text-left text-base text-text-strong-950 ring-1 ring-stroke-soft-200 shadow-regular-xs transition duration-200 ease-out hover:bg-bg-weak-50 hover:shadow-none focus-visible:outline-none focus-visible:shadow-button-important-focus focus-visible:ring-stroke-strong-950 sm:text-sm"
@@ -100,7 +102,7 @@ export function DatePicker({ label, name, value, onChange, placeholder = "Select
       </button>
 
       {open && (
-        <div role="dialog" aria-label={`${label ?? "Date"} calendar`} onKeyDown={(event) => { if (event.key === "Escape") setOpen(false); }} className="absolute inset-x-0 top-full z-50 mt-2 rounded-xl bg-bg-white-0 p-3 shadow-regular-md ring-1 ring-stroke-soft-200">
+        <div id={dialogId} role="dialog" aria-label={`${label ?? "Date"} calendar`} onKeyDown={(event) => { if (event.key === "Escape") setOpen(false); }} className="absolute inset-x-0 top-full z-50 mt-2 rounded-10 bg-bg-white-0 p-3 shadow-regular-md ring-1 ring-stroke-soft-200 overscroll-contain">
           <div className="mb-3 flex items-center justify-between">
             <button type="button" aria-label="Previous month" disabled={isPreviousMonthDisabled} onClick={() => moveMonth(-1)} className="flex size-8 items-center justify-center rounded-lg text-text-sub-600 hover:bg-bg-weak-50 hover:text-text-strong-950 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-base disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-transparent">
               <CaretLeftIcon size={16} aria-hidden="true" />

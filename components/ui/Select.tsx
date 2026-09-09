@@ -67,7 +67,7 @@ export function Select({ label, value, onValueChange, items, placeholder, classN
       <span className={cn("truncate", !selected && "text-text-soft-400")}>{selected?.label ?? placeholder ?? "Select an option"}</span>
       {open ? <CaretUpIcon size={18} className="shrink-0 text-text-sub-600" aria-hidden="true" /> : <CaretDownIcon size={18} className="shrink-0 text-text-sub-600" aria-hidden="true" />}
     </button>
-    {open && <div id={listId} role="listbox" aria-label={label ?? "Options"} className="absolute inset-x-0 top-full z-50 mt-2 max-h-64 overflow-auto rounded-xl bg-bg-white-0 p-1.5 shadow-[0_16px_32px_rgba(16,24,40,0.14)] ring-1 ring-stroke-soft-200">
+    {open && <div id={listId} role="listbox" aria-label={label ?? "Options"} className="absolute inset-x-0 top-full z-50 mt-2 max-h-64 overflow-auto rounded-10 bg-bg-white-0 p-1.5 shadow-custom-md ring-1 ring-stroke-soft-200">
       {placeholder && <button id={`${listId}-option-0`} type="button" role="option" aria-selected={!selected} onClick={() => choose("")} className={cn("flex min-h-11 w-full items-center justify-between rounded-lg px-3.5 text-left text-base text-text-strong-950 transition-colors hover:bg-bg-weak-50", !selected && "bg-bg-weak-50", activeIndex === 0 && "bg-bg-weak-50 ring-1 ring-primary-base/20")}>{placeholder}{!selected && <CheckIcon size={18} className="text-text-sub-600" aria-hidden="true" />}</button>}
       {items.map((item, idx) => {
         const optionIndex = placeholder ? idx + 1 : idx;

@@ -21,7 +21,7 @@ export function Badge({
     outline: "neutral",
     success: "success",
     warning: "warning",
-    danger: "success",
+    danger: "error",
     info: "information",
     neutral: "neutral",
   };

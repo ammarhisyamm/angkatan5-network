@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/Button";
 import { EmptyState } from "@/components/ui/EmptyState";
 import { Grid, LayerCard } from "@/components/ui/Surface";
 import { Input } from "@/components/ui/Input";
+import { PageHeader } from "@/components/ui/PageHeader";
 import { BriefcaseIcon, PlusCircleIcon, MagnifyingGlassIcon, XIcon, BookmarkSimpleIcon, SparkleIcon, SlidersHorizontalIcon } from "@phosphor-icons/react";
 import { OpportunityCategory, OpportunityType } from "@/lib/types";
 
@@ -77,28 +78,13 @@ export default function OpportunitiesPage() {
 
   return (
     <div className="space-y-6 sm:space-y-8 lg:space-y-10">
-      {/* Page Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        <div>
-          <div className="flex items-center gap-2 text-xs font-semibold text-primary-base mb-1">
-            <BriefcaseIcon size={16} weight="regular" />
-            <span>Community Board</span>
-          </div>
-          <h1 className="text-page-title text-text-strong-950">
-            Opportunities
-          </h1>
-          <p className="text-sm text-text-sub-600 mt-1 max-w-2xl">
-            Discover jobs, collaborations, freelance projects, and other opportunities shared by the community.
-          </p>
-        </div>
-
-        <Link href="/opportunities/create" className="shrink-0">
-          <Button variant="primary" size="md" className="w-full sm:w-auto justify-center">
-            <PlusCircleIcon size={16} weight="regular" />
-            Share Opportunity
-          </Button>
-        </Link>
-      </div>
+      <PageHeader
+        eyebrow="Community Board"
+        icon={BriefcaseIcon}
+        title="Opportunities"
+        description="Discover jobs, collaborations, freelance projects, and other opportunities shared by the community."
+        actions={<Link href="/opportunities/create" className="w-full sm:w-auto"><Button variant="primary" size="md" className="w-full justify-center"><PlusCircleIcon size={16} weight="regular" />Share Opportunity</Button></Link>}
+      />
 
       {/* MagnifyingGlassIcon and Saved Toggle Bar — shared AlignUI input */}
       <div className="flex flex-col sm:flex-row gap-3">

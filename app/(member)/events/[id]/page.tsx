@@ -79,10 +79,10 @@ export default function EventDetailPage() {
         </Button>
       </div>
 
-      <div className="overflow-hidden rounded-2xl border border-stroke-soft-200 bg-bg-white-0">
+      <div className="overflow-hidden rounded-20 border border-stroke-soft-200 bg-bg-white-0 shadow-regular-xs">
         <div className="p-6 sm:p-8">
           <div className="flex gap-5">
-            <div className="flex size-20 shrink-0 flex-col items-center justify-center rounded-2xl bg-bg-weak-50 ring-1 ring-stroke-soft-200">
+            <div className="flex size-20 shrink-0 flex-col items-center justify-center rounded-20 bg-bg-weak-50 ring-1 ring-stroke-soft-200">
               <span className="text-2xl font-bold leading-6 text-text-strong-950" data-numeric>{date.day}</span>
               <span className="text-xs font-semibold uppercase tracking-wide text-text-sub-600">{date.month}</span>
             </div>
@@ -105,14 +105,14 @@ export default function EventDetailPage() {
           </div>
 
           <div className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-3">
-            <div className="flex items-center gap-3 rounded-xl bg-bg-weak-50 p-4 ring-1 ring-stroke-soft-200">
+            <div className="flex items-center gap-3 rounded-10 bg-bg-weak-50 p-4 ring-1 ring-stroke-soft-200">
               <ClockIcon size={18} weight="regular" className="shrink-0 text-text-soft-400" />
               <div className="min-w-0">
                 <p className="text-meta font-medium text-text-sub-600">When</p>
                 <p className="truncate text-sm font-semibold text-text-strong-950">{formatEventRange(event.date, event.endDate)}</p>
               </div>
             </div>
-            <div className="flex items-center gap-3 rounded-xl bg-bg-weak-50 p-4 ring-1 ring-stroke-soft-200">
+            <div className="flex items-center gap-3 rounded-10 bg-bg-weak-50 p-4 ring-1 ring-stroke-soft-200">
               {event.isOnline ? (
                 <VideoCameraIcon size={18} weight="regular" className="shrink-0 text-text-soft-400" />
               ) : (
@@ -123,7 +123,7 @@ export default function EventDetailPage() {
                 <p className="truncate text-sm font-semibold text-text-strong-950">{event.isOnline ? "Online" : event.location}</p>
               </div>
             </div>
-            <div className="flex items-center gap-3 rounded-xl bg-bg-weak-50 p-4 ring-1 ring-stroke-soft-200">
+            <div className="flex items-center gap-3 rounded-10 bg-bg-weak-50 p-4 ring-1 ring-stroke-soft-200">
               <UsersIcon size={18} weight="regular" className="shrink-0 text-text-soft-400" />
               <div className="min-w-0">
                 <p className="text-meta font-medium text-text-sub-600">Spots</p>
@@ -174,18 +174,18 @@ export default function EventDetailPage() {
       </div>
 
       <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-        <div className="rounded-2xl border border-stroke-soft-200 bg-bg-white-0 p-6 md:col-span-2">
+        <div className="rounded-20 border border-stroke-soft-200 bg-bg-white-0 p-6 shadow-regular-xs md:col-span-2">
           <h2 className="text-card-title text-text-strong-950">About this event</h2>
           <p className="mt-2 whitespace-pre-line text-sm leading-6 text-text-sub-600">{event.description}</p>
           {event.isOnline && event.meetingLink && (
-            <a href={event.meetingLink} target="_blank" rel="noopener noreferrer" className="mt-4 inline-flex items-center gap-2 rounded-xl bg-bg-weak-50 px-4 py-2.5 text-sm font-medium text-primary-base ring-1 ring-stroke-soft-200 hover:bg-primary-alpha-10">
+            <a href={event.meetingLink} target="_blank" rel="noopener noreferrer" className="mt-4 inline-flex items-center gap-2 rounded-10 bg-bg-weak-50 px-4 py-2.5 text-label-sm font-medium text-primary-base ring-1 ring-stroke-soft-200 transition-colors hover:bg-primary-alpha-10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-base/40">
               <VideoCameraIcon size={16} weight="regular" />
               Join meeting link
             </a>
           )}
         </div>
 
-        <div className="rounded-2xl border border-stroke-soft-200 bg-bg-white-0 p-6">
+        <div className="rounded-20 border border-stroke-soft-200 bg-bg-white-0 p-6 shadow-regular-xs">
           <h2 className="text-card-title text-text-strong-950">Attendees ({event.attendeeIds.length})</h2>
           {attendees.length > 0 ? (
             <div className="mt-4 space-y-3">
@@ -218,11 +218,11 @@ export default function EventDetailPage() {
       >
         <div className="space-y-4">
           <div className="flex items-center justify-center py-2">
-            <div className="flex size-12 items-center justify-center rounded-2xl bg-bg-weak-50 ring-1 ring-stroke-soft-200">
+            <div className="flex size-12 items-center justify-center rounded-20 bg-bg-weak-50 ring-1 ring-stroke-soft-200">
               <ShareNetworkIcon size={20} weight="regular" className="text-text-strong-950" aria-hidden="true" />
             </div>
           </div>
-          <div className="min-w-0 overflow-hidden rounded-xl bg-bg-weak-50 p-3 ring-1 ring-stroke-soft-200">
+          <div className="min-w-0 overflow-hidden rounded-10 bg-bg-weak-50 p-3 ring-1 ring-stroke-soft-200">
             <span className="block min-w-0 break-all text-sm leading-5 text-text-strong-950">
               {typeof window !== "undefined" ? window.location.href : ""}
             </span>

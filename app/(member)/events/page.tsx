@@ -8,6 +8,8 @@ import { Button } from "@/components/ui/Button";
 import { EmptyState } from "@/components/ui/EmptyState";
 import { Grid } from "@/components/ui/Surface";
 import { Input } from "@/components/ui/Input";
+import { PageHeader } from "@/components/ui/PageHeader";
+import { SegmentedControl } from "@/components/ui/SegmentedControl";
 import { CalendarBlankIcon, PlusCircleIcon } from "@phosphor-icons/react";
 import { EventCategory } from "@/lib/types";
 
@@ -54,41 +56,19 @@ export default function EventsPage() {
 
   return (
     <div className="space-y-6 sm:space-y-8 lg:space-y-10">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        <div>
-          <div className="flex items-center gap-2 text-xs font-semibold text-primary-base mb-1">
-            <CalendarBlankIcon size={16} weight="regular" />
-            <span>Community Events</span>
-          </div>
-          <h1 className="text-page-title text-text-strong-950">Events</h1>
-          <p className="text-sm text-text-sub-600 mt-1 max-w-2xl">
-            Join sports, webinars, meetups, and hangouts with the community.
-          </p>
-        </div>
-
-        <Link href="/events/create" className="shrink-0">
-          <Button variant="primary" size="md" className="w-full sm:w-auto justify-center">
-            <PlusCircleIcon size={16} weight="regular" />
-            Create Event
-          </Button>
-        </Link>
-      </div>
+      <PageHeader
+        eyebrow="Community Events"
+        icon={CalendarBlankIcon}
+        title="Events"
+        description="Join sports, webinars, meetups, and hangouts with the community."
+        actions={<Link href="/events/create" className="w-full sm:w-auto"><Button variant="primary" size="md" className="w-full justify-center"><PlusCircleIcon size={16} weight="regular" />Create Event</Button></Link>}
+      />
 
       <div className="flex flex-col sm:flex-row gap-3">
         <div className="flex-1">
           <Input aria-label="Search events" placeholder="Search events, places, organizers…" value={searchQuery} onChange={(e: any) => setSearchQuery(e.target.value)} />
         </div>
-        <div className="flex items-center gap-1 rounded-lg bg-bg-weak-50 p-1 ring-1 ring-stroke-soft-200 sm:w-auto">
-          {(["Upcoming", "Past"] as TimeFilter[]).map((t) => (
-            <button
-              key={t}
-              onClick={() => setTimeFilter(t)}
-              className={`h-8 flex-1 rounded-md px-3 text-sm font-medium transition-colors sm:flex-none ${timeFilter === t ? "bg-bg-white-0 text-text-strong-950 ring-1 ring-stroke-soft-200 shadow-sm" : "text-text-sub-600 hover:text-text-strong-950"}`}
-            >
-              {t}
-            </button>
-          ))}
-        </div>
+        <SegmentedControl value={timeFilter} onValueChange={setTimeFilter} ariaLabel="Event timeframe" items={[{ value: "Upcoming", label: "Upcoming" }, { value: "Past", label: "Past" }]} className="w-full sm:w-fit" />
       </div>
 
       <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none">

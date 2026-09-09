@@ -31,9 +31,9 @@ export function OpportunityCard({ opportunity }: { opportunity: Opportunity }) {
   const isExpired = daysLeft < 0;
 
   return (
-    <LayerCard className="group flex h-full w-full flex-col overflow-hidden rounded-lg border border-stroke-soft-200 p-0 shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition-[border-color,box-shadow] duration-200 hover:border-primary-base/40 hover:shadow-[0_8px_20px_rgba(0,0,0,0.08)] focus-within:border-primary-base/40">
+    <LayerCard className="group flex h-full w-full flex-col overflow-hidden p-0 transition-[border-color,box-shadow] duration-200 hover:border-primary-base/40 hover:shadow-regular-sm focus-within:border-primary-base/40">
       {/* Content */}
-      <div className="flex flex-1 flex-col p-6">
+      <div className="flex flex-1 flex-col p-5">
         <div className="mb-3 flex items-start justify-between gap-2">
           <div className="flex flex-wrap items-center gap-2">
             <Tag tone={categoryTone[opportunity.category] ?? "neutral"}>{opportunity.category}</Tag>
@@ -74,7 +74,7 @@ export function OpportunityCard({ opportunity }: { opportunity: Opportunity }) {
       </div>
 
       {/* Footer anchored to bottom */}
-      <div className="mt-auto flex items-center justify-between gap-3 border-t border-stroke-soft-200 px-6 py-4">
+      <div className="mt-auto flex items-center justify-between gap-3 border-t border-stroke-soft-200 px-5 py-3.5">
         <div className="flex min-w-0 items-center gap-3">
           <Avatar name={opportunity.authorName} className="size-7 text-[10px]" />
           <div className="min-w-0">

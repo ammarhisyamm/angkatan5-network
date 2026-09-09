@@ -10,6 +10,7 @@ import { Grid, LayerCard } from "@/components/ui/Surface";
 import { Input } from "@/components/ui/Input";
 import { Select } from "@/components/ui/Select";
 import { Modal } from "@/components/ui/Modal";
+import { PageHeader } from "@/components/ui/PageHeader";
 import { MagnifyingGlassIcon, FunnelIcon, XIcon, SlidersHorizontalIcon, UsersIcon, SparkleIcon, ArrowCounterClockwiseIcon, CheckIcon } from "@phosphor-icons/react";
 import { UserStatus } from "@/lib/types";
 
@@ -195,19 +196,12 @@ export default function DiscoverPeoplePage() {
 
   return (
     <div className="space-y-6 sm:space-y-8 lg:space-y-10">
-      {/* Page Header */}
-      <div>
-        <div className="mb-1 flex items-center gap-2 text-sm font-medium leading-5 text-text-sub-600">
-          <UsersIcon size={12} weight="regular" />
-          <span>Talent directory</span>
-        </div>
-        <h1 className="text-page-title text-text-strong-950">
-          Discover People
-        </h1>
-        <p className="text-sm leading-5 text-text-sub-600 mt-1 max-w-2xl">
-          Find someone based on what they do, what they know, or what they can help with.
-        </p>
-      </div>
+      <PageHeader
+        eyebrow="Talent Directory"
+        icon={UsersIcon}
+        title="Discover People"
+        description="Find someone based on what they do, what they know, or what they can help with."
+      />
 
       {/* Prominent search bar — shared AlignUI input */}
       <Input name="people-search" type="search" aria-label="Search people" placeholder="Search people, skills, roles, or companies…" value={searchInput} onChange={(e: any) => setSearchInput(e.target.value)} />
@@ -215,7 +209,7 @@ export default function DiscoverPeoplePage() {
         <div className="flex flex-wrap items-center gap-2 text-xs">
           <span className="text-text-soft-400">Recent:</span>
           {recentSearches.map((s) => (
-            <button key={s} onClick={() => { setSearchInput(s); setSearchQuery(s); }} className="rounded-full border border-stroke-soft-200 bg-bg-white-0 px-2.5 py-1 text-xs text-text-sub-600 hover:bg-bg-weak-50">
+            <button key={s} onClick={() => { setSearchInput(s); setSearchQuery(s); }} className="rounded-full bg-bg-white-0 px-2.5 py-1 text-label-xs text-text-sub-600 ring-1 ring-stroke-soft-200 transition-colors hover:bg-bg-weak-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-base/40">
               {s}
             </button>
           ))}

@@ -29,7 +29,7 @@ export function BottomNav() {
   return (
     <nav
       aria-label="Primary mobile"
-      className="fixed inset-x-4 bottom-4 z-40 mx-auto w-fit max-w-[calc(100vw-2rem)] rounded-2xl border border-text-white-0/20 bg-bg-strong-950 p-2 shadow-regular-md lg:hidden"
+      className="fixed inset-x-4 bottom-4 z-40 mx-auto w-fit max-w-[calc(100vw-2rem)] rounded-20 border border-text-white-0/20 bg-bg-strong-950 p-2 shadow-regular-md lg:hidden"
       style={{ marginBottom: "env(safe-area-inset-bottom)" }}
     >
       <div className="flex items-stretch gap-1">

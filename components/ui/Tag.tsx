@@ -3,18 +3,20 @@
 import React from "react";
 import { cn } from "@/lib/utils/cn";
 
-export type TagTone = "neutral" | "success" | "warning" | "information" | "primary";
+export type TagTone = "neutral" | "success" | "warning" | "information" | "primary" | "error" | "feature";
 const tones: Record<TagTone, string> = {
   neutral: "bg-bg-white-0 text-text-strong-950 ring-stroke-soft-200",
   success: "bg-success-lighter text-success-dark ring-success-base/20",
   warning: "bg-warning-lighter text-warning-dark ring-warning-base/20",
   information: "bg-information-lighter text-information-dark ring-information-base/20",
   primary: "bg-primary-alpha-10 text-primary-base ring-primary-base/20",
+  error: "bg-error-lighter text-error-dark ring-error-base/20",
+  feature: "bg-feature-lighter text-feature-dark ring-feature-base/20",
 };
 
 export interface TagProps extends React.HTMLAttributes<HTMLSpanElement> { tone?: TagTone; }
 export function Tag({ className, tone = "neutral", children, ...props }: TagProps) {
-  return <span className={cn("inline-flex min-h-6 items-center gap-1.5 whitespace-nowrap rounded-full px-2.5 py-1 text-xs font-medium leading-none ring-1", tones[tone], className)} {...props}>{children}</span>;
+  return <span className={cn("inline-flex min-h-6 items-center gap-1.5 whitespace-nowrap rounded-full px-2.5 py-1 text-label-xs leading-none ring-1", tones[tone], className)} {...props}>{children}</span>;
 }
 
 export type StatusTone = "success" | "warning" | "information" | "primary" | "neutral";

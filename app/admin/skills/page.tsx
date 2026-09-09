@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/Input";
 import { Select } from "@/components/ui/Select";
 import { LayerCard } from "@/components/ui/Surface";
 import { Modal } from "@/components/ui/Modal";
+import { PageHeader } from "@/components/ui/PageHeader";
 import { StackIcon, PlusIcon, DotsThreeVerticalIcon, PencilSimpleIcon, ArrowsMergeIcon, TrashIcon, MagnifyingGlassIcon, CodeIcon, PaletteIcon, BriefcaseIcon, MegaphoneIcon, BankIcon, FilmSlateIcon, DotsThreeIcon } from "@phosphor-icons/react";
 
 const FIELD_CATEGORIES: SkillCategory[] = ["Design", "Technology", "Business", "Marketing", "Finance", "Media & Creative", "Other"];
@@ -102,17 +103,7 @@ export default function AdminSkillsPage() {
 
   return (
     <div className="space-y-6">
-      {/* Page Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        <div>
-          <div className="mb-1.5 flex items-center gap-1.5 text-label text-text-soft-400">
-            <StackIcon size={14} />
-            <span>Skill Taxonomy</span>
-          </div>
-          <h1 className="text-page-title text-text-strong-950">Skill Management</h1>
-          <p className="mt-1 text-body text-text-sub-600">Organize and standardize the skills available to the Angkatan 5 talent pool.</p>
-        </div>
-      </div>
+      <PageHeader eyebrow="Skill Taxonomy" icon={StackIcon} title="Skill Management" description="Organize and standardize the skills available to the Angkatan 5 talent pool." />
 
       {/* Add New Skill */}
       <LayerCard className="p-4 sm:p-5">
@@ -178,8 +169,8 @@ export default function AdminSkillsPage() {
                             <button onClick={() => { setEditingSkill({ id: skill.id, name: skill.name }); setActiveMenu(null); }} className="flex items-center gap-2 w-full px-3 py-2 text-sm text-text-strong-950 hover:bg-bg-weak-50 transition-colors">
                               <PencilSimpleIcon size={14} /> Rename
                             </button>
-                            <button onClick={() => { setMergeTarget(skill); setActiveMenu(null); }} className="flex items-center gap-2 w-full px-3 py-2 text-sm text-text-strong-950 hover:bg-bg-weak-50 transition-colors">
-                              <ArrowsMergeIcon size={14} /> Merge into...
+                              <button onClick={() => { setMergeTarget(skill); setActiveMenu(null); }} className="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-sm text-text-strong-950 transition-colors hover:bg-bg-weak-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-base/40">
+                                <ArrowsMergeIcon size={14} aria-hidden="true" /> Merge into…
                             </button>
                             <button onClick={() => { setDeleteTarget(skill); setActiveMenu(null); }} className="flex items-center gap-2 w-full px-3 py-2 text-sm text-error-base hover:bg-error-lighter transition-colors">
                               <TrashIcon size={14} /> Delete

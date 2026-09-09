@@ -86,7 +86,7 @@ function SidebarInner() {
 
   return (
     <>
-      <aside className={`hidden shrink-0 flex-col border-r border-stroke-soft-200 bg-bg-white-0 lg:flex ${isCollapsed ? "w-[72px]" : "w-60"}`}>
+      <aside className={`hidden shrink-0 flex-col border-r border-stroke-soft-200 bg-bg-white-0 lg:flex ${isCollapsed ? "w-[72px]" : "w-64"}`}>
         <div className="flex h-full w-full flex-col">
           <div className={`flex flex-col gap-4 border-b border-stroke-soft-200 px-4 py-4 ${isCollapsed ? "items-center px-2" : ""}`}>
             <div className={`flex items-center gap-2 ${isCollapsed ? "w-full flex-col justify-center" : "justify-between"}`}>
@@ -99,15 +99,15 @@ function SidebarInner() {
               <div className="flex items-center gap-1.5">
                 {!isCollapsed && (
                   <div className="relative">
-                    <button onClick={() => setShowNotifications((v) => !v)} aria-label="Notifications" className="relative flex size-8 items-center justify-center rounded-lg text-text-sub-600 ring-1 ring-stroke-soft-200 hover:bg-bg-weak-50 hover:text-text-strong-950">
+                    <button onClick={() => setShowNotifications((v) => !v)} aria-label="Notifications" className="relative flex size-8 items-center justify-center rounded-lg text-text-sub-600 ring-1 ring-stroke-soft-200 transition-colors hover:bg-bg-weak-50 hover:text-text-strong-950 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-base/40">
                       <BellIcon size={16} />
                       {unreadCount > 0 && <span className="absolute -right-1 -top-1 flex size-4 items-center justify-center rounded-full bg-error-base text-[10px] font-bold text-static-white ring-2 ring-bg-white-0">{unreadCount}</span>}
                     </button>
                 {showNotifications && (
-                  <div className="fixed left-4 top-16 z-50 w-[calc(100vw-2rem)] max-w-[320px] rounded-xl border border-stroke-soft-200 bg-bg-white-0 shadow-xl sm:absolute sm:left-auto sm:right-0 sm:top-full sm:mt-2 sm:w-72 sm:max-w-none lg:fixed lg:left-[248px] lg:right-auto lg:top-16 lg:w-80">
+                  <div className="fixed left-4 top-16 z-50 w-[calc(100vw-2rem)] max-w-[320px] rounded-10 border border-stroke-soft-200 bg-bg-white-0 shadow-custom-md sm:absolute sm:left-auto sm:right-0 sm:top-full sm:mt-2 sm:w-72 sm:max-w-none lg:fixed lg:left-[264px] lg:right-auto lg:top-16 lg:w-80">
                         <div className="flex items-center justify-between p-3">
                           <p className="text-sm font-semibold text-text-strong-950">Notifications</p>
-                          <button onClick={markAllNotificationsRead} className="text-xs font-medium text-primary-base hover:underline">Mark all read</button>
+                            <button onClick={markAllNotificationsRead} className="rounded-sm text-label-xs text-primary-base hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-base/40">Mark all read</button>
                         </div>
                         <div className="max-h-72 overflow-auto">
                           {notifications.map((n: any) => (
@@ -154,7 +154,7 @@ function SidebarInner() {
                     const isActive = pathname === item.href || (item.href !== "/admin/dashboard" && pathname.startsWith(item.href));
                     const Icon = item.icon;
                     return (
-                      <Link key={item.href} href={item.href} title={isCollapsed ? item.name : undefined} className={`group relative flex h-9 items-center gap-3 rounded-lg px-3 text-sm transition-colors ${isActive ? "bg-bg-weak-50 font-semibold text-text-strong-950" : "font-medium text-text-sub-600 hover:bg-bg-weak-50 hover:text-text-strong-950"} ${isCollapsed ? "justify-center px-0" : ""}`}>
+                  <Link key={item.href} href={item.href} title={isCollapsed ? item.name : undefined} aria-current={isActive ? "page" : undefined} className={`group relative flex h-9 items-center gap-3 rounded-lg px-3 text-label-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-base/40 ${isActive ? "bg-bg-weak-50 font-semibold text-text-strong-950" : "font-medium text-text-sub-600 hover:bg-bg-weak-50 hover:text-text-strong-950"} ${isCollapsed ? "justify-center px-0" : ""}`}>
                         <Icon size={18} weight={isActive ? "fill" : "regular"} className={isActive ? "text-text-strong-950" : "text-text-soft-400 group-hover:text-text-sub-600"} />
                         {!isCollapsed && <><span className="flex-1 truncate text-left">{item.name}</span>{item.count !== null && <span className={`shrink-0 rounded-md border px-1.5 py-0.5 text-xs font-medium ${isActive ? "border-stroke-soft-200 bg-bg-white-0 text-text-strong-950" : "border-stroke-soft-200 bg-bg-white-0 text-text-sub-600"}`}>{item.count}</span>}</>}
                         {isCollapsed && item.count !== null && <span className="absolute right-2 top-1 size-2 rounded-full bg-primary-base" />}
@@ -176,14 +176,14 @@ function SidebarInner() {
                       <p className="truncate text-sm font-semibold leading-4 text-text-strong-950">{currentUser?.name || "Guest"}</p>
                       <p className="truncate text-xs leading-3 text-text-soft-400">{currentUser?.email || ""}</p>
                     </div>
-                    <button onClick={() => setShowUserMenu((v) => !v)} aria-label="User menu" className="flex size-7 items-center justify-center rounded-lg text-text-soft-400 hover:bg-bg-weak-50 hover:text-text-strong-950">
+                    <button onClick={() => setShowUserMenu((v) => !v)} aria-label="User menu" className="flex size-7 items-center justify-center rounded-lg text-text-soft-400 hover:bg-bg-weak-50 hover:text-text-strong-950 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-base/40">
                       <GearIcon size={14} />
                     </button>
                   </>
                 )}
               </div>
               {showUserMenu && !isCollapsed && (
-                <div className="absolute bottom-full left-0 right-0 mb-2 rounded-xl border border-stroke-soft-200 bg-bg-white-0 p-1.5 shadow-lg">
+                <div className="absolute bottom-full left-0 right-0 mb-2 rounded-10 border border-stroke-soft-200 bg-bg-white-0 p-1.5 shadow-custom-md">
                   <div className="px-3 py-2.5">
                     <p className="truncate text-sm font-semibold text-text-strong-950">{currentUser?.name || "Guest"}</p>
                     <p className="truncate text-xs text-text-soft-400">{currentUser?.email || ""}</p>
@@ -207,7 +207,7 @@ function SidebarInner() {
       </aside>
       {showInfoModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-bg-strong-950/40 p-4 backdrop-blur-sm" onClick={() => setShowInfoModal(null)}>
-          <div onClick={(e) => e.stopPropagation()} className="w-full max-w-sm rounded-2xl bg-bg-white-0 p-6 text-center shadow-xl">
+          <div onClick={(e) => e.stopPropagation()} className="w-full max-w-sm rounded-20 bg-bg-white-0 p-6 text-center shadow-custom-md">
             <div className="mx-auto mb-4 grid size-12 place-items-center rounded-full bg-primary-alpha-10 text-primary-base"><BellIcon size={24} weight="fill" /></div>
             <h3 className="text-base font-semibold text-text-strong-950">{showInfoModal.title}</h3>
             <p className="mt-1 text-sm text-text-sub-600">{showInfoModal.desc}</p>

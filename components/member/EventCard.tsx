@@ -24,8 +24,8 @@ export function EventCard({ event }: { event: CommunityEvent }) {
   const isFull = spotsLeft !== null && spotsLeft <= 0;
 
   return (
-    <LayerCard className="group flex h-full w-full flex-col overflow-hidden rounded-lg border border-stroke-soft-200 p-0 shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition-[border-color,box-shadow] duration-200 hover:border-primary-base/40 hover:shadow-[0_8px_20px_rgba(0,0,0,0.08)] focus-within:border-primary-base/40">
-      <div className="flex flex-1 flex-col p-6">
+    <LayerCard className="group flex h-full w-full flex-col overflow-hidden p-0 transition-[border-color,box-shadow] duration-200 hover:border-primary-base/40 hover:shadow-regular-sm focus-within:border-primary-base/40">
+      <div className="flex flex-1 flex-col p-5">
         <div className="flex items-start gap-4">
           <div className="flex size-14 shrink-0 flex-col items-center justify-center rounded-xl bg-bg-weak-50 ring-1 ring-stroke-soft-200">
             <span className="text-lg font-bold leading-5 text-text-strong-950" data-numeric>{date.day}</span>
@@ -58,7 +58,7 @@ export function EventCard({ event }: { event: CommunityEvent }) {
         </div>
       </div>
 
-      <div className="mt-auto flex items-center justify-between gap-3 border-t border-stroke-soft-200 px-6 py-4">
+      <div className="mt-auto flex items-center justify-between gap-3 border-t border-stroke-soft-200 px-5 py-3.5">
         <div className="flex min-w-0 items-center gap-2">
           <span className="text-sm font-medium text-text-strong-950" data-numeric>
             {event.attendeeIds.length}{event.capacity > 0 ? `/${event.capacity}` : ""}

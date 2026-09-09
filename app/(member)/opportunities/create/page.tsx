@@ -8,6 +8,7 @@ import { Input, Textarea } from "@/components/ui/Input";
 import { Select } from "@/components/ui/Select";
 import { DatePicker } from "@/components/ui/DatePicker";
 import { Button } from "@/components/ui/Button";
+import { PageHeader } from "@/components/ui/PageHeader";
 import { Badge } from "@/components/ui/Badge";
 import { ArrowLeftIcon, EyeIcon, PaperPlaneTiltIcon, PlusIcon, SparkleIcon, MapPinIcon } from "@phosphor-icons/react";
 import { OpportunityCategory, OpportunityType } from "@/lib/types";
@@ -140,29 +141,17 @@ export default function CreateOpportunityPage() {
         </button>
       </div>
 
-      {/* Header */}
-      <div>
-        <div className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-primary-alpha-10 text-primary-base text-xs font-semibold mb-2">
-          <SparkleIcon size={12} weight="regular" aria-hidden="true" />
-          <span>New Community Post</span>
-        </div>
-        <h1 className="text-page-title text-text-strong-950">
-          Share an Opportunity
-        </h1>
-        <p className="text-sm text-text-sub-600 mt-1">
-          Post jobs, freelance projects, collaborations, or mentorship openings for your fellow alumni.
-        </p>
-      </div>
+      <PageHeader eyebrow="New Community Post" icon={SparkleIcon} title="Share an Opportunity" description="Post jobs, freelance projects, collaborations, or mentorship openings for your fellow alumni." />
 
       {error && (
-        <div className="p-4 text-xs bg-error-lighter border border-error-light text-error-base rounded-xl font-medium">
+        <div role="alert" className="rounded-10 border border-error-light bg-error-lighter p-4 text-paragraph-xs font-medium text-error-base">
           {error}
         </div>
       )}
 
       {isPreview ? (
         /* LIVE PREVIEW CARD */
-        <div className="bg-bg-white-0 border border-stroke-soft-200 rounded-xl p-6 sm:p-8 space-y-8">
+        <div className="space-y-8 rounded-20 border border-stroke-soft-200 bg-bg-white-0 p-6 shadow-regular-xs sm:p-8">
           <div className="flex items-center justify-between pb-3 border-b border-stroke-soft-200">
             <span className="text-sm font-medium text-primary-base">
               Live Preview
@@ -213,7 +202,7 @@ export default function CreateOpportunityPage() {
                 {selectedSkills.map((sk) => (
                   <span
                     key={sk}
-                    className="px-2 rounded-xl text-xs bg-bg-weak-50 text-text-sub-600 font-medium"
+                    className="rounded-full bg-bg-weak-50 px-2 py-1 text-label-xs font-medium text-text-sub-600"
                   >
                     {sk}
                   </span>
@@ -236,7 +225,7 @@ export default function CreateOpportunityPage() {
         /* EDIT FORM */
         <form
           onSubmit={handleSubmit}
-          className="rounded-2xl border border-stroke-soft-200 bg-bg-white-0 p-5 sm:p-8"
+          className="rounded-20 border border-stroke-soft-200 bg-bg-white-0 p-5 shadow-regular-xs sm:p-8"
         >
           <div className="space-y-6">
           <Input

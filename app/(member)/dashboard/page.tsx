@@ -48,7 +48,7 @@ export default function MemberDashboardPage() {
               <p className="mt-0.5 text-body text-text-sub-600">Discover people and opportunities within your community.</p>
             </div>
           </div>
-          <div className="w-full rounded-xl border border-stroke-soft-200 bg-bg-weak-50 p-4 sm:max-w-[300px]">
+          <div className="w-full rounded-10 border border-stroke-soft-200 bg-bg-weak-50 p-4 sm:max-w-[300px]">
             <div className="mb-2 flex items-center justify-between">
               <span className="text-meta text-text-sub-600">Profile completion</span>
               <span className="text-meta font-semibold text-primary-base" data-numeric>{completion}%</span>
@@ -70,7 +70,7 @@ export default function MemberDashboardPage() {
             const Icon = a.icon;
             return (
               <Link key={a.href} href={a.href} className="group">
-                <LayerCard className="h-full w-full rounded-xl border border-stroke-soft-200 p-4 shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition-[border-color,box-shadow] hover:border-primary-base/40 hover:shadow-[0_8px_20px_rgba(0,0,0,0.08)] sm:p-5">
+                <LayerCard className="h-full w-full p-4 transition-[border-color,box-shadow] hover:border-primary-base/40 hover:shadow-regular-sm sm:p-5">
                   <span className="mb-4 flex size-9 items-center justify-center rounded-lg bg-bg-white-0 ring-1 ring-stroke-soft-200 shadow-sm text-text-strong-950">
                     <Icon className="size-5 sm:size-6" strokeWidth={1.5} />
                   </span>

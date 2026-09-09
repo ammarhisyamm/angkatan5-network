@@ -26,9 +26,9 @@ function HighlightText({ text, query }: { text: string; query?: string }) {
 
 export function ProfileCard({ member, highlight }: { member: User; highlight?: string }) {
   return (
-      <LayerCard className="group flex h-full w-full flex-col overflow-hidden rounded-lg border border-stroke-soft-200 p-0 shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition-[border-color,box-shadow] duration-200 hover:border-primary-base/40 hover:shadow-[0_8px_20px_rgba(0,0,0,0.08)] focus-within:border-primary-base/40">
+      <LayerCard className="group flex h-full w-full flex-col overflow-hidden p-0 transition-[border-color,box-shadow] duration-200 hover:border-primary-base/40 hover:shadow-regular-sm focus-within:border-primary-base/40">
         {/* Content */}
-        <div className="flex flex-1 flex-col p-6">
+        <div className="flex flex-1 flex-col p-5">
           <div className="flex items-start gap-3">
             <Link href={`/profile/${member.id}`} className="relative shrink-0" aria-label={`View ${member.name}`}>
               <Avatar name={member.name} className="size-12 text-sm" />
@@ -64,7 +64,7 @@ export function ProfileCard({ member, highlight }: { member: User; highlight?: s
         </div>
 
         {/* Footer anchored to bottom */}
-        <div className="mt-auto flex items-center justify-between gap-2 border-t border-stroke-soft-200 px-6 py-4">
+        <div className="mt-auto flex items-center justify-between gap-2 border-t border-stroke-soft-200 px-5 py-3.5">
           <StatusBadge status={member.status} />
           <Link href={`/profile/${member.id}`}>
             <Button variant="secondary" size="sm" icon={<ArrowRightIcon size={14} />}>View</Button>

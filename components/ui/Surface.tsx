@@ -4,7 +4,7 @@ import React from "react";
 import { cn } from "@/lib/utils/cn";
 
 export function LayerCard({ className, children, ...props }: React.HTMLAttributes<HTMLDivElement>) {
-  return <div className={cn("rounded-xl border border-stroke-soft-200 bg-bg-white-0 shadow-regular-xs", className)} {...props}>{children}</div>;
+  return <div className={cn("rounded-10 border border-stroke-soft-200 bg-bg-white-0 shadow-regular-xs", className)} {...props}>{children}</div>;
 }
 
 const gridVariants = {

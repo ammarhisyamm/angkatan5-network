@@ -157,7 +157,7 @@ export default function OnboardingPage() {
         </div>
 
         {/* Stepper indicator */}
-        <div className="bg-bg-white-0 rounded-xl border border-stroke-soft-200 p-4 mb-6">
+        <div className="mb-6 rounded-10 border border-stroke-soft-200 bg-bg-white-0 p-4 shadow-regular-xs">
           <div className="flex items-center justify-between relative">
             <div className="absolute top-1/2 left-0 right-0 h-0 bg-bg-weak-50 -translate-y-1/2 z-0" />
             {stepsList.map((s) => {
@@ -195,7 +195,7 @@ export default function OnboardingPage() {
         </div>
 
         {/* Step Card Content */}
-        <div className="bg-bg-white-0 rounded-xl border border-stroke-soft-200 p-6 sm:p-8">
+        <div className="rounded-10 border border-stroke-soft-200 bg-bg-white-0 p-6 shadow-regular-xs sm:p-8">
           {/* STEP 1: ABOUT YOU */}
           {step === 1 && (
             <div className="space-y-8">
@@ -362,7 +362,7 @@ export default function OnboardingPage() {
                       type="button"
                       aria-pressed={isChecked}
                       onClick={() => handleToggleLookingFor(item)}
-                      className={`flex items-center justify-between rounded-xl p-4 text-left ring-1 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-base ${
+                      className={`flex items-center justify-between rounded-10 p-4 text-left ring-1 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-base ${
                         isChecked
                           ? "bg-primary-alpha-10 text-primary-base ring-primary-base"
                           : "bg-bg-white-0 text-text-sub-600 ring-stroke-soft-200 hover:bg-bg-weak-50"
@@ -405,7 +405,7 @@ export default function OnboardingPage() {
                       type="button"
                       aria-pressed={isChecked}
                       onClick={() => handleToggleCanOffer(item)}
-                      className={`flex items-center justify-between rounded-xl p-4 text-left ring-1 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-base ${
+                      className={`flex items-center justify-between rounded-10 p-4 text-left ring-1 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-base ${
                         isChecked
                           ? "bg-success-lighter/50 text-success-dark ring-success-base"
                           : "bg-bg-white-0 text-text-sub-600 ring-stroke-soft-200 hover:bg-bg-weak-50"
@@ -460,7 +460,7 @@ export default function OnboardingPage() {
 
       {showCelebration && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-bg-strong-950/40 backdrop-blur-sm p-4">
-          <div className="relative w-full max-w-sm overflow-hidden rounded-2xl bg-bg-white-0 p-8 text-center shadow-xl">
+          <div className="relative w-full max-w-sm overflow-hidden rounded-20 bg-bg-white-0 p-8 text-center shadow-custom-md">
             <div className="pointer-events-none absolute inset-0 overflow-hidden">
               {[...Array(20)].map((_, i) => (
                 <span

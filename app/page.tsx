@@ -22,13 +22,13 @@ export default function HomePage() {
   }, [currentUser, isLoading, router]);
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-bg-weak-50">
-      <div className="flex flex-col items-center gap-3">
-        <div className="w-12 h-12 rounded-xl bg-primary-base flex items-center justify-center text-static-white font-bold text-xl animate-pulse">
+    <div className="flex min-h-screen items-center justify-center bg-bg-weak-50 p-6">
+      <div className="flex flex-col items-center gap-3 rounded-20 border border-stroke-soft-200 bg-bg-white-0 px-8 py-7 text-center shadow-regular-xs">
+        <div className="flex size-12 items-center justify-center rounded-10 bg-primary-base text-xl font-semibold text-static-white animate-pulse">
           A5
         </div>
-        <p className="text-xs text-text-sub-600 font-medium">
-          Entering Angkatan 5 Talent Network...
+        <p className="text-paragraph-xs text-text-sub-600">
+          Entering Angkatan 5 Talent Network…
         </p>
       </div>
     </div>

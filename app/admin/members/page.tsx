@@ -13,6 +13,7 @@ import { LayerCard } from "@/components/ui/Surface";
 import { Input } from "@/components/ui/Input";
 import { Select } from "@/components/ui/Select";
 import { Avatar } from "@/components/ui/Avatar";
+import { PageHeader } from "@/components/ui/PageHeader";
 import {
   UsersIcon,
   CheckCircleIcon,
@@ -99,29 +100,15 @@ export default function AdminMembersPage() {
 
   return (
     <div className="space-y-6">
-      {/* Page Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        <div>
-          <div className="mb-1.5 flex items-center gap-1.5 text-label text-text-soft-400">
-            <UsersIcon size={14} />
-            <span>Member Directory</span>
-          </div>
-          <h1 className="text-page-title text-text-strong-950">Member Management</h1>
-          <p className="mt-1 text-body text-text-sub-600">Verify credentials, oversee profiles, and manage directory permissions.</p>
-        </div>
-        <div className="flex flex-wrap items-center gap-2">
-          {isSuperadmin && (
-            <Button variant="primary" size="sm" icon={<PlusIcon size={14} />} onClick={() => { setShowAddModal("admin"); setNewName(""); setNewUsername(""); }}>
-              Add Admin
-            </Button>
-          )}
-          <Button variant={isSuperadmin ? "secondary" : "primary"} size="sm" icon={<PlusIcon size={14} />} onClick={() => { setShowAddModal("member"); setNewName(""); setNewUsername(""); }}>
-            Add Member
-          </Button>
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => {
+      <PageHeader
+        eyebrow="Member Directory"
+        icon={UsersIcon}
+        title="Member Management"
+        description="Verify credentials, oversee profiles, and manage directory permissions."
+        actions={<>
+          {isSuperadmin && <Button variant="primary" size="sm" icon={<PlusIcon size={14} />} onClick={() => { setShowAddModal("admin"); setNewName(""); setNewUsername(""); }}>Add Admin</Button>}
+          <Button variant={isSuperadmin ? "secondary" : "primary"} size="sm" icon={<PlusIcon size={14} />} onClick={() => { setShowAddModal("member"); setNewName(""); setNewUsername(""); }}>Add Member</Button>
+          <Button variant="outline" size="sm" onClick={() => {
               const headers = ["Name", "Email", "Role", "Company", "Industry", "Status", "Verified"];
               const rows = filteredMembers.map((u) => [u.name, u.email, u.role, u.company, u.industry, u.status, String(u.verified)]);
               const csv = [headers, ...rows].map((r) => r.map((v) => `"${String(v).replace(/"/g, '""')}"`).join(",")).join("\n");
@@ -132,12 +119,9 @@ export default function AdminMembersPage() {
               a.download = "members.csv";
               a.click();
               URL.revokeObjectURL(url);
-            }}
-          >
-            Export CSV
-          </Button>
-        </div>
-      </div>
+            }}>Export CSV</Button>
+        </>}
+      />
 
       {/* Search & Filter */}
       <LayerCard className="flex flex-col items-stretch gap-3 p-4 sm:flex-row sm:items-center sm:justify-center sm:p-5">
@@ -149,7 +133,7 @@ export default function AdminMembersPage() {
       </LayerCard>
 
       {selectedIds.size > 0 && (
-        <div className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-primary-base/20 bg-primary-alpha-10 px-4 py-3">
+        <div className="flex flex-wrap items-center justify-between gap-3 rounded-10 border border-primary-base/20 bg-primary-alpha-10 px-4 py-3">
           <span className="text-sm font-medium text-text-strong-950">{selectedIds.size} selected</span>
           <div className="flex items-center gap-2">
             <Button variant="secondary" size="sm" onClick={handleBulkVerify} icon={<ShieldCheckIcon size={14} />}>Verify</Button>

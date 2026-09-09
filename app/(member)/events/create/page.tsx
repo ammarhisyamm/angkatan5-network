@@ -7,6 +7,8 @@ import { useApp } from "@/lib/store/AppContext";
 import { Input, Textarea } from "@/components/ui/Input";
 import { DatePicker } from "@/components/ui/DatePicker";
 import { Button } from "@/components/ui/Button";
+import { PageHeader } from "@/components/ui/PageHeader";
+import { SegmentedControl } from "@/components/ui/SegmentedControl";
 import { ArrowLeftIcon, PlusCircleIcon, CalendarBlankIcon, MapPinIcon, VideoCameraIcon } from "@phosphor-icons/react";
 import { EventCategory } from "@/lib/types";
 
@@ -70,26 +72,15 @@ export default function CreateEventPage() {
 
   return (
     <div className="space-y-6">
-      <div>
-        <Link
-          href="/events"
-          className="inline-flex items-center gap-1 text-xs font-semibold text-text-sub-600 hover:text-text-strong-950 transition-colors"
-        >
-          <ArrowLeftIcon size={16} weight="regular" />
-          Back to Events
+      <div className="space-y-3">
+        <Link href="/events" className="inline-flex items-center gap-1 rounded-sm text-label-xs text-text-sub-600 transition-colors hover:text-text-strong-950 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-base/40">
+          <ArrowLeftIcon size={16} weight="regular" aria-hidden="true" />Back to Events
         </Link>
-        <div className="mt-2 flex items-center gap-2 text-xs font-semibold text-primary-base">
-          <CalendarBlankIcon size={16} weight="regular" />
-          <span>New Event</span>
-        </div>
-        <h1 className="text-page-title text-text-strong-950">Create Event</h1>
-        <p className="text-sm text-text-sub-600 mt-1 max-w-2xl">
-          Gather the community — sports, webinars, meetups, or hangouts.
-        </p>
+        <PageHeader eyebrow="New Event" icon={CalendarBlankIcon} title="Create Event" description="Gather the community — sports, webinars, meetups, or hangouts." />
       </div>
 
-      <form onSubmit={handleSubmit} className="rounded-2xl border border-stroke-soft-200 bg-bg-white-0 p-6 sm:p-8 space-y-5">
-        {error && <div className="rounded-xl border border-error-light bg-error-lighter p-3 text-xs font-medium text-error-dark">{error}</div>}
+      <form onSubmit={handleSubmit} className="space-y-5 rounded-20 border border-stroke-soft-200 bg-bg-white-0 p-5 shadow-regular-xs sm:p-8">
+        {error && <div role="alert" className="rounded-10 border border-error-light bg-error-lighter p-3 text-paragraph-xs text-error-dark">{error}</div>}
 
         <Input label="Event Title" value={title} onChange={(e) => setTitle(e.target.value)} placeholder="e.g. Saturday Morning Futsal" required />
 
@@ -126,22 +117,7 @@ export default function CreateEventPage() {
 
         <div>
           <p className="mb-2 text-xs font-semibold text-text-strong-950">Format</p>
-          <div className="flex items-center gap-1 rounded-lg bg-bg-weak-50 p-1 ring-1 ring-stroke-soft-200 sm:w-72">
-            <button
-              type="button"
-              onClick={() => setIsOnline(false)}
-              className={`flex h-8 flex-1 items-center justify-center gap-1.5 rounded-md px-2 text-sm font-medium transition-colors ${!isOnline ? "bg-bg-white-0 text-text-strong-950 ring-1 ring-stroke-soft-200 shadow-sm" : "text-text-sub-600 hover:text-text-strong-950"}`}
-            >
-              <MapPinIcon size={14} weight="regular" aria-hidden="true" /> Offline
-            </button>
-            <button
-              type="button"
-              onClick={() => setIsOnline(true)}
-              className={`flex h-8 flex-1 items-center justify-center gap-1.5 rounded-md px-2 text-sm font-medium transition-colors ${isOnline ? "bg-bg-white-0 text-text-strong-950 ring-1 ring-stroke-soft-200 shadow-sm" : "text-text-sub-600 hover:text-text-strong-950"}`}
-            >
-              <VideoCameraIcon size={14} weight="regular" aria-hidden="true" /> Online
-            </button>
-          </div>
+          <SegmentedControl value={isOnline ? "online" : "offline"} onValueChange={(value) => setIsOnline(value === "online")} ariaLabel="Event format" items={[{ value: "offline", label: "Offline", icon: MapPinIcon }, { value: "online", label: "Online", icon: VideoCameraIcon }]} className="w-full sm:w-72" />
         </div>
 
         {isOnline ? (
@@ -153,6 +129,7 @@ export default function CreateEventPage() {
         <Input
           label="Capacity (0 = unlimited)"
           type="number"
+          inputMode="numeric"
           min={0}
           value={capacity}
           onChange={(e) => setCapacity(e.target.value)}

@@ -71,11 +71,11 @@ export default function MemberProfilePage() {
       </div>
 
       {/* Header Profile Card */}
-      <div className="bg-bg-white-0 border border-stroke-soft-200 rounded-xl p-6 sm:p-8">
+      <div className="rounded-10 border border-stroke-soft-200 bg-bg-white-0 p-6 shadow-regular-xs sm:p-8">
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
           <div className="flex items-start sm:items-center gap-5">
             <div className="relative shrink-0">
-              <div className="flex size-20 sm:size-24 items-center justify-center rounded-2xl bg-bg-weak-50 text-xl font-semibold text-text-strong-950 ring-4 ring-bg-white-0 shadow-sm sm:text-2xl">
+              <div className="flex size-20 items-center justify-center rounded-20 bg-bg-weak-50 text-xl font-semibold text-text-strong-950 ring-4 ring-bg-white-0 shadow-regular-xs sm:size-24 sm:text-2xl">
                 {member.name.split(" ").slice(0, 2).map((p) => p[0]).join("").toUpperCase()}
               </div>
               {member.verified && (
@@ -134,7 +134,7 @@ export default function MemberProfilePage() {
         {/* Left 2 Columns: Main Details */}
         <div className="md:col-span-2 space-y-8">
           {/* About Section */}
-          <div className="bg-bg-white-0 border border-stroke-soft-200 rounded-xl p-6">
+          <div className="rounded-10 border border-stroke-soft-200 bg-bg-white-0 p-6 shadow-regular-xs">
             <h2 className="text-section-title text-text-strong-950 mb-3">
               About
             </h2>
@@ -144,7 +144,7 @@ export default function MemberProfilePage() {
           </div>
 
           {/* Experience Timeline */}
-          <div className="bg-bg-white-0 border border-stroke-soft-200 rounded-xl p-6">
+          <div className="rounded-10 border border-stroke-soft-200 bg-bg-white-0 p-6 shadow-regular-xs">
             <h2 className="text-section-title text-text-strong-950 mb-4">
               Professional Experience
             </h2>
@@ -170,7 +170,7 @@ export default function MemberProfilePage() {
                 ))}
               </div>
             ) : (
-              <div className="p-4 rounded-xl bg-bg-weak-50 border border-stroke-soft-200 flex items-start gap-3">
+              <div className="flex items-start gap-3 rounded-10 border border-stroke-soft-200 bg-bg-weak-50 p-4">
                 <BriefcaseIcon size={20} weight="regular" className="text-text-soft-400 shrink-0 mt-0" />
                 <div>
                   <h4 className="text-sm font-semibold text-text-strong-950">
@@ -186,7 +186,7 @@ export default function MemberProfilePage() {
 
           {/* Capabilities & What I Can Offer */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div className="bg-bg-white-0 border border-stroke-soft-200 rounded-xl p-5">
+            <div className="rounded-10 border border-stroke-soft-200 bg-bg-white-0 p-5 shadow-regular-xs">
               <div className="flex items-center gap-2 mb-3">
                 <SparkleIcon size={16} weight="regular" className="text-success-base" />
                 <h3 className="text-sm font-semibold text-text-strong-950">
@@ -208,7 +208,7 @@ export default function MemberProfilePage() {
               </div>
             </div>
 
-            <div className="bg-bg-white-0 border border-stroke-soft-200 rounded-xl p-5">
+            <div className="rounded-10 border border-stroke-soft-200 bg-bg-white-0 p-5 shadow-regular-xs">
               <div className="flex items-center gap-2 mb-3">
                 <MagnifyingGlassIcon size={16} weight="regular" className="text-primary-base" />
                 <h3 className="text-sm font-semibold text-text-strong-950">
@@ -235,7 +235,7 @@ export default function MemberProfilePage() {
         {/* Right Sidebar: Skills, Links & Privacy */}
         <div className="space-y-8">
           {/* Skills Tag Cloud */}
-          <div className="bg-bg-white-0 border border-stroke-soft-200 rounded-xl p-6">
+          <div className="rounded-10 border border-stroke-soft-200 bg-bg-white-0 p-6 shadow-regular-xs">
             <h2 className="mb-3 text-sm font-medium leading-5 text-text-sub-600">
               Skills & Expertise
             </h2>
@@ -252,7 +252,7 @@ export default function MemberProfilePage() {
           </div>
 
           {/* Social / Portfolio Links */}
-          <div className="bg-bg-white-0 border border-stroke-soft-200 rounded-xl p-6">
+          <div className="rounded-10 border border-stroke-soft-200 bg-bg-white-0 p-6 shadow-regular-xs">
             <h2 className="mb-3 text-sm font-medium leading-5 text-text-sub-600">
               Links & Portfolio
             </h2>
@@ -326,7 +326,7 @@ export default function MemberProfilePage() {
               <ShareNetworkIcon size={24} weight="regular" className="text-primary-base" aria-hidden="true" />
             </div>
           </div>
-          <div className="min-w-0 overflow-hidden rounded-xl bg-bg-weak-50 p-3 ring-1 ring-stroke-soft-200">
+          <div className="min-w-0 overflow-hidden rounded-10 bg-bg-weak-50 p-3 ring-1 ring-stroke-soft-200">
             <span className="block min-w-0 break-all text-sm leading-5 text-text-strong-950">
               {typeof window !== "undefined" ? window.location.href : ""}
             </span>

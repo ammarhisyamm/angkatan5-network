@@ -37,7 +37,7 @@ export default function RegisterPage() {
   return (
     <div className="min-h-screen bg-bg-weak-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md text-center px-4">
-        <div className="inline-flex items-center justify-center size-14 rounded-xl bg-primary-base text-static-white font-bold text-2xl  mb-4">
+        <div className="mb-4 inline-flex size-14 items-center justify-center rounded-10 bg-primary-base text-2xl font-semibold text-static-white shadow-regular-xs">
           A5
         </div>
         <h1 className="text-page-title text-text-strong-950">
@@ -49,10 +49,10 @@ export default function RegisterPage() {
       </div>
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md px-4">
-        <div className="bg-bg-white-0 py-8 px-6 sm:px-10 shadow-xs border border-stroke-soft-200 rounded-xl flex flex-col gap-6">
+        <div className="flex flex-col gap-6 rounded-10 border border-stroke-soft-200 bg-bg-white-0 px-6 py-8 shadow-regular-xs sm:px-10">
           <form onSubmit={handleSubmit} className="flex flex-col gap-4">
             {error && (
-              <div className="p-3 text-xs bg-error-lighter border border-error-light text-error-base rounded-xl font-medium">
+              <div role="alert" className="rounded-10 border border-error-light bg-error-lighter p-3 text-paragraph-xs font-medium text-error-base">
                 {error}
               </div>
             )}

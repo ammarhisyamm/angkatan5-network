@@ -23,9 +23,9 @@ export function Root({ children, status = "information", variant: _variant, size
     warning: "border-warning-base/30 bg-warning-lighter text-warning-dark",
     success: "border-success-base/30 bg-success-lighter text-success-dark",
     information: "border-information-base/30 bg-information-lighter text-information-dark",
-    feature: "border-purple-300 bg-purple-50 text-purple-950",
+    feature: "border-feature-light bg-feature-lighter text-feature-dark",
   }[status];
-  return <div role="status" className={cn("flex items-start gap-3 rounded-xl border px-4 py-3 text-sm", tone, className)} {...rest}>
+  return <div role="status" className={cn("flex items-start gap-3 rounded-10 border px-4 py-3 text-paragraph-sm", tone, className)} {...rest}>
     <span className="mt-0.5 shrink-0" aria-hidden="true">{statusIcon(status)}</span>
     <div className="flex min-w-0 flex-1 flex-col gap-0">{children}</div>
   </div>;

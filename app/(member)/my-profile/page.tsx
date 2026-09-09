@@ -151,14 +151,14 @@ export default function MyProfilePage() {
   return (
     <div className="mx-auto max-w-[1120px] space-y-6">
       {/* HERO */}
-      <div className="overflow-hidden rounded-xl border border-stroke-soft-200 bg-bg-white-0 shadow-none">
+      <div className="overflow-hidden rounded-10 border border-stroke-soft-200 bg-bg-white-0 shadow-regular-xs">
         <div className="h-24 w-full bg-bg-weak-50 sm:h-32" />
         <div className="p-6 sm:p-8">
           <div className="flex flex-col gap-8 lg:flex-row lg:items-start lg:justify-between">
             {/* Left: avatar + identity */}
             <div className="flex gap-5 sm:gap-6">
               <div className="relative shrink-0 -mt-12 sm:-mt-16">
-                <div className="flex size-20 sm:size-24 items-center justify-center rounded-2xl bg-bg-weak-50 text-xl font-semibold text-text-strong-950 ring-4 ring-bg-white-0 shadow-sm sm:text-2xl">
+                <div className="flex size-20 items-center justify-center rounded-20 bg-bg-weak-50 text-xl font-semibold text-text-strong-950 ring-4 ring-bg-white-0 shadow-regular-xs sm:size-24 sm:text-2xl">
                   {currentUser.name.split(" ").slice(0, 2).map((p) => p[0]).join("").toUpperCase()}
                 </div>
               </div>
@@ -191,7 +191,7 @@ export default function MyProfilePage() {
             </div>
 
             {/* Right: completion card */}
-            <div className="w-full rounded-xl border border-stroke-soft-200 bg-bg-weak-50 p-5 lg:w-[320px] lg:shrink-0">
+            <div className="w-full rounded-10 border border-stroke-soft-200 bg-bg-weak-50 p-5 lg:w-[320px] lg:shrink-0">
               <div className="flex items-center justify-between">
                 <p className="text-xs font-semibold tracking-wide text-text-sub-600">Profile completion</p>
                 <span className="text-sm font-semibold text-text-strong-950">{completion}%</span>
@@ -233,7 +233,7 @@ export default function MyProfilePage() {
       </div>
 
       {/* ABOUT */}
-      <div id="profile-about" className="rounded-xl border border-stroke-soft-200 bg-bg-white-0 p-6 shadow-none sm:p-7">
+      <div id="profile-about" className="rounded-10 border border-stroke-soft-200 bg-bg-white-0 p-6 shadow-regular-xs sm:p-7">
         <div className="flex items-center justify-between">
           <h2 className="text-section-title text-text-strong-950">About</h2>
           {editingSection === "personal" ? (
@@ -313,7 +313,7 @@ export default function MyProfilePage() {
         {/* Left 8 */}
         <div className="space-y-6 lg:col-span-8">
           {/* Professional */}
-          <div className="rounded-xl border border-stroke-soft-200 bg-bg-white-0 p-6 shadow-none sm:p-7">
+          <div className="rounded-10 border border-stroke-soft-200 bg-bg-white-0 p-6 shadow-regular-xs sm:p-7">
             <div className="flex items-center justify-between">
               <h2 className="inline-flex items-center gap-2 text-section-title text-text-strong-950">
                 <BriefcaseIcon size={16} weight="regular" className="text-text-soft-400" aria-hidden="true" />
@@ -349,12 +349,12 @@ export default function MyProfilePage() {
               </div>
             ) : (
               <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
-                <div className="rounded-xl bg-bg-weak-50 p-4 ring-1 ring-stroke-soft-200">
+                <div className="rounded-10 bg-bg-weak-50 p-4 ring-1 ring-stroke-soft-200">
                   <p className="text-xs font-medium text-text-sub-600">Role</p>
                   <p className="mt-1 text-sm font-semibold text-text-strong-950">{currentUser.role || "—"}</p>
                   <p className="text-xs text-text-sub-600">{currentUser.company || "—"}</p>
                 </div>
-                <div className="rounded-xl bg-bg-weak-50 p-4 ring-1 ring-stroke-soft-200">
+                <div className="rounded-10 bg-bg-weak-50 p-4 ring-1 ring-stroke-soft-200">
                   <p className="text-xs font-medium text-text-sub-600">Focus</p>
                   <p className="mt-1 text-sm font-semibold text-text-strong-950">{currentUser.industry}</p>
                   <p className="text-xs text-text-sub-600">{currentUser.experience}</p>
@@ -364,7 +364,7 @@ export default function MyProfilePage() {
           </div>
 
           {/* Skills */}
-          <div id="profile-skills" className="rounded-xl border border-stroke-soft-200 bg-bg-white-0 p-6 shadow-none sm:p-7">
+          <div id="profile-skills" className="rounded-10 border border-stroke-soft-200 bg-bg-white-0 p-6 shadow-regular-xs sm:p-7">
             <div className="flex items-center justify-between">
               <h2 className="inline-flex items-center gap-2 text-section-title text-text-strong-950">
                 <StackIcon size={16} weight="regular" className="text-text-soft-400" aria-hidden="true" />
@@ -435,7 +435,7 @@ export default function MyProfilePage() {
         {/* Right 4 */}
         <div className="space-y-6 lg:col-span-4">
           {/* Availability */}
-          <div className="rounded-xl border border-stroke-soft-200 bg-bg-white-0 p-6 shadow-none">
+          <div className="rounded-10 border border-stroke-soft-200 bg-bg-white-0 p-6 shadow-regular-xs">
             <div className="flex items-center justify-between">
               <h3 className="inline-flex items-center gap-2 text-card-title text-text-strong-950">
                 <ShieldIcon size={16} weight="regular" className="text-text-soft-400" aria-hidden="true" />
@@ -523,7 +523,7 @@ export default function MyProfilePage() {
           </div>
 
           {/* Social */}
-          <div id="profile-social" className="rounded-xl border border-stroke-soft-200 bg-bg-white-0 p-6 shadow-none">
+          <div id="profile-social" className="rounded-10 border border-stroke-soft-200 bg-bg-white-0 p-6 shadow-regular-xs">
             <div className="flex items-center justify-between">
               <h3 className="inline-flex items-center gap-2 text-card-title text-text-strong-950">
                 <GlobeIcon size={16} weight="regular" className="text-text-soft-400" aria-hidden="true" />
@@ -587,7 +587,7 @@ export default function MyProfilePage() {
       </div>
 
       {/* Danger zone — subtle */}
-      <div className="flex flex-col gap-4 rounded-2xl border border-red-200 bg-red-50 px-4 py-5 sm:flex-row sm:items-center sm:justify-between sm:px-6 sm:py-4">
+      <div className="flex flex-col gap-4 rounded-20 border border-error-light bg-error-lighter px-4 py-5 sm:flex-row sm:items-center sm:justify-between sm:px-6 sm:py-4">
         <div className="min-w-0">
           <p className="text-card-title font-bold text-error-dark">Danger zone</p>
           <p className="max-w-prose text-[13px] leading-5 text-error-base">Export or delete your profile data.</p>
@@ -635,11 +635,11 @@ export default function MyProfilePage() {
       <Modal isOpen={showShareModal} onClose={() => setShowShareModal(false)} title="Share profile" description="Copy your profile link" centered maxWidth="sm">
         <div className="space-y-4">
           <div className="flex items-center justify-center py-2">
-            <div className="flex size-12 items-center justify-center rounded-2xl bg-bg-weak-50 ring-1 ring-stroke-soft-200">
+            <div className="flex size-12 items-center justify-center rounded-20 bg-bg-weak-50 ring-1 ring-stroke-soft-200">
               <ShareNetworkIcon size={20} weight="regular" className="text-text-strong-950" aria-hidden="true" />
             </div>
           </div>
-          <div className="min-w-0 overflow-hidden rounded-xl bg-bg-weak-50 p-3 ring-1 ring-stroke-soft-200">
+          <div className="min-w-0 overflow-hidden rounded-10 bg-bg-weak-50 p-3 ring-1 ring-stroke-soft-200">
             <span className="block min-w-0 break-all text-sm leading-5 text-text-strong-950">{typeof window !== "undefined" ? window.location.href : ""}</span>
           </div>
           <div className="flex justify-end gap-3">

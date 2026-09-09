@@ -2,10 +2,13 @@
 
 import React from "react";
 import { useApp } from "@/lib/store/AppContext";
+import { LayerCard } from "@/components/ui/Surface";
 import dynamic from "next/dynamic";
 const IndustryChart = dynamic(() => import("@/components/charts/IndustryChart"), { ssr: false, loading: () => <div className="h-64 animate-pulse rounded-lg bg-bg-weak-50" /> });
 const ExperienceChart = dynamic(() => import("@/components/charts/ExperienceChart"), { ssr: false, loading: () => <div className="h-64 animate-pulse rounded-lg bg-bg-weak-50" /> });
-import { ChartBarIcon, TrendUpIcon, UsersIcon, MedalIcon, BriefcaseIcon } from "@phosphor-icons/react";
+import { ChartBarIcon } from "@phosphor-icons/react";
+import { PageHeader, SectionHeading } from "@/components/ui/PageHeader";
+import { StatCard } from "@/components/ui/StatCard";
 
 
 
@@ -19,72 +22,35 @@ export default function AdminAnalyticsPage() {
 
   return (
     <div className="space-y-8">
-      {/* Header */}
-      <div>
-        <div className="mb-1 flex items-center gap-1.5 text-sm font-medium leading-5 text-text-sub-600">
-          <ChartBarIcon size={16} weight="regular" />
-          <span>Talent Analytics</span>
-        </div>
-        <h1 className="text-page-title text-text-strong-950">
-          Community Analytics & Insights
-        </h1>
-        <p className="mt-1 text-sm leading-5 text-text-sub-600">
-          In-depth reports on industry distribution, seniority levels, and talent engagement.
-        </p>
-      </div>
+      <PageHeader eyebrow="Talent Analytics" icon={ChartBarIcon} title="Community Analytics & Insights" description="In-depth reports on industry distribution, seniority levels, and talent engagement." />
 
       {/* Top Level Numbers */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <div className="p-4 sm:p-5 rounded-lg bg-bg-white-0 border border-stroke-soft-200">
-          <span className="text-xs font-semibold text-text-sub-600 block">Total Active Alumni</span>
-          <span className="text-3xl font-bold text-text-strong-950 mt-1 block">{users.length}</span>
-          <span className="text-xs leading-4 text-success-base font-medium">{verifiedCount} verified</span>
-        </div>
-
-        <div className="p-4 sm:p-5 rounded-lg bg-bg-white-0 border border-stroke-soft-200">
-          <span className="text-xs font-semibold text-text-sub-600 block">Event RSVPs</span>
-          <span className="text-3xl font-bold text-primary-base mt-1 block">{events.reduce((sum, e) => sum + e.attendeeIds.length, 0)}</span>
-          <span className="text-xs leading-4 text-text-soft-400">across cohort members</span>
-        </div>
-
-        <div className="p-4 sm:p-5 rounded-lg bg-bg-white-0 border border-stroke-soft-200">
-          <span className="text-xs font-semibold text-text-sub-600 block">Hiring Placements</span>
-          <span className="text-3xl font-bold text-success-base mt-1 block">{hiringCount}</span>
-          <span className="text-xs leading-4 text-success-base font-medium">posted by community</span>
-        </div>
-
-        <div className="p-4 sm:p-5 rounded-lg bg-bg-white-0 border border-stroke-soft-200">
-          <span className="text-xs font-semibold text-text-sub-600 block">Avg Profile Completion</span>
-          <span className="text-3xl font-bold text-feature-base mt-1 block">{avgCompletion}%</span>
-          <span className="text-xs leading-4 text-text-soft-400">across all members</span>
-        </div>
+        <StatCard label="Total Active Alumni" value={users.length} supporting={`${verifiedCount} verified`} accent="text-text-strong-950" />
+        <StatCard label="Event RSVPs" value={events.reduce((sum, e) => sum + e.attendeeIds.length, 0)} supporting="across cohort members" accent="text-primary-base" />
+        <StatCard label="Hiring Placements" value={hiringCount} supporting="posted by community" accent="text-success-base" />
+        <StatCard label="Avg Profile Completion" value={`${avgCompletion}%`} supporting="across all members" accent="text-feature-base" />
       </div>
 
       {/* Analytics Charts Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Industry Breakdown */}
-        <div className="bg-bg-white-0 border border-stroke-soft-200 rounded-lg p-6">
-          <h3 className="text-section-title text-text-strong-950 mb-1">
-            Industry Distribution
-          </h3>
-          <p className="text-xs text-text-sub-600 mb-6">Number of members active by sector</p>
+        <LayerCard className="p-6">
+          <SectionHeading title="Industry Distribution" description="Number of members active by sector" className="mb-6" />
 
           <div className="h-64 w-full">
             <IndustryChart />
           </div>
-        </div>
+        </LayerCard>
 
         {/* Experience Levels */}
-        <div className="bg-bg-white-0 border border-stroke-soft-200 rounded-lg p-6">
-          <h3 className="text-section-title text-text-strong-950 mb-1">
-            Experience & Seniority Tiers
-          </h3>
-          <p className="text-xs text-text-sub-600 mb-6">Distribution across years of career experience</p>
+        <LayerCard className="p-6">
+          <SectionHeading title="Experience & Seniority Tiers" description="Distribution across years of career experience" className="mb-6" />
 
           <div className="h-64 w-full">
             <ExperienceChart />
           </div>
-        </div>
+        </LayerCard>
       </div>
     </div>
   );

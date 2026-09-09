@@ -109,7 +109,7 @@ export default function OpportunityDetailPage() {
       </div>
 
       {/* Main Header Card */}
-      <div className="bg-bg-white-0 border border-stroke-soft-200 rounded-xl p-6 sm:p-8">
+      <div className="rounded-10 border border-stroke-soft-200 bg-bg-white-0 p-6 shadow-regular-xs sm:p-8">
         <div className="flex flex-wrap items-center gap-2 mb-3">
           <Badge variant="primary">
             {opportunity.category}
@@ -159,7 +159,7 @@ export default function OpportunityDetailPage() {
         {/* Left 2 Cols: Description & Requirements */}
         <div className="md:col-span-2 space-y-8">
           {/* Description */}
-          <div className="bg-bg-white-0 border border-stroke-soft-200 rounded-xl p-6 sm:p-8">
+          <div className="rounded-10 border border-stroke-soft-200 bg-bg-white-0 p-6 shadow-regular-xs sm:p-8">
             <h2 className="text-section-title text-text-strong-950 mb-3">
               Description & Scope
             </h2>
@@ -170,7 +170,7 @@ export default function OpportunityDetailPage() {
 
           {/* Requirements */}
           {opportunity.requirements && opportunity.requirements.length > 0 && (
-            <div className="bg-bg-white-0 border border-stroke-soft-200 rounded-xl p-6 sm:p-8">
+          <div className="rounded-10 border border-stroke-soft-200 bg-bg-white-0 p-6 shadow-regular-xs sm:p-8">
               <h2 className="text-section-title text-text-strong-950 mb-4">
                 Key Requirements & Expectations
               </h2>
@@ -189,7 +189,7 @@ export default function OpportunityDetailPage() {
         {/* Right Col: Metadata, Skills & Contact */}
         <div className="space-y-8">
           {/* Metadata Card */}
-          <div className="bg-bg-white-0 border border-stroke-soft-200 rounded-xl p-6 space-y-4">
+          <div className="space-y-4 rounded-10 border border-stroke-soft-200 bg-bg-white-0 p-6 shadow-regular-xs">
             <h3 className="text-sm font-medium leading-5 text-text-sub-600">
               Details
             </h3>
@@ -220,7 +220,7 @@ export default function OpportunityDetailPage() {
 
           {/* Required Skills */}
           {opportunity.requiredSkills && opportunity.requiredSkills.length > 0 && (
-            <div className="bg-bg-white-0 border border-stroke-soft-200 rounded-xl p-6">
+            <div className="rounded-10 border border-stroke-soft-200 bg-bg-white-0 p-6 shadow-regular-xs">
               <h3 className="mb-3 text-sm font-medium leading-5 text-text-sub-600">
                 Skills Required
               </h3>
@@ -228,7 +228,7 @@ export default function OpportunityDetailPage() {
                 {opportunity.requiredSkills.map((sk) => (
                   <span
                     key={sk}
-                    className="px-3 py-1 rounded-xl text-xs font-medium bg-primary-alpha-10 text-primary-base border border-primary-base/20"
+                    className="rounded-full border border-primary-base/20 bg-primary-alpha-10 px-3 py-1 text-label-xs font-medium text-primary-base"
                   >
                     {sk}
                   </span>
@@ -303,7 +303,7 @@ export default function OpportunityDetailPage() {
               <ShareNetworkIcon size={24} weight="regular" className="text-primary-base" aria-hidden="true" />
             </div>
           </div>
-          <div className="min-w-0 overflow-hidden rounded-xl bg-bg-weak-50 p-3 ring-1 ring-stroke-soft-200">
+          <div className="min-w-0 overflow-hidden rounded-10 bg-bg-weak-50 p-3 ring-1 ring-stroke-soft-200">
             <span className="block min-w-0 break-all text-sm leading-5 text-text-strong-950">
               {typeof window !== "undefined" ? window.location.href : ""}
             </span>

@@ -512,13 +512,13 @@ button { cursor: pointer; }
 ::selection { background: var(--color-primary-base); color: var(--color-static-white); }
 
 /* Type scale — semantic, single source */
-@utility text-page-title { font-size: 1.5rem; line-height: 1.9rem; letter-spacing: -0.02em; font-weight: 600; }
-@utility text-section-title { font-size: 1.125rem; line-height: 1.5rem; letter-spacing: -0.012em; font-weight: 600; }
-@utility text-card-title { font-size: 1rem; line-height: 1.5rem; letter-spacing: -0.01em; font-weight: 600; }
+@utility text-page-title { font-size: 1.5rem; line-height: 2rem; letter-spacing: 0; font-weight: 500; }
+@utility text-section-title { font-size: 1rem; line-height: 1.5rem; letter-spacing: -0.011em; font-weight: 500; }
+@utility text-card-title { font-size: 1rem; line-height: 1.5rem; letter-spacing: -0.006em; font-weight: 500; }
 @utility text-body { font-size: 0.875rem; line-height: 1.5rem; font-weight: 400; }
-@utility text-body-sm { font-size: 0.8125rem; line-height: 1.25rem; font-weight: 400; }
+@utility text-body-sm { font-size: 0.875rem; line-height: 1.25rem; font-weight: 400; }
 @utility text-meta { font-size: 0.75rem; line-height: 1rem; font-weight: 500; }
-@utility text-label { font-size: 0.75rem; line-height: 1rem; letter-spacing: 0; font-weight: 500; }
+@utility text-label { font-size: 0.75rem; line-height: 1rem; letter-spacing: 0.02em; font-weight: 500; }
 @utility text-kpi { font-size: 1.5rem; line-height: 1.85rem; letter-spacing: -0.02em; font-weight: 650; }
 
 /* Wrapping */

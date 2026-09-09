@@ -7,7 +7,8 @@ export function Skeleton({ className, ...props }: React.HTMLAttributes<HTMLDivEl
 
 export function ProfileCardSkeleton() {
   return (
-    <div className="bg-bg-white-0 border border-stroke-soft-200 rounded-xl p-5 flex flex-col gap-4">
+    <div className="rounded-10 border border-stroke-soft-200 bg-bg-white-0 p-5 shadow-regular-xs">
+      <div className="flex flex-col gap-4">
       <div className="flex items-start gap-3">
         <Skeleton className="w-12 h-12 rounded-full shrink-0" />
         <div className="flex-1 flex flex-col gap-2">
@@ -25,13 +26,15 @@ export function ProfileCardSkeleton() {
         <Skeleton className="h-6 w-28 rounded-full" />
         <Skeleton className="h-8 w-24 rounded-md" />
       </div>
+      </div>
     </div>
   );
 }
 
 export function OpportunityCardSkeleton() {
   return (
-    <div className="bg-bg-white-0 border border-stroke-soft-200 rounded-xl p-5 flex flex-col gap-4">
+    <div className="rounded-10 border border-stroke-soft-200 bg-bg-white-0 p-5 shadow-regular-xs">
+      <div className="flex flex-col gap-4">
       <div className="flex items-start justify-between gap-3">
         <div className="flex-1 flex flex-col gap-2">
           <Skeleton className="h-5 w-4/5 rounded-md" />
@@ -49,6 +52,7 @@ export function OpportunityCardSkeleton() {
           <Skeleton className="h-3 w-24 rounded-md" />
         </div>
         <Skeleton className="h-8 w-28 rounded-md" />
+      </div>
       </div>
     </div>
   );

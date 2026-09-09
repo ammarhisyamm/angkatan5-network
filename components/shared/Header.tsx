@@ -14,7 +14,7 @@ export function Header() {
   const isAdmin = pathname.startsWith("/admin");
 
   return (
-    <header className="sticky top-0 z-30 border-b border-stroke-soft-200 bg-bg-white-0 lg:hidden">
+    <header className="sticky top-0 z-30 border-b border-stroke-soft-200 bg-bg-white-0/95 backdrop-blur lg:hidden">
       <div className="flex h-16 items-center justify-between px-4 sm:px-6">
         <Link href={isAdmin ? "/admin/dashboard" : "/dashboard"} className="flex items-center gap-2.5 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-base">
           <span className="flex size-8 items-center justify-center rounded-lg bg-primary-base text-xs font-semibold text-static-white">A5</span>
@@ -23,18 +23,18 @@ export function Header() {
 
         <div className="flex items-center gap-2">
           {(currentUser?.roleType === "admin" || currentUser?.roleType === "superadmin") && (
-            <div className="flex items-center gap-1 rounded-lg bg-bg-weak-50 p-1 ring-1 ring-stroke-soft-200" aria-label="Switch workspace">
+            <div className="flex items-center gap-1 rounded-10 bg-bg-weak-50 p-1 ring-1 ring-stroke-soft-200" aria-label="Switch workspace">
               <Link
                 href="/dashboard"
                 aria-current={!isAdmin ? "page" : undefined}
-                className={`flex h-8 items-center justify-center rounded-md px-2 text-xs font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-base ${!isAdmin ? "bg-bg-white-0 text-text-strong-950 ring-1 ring-stroke-soft-200" : "text-text-sub-600 hover:text-text-strong-950"}`}
+                className={`flex h-8 items-center justify-center rounded-lg px-2 text-label-xs transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-base ${!isAdmin ? "bg-bg-white-0 text-text-strong-950 shadow-regular-xs ring-1 ring-stroke-soft-200" : "text-text-sub-600 hover:text-text-strong-950"}`}
               >
                 Member
               </Link>
               <Link
                 href="/admin/dashboard"
                 aria-current={isAdmin ? "page" : undefined}
-                className={`flex h-8 items-center justify-center gap-1.5 rounded-md px-2 text-xs font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-base ${isAdmin ? "bg-bg-white-0 text-text-strong-950 ring-1 ring-stroke-soft-200" : "text-text-sub-600 hover:text-text-strong-950"}`}
+                className={`flex h-8 items-center justify-center gap-1.5 rounded-lg px-2 text-label-xs transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-base ${isAdmin ? "bg-bg-white-0 text-text-strong-950 shadow-regular-xs ring-1 ring-stroke-soft-200" : "text-text-sub-600 hover:text-text-strong-950"}`}
               >
                 <ShieldCheckIcon size={14} weight="regular" aria-hidden="true" />
                 Admin

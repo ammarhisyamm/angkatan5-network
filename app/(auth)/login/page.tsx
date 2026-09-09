@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { useApp } from "@/lib/store/AppContext";
 import { Input } from "@/components/ui/Input";
 import { Button } from "@/components/ui/Button";
+import { SegmentedControl } from "@/components/ui/SegmentedControl";
 import { ShieldCheckIcon, UserCheckIcon } from "@phosphor-icons/react";
 import { isAdminRole } from "@/lib/types";
 
@@ -134,27 +135,20 @@ export default function LoginPage() {
   return (
     <div className="min-h-screen bg-bg-weak-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md text-center px-4">
-        <div className="inline-flex items-center justify-center size-14 rounded-xl bg-primary-base text-title-h5 font-semibold text-static-white shadow-xs mb-4">A5</div>
+        <div className="mb-4 inline-flex size-14 items-center justify-center rounded-10 bg-primary-base text-title-h5 font-semibold text-static-white shadow-regular-xs">A5</div>
         <h1 className="text-page-title text-text-strong-950">Angkatan 5 Network</h1>
         <p className="mt-1 text-sm leading-5 text-text-sub-600">Private talent directory for members of Angkatan 5 SMP & IHBS</p>
       </div>
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md px-4">
-        <div className="flex flex-col gap-6 rounded-xl border border-stroke-soft-200 bg-bg-white-0 px-6 py-8 sm:px-10 shadow-xs">
+        <div className="flex flex-col gap-6 rounded-10 border border-stroke-soft-200 bg-bg-white-0 px-6 py-8 shadow-regular-xs sm:px-10">
           <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-            {error && <div className="rounded-xl border border-error-light bg-error-lighter p-3 text-xs leading-4 font-medium text-error-dark">{error}</div>}
+            {error && <div role="alert" className="rounded-10 border border-error-light bg-error-lighter p-3 text-paragraph-xs font-medium text-error-dark">{error}</div>}
 
             <Input label="Username" placeholder="Masukkan username" value={email} onChange={(e) => { setEmail(e.target.value); if (fieldError === "username") { setFieldError(null); setError(""); } }} required className={fieldError === "username" ? "ring-error-base focus:ring-error-base/40" : undefined} />
             <div className="space-y-1.5">
-              <label className="text-sm font-medium text-text-strong-950">Login as</label>
-              <div className="flex items-center gap-1 rounded-lg bg-bg-weak-50 p-1 ring-1 ring-stroke-soft-200">
-                <button type="button" onClick={() => setLoginRole("member")} className={`flex h-8 flex-1 items-center justify-center gap-1.5 rounded-md px-2 text-sm font-medium transition-colors ${loginRole === "member" ? "bg-bg-white-0 text-text-strong-950 ring-1 ring-stroke-soft-200 shadow-sm" : "text-text-sub-600 hover:text-text-strong-950"}`}>
-                  <UserCheckIcon size={14} weight="regular" /> As a Member
-                </button>
-                <button type="button" onClick={() => setLoginRole("admin")} className={`flex h-8 flex-1 items-center justify-center gap-1.5 rounded-md px-2 text-sm font-medium transition-colors ${loginRole === "admin" ? "bg-bg-white-0 text-text-strong-950 ring-1 ring-stroke-soft-200 shadow-sm" : "text-text-sub-600 hover:text-text-strong-950"}`}>
-                  <ShieldCheckIcon size={14} weight="regular" /> As an Admin
-                </button>
-              </div>
+              <span className="text-label-sm text-text-strong-950">Login as</span>
+              <SegmentedControl value={loginRole} onValueChange={setLoginRole} ariaLabel="Login role" items={[{ value: "member", label: "As a Member", icon: UserCheckIcon }, { value: "admin", label: "As an Admin", icon: ShieldCheckIcon }]} className="w-full" />
             </div>
             <Input label="Password" type="password" placeholder="Masukkan password" value={password} onChange={(e) => { setPassword(e.target.value); if (fieldError === "password") { setFieldError(null); setError(""); } }} required className={fieldError === "password" ? "ring-error-base focus:ring-error-base/40" : undefined} />
 
