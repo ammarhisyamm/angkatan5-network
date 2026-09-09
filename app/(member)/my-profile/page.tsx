@@ -152,16 +152,16 @@ export default function MyProfilePage() {
     <div className="mx-auto max-w-[1120px] space-y-6">
       {/* HERO */}
       <div className="overflow-hidden rounded-10 border border-stroke-soft-200 bg-bg-white-0 shadow-regular-xs">
-        <div className="h-20 w-full bg-bg-weak-50 sm:h-28" />
+        <div className="h-24 w-full bg-bg-weak-50 sm:h-32" />
         <div className="px-4 pb-5 sm:px-6 sm:pb-6">
-          <div className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_320px] lg:items-end lg:gap-8">
-            {/* Avatar + identity: stacked on mobile, horizontal from desktop */}
-            <div className="flex min-w-0 flex-col gap-4 sm:flex-row sm:items-end sm:gap-5">
-              <Avatar name={currentUser.name} src={avatar || currentUser.avatar || undefined} className="-mt-10 size-20 rounded-20 text-xl ring-4 ring-bg-white-0 shadow-regular-xs sm:-mt-12 sm:size-24 sm:text-2xl" />
+          <div className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_320px] lg:gap-8">
+            {/* Reference layout: cover, overlapping avatar, then identity */}
+            <div className="min-w-0">
+              <Avatar name={currentUser.name} src={avatar || currentUser.avatar || undefined} className="-mt-10 size-20 rounded-full text-xl ring-4 ring-bg-white-0 shadow-regular-xs sm:-mt-14 sm:size-28 sm:text-2xl" />
 
-              <div className="min-w-0 flex-1 pb-0.5">
+              <div className="mt-4 min-w-0">
                 <div className="flex flex-wrap items-center gap-2">
-                  <h1 className="text-title-h4 text-text-strong-950 sm:text-title-h3">{currentUser.name || "Your name"}</h1>
+                  <h1 className="text-title-h4 text-text-strong-950">{currentUser.name || "Your name"}</h1>
                   <StatusBadge status={currentUser.status} />
                 </div>
                 <p className="mt-1 text-base font-medium leading-6 text-text-strong-950">{headline}</p>
@@ -177,8 +177,8 @@ export default function MyProfilePage() {
               </div>
             </div>
 
-            {/* Completion stays beside identity on desktop and below it on mobile */}
-            <div className="w-full rounded-10 border border-stroke-soft-200 bg-bg-weak-50 p-4 sm:p-5">
+            {/* Product-specific information follows the reference card structure */}
+            <div className="w-full self-start rounded-10 border border-stroke-soft-200 bg-bg-weak-50 p-4 sm:p-5 lg:mt-6">
               <div className="flex items-center justify-between">
                 <p className="text-xs font-semibold tracking-wide text-text-sub-600">Profile completion</p>
                 <span className="text-sm font-semibold text-text-strong-950">{completion}%</span>
