@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useApp } from "@/lib/store/AppContext";
 import { Input, Textarea } from "@/components/ui/Input";
+import { DatePicker } from "@/components/ui/DatePicker";
 import { Button } from "@/components/ui/Button";
 import { ArrowLeftIcon, PlusCircleIcon, CalendarBlankIcon, MapPinIcon, VideoCameraIcon } from "@phosphor-icons/react";
 import { EventCategory } from "@/lib/types";
@@ -92,15 +93,15 @@ export default function CreateEventPage() {
 
         <Input label="Event Title" value={title} onChange={(e) => setTitle(e.target.value)} placeholder="e.g. Saturday Morning Futsal" required />
 
-        <div>
-          <p className="mb-2 text-xs font-semibold text-text-strong-950">Category</p>
+          <div>
+          <p className="mb-2 text-sm font-medium text-text-strong-950">Category</p>
           <div className="flex flex-wrap gap-2">
             {CATEGORIES.map((c) => (
               <button
                 key={c}
                 type="button"
                 onClick={() => setCategory(c)}
-                className={`inline-flex min-h-8 items-center rounded-full px-3 py-2 text-sm font-medium ring-1 transition-colors ${category === c ? "bg-text-strong-950 text-white ring-text-strong-950" : "bg-bg-white-0 text-text-sub-600 ring-stroke-soft-200 hover:bg-bg-weak-50"}`}
+                className={`inline-flex min-h-9 items-center rounded-full px-3 py-1.5 text-sm font-medium ring-1 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-base ${category === c ? "bg-primary-base text-static-white ring-primary-base" : "bg-bg-white-0 text-text-sub-600 ring-stroke-soft-200 hover:bg-bg-weak-50"}`}
               >
                 {c}
               </button>
@@ -117,35 +118,10 @@ export default function CreateEventPage() {
           required
         />
 
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          <div className="space-y-1.5">
-            <label className="text-xs font-semibold text-text-strong-950">Date</label>
-            <input
-              type="date"
-              value={date}
-              onChange={(e) => setDate(e.target.value)}
-              required
-              className="w-full h-10 rounded-xl border border-stroke-soft-200 bg-bg-white-0 px-3 text-sm text-text-strong-950 outline-none focus:border-primary-base focus:ring-2 focus:ring-primary-base/15"
-            />
-          </div>
-          <div className="space-y-1.5">
-            <label className="text-xs font-semibold text-text-strong-950">Start</label>
-            <input
-              type="time"
-              value={startTime}
-              onChange={(e) => setStartTime(e.target.value)}
-              className="w-full h-10 rounded-xl border border-stroke-soft-200 bg-bg-white-0 px-3 text-sm text-text-strong-950 outline-none focus:border-primary-base focus:ring-2 focus:ring-primary-base/15"
-            />
-          </div>
-          <div className="space-y-1.5">
-            <label className="text-xs font-semibold text-text-strong-950">End</label>
-            <input
-              type="time"
-              value={endTime}
-              onChange={(e) => setEndTime(e.target.value)}
-              className="w-full h-10 rounded-xl border border-stroke-soft-200 bg-bg-white-0 px-3 text-sm text-text-strong-950 outline-none focus:border-primary-base focus:ring-2 focus:ring-primary-base/15"
-            />
-          </div>
+        <div className="grid grid-cols-1 gap-5 sm:grid-cols-3">
+          <DatePicker label="Date" name="date" value={date} onChange={setDate} min={new Date().toISOString().slice(0, 10)} required />
+          <Input label="Start" type="time" value={startTime} onChange={(e) => setStartTime(e.target.value)} />
+          <Input label="End" type="time" value={endTime} onChange={(e) => setEndTime(e.target.value)} />
         </div>
 
         <div>
@@ -156,14 +132,14 @@ export default function CreateEventPage() {
               onClick={() => setIsOnline(false)}
               className={`flex h-8 flex-1 items-center justify-center gap-1.5 rounded-md px-2 text-sm font-medium transition-colors ${!isOnline ? "bg-bg-white-0 text-text-strong-950 ring-1 ring-stroke-soft-200 shadow-sm" : "text-text-sub-600 hover:text-text-strong-950"}`}
             >
-              <MapPinIcon size={14} weight="regular" /> Offline
+              <MapPinIcon size={14} weight="regular" aria-hidden="true" /> Offline
             </button>
             <button
               type="button"
               onClick={() => setIsOnline(true)}
               className={`flex h-8 flex-1 items-center justify-center gap-1.5 rounded-md px-2 text-sm font-medium transition-colors ${isOnline ? "bg-bg-white-0 text-text-strong-950 ring-1 ring-stroke-soft-200 shadow-sm" : "text-text-sub-600 hover:text-text-strong-950"}`}
             >
-              <VideoCameraIcon size={14} weight="regular" /> Online
+              <VideoCameraIcon size={14} weight="regular" aria-hidden="true" /> Online
             </button>
           </div>
         </div>

@@ -5,9 +5,11 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useApp } from "@/lib/store/AppContext";
 import { Input, Textarea } from "@/components/ui/Input";
+import { Select } from "@/components/ui/Select";
+import { DatePicker } from "@/components/ui/DatePicker";
 import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
-import { ArrowLeftIcon, PlusCircleIcon, EyeIcon, PaperPlaneTiltIcon, PlusIcon, XIcon, SparkleIcon, MapPinIcon } from "@phosphor-icons/react";
+import { ArrowLeftIcon, EyeIcon, PaperPlaneTiltIcon, PlusIcon, SparkleIcon, MapPinIcon } from "@phosphor-icons/react";
 import { OpportunityCategory, OpportunityType } from "@/lib/types";
 
 const CATEGORIES: OpportunityCategory[] = [
@@ -141,7 +143,7 @@ export default function CreateOpportunityPage() {
       {/* Header */}
       <div>
         <div className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-primary-alpha-10 text-primary-base text-xs font-semibold mb-2">
-          <SparkleIcon size={12} weight="regular" />
+          <SparkleIcon size={12} weight="regular" aria-hidden="true" />
           <span>New Community Post</span>
         </div>
         <h1 className="text-page-title text-text-strong-950">
@@ -176,7 +178,7 @@ export default function CreateOpportunityPage() {
                 {category}
               </Badge>
               <Badge variant="neutral">
-                <MapPinIcon size={12} weight="regular" className="text-text-soft-400" />
+                <MapPinIcon size={12} weight="regular" className="text-text-soft-400" aria-hidden="true" />
                 {location || "Remote"}
               </Badge>
               <span className="text-xs text-text-soft-400">{type}</span>
@@ -234,8 +236,9 @@ export default function CreateOpportunityPage() {
         /* EDIT FORM */
         <form
           onSubmit={handleSubmit}
-          className="bg-bg-white-0 border border-stroke-soft-200 rounded-xl p-6 sm:p-8 space-y-8"
+          className="rounded-2xl border border-stroke-soft-200 bg-bg-white-0 p-5 sm:p-8"
         >
+          <div className="space-y-6">
           <Input
             label="Opportunity Title"
             value={title}
@@ -244,43 +247,12 @@ export default function CreateOpportunityPage() {
             required
           />
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div className="flex flex-col gap-2">
-              <label className="text-xs font-semibold text-text-sub-600">
-                Category
-              </label>
-              <select
-                value={category}
-                onChange={(e) => setCategory(e.target.value as OpportunityCategory)}
-                className="w-full h-10 px-3 bg-bg-white-0 text-text-strong-950 border border-stroke-soft-200 rounded-xl text-sm focus:outline-none focus:border-primary-base"
-              >
-                {CATEGORIES.map((cat) => (
-                  <option key={cat} value={cat}>
-                    {cat}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            <div className="flex flex-col gap-2">
-              <label className="text-xs font-semibold text-text-sub-600">
-                Engagement Type
-              </label>
-              <select
-                value={type}
-                onChange={(e) => setType(e.target.value as OpportunityType)}
-                className="w-full h-10 px-3 bg-bg-white-0 text-text-strong-950 border border-stroke-soft-200 rounded-xl text-sm focus:outline-none focus:border-primary-base"
-              >
-                {TYPES.map((t) => (
-                  <option key={t} value={t}>
-                    {t}
-                  </option>
-                ))}
-              </select>
-            </div>
+          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
+            <Select label="Category" value={category} onValueChange={(value) => setCategory(value as OpportunityCategory)} items={CATEGORIES.map((cat) => ({ label: cat, value: cat }))} />
+            <Select label="Engagement Type" value={type} onValueChange={(value) => setType(value as OpportunityType)} items={TYPES.map((item) => ({ label: item, value: item }))} />
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
             <Input
               label="Location"
               value={location}
@@ -289,12 +261,7 @@ export default function CreateOpportunityPage() {
               required
             />
 
-            <Input
-              label="Application Deadline"
-              type="date"
-              value={deadline}
-              onChange={(e) => setDeadline(e.target.value)}
-            />
+            <DatePicker label="Application Deadline" name="deadline" value={deadline} onChange={setDeadline} min={new Date().toISOString().slice(0, 10)} />
           </div>
 
           <Textarea
@@ -302,7 +269,7 @@ export default function CreateOpportunityPage() {
             rows={4}
             value={description}
             onChange={(e) => setDescription(e.target.value)}
-            placeholder="Explain what the project is about, expectations, and compensation if applicable..."
+            placeholder="Explain what the project is about, expectations, and compensation if applicable…"
             required
           />
 
@@ -316,7 +283,7 @@ export default function CreateOpportunityPage() {
 
           {/* Skill Tagging */}
           <div className="space-y-2">
-            <label className="text-xs font-semibold text-text-sub-600">
+            <label className="text-sm font-medium text-text-strong-950">
               Required Skills
             </label>
             <div className="flex flex-wrap gap-2">
@@ -327,10 +294,10 @@ export default function CreateOpportunityPage() {
                     key={sk}
                     type="button"
                     onClick={() => handleToggleSkill(sk)}
-                    className={`px-3 py-1 rounded-xl text-xs font-medium border transition-colors ${
+                    className={`inline-flex min-h-9 items-center rounded-full px-3 py-1.5 text-sm font-medium ring-1 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-base ${
                       isSelected
                         ? "bg-primary-base text-static-white border-primary-base"
-                        : "bg-bg-weak-50 text-text-sub-600 border-stroke-soft-200"
+                        : "bg-bg-weak-50 text-text-sub-600 ring-stroke-soft-200"
                     }`}
                   >
                     {isSelected ? "✓ " : "+ "}
@@ -342,15 +309,8 @@ export default function CreateOpportunityPage() {
 
             {/* Custom skill add */}
             <div className="flex gap-2 pt-2">
-              <input
-                type="text"
-                aria-label="Add other skill tag"
-                value={customSkill}
-                onChange={(e) => setCustomSkill(e.target.value)}
-                placeholder="Add other skill tag..."
-                className="flex-1 h-9 px-3 bg-bg-white-0 border border-stroke-soft-200 rounded-xl text-xs"
-              />
-              <Button type="button" variant="secondary" size="sm" onClick={handleAddCustomSkill} >
+              <Input aria-label="Add other skill tag" value={customSkill} onChange={(e) => setCustomSkill(e.target.value)} placeholder="Add another skill…" className="flex-1" />
+              <Button type="button" variant="secondary" size="md" onClick={handleAddCustomSkill}>
                 <PlusIcon size={12} weight="regular" />
                 Add
               </Button>
@@ -373,6 +333,7 @@ export default function CreateOpportunityPage() {
               <PaperPlaneTiltIcon size={16} weight="regular" className="mr-1" />
               Publish Opportunity
             </Button>
+          </div>
           </div>
         </form>
       )}

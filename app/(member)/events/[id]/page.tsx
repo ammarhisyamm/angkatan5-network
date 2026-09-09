@@ -219,11 +219,11 @@ export default function EventDetailPage() {
         <div className="space-y-4">
           <div className="flex items-center justify-center py-2">
             <div className="flex size-12 items-center justify-center rounded-2xl bg-bg-weak-50 ring-1 ring-stroke-soft-200">
-              <ShareNetworkIcon size={20} weight="regular" className="text-text-strong-950" />
+              <ShareNetworkIcon size={20} weight="regular" className="text-text-strong-950" aria-hidden="true" />
             </div>
           </div>
-          <div className="flex items-center gap-2 rounded-xl bg-bg-weak-50 p-3 ring-1 ring-stroke-soft-200">
-            <span className="min-w-0 flex-1 truncate text-sm text-text-strong-950">
+          <div className="min-w-0 overflow-hidden rounded-xl bg-bg-weak-50 p-3 ring-1 ring-stroke-soft-200">
+            <span className="block min-w-0 break-all text-sm leading-5 text-text-strong-950">
               {typeof window !== "undefined" ? window.location.href : ""}
             </span>
           </div>

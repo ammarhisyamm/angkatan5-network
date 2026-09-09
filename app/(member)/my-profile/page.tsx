@@ -639,8 +639,8 @@ export default function MyProfilePage() {
               <ShareNetworkIcon size={20} weight="regular" className="text-text-strong-950" aria-hidden="true" />
             </div>
           </div>
-          <div className="flex items-center gap-2 rounded-xl bg-bg-weak-50 p-3 ring-1 ring-stroke-soft-200">
-            <span className="min-w-0 flex-1 truncate text-sm text-text-strong-950">{typeof window !== "undefined" ? window.location.href : ""}</span>
+          <div className="min-w-0 overflow-hidden rounded-xl bg-bg-weak-50 p-3 ring-1 ring-stroke-soft-200">
+            <span className="block min-w-0 break-all text-sm leading-5 text-text-strong-950">{typeof window !== "undefined" ? window.location.href : ""}</span>
           </div>
           <div className="flex justify-end gap-3">
             <Button variant="outline" size="md" onClick={() => setShowShareModal(false)} className="px-5">

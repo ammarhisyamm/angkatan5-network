@@ -244,7 +244,7 @@ export default function OpportunityDetailPage() {
         isOpen={isInterestModalOpen}
         onClose={() => setIsInterestModalOpen(false)}
         title="Express Your Interest"
-        description={`PaperPlaneTiltIcon a direct note to ${opportunity.authorName} regarding this opportunity.`}
+        description={`Send a direct note to ${opportunity.authorName} regarding this opportunity.`}
       >
         {isSent ? (
           <div className="py-8 flex flex-col items-center justify-center text-center gap-3">
@@ -271,7 +271,7 @@ export default function OpportunityDetailPage() {
               rows={4}
               value={interestNote}
               onChange={(e) => setInterestNote(e.target.value)}
-              placeholder="Introduce your relevant experience or attach a portfolio link..."
+              placeholder="Introduce your relevant experience or attach a portfolio link…"
               required
             />
 
@@ -300,11 +300,11 @@ export default function OpportunityDetailPage() {
         <div className="space-y-4">
           <div className="flex items-center justify-center py-2">
             <div className="size-12 rounded-full bg-bg-weak-50 flex items-center justify-center">
-              <ShareNetworkIcon size={24} weight="regular" className="text-primary-base" />
+              <ShareNetworkIcon size={24} weight="regular" className="text-primary-base" aria-hidden="true" />
             </div>
           </div>
-          <div className="bg-bg-weak-50 rounded-xl p-3 flex items-center gap-2">
-            <span className="flex-1 truncate text-sm text-text-strong-950">
+          <div className="min-w-0 overflow-hidden rounded-xl bg-bg-weak-50 p-3 ring-1 ring-stroke-soft-200">
+            <span className="block min-w-0 break-all text-sm leading-5 text-text-strong-950">
               {typeof window !== "undefined" ? window.location.href : ""}
             </span>
           </div>
