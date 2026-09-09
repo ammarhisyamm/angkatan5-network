@@ -120,6 +120,17 @@ export interface Opportunity {
   createdAt: string;
 }
 
+export type OpportunityApplicationStatus = "Pending" | "Accepted" | "Declined";
+
+export interface OpportunityApplication {
+  id: string;
+  opportunityId: string;
+  applicantId: string;
+  note: string;
+  status: OpportunityApplicationStatus;
+  createdAt: string;
+}
+
 export type EventCategory =
   | "Sport"
   | "Webinar"

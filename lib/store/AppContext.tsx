@@ -8,6 +8,8 @@ import {
   UserRole,
   isAdminRole,
   Opportunity,
+  OpportunityApplication,
+  OpportunityApplicationStatus,
   Skill,
   CommunityEvent,
   ToastMessage,
@@ -23,6 +25,7 @@ interface AppContextType {
   currentUser: User | null;
   users: User[];
   opportunities: Opportunity[];
+  opportunityApplications: OpportunityApplication[];
   skills: Skill[];
   events: CommunityEvent[];
   bookmarkedOpportunityIds: string[];
@@ -47,6 +50,8 @@ interface AppContextType {
   ) => Opportunity;
   updateOpportunityStatus: (id: string, status: OpportunityStatus) => void;
   deleteOpportunity: (id: string) => void;
+  submitOpportunityInterest: (opportunityId: string, note: string) => boolean;
+  updateOpportunityApplicationStatus: (id: string, status: OpportunityApplicationStatus) => boolean;
   createEvent: (
     data: Omit<CommunityEvent, "id" | "createdAt" | "organizerId" | "organizerName" | "organizerAvatar" | "attendeeIds" | "status">
   ) => CommunityEvent;
@@ -83,6 +88,7 @@ const STORAGE_KEYS = {
   CURRENT_USER: "a5_current_user_v3",
   USERS: "a5_users_v3",
   OPPORTUNITIES: "a5_opportunities_v3",
+  OPPORTUNITY_APPLICATIONS: "a5_opportunity_applications_v1",
   SKILLS: "a5_skills_v3",
   EVENTS: "a5_events_v3",
   BOOKMARKS: "a5_bookmarks_v3",
@@ -93,6 +99,9 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   const [users, setUsers] = useState<User[]>(initialMembers);
   const [opportunities, setOpportunities] =
     useState<Opportunity[]>(initialOpportunities);
+  const [opportunityApplications, setOpportunityApplications] = useState<
+    OpportunityApplication[]
+  >([]);
   const [skills, setSkills] = useState<Skill[]>(initialSkills);
   const [events, setEvents] = useState<CommunityEvent[]>(initialEvents);
   const [notifications, setNotifications] = useState<{ id: string; title: string; desc: string; read: boolean; time: string }[]>([]);
@@ -110,6 +119,9 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     try {
       const storedUsers = localStorage.getItem(STORAGE_KEYS.USERS);
       const storedOpps = localStorage.getItem(STORAGE_KEYS.OPPORTUNITIES);
+      const storedApplications = localStorage.getItem(
+        STORAGE_KEYS.OPPORTUNITY_APPLICATIONS
+      );
       const storedSkills = localStorage.getItem(STORAGE_KEYS.SKILLS);
       const storedEvents = localStorage.getItem(STORAGE_KEYS.EVENTS);
       const storedBookmarks = localStorage.getItem(STORAGE_KEYS.BOOKMARKS);
@@ -124,6 +136,9 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
       const parsedSkills = storedSkills
         ? JSON.parse(storedSkills)
         : initialSkills;
+      const parsedApplications = storedApplications
+        ? JSON.parse(storedApplications)
+        : [];
       const parsedEvents = storedEvents
         ? JSON.parse(storedEvents)
         : initialEvents;
@@ -135,6 +150,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
       // eslint-disable-next-line react-hooks/set-state-in-effect
       setUsers(parsedUsers);
       setOpportunities(parsedOpps);
+      setOpportunityApplications(parsedApplications);
       setSkills(parsedSkills);
       setEvents(parsedEvents);
       setBookmarkedOpportunityIds(parsedBookmarks);
@@ -165,6 +181,16 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   const saveOpps = (newOpps: Opportunity[]) => {
     setOpportunities(newOpps);
     localStorage.setItem(STORAGE_KEYS.OPPORTUNITIES, JSON.stringify(newOpps));
+  };
+
+  const saveOpportunityApplications = (
+    newApplications: OpportunityApplication[]
+  ) => {
+    setOpportunityApplications(newApplications);
+    localStorage.setItem(
+      STORAGE_KEYS.OPPORTUNITY_APPLICATIONS,
+      JSON.stringify(newApplications)
+    );
   };
 
   const saveSkills = (newSkills: Skill[]) => {
@@ -521,6 +547,72 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     );
   };
 
+  const submitOpportunityInterest = (
+    opportunityId: string,
+    note: string
+  ): boolean => {
+    if (!currentUser) {
+      addToast("Sign in required", "Please sign in before expressing interest.", "error");
+      return false;
+    }
+
+    const opportunity = opportunities.find((item) => item.id === opportunityId);
+    if (!opportunity) return false;
+    if (opportunity.authorId === currentUser.id) {
+      addToast("This is your opportunity", "You cannot express interest in your own post.", "warning");
+      return false;
+    }
+    if (
+      opportunityApplications.some(
+        (application) =>
+          application.opportunityId === opportunityId &&
+          application.applicantId === currentUser.id
+      )
+    ) {
+      addToast("Interest already sent", "You already have a request for this opportunity.", "info");
+      return false;
+    }
+
+    const newApplication: OpportunityApplication = {
+      id: `app-${Date.now()}`,
+      opportunityId,
+      applicantId: currentUser.id,
+      note: note.trim(),
+      status: "Pending",
+      createdAt: new Date().toISOString(),
+    };
+    saveOpportunityApplications([newApplication, ...opportunityApplications]);
+    addToast("Interest sent", `Your request was sent to ${opportunity.authorName}.`, "success");
+    return true;
+  };
+
+  const updateOpportunityApplicationStatus = (
+    id: string,
+    status: OpportunityApplicationStatus
+  ): boolean => {
+    const application = opportunityApplications.find((item) => item.id === id);
+    const opportunity = application
+      ? opportunities.find((item) => item.id === application.opportunityId)
+      : undefined;
+    const canManage =
+      !!currentUser &&
+      !!opportunity &&
+      (currentUser.id === opportunity.authorId || isAdminRole(currentUser.roleType));
+
+    if (!application || !canManage) {
+      addToast("Not permitted", "Only the opportunity owner or an admin can update this request.", "error");
+      return false;
+    }
+
+    saveOpportunityApplications(
+      opportunityApplications.map((item) =>
+        item.id === id ? { ...item, status } : item
+      )
+    );
+    addToast("Request updated", `Interest request marked as ${status.toLowerCase()}.`, "success");
+    return true;
+  };
+
   const createEvent = (
     data: Omit<
       CommunityEvent,
@@ -736,6 +828,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
         currentUser,
         users,
         opportunities,
+        opportunityApplications,
         skills,
         events,
         bookmarkedOpportunityIds,
@@ -749,6 +842,8 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
         createOpportunity,
         updateOpportunityStatus,
         deleteOpportunity,
+        submitOpportunityInterest,
+        updateOpportunityApplicationStatus,
         createEvent,
         joinEvent,
         leaveEvent,

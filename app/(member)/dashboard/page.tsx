@@ -9,10 +9,10 @@ import { EventCard } from "@/components/member/EventCard";
 import { Button } from "@/components/ui/Button";
 import { LayerCard, Grid } from "@/components/ui/Surface";
 import { Avatar } from "@/components/ui/Avatar";
-import { BriefcaseIcon, PlusCircleIcon, ArrowRightIcon, UsersIcon, HandshakeIcon, CalendarBlankIcon } from "@phosphor-icons/react";
+import { BriefcaseIcon, PlusCircleIcon, ArrowRightIcon, UsersIcon, HandshakeIcon, CalendarBlankIcon, ClockIcon, CheckCircleIcon, XCircleIcon } from "@phosphor-icons/react";
 
 export default function MemberDashboardPage() {
-  const { currentUser, users, opportunities, events } = useApp();
+  const { currentUser, users, opportunities, events, opportunityApplications } = useApp();
 
   const getGreeting = () => {
     const hour = new Date().getHours();
@@ -26,9 +26,22 @@ export default function MemberDashboardPage() {
   const featuredPeople = users.filter((u) => u.id !== currentUser?.id && u.roleType === "member").slice(0, 4);
   const latestOpportunities = opportunities.filter((o) => o.status === "Published").slice(0, 3);
   const upcomingEvents = events
-    .filter((e) => e.status === "Upcoming" && new Date(e.date).getTime() >= Date.now())
+    .filter((e) => e.status === "Upcoming")
     .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
     .slice(0, 3);
+  const myApplications = opportunityApplications
+    .filter((application) => application.applicantId === currentUser?.id)
+    .slice(0, 3);
+  const applicationStatusIcon = {
+    Pending: ClockIcon,
+    Accepted: CheckCircleIcon,
+    Declined: XCircleIcon,
+  };
+  const applicationStatusClass = {
+    Pending: "text-warning-base",
+    Accepted: "text-success-base",
+    Declined: "text-error-base",
+  };
 
   const quickActions = [
     { href: "/discover", icon: UsersIcon, title: "Find Someone", desc: "Find people by skills, role, or experience." },
@@ -123,6 +136,31 @@ export default function MemberDashboardPage() {
           </LayerCard>
         )}
       </section>
+
+      {myApplications.length > 0 && (
+        <section aria-labelledby="interest-heading">
+          <div className="mb-4 flex items-end justify-between gap-4">
+            <div>
+              <h2 id="interest-heading" className="text-section-title text-text-strong-950">Your interest requests</h2>
+              <p className="mt-0.5 text-body text-text-sub-600">Track responses to opportunities you want to discuss.</p>
+            </div>
+            <Link href="/opportunities" className="shrink-0"><Button variant="secondary" size="sm">Browse opportunities <ArrowRightIcon size={14} /></Button></Link>
+          </div>
+          <LayerCard className="divide-y divide-stroke-soft-200 p-0">
+            {myApplications.map((application) => {
+              const opportunity = opportunities.find((item) => item.id === application.opportunityId);
+              const StatusIcon = applicationStatusIcon[application.status];
+              return (
+                <Link key={application.id} href={opportunity ? `/opportunities/${opportunity.id}` : "/opportunities"} className="flex items-center gap-3 px-4 py-4 transition-colors hover:bg-bg-weak-50 sm:px-5">
+                  <StatusIcon size={18} className={applicationStatusClass[application.status]} aria-hidden="true" />
+                  <span className="min-w-0 flex-1"><span className="block truncate text-label-sm text-text-strong-950">{opportunity?.title || "Opportunity no longer available"}</span><span className="mt-0.5 block text-paragraph-xs text-text-sub-600">{application.status === "Pending" ? "Waiting for a response" : `Interest ${application.status.toLowerCase()}`}</span></span>
+                  <ArrowRightIcon size={16} className="shrink-0 text-text-soft-400" aria-hidden="true" />
+                </Link>
+              );
+            })}
+          </LayerCard>
+        </section>
+      )}
 
       <section aria-labelledby="latest-opps-heading">
         <div className="mb-4 flex items-end justify-between gap-4">

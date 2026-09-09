@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useApp } from "@/lib/store/AppContext";
+import { isAdminRole, OpportunityApplicationStatus } from "@/lib/types";
 import { Avatar } from "@/components/ui/Avatar";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
@@ -17,6 +18,9 @@ import {
   BriefcaseIcon,
   CalendarBlankIcon,
   CheckCircleIcon,
+  CheckIcon,
+  ClockIcon,
+  XCircleIcon,
   EnvelopeSimpleIcon,
   MapPinIcon,
   PaperPlaneTiltIcon,
@@ -37,14 +41,23 @@ function formatDate(value?: string, fallback = "Open until filled") {
 export default function OpportunityDetailPage() {
   const params = useParams();
   const id = params.id as string;
-  const { opportunities, isBookmarked, toggleBookmark } = useApp();
+  const {
+    opportunities,
+    opportunityApplications,
+    currentUser,
+    users,
+    isBookmarked,
+    toggleBookmark,
+    submitOpportunityInterest,
+    updateOpportunityApplicationStatus,
+  } = useApp();
   const [isInterestModalOpen, setIsInterestModalOpen] = useState(false);
   const [interestNote, setInterestNote] = useState(
     "Hi, I saw your opportunity on A5 Network and would like to discuss how I can contribute.",
   );
-  const [isSending, setIsSending] = useState(false);
   const [isSent, setIsSent] = useState(false);
   const [showShareModal, setShowShareModal] = useState(false);
+  const [showRequestsModal, setShowRequestsModal] = useState(false);
 
   const opportunity = opportunities.find((item) => item.id === id);
 
@@ -64,6 +77,19 @@ export default function OpportunityDetailPage() {
   const bookmarked = isBookmarked(opportunity.id);
   const postedDate = formatDate(opportunity.createdAt, "Recently");
   const deadline = formatDate(opportunity.deadline);
+  const myApplication = currentUser
+    ? opportunityApplications.find(
+        (application) =>
+          application.opportunityId === opportunity.id &&
+          application.applicantId === currentUser.id
+      )
+    : undefined;
+  const opportunityApplicationsForReview = opportunityApplications.filter(
+    (application) => application.opportunityId === opportunity.id
+  );
+  const canManageApplications =
+    !!currentUser &&
+    (currentUser.id === opportunity.authorId || isAdminRole(currentUser.roleType));
 
   const handleCopyLink = () => {
     if (typeof window !== "undefined") {
@@ -74,15 +100,23 @@ export default function OpportunityDetailPage() {
 
   const handleSendInterest = (event: React.FormEvent) => {
     event.preventDefault();
-    setIsSending(true);
-    setTimeout(() => {
-      setIsSending(false);
+    if (submitOpportunityInterest(opportunity.id, interestNote)) {
       setIsSent(true);
       setTimeout(() => {
         setIsSent(false);
         setIsInterestModalOpen(false);
       }, 1500);
-    }, 400);
+    }
+  };
+
+  const applicationStatus = (status: OpportunityApplicationStatus) => {
+    const config = {
+      Pending: { label: "Interest pending", icon: ClockIcon, variant: "secondary" as const },
+      Accepted: { label: "Interest accepted", icon: CheckCircleIcon, variant: "success" as const },
+      Declined: { label: "Interest declined", icon: XCircleIcon, variant: "danger" as const },
+    }[status];
+    const Icon = config.icon;
+    return <Badge variant={config.variant} className="gap-1.5"><Icon size={14} />{config.label}</Badge>;
   };
 
   return (
@@ -180,7 +214,24 @@ export default function OpportunityDetailPage() {
             )}
           </LayerCard>
 
-          <Button variant="primary" size="md" onClick={() => setIsInterestModalOpen(true)} className="w-full">Express Interest</Button>
+          {canManageApplications ? (
+            <LayerCard className="p-5">
+              <div className="flex items-start justify-between gap-3">
+                <div>
+                  <h2 className="text-label-sm text-text-strong-950">Interest requests</h2>
+                  <p className="mt-1 text-paragraph-xs text-text-sub-600">{opportunityApplicationsForReview.length === 0 ? "No requests yet." : `${opportunityApplicationsForReview.length} request${opportunityApplicationsForReview.length === 1 ? "" : "s"} received.`}</p>
+                </div>
+                <Badge variant="neutral">{opportunityApplicationsForReview.length}</Badge>
+              </div>
+              <Button variant="secondary" size="sm" className="mt-4 w-full" onClick={() => setShowRequestsModal(true)}>Review requests</Button>
+            </LayerCard>
+          ) : myApplication ? (
+            <div className="flex min-h-10 items-center justify-center rounded-10 border border-stroke-soft-200 bg-bg-weak-50 px-3">
+              {applicationStatus(myApplication.status)}
+            </div>
+          ) : (
+            <Button variant="primary" size="md" onClick={() => setIsInterestModalOpen(true)} className="w-full">Express Interest</Button>
+          )}
         </aside>
       </div>
 
@@ -196,9 +247,45 @@ export default function OpportunityDetailPage() {
             <Textarea label="Message" rows={4} value={interestNote} onChange={(event) => setInterestNote(event.target.value)} placeholder="Introduce your relevant experience or share a portfolio link." required />
             <div className="flex items-center justify-end gap-2">
               <Button type="button" variant="outline" size="sm" onClick={() => setIsInterestModalOpen(false)}>Cancel</Button>
-              <Button type="submit" variant="primary" size="sm" isLoading={isSending} icon={<PaperPlaneTiltIcon size={15} />}>Send Interest</Button>
+              <Button type="submit" variant="primary" size="sm" icon={<PaperPlaneTiltIcon size={15} />}>Send Interest</Button>
             </div>
           </form>
+        )}
+      </Modal>
+
+      <Modal isOpen={showRequestsModal} onClose={() => setShowRequestsModal(false)} title="Interest requests" description="Review people who want to discuss this opportunity." maxWidth="lg">
+        {opportunityApplicationsForReview.length === 0 ? (
+          <div className="rounded-10 bg-bg-weak-50 p-4 text-center text-paragraph-sm text-text-sub-600">Requests will appear here when members express interest.</div>
+        ) : (
+          <div className="max-h-[60vh] space-y-3 overflow-y-auto pr-1">
+            {opportunityApplicationsForReview.map((application) => {
+              const applicant = users.find((user) => user.id === application.applicantId);
+              return (
+                <article key={application.id} className="rounded-10 border border-stroke-soft-200 p-4">
+                  <div className="flex items-start gap-3">
+                    <Avatar name={applicant?.name || "Member"} className="size-9 text-label-xs" />
+                    <div className="min-w-0 flex-1">
+                      <div className="flex flex-wrap items-center justify-between gap-2">
+                        <div>
+                          <p className="text-label-sm text-text-strong-950">{applicant?.name || "Former member"}</p>
+                          {applicant && <p className="text-paragraph-xs text-text-sub-600">{applicant.role} at {applicant.company}</p>}
+                        </div>
+                        {applicationStatus(application.status)}
+                      </div>
+                      <p className="mt-3 whitespace-pre-line text-paragraph-sm leading-6 text-text-sub-600">{application.note}</p>
+                      <div className="mt-3 flex flex-wrap items-center justify-between gap-3 border-t border-stroke-soft-200 pt-3">
+                        <span className="text-paragraph-xs text-text-soft-400">Sent {formatDate(application.createdAt)}</span>
+                        <div className="flex gap-2">
+                          <Button variant="outline" size="sm" onClick={() => updateOpportunityApplicationStatus(application.id, "Declined")} disabled={application.status === "Declined"}>Decline</Button>
+                          <Button variant="primary" size="sm" icon={<CheckIcon size={14} />} onClick={() => updateOpportunityApplicationStatus(application.id, "Accepted")} disabled={application.status === "Accepted"}>Accept</Button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </article>
+              );
+            })}
+          </div>
         )}
       </Modal>
 
