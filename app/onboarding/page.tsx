@@ -4,8 +4,8 @@ import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useApp } from "@/lib/store/AppContext";
 import { Input, Textarea } from "@/components/ui/Input";
+import { Select } from "@/components/ui/Select";
 import { Button } from "@/components/ui/Button";
-import { Tag } from "@/components/ui/Tag";
 import { Check, CaretRightIcon, CaretLeftIcon, SparkleIcon, UserIcon, BriefcaseIcon, StackIcon, MagnifyingGlassIcon, GiftIcon, Plus } from "@phosphor-icons/react";
 import { LookingForOption, CanOfferOption } from "@/lib/types";
 
@@ -222,17 +222,7 @@ export default function OnboardingPage() {
                 required
               />
 
-              <div className="flex flex-col gap-2">
-                <label className="text-sm font-medium leading-5 text-text-strong-950">
-                  School Batch
-                </label>
-                <input
-                  type="text"
-                  value={batch}
-                  onChange={(e) => setBatch(e.target.value)}
-                  className="w-full h-10 rounded-lg border border-stroke-soft-200 bg-bg-white-0 px-3 text-sm text-text-strong-950"
-                />
-              </div>
+              <Input label="School Batch" value={batch} onChange={(e) => setBatch(e.target.value)} />
             </div>
           )}
 
@@ -264,50 +254,35 @@ export default function OnboardingPage() {
                   placeholder="e.g. Gojek / Independent"
                 />
 
-                <div className="flex flex-col gap-2">
-                  <label className="text-sm font-medium leading-5 text-text-strong-950">
-                    Primary Industry
-                  </label>
-                  <select
-                    value={industry}
-                    onChange={(e) => setIndustry(e.target.value)}
-                    className="w-full h-10 px-3 bg-bg-white-0 text-text-strong-950 border border-stroke-soft-200 rounded-lg text-sm focus:outline-none focus:border-primary-base"
-                  >
-                    <option value="Technology">Technology</option>
-                    <option value="Design">Design</option>
-                    <option value="Business">Business</option>
-                    <option value="Marketing">Marketing</option>
-                    <option value="Finance">Finance</option>
-                    <option value="Media & Creative">Media & Creative</option>
-                    <option value="Education">Education</option>
-                  </select>
-                </div>
+                <Select
+                  label="Primary Industry"
+                  value={industry}
+                  onValueChange={setIndustry}
+                  items={[
+                    "Technology",
+                    "Design",
+                    "Business",
+                    "Marketing",
+                    "Finance",
+                    "Media & Creative",
+                    "Education",
+                  ].map((item) => ({ value: item, label: item }))}
+                />
               </div>
 
-              <div className="flex flex-col gap-2">
-                <label className="text-sm font-medium leading-5 text-text-strong-950">
-                  Years of Experience
-                </label>
-                <select
-                  value={experience}
-                  onChange={(e) => setExperience(e.target.value)}
-                  className="w-full h-10 px-3 bg-bg-white-0 text-text-strong-950 border border-stroke-soft-200 rounded-lg text-sm focus:outline-none focus:border-primary-base"
-                >
-                  <option value="1+ years">1+ years</option>
-                  <option value="2+ years">2+ years</option>
-                  <option value="3+ years">3+ years</option>
-                  <option value="4+ years">4+ years</option>
-                  <option value="5+ years">5+ years</option>
-                  <option value="7+ years">7+ years</option>
-                </select>
-              </div>
+              <Select
+                label="Years of Experience"
+                value={experience}
+                onValueChange={setExperience}
+                items={["1+ years", "2+ years", "3+ years", "4+ years", "5+ years", "7+ years"].map((item) => ({ value: item, label: item }))}
+              />
 
               <Textarea
                 label="Short Bio"
                 rows={3}
                 value={bio}
                 onChange={(e) => setBio(e.target.value)}
-                placeholder="A brief summary of your work, passion, and what makes you tick..."
+                placeholder="A brief summary of your work, passion, and what makes you tick…"
               />
             </div>
           )}
@@ -332,10 +307,10 @@ export default function OnboardingPage() {
                       key={sk}
                       type="button"
                       onClick={() => handleToggleSkill(sk)}
-                      className={`px-3 py-1 rounded-xl text-xs font-medium border transition-colors ${
+                      className={`inline-flex min-h-9 items-center rounded-full px-3 py-1.5 text-sm font-medium ring-1 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-base ${
                         isSelected
                           ? "bg-primary-base text-static-white border-primary-base"
-                          : "bg-bg-white-0 text-text-sub-600 border-stroke-soft-200 hover:bg-bg-weak-50"
+                          : "bg-bg-white-0 text-text-sub-600 ring-stroke-soft-200 hover:bg-bg-weak-50"
                       }`}
                     >
                       {isSelected ? "✓ " : "+ "}
@@ -347,12 +322,12 @@ export default function OnboardingPage() {
 
               {/* Add custom skill input */}
               <form onSubmit={handleAddCustomSkill} className="flex gap-2 pt-3 border-t border-stroke-soft-200">
-                <input
-                  type="text"
+                <Input
+                  aria-label="Add custom skill"
                   value={customSkillInput}
                   onChange={(e) => setCustomSkillInput(e.target.value)}
-                  placeholder="Add custom skill (e.g. Kubernetes, Blender)..."
-                  className="flex-1 h-10 px-3 bg-bg-white-0 text-text-strong-950 border border-stroke-soft-200 rounded-lg text-sm focus:outline-none focus:border-primary-base"
+                  placeholder="Add custom skill (e.g. Kubernetes, Blender)…"
+                  className="flex-1"
                 />
                 <Button type="submit" variant="secondary" size="md">
                   <Plus size={16} weight="regular" />
@@ -382,24 +357,27 @@ export default function OnboardingPage() {
                 {LOOKING_FOR_OPTIONS.map((item) => {
                   const isChecked = lookingFor.includes(item);
                   return (
-                    <div
+                    <button
                       key={item}
+                      type="button"
+                      aria-pressed={isChecked}
                       onClick={() => handleToggleLookingFor(item)}
-                      className={`p-4 rounded-xl border-2 cursor-pointer transition-colors flex items-center justify-between ${
+                      className={`flex items-center justify-between rounded-xl p-4 text-left ring-1 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-base ${
                         isChecked
-                          ? "border-primary-base bg-primary-alpha-10 text-primary-base"
-                          : "border-stroke-soft-200 hover:border-stroke-soft-200 text-text-sub-600"
+                          ? "bg-primary-alpha-10 text-primary-base ring-primary-base"
+                          : "bg-bg-white-0 text-text-sub-600 ring-stroke-soft-200 hover:bg-bg-weak-50"
                       }`}
                     >
                       <span className="text-sm font-semibold">{item}</span>
-                      <div
-                        className={`size-5 rounded-full flex items-center justify-center text-xs ${
+                      <span
+                        aria-hidden="true"
+                        className={`flex size-5 items-center justify-center rounded-full text-xs ${
                           isChecked ? "bg-primary-base text-static-white" : "border border-stroke-soft-200"
                         }`}
                       >
                         {isChecked && <Check size={12} weight="regular" />}
-                      </div>
-                    </div>
+                      </span>
+                    </button>
                   );
                 })}
               </div>
@@ -422,24 +400,27 @@ export default function OnboardingPage() {
                 {CAN_OFFER_OPTIONS.map((item) => {
                   const isChecked = canOffer.includes(item);
                   return (
-                    <div
+                    <button
                       key={item}
+                      type="button"
+                      aria-pressed={isChecked}
                       onClick={() => handleToggleCanOffer(item)}
-                      className={`p-4 rounded-xl border-2 cursor-pointer transition-colors flex items-center justify-between ${
+                      className={`flex items-center justify-between rounded-xl p-4 text-left ring-1 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-base ${
                         isChecked
-                          ? "border-success-base bg-success-lighter/50 text-success-dark"
-                          : "border-stroke-soft-200 hover:border-stroke-soft-200 text-text-sub-600"
+                          ? "bg-success-lighter/50 text-success-dark ring-success-base"
+                          : "bg-bg-white-0 text-text-sub-600 ring-stroke-soft-200 hover:bg-bg-weak-50"
                       }`}
                     >
                       <span className="text-sm font-semibold">{item}</span>
-                      <div
-                        className={`size-5 rounded-full flex items-center justify-center text-xs ${
+                      <span
+                        aria-hidden="true"
+                        className={`flex size-5 items-center justify-center rounded-full text-xs ${
                           isChecked ? "bg-success-base text-static-white" : "border border-stroke-soft-200"
                         }`}
                       >
                         {isChecked && <Check size={12} weight="regular" />}
-                      </div>
-                    </div>
+                      </span>
+                    </button>
                   );
                 })}
               </div>
@@ -478,7 +459,7 @@ export default function OnboardingPage() {
       </div>
 
       {showCelebration && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm p-4">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-bg-strong-950/40 backdrop-blur-sm p-4">
           <div className="relative w-full max-w-sm overflow-hidden rounded-2xl bg-bg-white-0 p-8 text-center shadow-xl">
             <div className="pointer-events-none absolute inset-0 overflow-hidden">
               {[...Array(20)].map((_, i) => (

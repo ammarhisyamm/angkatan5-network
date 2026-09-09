@@ -24,11 +24,11 @@ export default function MemberGrowthChart() {
   return (
     <ResponsiveContainer width="100%" height="100%">
       <LineChart data={data} margin={{ top: 5, right: 10, left: -20, bottom: 0 }}>
-        <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#E5E7EB" />
-        <XAxis dataKey="month" tick={{ fontSize: 11, fill: "#98A2B3" }} tickLine={false} axisLine={false} />
-        <YAxis tick={{ fontSize: 11, fill: "#98A2B3" }} tickLine={false} axisLine={false} allowDecimals={false} />
-        <Tooltip contentStyle={{ backgroundColor: "#FFFFFF", border: "1px solid #E5E7EB", borderRadius: "12px", color: "#111827", fontSize: "12px", boxShadow: "0 8px 20px rgba(0,0,0,0.08)" }} labelStyle={{ color: "#111827", fontWeight: 600 }} itemStyle={{ color: "#111827" }} />
-        <Line type="monotone" dataKey="members" stroke="#111827" strokeWidth={2.5} dot={{ r: 3, fill: "#111827", strokeWidth: 2, stroke: "#fff" }} activeDot={{ r: 5 }} />
+        <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="var(--color-stroke-soft-200)" />
+        <XAxis dataKey="month" tick={{ fontSize: 11, fill: "var(--color-text-soft-400)" }} tickLine={false} axisLine={false} />
+        <YAxis tick={{ fontSize: 11, fill: "var(--color-text-soft-400)" }} tickLine={false} axisLine={false} allowDecimals={false} />
+        <Tooltip contentStyle={{ backgroundColor: "var(--color-bg-white-0)", border: "1px solid var(--color-stroke-soft-200)", borderRadius: "12px", color: "var(--color-text-strong-950)", fontSize: "12px", boxShadow: "var(--shadow-regular-md)" }} labelStyle={{ color: "var(--color-text-strong-950)", fontWeight: 600 }} itemStyle={{ color: "var(--color-text-strong-950)" }} />
+        <Line type="monotone" dataKey="members" stroke="var(--color-primary-base)" strokeWidth={2.5} dot={{ r: 3, fill: "var(--color-primary-base)", strokeWidth: 2, stroke: "var(--color-bg-white-0)" }} activeDot={{ r: 5 }} />
       </LineChart>
     </ResponsiveContainer>
   );

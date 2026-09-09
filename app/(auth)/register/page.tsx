@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useApp } from "@/lib/store/AppContext";
 import { Input } from "@/components/ui/Input";
+import { Select } from "@/components/ui/Select";
 import { Button } from "@/components/ui/Button";
 
 export default function RegisterPage() {
@@ -83,21 +84,17 @@ export default function RegisterPage() {
               required
             />
 
-            <div className="flex flex-col gap-2">
-              <label className="text-xs font-semibold text-text-sub-600">
-                School Batch
-              </label>
-              <select
-                value={batch}
-                onChange={(e) => setBatch(e.target.value)}
-                className="w-full h-10 px-3 bg-bg-white-0 text-text-strong-950 border border-stroke-soft-200 rounded-xl text-sm focus:outline-none focus:border-primary-base focus:ring-2 focus:ring-primary-base/10"
-              >
-                <option value="Angkatan 5 (2018)">Angkatan 5 (2018) — Core Cohort</option>
-                <option value="Angkatan 4 (2017)">Angkatan 4 (2017)</option>
-                <option value="Angkatan 6 (2019)">Angkatan 6 (2019)</option>
-                <option value="Faculty & Mentor">Faculty & Mentor</option>
-              </select>
-            </div>
+            <Select
+              label="School Batch"
+              value={batch}
+              onValueChange={setBatch}
+              items={[
+                { value: "Angkatan 5 (2018)", label: "Angkatan 5 (2018) — Core Cohort" },
+                { value: "Angkatan 4 (2017)", label: "Angkatan 4 (2017)" },
+                { value: "Angkatan 6 (2019)", label: "Angkatan 6 (2019)" },
+                { value: "Faculty & Mentor", label: "Faculty & Mentor" },
+              ]}
+            />
 
             <Button type="submit" size="lg" isLoading={isLoading} className="w-full mt-3">
               Continue to Onboarding

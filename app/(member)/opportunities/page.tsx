@@ -100,7 +100,7 @@ export default function OpportunitiesPage() {
         </Link>
       </div>
 
-      {/* MagnifyingGlassIcon and Saved Toggle Bar — Kumo Input */}
+      {/* MagnifyingGlassIcon and Saved Toggle Bar — shared AlignUI input */}
       <div className="flex flex-col sm:flex-row gap-3">
         <div className="flex-1">
           <Input aria-label="Search opportunities" placeholder="Search opportunities, roles, keywords…" value={searchQuery} onChange={(e: any) => setSearchQuery(e.target.value)} />

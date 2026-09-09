@@ -19,11 +19,11 @@ export default function IndustryChart() {
   return (
     <ResponsiveContainer width="100%" height="100%">
       <BarChart data={data} layout="vertical" margin={{ top: 5, right: 30, left: 40, bottom: 5 }}>
-        <CartesianGrid strokeDasharray="3 3" horizontal={false} stroke="#e2e8f0" />
-        <XAxis type="number" tick={{ fontSize: 11, fill: "#64748b" }} allowDecimals={false} />
-        <YAxis dataKey="name" type="category" tick={{ fontSize: 11, fill: "#64748b" }} />
-        <Tooltip cursor={{ fill: "rgba(17,24,39,0.06)" }} contentStyle={{ backgroundColor: "#FFFFFF", border: "1px solid #E5E7EB", borderRadius: "12px", color: "#111827", fontSize: "12px", boxShadow: "0 8px 20px rgba(0,0,0,0.08)" }} labelStyle={{ color: "#111827", fontWeight: 600 }} itemStyle={{ color: "#111827" }} />
-        <Bar dataKey="count" fill="#111827" radius={[0, 6, 6, 0]} />
+        <CartesianGrid strokeDasharray="3 3" horizontal={false} stroke="var(--color-stroke-soft-200)" />
+        <XAxis type="number" tick={{ fontSize: 11, fill: "var(--color-text-soft-400)" }} allowDecimals={false} />
+        <YAxis dataKey="name" type="category" tick={{ fontSize: 11, fill: "var(--color-text-soft-400)" }} />
+        <Tooltip cursor={{ fill: "var(--color-primary-alpha-10)" }} contentStyle={{ backgroundColor: "var(--color-bg-white-0)", border: "1px solid var(--color-stroke-soft-200)", borderRadius: "12px", color: "var(--color-text-strong-950)", fontSize: "12px", boxShadow: "var(--shadow-regular-md)" }} labelStyle={{ color: "var(--color-text-strong-950)", fontWeight: 600 }} itemStyle={{ color: "var(--color-text-strong-950)" }} />
+        <Bar dataKey="count" fill="var(--color-primary-base)" radius={[0, 6, 6, 0]} />
       </BarChart>
     </ResponsiveContainer>
   );

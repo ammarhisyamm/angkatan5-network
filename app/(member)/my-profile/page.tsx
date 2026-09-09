@@ -548,9 +548,9 @@ export default function MyProfilePage() {
 
             {editingSection === "links" ? (
               <div className="mt-4 space-y-4">
-                <Input label="LinkedIn URL" value={linkedin} onChange={(e) => setLinkedin(e.target.value)} placeholder="https://linkedin.com/in/..." />
-                <Input label="Portfolio URL" value={portfolio} onChange={(e) => setPortfolio(e.target.value)} placeholder="https://..." />
-                <Input label="Website" value={website} onChange={(e) => setWebsite(e.target.value)} placeholder="https://..." />
+                <Input label="LinkedIn URL" type="url" value={linkedin} onChange={(e) => setLinkedin(e.target.value)} placeholder="https://linkedin.com/in/your-name…" />
+                <Input label="Portfolio URL" type="url" value={portfolio} onChange={(e) => setPortfolio(e.target.value)} placeholder="https://portfolio.example…" />
+                <Input label="Website" type="url" value={website} onChange={(e) => setWebsite(e.target.value)} placeholder="https://yourwebsite.example…" />
               </div>
             ) : (
               <div className="mt-4 space-y-2">

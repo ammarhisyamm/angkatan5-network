@@ -5,7 +5,16 @@ import { CaretDownIcon, CaretUpIcon, CheckIcon } from "@phosphor-icons/react";
 import { cn } from "@/lib/utils/cn";
 
 export interface SelectItem { label: string; value: string; }
-export function Select({ label, value, onValueChange, items, placeholder, className }: { label?: string; value?: string; onValueChange?: (value: string) => void; items: SelectItem[]; placeholder?: string; className?: string }) {
+export interface SelectProps {
+  label?: string;
+  value?: string;
+  onValueChange?: (value: string) => void;
+  items: SelectItem[];
+  placeholder?: string;
+  className?: string;
+  "aria-label"?: string;
+}
+export function Select({ label, value, onValueChange, items, placeholder, className, "aria-label": ariaLabel }: SelectProps) {
   const [open, setOpen] = useState(false);
   const [activeIndex, setActiveIndex] = useState(-1);
   const rootRef = useRef<HTMLDivElement>(null);
@@ -29,10 +38,11 @@ export function Select({ label, value, onValueChange, items, placeholder, classN
   };
 
   return <div ref={rootRef} className={cn("relative flex min-w-0 flex-col gap-1.5", className)}>
-    {label && <label htmlFor={triggerId} className="text-sm font-medium text-text-strong-950">{label}</label>}
+    {label && <label htmlFor={triggerId} className="text-label-sm text-text-strong-950">{label}</label>}
     <button
       id={triggerId}
       type="button"
+      aria-label={ariaLabel}
       aria-haspopup="listbox"
       aria-expanded={open}
       aria-controls={open ? listId : undefined}
@@ -52,7 +62,7 @@ export function Select({ label, value, onValueChange, items, placeholder, classN
           choose(allOptions[activeIndex].value);
         }
       }}
-      className="flex h-11 w-full min-w-0 items-center justify-between gap-3 rounded-lg bg-bg-white-0 px-3.5 text-left text-base text-text-strong-950 ring-1 ring-stroke-soft-200 shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition-colors hover:bg-bg-weak-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-base/40"
+      className="flex h-10 w-full min-w-0 items-center justify-between gap-2 rounded-10 bg-bg-white-0 px-3 text-left text-base text-text-strong-950 ring-1 ring-stroke-soft-200 shadow-regular-xs transition duration-200 ease-out hover:bg-bg-weak-50 hover:shadow-none focus-visible:outline-none focus-visible:shadow-button-important-focus focus-visible:ring-stroke-strong-950 sm:text-sm"
     >
       <span className={cn("truncate", !selected && "text-text-soft-400")}>{selected?.label ?? placeholder ?? "Select an option"}</span>
       {open ? <CaretUpIcon size={18} className="shrink-0 text-text-sub-600" aria-hidden="true" /> : <CaretDownIcon size={18} className="shrink-0 text-text-sub-600" aria-hidden="true" />}

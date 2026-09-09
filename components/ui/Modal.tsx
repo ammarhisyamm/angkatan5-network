@@ -15,7 +15,7 @@ export function Modal({ isOpen, onClose, title, description, children, footer, m
   const Icon = icon ? icons[icon] : null;
   if (centered) {
     return <Dialog.Root open={isOpen} onOpenChange={(open) => !open && onClose()}>
-      <Dialog.Portal><Dialog.Overlay className="fixed inset-0 z-50 bg-black/40 backdrop-blur-[2px]" />
+      <Dialog.Portal><Dialog.Overlay className="fixed inset-0 z-50 bg-bg-strong-950/40 backdrop-blur-[2px]" />
         <Dialog.Content className={`fixed left-1/2 top-1/2 z-50 w-[calc(100%-2rem)] -translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-2xl bg-bg-white-0 shadow-2xl focus:outline-none ${widths[maxWidth]}`}>
           <div className="relative flex flex-col items-center gap-4 px-6 pt-8 pb-6 text-center">
             <Dialog.Close asChild><Button variant="ghost" size="icon" aria-label="Close" className="absolute right-3 top-3"><XIcon size={16} /></Button></Dialog.Close>
@@ -28,7 +28,7 @@ export function Modal({ isOpen, onClose, title, description, children, footer, m
     </Dialog.Root>;
   }
   return <Dialog.Root open={isOpen} onOpenChange={(open) => !open && onClose()}>
-    <Dialog.Portal><Dialog.Overlay className="fixed inset-0 z-50 bg-black/40 backdrop-blur-[2px]" />
+    <Dialog.Portal><Dialog.Overlay className="fixed inset-0 z-50 bg-bg-strong-950/40 backdrop-blur-[2px]" />
       <Dialog.Content className={`fixed left-1/2 top-1/2 z-50 w-[calc(100%-2rem)] -translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-xl bg-bg-white-0 shadow-2xl focus:outline-none ${widths[maxWidth]}`}>
         <div className="flex items-start gap-3 border-b border-stroke-soft-200 px-5 py-4">
           {Icon && <span className="grid size-9 shrink-0 place-items-center rounded-lg bg-bg-weak-50 text-primary-base"><Icon size={18} weight="fill" /></span>}

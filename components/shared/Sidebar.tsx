@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useRouter, usePathname } from "next/navigation";
 import { useApp } from "@/lib/store/AppContext";
 import { Button } from "@/components/ui/Button";
+import { Input } from "@/components/ui/Input";
 import { useSidebarState } from "@/components/shared/SidebarContext";
 import {
   HouseIcon,
@@ -91,7 +92,7 @@ function SidebarInner() {
             <div className={`flex items-center gap-2 ${isCollapsed ? "w-full flex-col justify-center" : "justify-between"}`}>
               <Link href={isAdminSection ? "/admin/dashboard" : "/dashboard"} aria-label="A5 Network" className={`flex min-w-0 items-center gap-3 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-base ${isCollapsed ? "flex-none justify-center" : "flex-1"}`}>
                 <span className="grid size-8 shrink-0 grid-cols-2 place-content-center gap-1 rounded-lg bg-primary-base p-2">
-                  {[1,2,3,4].map((dot) => <span key={dot} className="size-1.5 rounded-full bg-white" />)}
+                  {[1,2,3,4].map((dot) => <span key={dot} className="size-1.5 rounded-full bg-static-white" />)}
                 </span>
                 {!isCollapsed && <span className="truncate text-base font-semibold tracking-tight text-text-strong-950">A5 Network</span>}
               </Link>
@@ -100,7 +101,7 @@ function SidebarInner() {
                   <div className="relative">
                     <button onClick={() => setShowNotifications((v) => !v)} aria-label="Notifications" className="relative flex size-8 items-center justify-center rounded-lg text-text-sub-600 ring-1 ring-stroke-soft-200 hover:bg-bg-weak-50 hover:text-text-strong-950">
                       <BellIcon size={16} />
-                      {unreadCount > 0 && <span className="absolute -right-1 -top-1 flex size-4 items-center justify-center rounded-full bg-error-base text-[10px] font-bold text-white ring-2 ring-bg-white-0">{unreadCount}</span>}
+                      {unreadCount > 0 && <span className="absolute -right-1 -top-1 flex size-4 items-center justify-center rounded-full bg-error-base text-[10px] font-bold text-static-white ring-2 ring-bg-white-0">{unreadCount}</span>}
                     </button>
                 {showNotifications && (
                   <div className="fixed left-4 top-16 z-50 w-[calc(100vw-2rem)] max-w-[320px] rounded-xl border border-stroke-soft-200 bg-bg-white-0 shadow-xl sm:absolute sm:left-auto sm:right-0 sm:top-full sm:mt-2 sm:w-72 sm:max-w-none lg:fixed lg:left-[248px] lg:right-auto lg:top-16 lg:w-80">
@@ -134,12 +135,11 @@ function SidebarInner() {
                 <div className="flex items-center gap-1 rounded-lg bg-bg-weak-50 p-1 ring-1 ring-stroke-soft-200">
                   <Link href="/dashboard" onClick={handleMemberTab} aria-current={!isAdminSection ? "page" : undefined} className={`flex h-8 flex-1 items-center gap-2 rounded-md px-2 text-sm font-medium ${!isAdminSection ? "bg-bg-white-0 text-text-strong-950 ring-1 ring-stroke-soft-200" : "text-text-sub-600 hover:text-text-strong-950"}`}><span className="grid size-6 place-items-center rounded bg-primary-alpha-10 text-xs font-semibold text-primary-base">M</span>Member</Link>
                   {isAdminUser && (
-                    <Link href="/admin/dashboard" aria-current={isAdminSection ? "page" : undefined} className={`flex h-8 flex-1 items-center gap-2 rounded-md px-2 text-sm font-medium ${isAdminSection ? "bg-bg-white-0 text-text-strong-950 ring-1 ring-stroke-soft-200" : "text-text-sub-600 hover:text-text-strong-950"}`}><span className="grid size-6 place-items-center rounded bg-text-strong-950 text-white"><ShieldCheckIcon size={12} weight="fill" /></span>Admin</Link>
+                    <Link href="/admin/dashboard" aria-current={isAdminSection ? "page" : undefined} className={`flex h-8 flex-1 items-center gap-2 rounded-md px-2 text-sm font-medium ${isAdminSection ? "bg-bg-white-0 text-text-strong-950 ring-1 ring-stroke-soft-200" : "text-text-sub-600 hover:text-text-strong-950"}`}><span className="grid size-6 place-items-center rounded bg-text-strong-950 text-static-white"><ShieldCheckIcon size={12} weight="fill" /></span>Admin</Link>
                   )}
                 </div>
                 <div className="relative">
-                  <MagnifyingGlassIcon size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-text-soft-400" aria-hidden="true" />
-                  <input placeholder="Quick search…" aria-label="Quick search" className="h-9 w-full rounded-lg border border-stroke-soft-200 bg-bg-white-0 pl-9 pr-3 text-sm text-text-strong-950 placeholder:text-text-soft-400 outline-none hover:border-stroke-soft-200 focus:border-primary-base focus:ring-2 focus:ring-primary-base/15" />
+                  <Input aria-label="Quick search" placeholder="Quick search…" leftIcon={<MagnifyingGlassIcon size={14} />} className="h-9 pl-9 text-sm" />
                 </div>
               </>
             )}
@@ -206,7 +206,7 @@ function SidebarInner() {
         </div>
       </aside>
       {showInfoModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4 backdrop-blur-sm" onClick={() => setShowInfoModal(null)}>
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-bg-strong-950/40 p-4 backdrop-blur-sm" onClick={() => setShowInfoModal(null)}>
           <div onClick={(e) => e.stopPropagation()} className="w-full max-w-sm rounded-2xl bg-bg-white-0 p-6 text-center shadow-xl">
             <div className="mx-auto mb-4 grid size-12 place-items-center rounded-full bg-primary-alpha-10 text-primary-base"><BellIcon size={24} weight="fill" /></div>
             <h3 className="text-base font-semibold text-text-strong-950">{showInfoModal.title}</h3>

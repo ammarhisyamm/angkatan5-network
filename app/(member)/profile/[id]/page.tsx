@@ -79,7 +79,7 @@ export default function MemberProfilePage() {
                 {member.name.split(" ").slice(0, 2).map((p) => p[0]).join("").toUpperCase()}
               </div>
               {member.verified && (
-                <span className="absolute -bottom-1 -right-1 flex size-6 items-center justify-center rounded-full bg-success-base text-white ring-2 ring-white">
+                <span className="absolute -bottom-1 -right-1 flex size-6 items-center justify-center rounded-full bg-success-base text-static-white ring-2 ring-bg-white-0">
                   <CheckIcon size={12} weight="bold" />
                 </span>
               )}
@@ -153,7 +153,7 @@ export default function MemberProfilePage() {
               <div className="space-y-8 relative before:absolute before:left-3 before:top-2 before:bottom-2 before:w-0 before:bg-bg-weak-50">
                 {member.experiences.map((exp) => (
                   <div key={exp.id} className="relative pl-8">
-                    <div className="absolute left-1 top-1 size-3 rounded-full bg-primary-base ring-4 ring-white" />
+                    <div className="absolute left-1 top-1 size-3 rounded-full bg-primary-base ring-4 ring-bg-white-0" />
                     <h3 className="text-sm font-semibold text-text-strong-950">
                       {exp.title}
                     </h3>

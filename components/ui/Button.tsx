@@ -13,7 +13,7 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
 }
 
 const sizes = {
-  xs: "h-7 px-2 text-xs", sm: "h-8 px-3 text-sm", base: "h-9 px-3.5 text-sm", md: "h-10 px-4 text-sm", lg: "h-11 px-4 text-sm", icon: "size-9 p-0 text-sm",
+  xs: "h-7 px-2 text-label-xs", sm: "h-9 rounded-lg px-3 text-label-sm", base: "h-9 rounded-lg px-3.5 text-label-sm", md: "h-10 rounded-10 px-3.5 text-label-sm", lg: "h-11 rounded-10 px-4 text-label-sm", icon: "size-9 rounded-lg p-0 text-label-sm",
 } as const;
 
 const variants = {

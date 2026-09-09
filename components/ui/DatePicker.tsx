@@ -84,7 +84,7 @@ export function DatePicker({ label, name, value, onChange, placeholder = "Select
 
   return (
     <div ref={rootRef} className={cn("relative flex min-w-0 flex-col gap-1.5", className)}>
-      {label && <label htmlFor={triggerId} className="text-sm font-medium text-text-strong-950">{label}{required && <span className="ml-1 text-error-base">*</span>}</label>}
+      {label && <label htmlFor={triggerId} className="text-label-sm text-text-strong-950">{label}{required && <span className="ml-1 text-error-base">*</span>}</label>}
       {name && <input type="hidden" name={name} value={value ?? ""} required={required} readOnly />}
       <button
         id={triggerId}
@@ -93,14 +93,14 @@ export function DatePicker({ label, name, value, onChange, placeholder = "Select
         aria-expanded={open}
         onClick={() => setOpen((current) => !current)}
         onKeyDown={(event) => { if (event.key === "Escape") setOpen(false); }}
-        className="flex h-11 w-full min-w-0 items-center justify-between gap-3 rounded-lg bg-bg-white-0 px-3.5 text-left text-sm text-text-strong-950 ring-1 ring-stroke-soft-200 shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition-colors hover:bg-bg-weak-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-base/40"
+        className="flex h-10 w-full min-w-0 items-center justify-between gap-2 rounded-10 bg-bg-white-0 px-3 text-left text-base text-text-strong-950 ring-1 ring-stroke-soft-200 shadow-regular-xs transition duration-200 ease-out hover:bg-bg-weak-50 hover:shadow-none focus-visible:outline-none focus-visible:shadow-button-important-focus focus-visible:ring-stroke-strong-950 sm:text-sm"
       >
         <span className={cn("truncate", !selectedDate && "text-text-soft-400")}>{dateLabel}</span>
         <CalendarBlankIcon size={18} className="shrink-0 text-text-sub-600" aria-hidden="true" />
       </button>
 
       {open && (
-        <div role="dialog" aria-label={`${label ?? "Date"} calendar`} onKeyDown={(event) => { if (event.key === "Escape") setOpen(false); }} className="absolute inset-x-0 top-full z-50 mt-2 rounded-xl bg-bg-white-0 p-3 shadow-[0_16px_32px_rgba(16,24,40,0.14)] ring-1 ring-stroke-soft-200">
+        <div role="dialog" aria-label={`${label ?? "Date"} calendar`} onKeyDown={(event) => { if (event.key === "Escape") setOpen(false); }} className="absolute inset-x-0 top-full z-50 mt-2 rounded-xl bg-bg-white-0 p-3 shadow-regular-md ring-1 ring-stroke-soft-200">
           <div className="mb-3 flex items-center justify-between">
             <button type="button" aria-label="Previous month" disabled={isPreviousMonthDisabled} onClick={() => moveMonth(-1)} className="flex size-8 items-center justify-center rounded-lg text-text-sub-600 hover:bg-bg-weak-50 hover:text-text-strong-950 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-base disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-transparent">
               <CaretLeftIcon size={16} aria-hidden="true" />
@@ -110,10 +110,10 @@ export function DatePicker({ label, name, value, onChange, placeholder = "Select
               <CaretRightIcon size={16} aria-hidden="true" />
             </button>
           </div>
-          <div className="grid grid-cols-7 gap-1 text-center text-[11px] font-semibold text-text-soft-400">
+          <div className="grid grid-cols-7 gap-1 text-center text-label-sm text-text-soft-400">
             {WEEKDAYS.map((day) => <span key={day} className="py-1">{day}</span>)}
             {days.map((day, index) => {
-              if (!day) return <span key={`empty-${index}`} className="size-9" aria-hidden="true" />;
+              if (!day) return <span key={`empty-${index}`} className="size-10" aria-hidden="true" />;
               const date = new Date(visibleMonth.getFullYear(), visibleMonth.getMonth(), day);
               const dateValue = toValue(date);
               const isSelected = dateValue === value;
@@ -127,7 +127,7 @@ export function DatePicker({ label, name, value, onChange, placeholder = "Select
                   aria-pressed={isSelected}
                   onClick={() => chooseDate(day)}
                   className={cn(
-                    "flex size-9 items-center justify-center rounded-lg text-sm text-text-strong-950 transition-colors hover:bg-bg-weak-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-base",
+                    "flex size-10 items-center justify-center rounded-lg text-label-sm text-text-strong-950 transition duration-200 ease-out hover:bg-bg-weak-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-base",
                     isSelected && "bg-primary-base font-semibold text-static-white hover:bg-primary-darker",
                     isDisabled && "cursor-not-allowed text-text-disabled-300 hover:bg-transparent",
                   )}

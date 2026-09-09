@@ -20,10 +20,10 @@ import {
 } from "@phosphor-icons/react";
 
 const STATUS_META = [
-  { status: "Available to Help", name: "Available to Help", color: "#2FA36B" },
-  { status: "Open to Collaboration", name: "Open to Collaborate", color: "#111827" },
-  { status: "Open to Work", name: "Open to Work", color: "#E99A24" },
-  { status: "Hiring", name: "Hiring", color: "#8B5CF6" },
+  { status: "Available to Help", name: "Available to Help", color: "var(--color-success-base)" },
+  { status: "Open to Collaboration", name: "Open to Collaborate", color: "var(--color-primary-base)" },
+  { status: "Open to Work", name: "Open to Work", color: "var(--color-warning-base)" },
+  { status: "Hiring", name: "Hiring", color: "var(--color-feature-base)" },
 ];
 
 export default function AdminDashboardPage() {

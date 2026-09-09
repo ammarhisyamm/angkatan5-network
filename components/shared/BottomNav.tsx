@@ -29,7 +29,7 @@ export function BottomNav() {
   return (
     <nav
       aria-label="Primary mobile"
-      className="fixed inset-x-4 bottom-4 z-40 mx-auto w-fit max-w-[calc(100vw-2rem)] rounded-2xl border border-white/20 bg-slate-950/60 p-2 shadow-[0_16px_32px_rgba(15,23,42,0.35),inset_0_1px_0_rgba(255,255,255,0.12)] backdrop-blur-2xl saturate-150 lg:hidden"
+      className="fixed inset-x-4 bottom-4 z-40 mx-auto w-fit max-w-[calc(100vw-2rem)] rounded-2xl border border-text-white-0/20 bg-bg-strong-950 p-2 shadow-regular-md lg:hidden"
       style={{ marginBottom: "env(safe-area-inset-bottom)" }}
     >
       <div className="flex items-stretch gap-1">
@@ -50,8 +50,8 @@ export function BottomNav() {
               className={cn(
                 // 48px touch target, full-height tap area
                 "relative flex min-h-12 min-w-14 flex-1 flex-col items-center justify-center gap-1 rounded-xl px-2 py-1.5 touch-manipulation",
-                "transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70",
-                isActive ? "bg-primary-base text-static-white shadow-sm" : "text-white/70 hover:bg-white/10 hover:text-white active:bg-white/15",
+                "transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-text-white-0/70",
+                isActive ? "bg-primary-base text-static-white shadow-sm" : "text-text-white-0/70 hover:bg-text-white-0/10 hover:text-text-white-0 active:bg-text-white-0/15",
               )}
             >
               <Icon className="size-5" weight={isActive ? "fill" : "regular"} aria-hidden="true" />

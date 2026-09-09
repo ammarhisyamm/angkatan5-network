@@ -209,7 +209,7 @@ export default function DiscoverPeoplePage() {
         </p>
       </div>
 
-      {/* Prominent search bar — Kumo Input */}
+      {/* Prominent search bar — shared AlignUI input */}
       <Input name="people-search" type="search" aria-label="Search people" placeholder="Search people, skills, roles, or companies…" value={searchInput} onChange={(e: any) => setSearchInput(e.target.value)} />
       {recentSearches.length > 0 && !searchQuery && (
         <div className="flex flex-wrap items-center gap-2 text-xs">
@@ -263,9 +263,9 @@ export default function DiscoverPeoplePage() {
                   <button
                     key={ind}
                     onClick={() => setSelectedIndustry((prev) => active ? prev.filter((v) => v !== ind) : [...prev, ind])}
-                    className={`inline-flex min-h-8 items-center gap-1.5 rounded-full px-3 py-2 text-sm font-medium ring-1 transition-colors ${active ? "bg-text-strong-950 text-white ring-text-strong-950" : "bg-bg-white-0 text-text-sub-600 ring-stroke-soft-200 hover:bg-bg-weak-50"}`}
+                    className={`inline-flex min-h-8 items-center gap-1.5 rounded-full px-3 py-2 text-sm font-medium ring-1 transition-colors ${active ? "bg-text-strong-950 text-static-white ring-text-strong-950" : "bg-bg-white-0 text-text-sub-600 ring-stroke-soft-200 hover:bg-bg-weak-50"}`}
                   >
-                    {ind} <span className={`rounded-full px-1.5 py-0.5 text-xs ${active ? "bg-white/20 text-white" : "bg-bg-weak-50 text-text-soft-400"}`}>{count}</span>
+                    {ind} <span className={`rounded-full px-1.5 py-0.5 text-xs ${active ? "bg-static-white/20 text-static-white" : "bg-bg-weak-50 text-text-soft-400"}`}>{count}</span>
                   </button>
                 );
               })}
@@ -275,7 +275,7 @@ export default function DiscoverPeoplePage() {
           {/* Skill — searchable input like form */}
           <div>
             <p className="mb-2 text-xs font-semibold text-text-strong-950">Skills</p>
-            <Input placeholder="Type to filter skills..." onChange={(e) => {
+            <Input placeholder="Type to filter skills…" onChange={(e) => {
               const q = e.target.value.toLowerCase();
               // filter client-side by hiding non-matching chips via CSS
               document.querySelectorAll("[data-skill-chip]").forEach((el) => {
@@ -292,9 +292,9 @@ export default function DiscoverPeoplePage() {
                     key={sk}
                     data-skill-chip={sk}
                     onClick={() => setSelectedSkill((prev) => active ? prev.filter((v) => v !== sk) : [...prev, sk])}
-                    className={`inline-flex min-h-8 items-center gap-1.5 rounded-full px-3 py-2 text-sm font-medium ring-1 transition-colors ${active ? "bg-text-strong-950 text-white ring-text-strong-950" : "bg-bg-white-0 text-text-sub-600 ring-stroke-soft-200 hover:bg-bg-weak-50"}`}
+                    className={`inline-flex min-h-8 items-center gap-1.5 rounded-full px-3 py-2 text-sm font-medium ring-1 transition-colors ${active ? "bg-text-strong-950 text-static-white ring-text-strong-950" : "bg-bg-white-0 text-text-sub-600 ring-stroke-soft-200 hover:bg-bg-weak-50"}`}
                   >
-                    {sk} <span className={`rounded-full px-1.5 py-0.5 text-xs ${active ? "bg-white/20 text-white" : "bg-bg-weak-50 text-text-soft-400"}`}>{count}</span>
+                    {sk} <span className={`rounded-full px-1.5 py-0.5 text-xs ${active ? "bg-static-white/20 text-static-white" : "bg-bg-weak-50 text-text-soft-400"}`}>{count}</span>
                   </button>
                 );
               })}
@@ -313,9 +313,9 @@ export default function DiscoverPeoplePage() {
                   <button
                     key={loc}
                     onClick={() => setSelectedLocation((prev) => active ? prev.filter((v) => v !== loc) : [...prev, loc])}
-                    className={`inline-flex min-h-8 items-center gap-1.5 rounded-full px-3 py-2 text-sm font-medium ring-1 transition-colors ${active ? "bg-text-strong-950 text-white ring-text-strong-950" : "bg-bg-white-0 text-text-sub-600 ring-stroke-soft-200 hover:bg-bg-weak-50"}`}
+                    className={`inline-flex min-h-8 items-center gap-1.5 rounded-full px-3 py-2 text-sm font-medium ring-1 transition-colors ${active ? "bg-text-strong-950 text-static-white ring-text-strong-950" : "bg-bg-white-0 text-text-sub-600 ring-stroke-soft-200 hover:bg-bg-weak-50"}`}
                   >
-                    {loc} <span className={`rounded-full px-1.5 py-0.5 text-xs ${active ? "bg-white/20 text-white" : "bg-bg-weak-50 text-text-soft-400"}`}>{count}</span>
+                    {loc} <span className={`rounded-full px-1.5 py-0.5 text-xs ${active ? "bg-static-white/20 text-static-white" : "bg-bg-weak-50 text-text-soft-400"}`}>{count}</span>
                   </button>
                 );
               })}
@@ -368,11 +368,17 @@ export default function DiscoverPeoplePage() {
           <span className="text-xs leading-4 font-medium text-text-sub-600">
             {sortedUsers.length} {sortedUsers.length === 1 ? "Person" : "People"} Found
           </span>
-          <select value={sortBy} onChange={(e) => setSortBy(e.target.value as any)} className="h-8 rounded-lg border border-stroke-soft-200 bg-bg-white-0 px-2 text-xs font-medium text-text-strong-950">
-            <option value="relevance">Relevance</option>
-            <option value="newest">Newest</option>
-            <option value="connected">Most skilled</option>
-          </select>
+          <Select
+            aria-label="Sort people"
+            value={sortBy}
+            onValueChange={(value) => setSortBy(value as typeof sortBy)}
+            items={[
+              { value: "relevance", label: "Relevance" },
+              { value: "newest", label: "Newest" },
+              { value: "connected", label: "Most skilled" },
+            ]}
+            className="w-40"
+          />
         </div>
 
         {sortedUsers.length > 0 ? (

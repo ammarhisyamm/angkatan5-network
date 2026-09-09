@@ -5,6 +5,7 @@ import { useApp } from "@/lib/store/AppContext";
 import { SkillCategory } from "@/lib/types";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
+import { Select } from "@/components/ui/Select";
 import { LayerCard } from "@/components/ui/Surface";
 import { Modal } from "@/components/ui/Modal";
 import { StackIcon, PlusIcon, DotsThreeVerticalIcon, PencilSimpleIcon, ArrowsMergeIcon, TrashIcon, MagnifyingGlassIcon, CodeIcon, PaletteIcon, BriefcaseIcon, MegaphoneIcon, BankIcon, FilmSlateIcon, DotsThreeIcon } from "@phosphor-icons/react";
@@ -12,13 +13,13 @@ import { StackIcon, PlusIcon, DotsThreeVerticalIcon, PencilSimpleIcon, ArrowsMer
 const FIELD_CATEGORIES: SkillCategory[] = ["Design", "Technology", "Business", "Marketing", "Finance", "Media & Creative", "Other"];
 
 const CATEGORY_COLORS: Record<string, string> = {
-  "Design": "text-[#4F46E5]",
-  "Technology": "text-sky-500",
-  "Business": "text-violet-600",
-  "Marketing": "text-purple-600",
-  "Finance": "text-amber-500",
-  "Media & Creative": "text-blue-600",
-  "Other": "text-zinc-500",
+  "Design": "text-information-base",
+  "Technology": "text-success-base",
+  "Business": "text-primary-base",
+  "Marketing": "text-feature-base",
+  "Finance": "text-warning-base",
+  "Media & Creative": "text-information-base",
+  "Other": "text-text-soft-400",
 };
 
 const CATEGORY_ICONS: Record<string, any> = {
@@ -117,12 +118,9 @@ export default function AdminSkillsPage() {
       <LayerCard className="p-4 sm:p-5">
         <h3 className="text-card-title text-text-strong-950 mb-3">Add New Skill</h3>
         <div className="flex flex-col sm:flex-row items-start gap-3">
-          <Input aria-label="New skill name" placeholder="Enter skill name..." value={newSkillName} onChange={(e: any) => setNewSkillName(e.target.value)}
-            onKeyDown={(e: any) => { if (e.key === "Enter") handleAddSkill(); }} className="flex-1" />
-          <select value={newSkillCategory} onChange={(e) => setNewSkillCategory(e.target.value as SkillCategory)}
-            className="w-full sm:w-56 h-10 rounded-xl border border-stroke-soft-200 bg-bg-white-0 px-3 text-sm text-text-strong-950 outline-none focus:ring-2 focus:ring-primary-base focus:ring-offset-1 appearance-none cursor-pointer">
-            {FIELD_CATEGORIES.map((cat) => <option key={cat} value={cat}>{cat}</option>)}
-          </select>
+          <Input aria-label="New skill name" placeholder="Enter skill name…" value={newSkillName} onChange={(e) => setNewSkillName(e.target.value)}
+            onKeyDown={(e) => { if (e.key === "Enter") handleAddSkill(); }} className="flex-1" />
+          <Select label="Skill category" value={newSkillCategory} onValueChange={(value) => setNewSkillCategory(value as SkillCategory)} items={FIELD_CATEGORIES.map((cat) => ({ value: cat, label: cat }))} className="w-full sm:w-56" />
           <Button variant="primary" size="md" onClick={handleAddSkill} disabled={!newSkillName.trim()} icon={<PlusIcon size={16} weight="bold" />} className="w-full sm:w-auto justify-center">Add Skill</Button>
         </div>
       </LayerCard>
@@ -131,7 +129,7 @@ export default function AdminSkillsPage() {
       <LayerCard className="p-4 flex flex-col sm:flex-row gap-3">
         <Input
           aria-label="Search skills"
-          placeholder="Search skills..."
+          placeholder="Search skills…"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
           className="flex-1"
@@ -153,7 +151,7 @@ export default function AdminSkillsPage() {
             <LayerCard key={category} className="p-0 overflow-hidden">
               <div className="px-4 sm:px-5 py-3.5 border-b border-stroke-soft-200 flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                  <div className={`flex size-8 items-center justify-center rounded-lg shrink-0 bg-white ring-1 ring-zinc-200 shadow-sm ${CATEGORY_COLORS[category] || "text-zinc-500"}`}>
+                  <div className={`flex size-8 shrink-0 items-center justify-center rounded-lg bg-bg-white-0 ring-1 ring-stroke-soft-200 shadow-sm ${CATEGORY_COLORS[category] || "text-text-soft-400"}`}>
                     {(() => {
                       const Icon = CATEGORY_ICONS[category] || DotsThreeIcon;
                       return <Icon size={16} weight="regular" />;
@@ -222,11 +220,13 @@ export default function AdminSkillsPage() {
               })()}
             </p>
           )}
-          <select value={mergeIntoSkill} onChange={(e) => setMergeIntoSkill(e.target.value)}
-            className="w-full h-10 rounded-xl border border-stroke-soft-200 bg-bg-white-0 px-3 text-sm text-text-strong-950 outline-none focus:ring-2 focus:ring-primary-base focus:ring-offset-1 appearance-none cursor-pointer">
-            <option value="">Select target skill...</option>
-            {skills.filter((s) => s.id !== mergeTarget?.id).map((s) => <option key={s.id} value={s.id}>{s.name} ({s.category})</option>)}
-          </select>
+          <Select
+            label="Target skill"
+            value={mergeIntoSkill}
+            onValueChange={setMergeIntoSkill}
+            placeholder="Select target skill…"
+            items={skills.filter((s) => s.id !== mergeTarget?.id).map((s) => ({ value: s.id, label: `${s.name} (${s.category})` }))}
+          />
           <div className="flex items-center justify-end gap-3">
             <Button variant="outline" size="md" onClick={() => { setMergeTarget(null); setMergeIntoSkill(""); }}>Cancel</Button>
             <Button variant="primary" size="md" onClick={handleMergeSkills} disabled={!mergeIntoSkill || mergeTarget?.id === mergeIntoSkill}>Merge</Button>
