@@ -38,4 +38,5 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(function 
 Button.displayName = "Button";
 export const Root = Button;
 export const Icon = ({ children }: { children?: React.ReactNode }) => <span className="flex size-5 shrink-0 items-center justify-center">{children}</span>;
-export const buttonVariants = () => ({ root: () => "", icon: () => "" });
+export const buttonVariants = ({ variant = "primary" }: { variant?: ButtonProps["variant"] } = {}) =>
+  cn("inline-flex items-center justify-center", variants[variant]);
