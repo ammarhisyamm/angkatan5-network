@@ -1,27 +1,10 @@
 "use client";
 
-import React, { useEffect, useMemo, useRef, useState } from "react";
-import { CalendarBlankIcon, CaretLeftIcon, CaretRightIcon } from "@phosphor-icons/react";
+import * as React from "react";
+import { format, parse } from "date-fns";
+import { CalendarBlankIcon } from "@phosphor-icons/react";
+import { Calendar } from "@/components/ui/calendar";
 import { cn } from "@/lib/utils/cn";
-
-const WEEKDAYS = ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"];
-
-function parseDate(value?: string) {
-  if (!value) return null;
-  const [year, month, day] = value.split("-").map(Number);
-  if (!year || !month || !day) return null;
-  return new Date(year, month - 1, day);
-}
-
-function toValue(date: Date) {
-  return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
-}
-
-function startOfToday() {
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
-  return today;
-}
 
 export interface DatePickerProps {
   label?: string;
@@ -36,20 +19,29 @@ export interface DatePickerProps {
   error?: string;
 }
 
-export function DatePicker({ label, name, value, onChange, placeholder = "Select a date", min, required, className, helperText, error }: DatePickerProps) {
-  const rootRef = useRef<HTMLDivElement>(null);
+const parseDate = (value?: string) => (value ? parse(value, "yyyy-MM-dd", new Date()) : undefined);
+
+export function DatePicker({
+  label,
+  name,
+  value,
+  onChange,
+  placeholder = "Select a date",
+  min,
+  required,
+  className,
+  helperText,
+  error,
+}: DatePickerProps) {
+  const rootRef = React.useRef<HTMLDivElement>(null);
   const triggerId = React.useId();
-  const dialogId = `${triggerId}-calendar`;
   const messageId = `${triggerId}-message`;
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = React.useState(false);
   const selectedDate = parseDate(value);
   const minimumDate = parseDate(min);
-  const [visibleMonth, setVisibleMonth] = useState(() => {
-    const initial = selectedDate ?? minimumDate ?? startOfToday();
-    return new Date(initial.getFullYear(), initial.getMonth(), 1);
-  });
+  const [month, setMonth] = React.useState(selectedDate ?? minimumDate ?? new Date());
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (!open) return;
     const closeOnOutsideClick = (event: MouseEvent) => {
       if (rootRef.current && !rootRef.current.contains(event.target as Node)) setOpen(false);
@@ -57,34 +49,6 @@ export function DatePicker({ label, name, value, onChange, placeholder = "Select
     document.addEventListener("mousedown", closeOnOutsideClick);
     return () => document.removeEventListener("mousedown", closeOnOutsideClick);
   }, [open]);
-
-  useEffect(() => {
-    const nextSelectedDate = parseDate(value);
-    if (nextSelectedDate) setVisibleMonth(new Date(nextSelectedDate.getFullYear(), nextSelectedDate.getMonth(), 1));
-  }, [value]);
-
-  const days = useMemo(() => {
-    const firstDay = new Date(visibleMonth.getFullYear(), visibleMonth.getMonth(), 1).getDay();
-    const totalDays = new Date(visibleMonth.getFullYear(), visibleMonth.getMonth() + 1, 0).getDate();
-    return [...Array(firstDay).fill(null), ...Array.from({ length: totalDays }, (_, index) => index + 1)];
-  }, [visibleMonth]);
-
-  const monthLabel = new Intl.DateTimeFormat(undefined, { month: "long", year: "numeric" }).format(visibleMonth);
-  const isPreviousMonthDisabled = !!minimumDate && visibleMonth <= new Date(minimumDate.getFullYear(), minimumDate.getMonth(), 1);
-  const dateLabel = selectedDate
-    ? new Intl.DateTimeFormat(undefined, { day: "numeric", month: "short", year: "numeric" }).format(selectedDate)
-    : placeholder;
-
-  const moveMonth = (amount: number) => {
-    setVisibleMonth((current) => new Date(current.getFullYear(), current.getMonth() + amount, 1));
-  };
-
-  const chooseDate = (day: number) => {
-    const nextDate = new Date(visibleMonth.getFullYear(), visibleMonth.getMonth(), day);
-    if (minimumDate && nextDate < minimumDate) return;
-    onChange?.(toValue(nextDate));
-    setOpen(false);
-  };
 
   return (
     <div ref={rootRef} className={cn("relative flex min-w-0 flex-col gap-1.5", className)}>
@@ -95,55 +59,33 @@ export function DatePicker({ label, name, value, onChange, placeholder = "Select
         type="button"
         aria-haspopup="dialog"
         aria-expanded={open}
-        aria-controls={open ? dialogId : undefined}
-        aria-invalid={error ? true : undefined}
+        data-invalid={error ? true : undefined}
         aria-describedby={error || helperText ? messageId : undefined}
         onClick={() => setOpen((current) => !current)}
-        onKeyDown={(event) => { if (event.key === "Escape") setOpen(false); }}
-        className={cn("flex h-10 w-full min-w-0 items-center justify-between gap-2 rounded-10 bg-bg-white-0 px-3 text-left text-base text-text-strong-950 shadow-custom-input transition duration-200 ease-out hover:bg-bg-weak-25 focus-visible:bg-bg-white-0 focus-visible:outline-none focus-visible:shadow-custom-input-active sm:text-sm", error && "shadow-[0_0_0_1px_var(--color-error-base)] focus-visible:shadow-button-error-focus")}
+        className={cn(
+          "flex h-10 w-full min-w-0 items-center justify-between gap-2 rounded-10 bg-bg-white-0 px-3 text-left text-sm text-text-strong-950 shadow-custom-input transition duration-200 hover:bg-bg-weak-25 focus-visible:outline-none focus-visible:shadow-custom-input-active",
+          !selectedDate && "text-text-soft-400",
+          error && "shadow-[0_0_0_1px_var(--color-error-base)] focus-visible:shadow-button-error-focus",
+        )}
       >
-        <span className={cn("truncate", !selectedDate && "text-text-soft-400")}>{dateLabel}</span>
+        <span className="truncate">{selectedDate ? format(selectedDate, "dd MMM yyyy") : placeholder}</span>
         <CalendarBlankIcon size={18} className="shrink-0 text-text-sub-600" aria-hidden="true" />
       </button>
-
       {open && (
-        <div id={dialogId} role="dialog" aria-label={`${label ?? "Date"} calendar`} onKeyDown={(event) => { if (event.key === "Escape") setOpen(false); }} className="absolute left-0 top-full z-50 mt-2 w-[296px] max-w-[calc(100vw-2rem)] rounded-10 bg-bg-white-0 p-3 shadow-custom-md ring-1 ring-stroke-soft-200 overscroll-contain">
-          <div className="mb-3 flex items-center justify-between">
-            <button type="button" aria-label="Previous month" disabled={isPreviousMonthDisabled} onClick={() => moveMonth(-1)} className="flex size-8 items-center justify-center rounded-lg text-text-sub-600 hover:bg-bg-weak-50 hover:text-text-strong-950 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-base disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-transparent">
-              <CaretLeftIcon size={16} aria-hidden="true" />
-            </button>
-            <p className="text-sm font-semibold text-text-strong-950">{monthLabel}</p>
-            <button type="button" aria-label="Next month" onClick={() => moveMonth(1)} className="flex size-8 items-center justify-center rounded-lg text-text-sub-600 hover:bg-bg-weak-50 hover:text-text-strong-950 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-base">
-              <CaretRightIcon size={16} aria-hidden="true" />
-            </button>
-          </div>
-          <div className="grid grid-cols-7 gap-1 text-center text-label-sm text-text-soft-400">
-            {WEEKDAYS.map((day) => <span key={day} className="py-1">{day}</span>)}
-            {days.map((day, index) => {
-              if (!day) return <span key={`empty-${index}`} className="size-9" aria-hidden="true" />;
-              const date = new Date(visibleMonth.getFullYear(), visibleMonth.getMonth(), day);
-              const dateValue = toValue(date);
-              const isSelected = dateValue === value;
-              const isDisabled = !!minimumDate && date < minimumDate;
-              return (
-                <button
-                  key={dateValue}
-                  type="button"
-                  disabled={isDisabled}
-                  aria-label={new Intl.DateTimeFormat(undefined, { dateStyle: "full" }).format(date)}
-                  aria-pressed={isSelected}
-                  onClick={() => chooseDate(day)}
-                  className={cn(
-                    "flex size-9 items-center justify-center rounded-lg text-label-sm text-text-strong-950 transition duration-200 ease-out hover:bg-bg-weak-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-base",
-                    isSelected && "bg-primary-base font-semibold text-static-white hover:bg-primary-darker",
-                    isDisabled && "cursor-not-allowed text-text-disabled-300 hover:bg-transparent",
-                  )}
-                >
-                  {day}
-                </button>
-              );
-            })}
-          </div>
+        <div role="dialog" aria-label={label ?? "Select date"} className="absolute inset-x-0 top-full z-50 mt-2 w-fit min-w-full rounded-10 bg-bg-white-0 p-2 shadow-custom-md ring-1 ring-stroke-soft-200">
+          <Calendar
+            mode="single"
+            selected={selectedDate}
+            month={month}
+            onMonthChange={setMonth}
+            onSelect={(date) => {
+              if (date) {
+                onChange?.(format(date, "yyyy-MM-dd"));
+                setOpen(false);
+              }
+            }}
+            disabled={minimumDate ? { before: minimumDate } : undefined}
+          />
         </div>
       )}
       {(error || helperText) && <span id={messageId} role={error ? "alert" : undefined} className={cn("text-paragraph-xs", error ? "text-error-base" : "text-text-sub-600")}>{error || helperText}</span>}
